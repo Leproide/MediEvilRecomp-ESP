@@ -1,0 +1,10 @@
+{
+    "id": "shaders",
+    "name": "Shaders",
+    "firstPartyMod": true,
+    "version": "1.0",
+    "author": "flaffy",
+    "description": "adds shader support and a shader browse tab (defaulting to libretro's slang shader library)",
+    "defaultEnabled": true,
+    "dependencies": []
+}

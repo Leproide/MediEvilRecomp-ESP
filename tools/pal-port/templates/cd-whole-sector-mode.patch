@@ -1,0 +1,24 @@
+RecompOne fix for the MediEvil PAL port: CD whole-sector mode (Setmode bit 5).
+Author: https://github.com/Leproide
+License of this change: GPL-3.0-or-later (RecompOne code itself keeps its own license).
+Apply from the MediEvilRecomp folder:  git -C RecompOne apply ../pal-out/recompone-fixes/cd-whole-sector-mode.patch
+
+diff --git a/RecompOne.Runtime/Cdrom/CdController.cs b/RecompOne.Runtime/Cdrom/CdController.cs
+index dace78d..b286912 100644
+--- a/RecompOne.Runtime/Cdrom/CdController.cs
++++ b/RecompOne.Runtime/Cdrom/CdController.cs
+@@ -500,7 +500,13 @@ public sealed class CdController
+     {
+         try
+         {
+-            _dataBuf = _fs.ReadSector(_seekLba);
++            // Setmode bit 5 (0x20): whole sector mode, the data FIFO holds 2340 bytes
++            // (header + subheader + user data + EDC/ECC) instead of 2048 user bytes.
++            // Some libcd builds (e.g. MediEvil PAL boot, CdRead with mode 0xA0) check
++            // the header MSF and retry forever when only 2048 bytes are delivered.
++            _dataBuf = (_mode & 0x20) != 0
++                ? _fs.ReadSectorData(_seekLba, 2340)
++                : _fs.ReadSector(_seekLba);
+             DbgReadRun("read", _seekLba);
+             _lastReadLba = _seekLba;
+             _sectorsRead++;

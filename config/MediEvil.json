@@ -1,0 +1,683 @@
+{
+  "game": {
+    "id": "SCES-014.94",
+    "name": "MediEvil",
+    "output": "../generated"
+  },
+  "cue": "../disc/MediEvil (Italy).cue",
+  "funcMap": "funcmaps/main.json",
+  "debug": false,
+  "pointerScan": true,
+  "disableHle": [],
+  "overlays": [
+    {
+      "name": "game",
+      "file": "MEDIEVIL.EXE",
+      "funcMap": "funcmaps/game.json",
+      "skip": 2048,
+      "base": "0x80021D14",
+      "functions": [
+        {
+          "address": "80099ACC",
+          "name": "func_80099ACC"
+        },
+        {
+          "address": "0x80021E34",
+          "name": "func_80021E34"
+        },
+        {
+          "address": "0x80021E5C",
+          "name": "func_80021E5C"
+        },
+        {
+          "address": "0x80022070",
+          "name": "func_80022070"
+        },
+        {
+          "address": "0x80022460",
+          "name": "func_80022460"
+        },
+        {
+          "address": "0x80022AF0",
+          "name": "func_80022AF0"
+        }
+      ]
+    },
+    {
+      "name": "ac",
+      "file": "OVERLAYS/AC.BIN",
+      "funcMap": "funcmaps/ac.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "ag",
+      "file": "OVERLAYS/AG.BIN",
+      "funcMap": "funcmaps/ag.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "cc",
+      "file": "OVERLAYS/CC.BIN",
+      "funcMap": "funcmaps/cc.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "ch",
+      "file": "OVERLAYS/CH.BIN",
+      "funcMap": "funcmaps/ch.json",
+      "base": "0x80010000",
+      "functions": [
+        {
+          "address": "0x800100E0"
+        }
+      ]
+    },
+    {
+      "name": "cr",
+      "file": "OVERLAYS/CR.BIN",
+      "funcMap": "funcmaps/cr.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "credits",
+      "file": "OVERLAYS/CREDITS.BIN",
+      "funcMap": "funcmaps/credits.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "dc",
+      "file": "OVERLAYS/DC.BIN",
+      "funcMap": "funcmaps/dc.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "ee",
+      "file": "OVERLAYS/EE.BIN",
+      "funcMap": "funcmaps/ee.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "eh",
+      "file": "OVERLAYS/EH.BIN",
+      "funcMap": "funcmaps/eh.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "gg",
+      "file": "OVERLAYS/GG.BIN",
+      "funcMap": "funcmaps/gg.json",
+      "base": "0x80010000",
+      "functions": [
+        {
+          "address": "0x80010078"
+        }
+      ]
+    },
+    {
+      "name": "gs",
+      "file": "OVERLAYS/GS.BIN",
+      "funcMap": "funcmaps/gs.json",
+      "base": "0x80010000",
+      "functions": [
+        {
+          "address": "0x80010148"
+        }
+      ]
+    },
+    {
+      "name": "gy1",
+      "file": "OVERLAYS/GY1.BIN",
+      "funcMap": "funcmaps/gy1.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "gy2",
+      "file": "OVERLAYS/GY2.BIN",
+      "funcMap": "funcmaps/gy2.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "hh",
+      "file": "OVERLAYS/HH.BIN",
+      "funcMap": "funcmaps/hh.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "hr",
+      "file": "OVERLAYS/HR.BIN",
+      "funcMap": "funcmaps/hr.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "ia",
+      "file": "OVERLAYS/IA.BIN",
+      "funcMap": "funcmaps/ia.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "la",
+      "file": "OVERLAYS/LA.BIN",
+      "funcMap": "funcmaps/la.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "landmap",
+      "file": "OVERLAYS/LANDMAP.BIN",
+      "funcMap": "funcmaps/landmap.json",
+      "base": "0x80010000",
+      "functions": [
+        {
+          "address": "0x80012FDC",
+          "name": "func_80012FDC"
+        },
+        {
+          "address": "0x80013328",
+          "name": "func_80013328"
+        },
+        {
+          "address": "0x80013778",
+          "name": "func_80013778"
+        },
+        {
+          "address": "0x80013798",
+          "name": "func_80013798"
+        },
+        {
+          "address": "0x80013C8C",
+          "name": "func_80013C8C"
+        },
+        {
+          "address": "0x80013D90",
+          "name": "func_80013D90"
+        },
+        {
+          "address": "0x80013FF0",
+          "name": "func_80013FF0"
+        }
+      ]
+    },
+    {
+      "name": "pd",
+      "file": "OVERLAYS/PD.BIN",
+      "funcMap": "funcmaps/pd.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "pg",
+      "file": "OVERLAYS/PG.BIN",
+      "funcMap": "funcmaps/pg.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "ps",
+      "file": "OVERLAYS/PS.BIN",
+      "funcMap": "funcmaps/ps.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "sf",
+      "file": "OVERLAYS/SF.BIN",
+      "funcMap": "funcmaps/sf.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "sv",
+      "file": "OVERLAYS/SV.BIN",
+      "funcMap": "funcmaps/sv.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "td",
+      "file": "OVERLAYS/TD.BIN",
+      "funcMap": "funcmaps/td.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "tl",
+      "file": "OVERLAYS/TL.BIN",
+      "funcMap": "funcmaps/tl.json",
+      "base": "0x80010000",
+      "functions": []
+    },
+    {
+      "name": "zl",
+      "file": "OVERLAYS/ZL.BIN",
+      "funcMap": "funcmaps/zl.json",
+      "base": "0x80010000",
+      "functions": []
+    }
+  ],
+  "patches": [
+    {
+      "overlay": "game",
+      "function": "func_8004F358",
+      "target": "Recompiled.WidescreenPatch.BeginScreenFadeRender",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "function": "func_8004F358",
+      "target": "Recompiled.WidescreenPatch.EndScreenFadeRender",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800517DC",
+      "target": "Recompiled.TerrainPatch.Capture",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "80021D5C",
+      "target": "Recompiled.CullPatch.func_80021D5C",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "80021E5C",
+      "target": "Recompiled.CullPatch.func_80021E5C",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "80022070",
+      "target": "Recompiled.CullPatch.func_80022070",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "80022460",
+      "target": "Recompiled.CullPatch.func_80022460",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "80024B00",
+      "target": "Recompiled.CullPatch.func_80024B00",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800252D0",
+      "target": "Recompiled.CullPatch.func_800252D0",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "8009A540",
+      "target": "Recompiled.CullPatch.func_8009A540",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "8009A694",
+      "target": "Recompiled.CullPatch.func_8009A694",
+      "mode": "replace"
+    },
+    {
+      "overlay": "tl",
+      "address": "80010800",
+      "target": "Recompiled.CullPatch.func_80010800_tl",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B00E4",
+      "target": "Recompiled.EntityFloatFunctions.func_800B00E4",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B02BC",
+      "target": "Recompiled.EntityFloatFunctions.func_800B02BC",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B04D4",
+      "target": "Recompiled.EntityFloatFunctions.func_800B04D4",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B06D8",
+      "target": "Recompiled.EntityFloatFunctions.func_800B06D8",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B097C",
+      "target": "Recompiled.EntityFloatFunctions.func_800B097C",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B0B3C",
+      "target": "Recompiled.EntityFloatFunctions.func_800B0B3C",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B0D34",
+      "target": "Recompiled.EntityFloatFunctions.func_800B0D34",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B0F20",
+      "target": "Recompiled.EntityFloatFunctions.func_800B0F20",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B5A44",
+      "target": "Recompiled.EntityFloatFunctions.func_800B5A44",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B5E20",
+      "target": "Recompiled.EntityFloatFunctions.func_800B5E20",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B62B4",
+      "target": "Recompiled.EntityFloatFunctions.func_800B62B4",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B67A0",
+      "target": "Recompiled.EntityFloatFunctions.func_800B67A0",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B6EEC",
+      "target": "Recompiled.EntityFloatFunctions.func_800B6EEC",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B72A0",
+      "target": "Recompiled.EntityFloatFunctions.func_800B72A0",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B7738",
+      "target": "Recompiled.EntityFloatFunctions.func_800B7738",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B7A80",
+      "target": "Recompiled.EntityFloatFunctions.func_800B7A80",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B7E38",
+      "target": "Recompiled.EntityFloatFunctions.func_800B7E38",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B8304",
+      "target": "Recompiled.EntityFloatFunctions.func_800B8304",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B8A24",
+      "target": "Recompiled.EntityFloatFunctions.func_800B8A24",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B90E8",
+      "target": "Recompiled.EntityFloatFunctions.func_800B90E8",
+      "mode": "replace"
+    },
+    {
+      "overlay": "landmap",
+      "address": "80012BBC",
+      "target": "Recompiled.LandMapPatch.func_80012BBC",
+      "mode": "replace"
+    },
+    {
+      "overlay": "landmap",
+      "address": "80012F70",
+      "target": "Recompiled.LandMapPatch.func_80012F70",
+      "mode": "replace"
+    },
+    {
+      "overlay": "landmap",
+      "address": "80012FDC",
+      "target": "Recompiled.LandMapPatch.func_80012FDC_landmap",
+      "mode": "replace"
+    },
+    {
+      "overlay": "landmap",
+      "address": "80013328",
+      "target": "Recompiled.LandMapPatch.func_80013328_landmap",
+      "mode": "replace"
+    },
+    {
+      "overlay": "landmap",
+      "address": "80013C3C",
+      "target": "Recompiled.LandMapPatch.func_80013C3C",
+      "mode": "replace"
+    },
+    {
+      "overlay": "landmap",
+      "address": "80013C8C",
+      "target": "Recompiled.LandMapPatch.func_80013C8C",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "8009FDF4",
+      "target": "Recompiled.TerrainPatch.PrepareFrame",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8009F370",
+      "target": "Recompiled.TerrainPatch.ReleaseViewport",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "800B3748",
+      "target": "Recompiled.CullPatch.func_800B3748",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B4028",
+      "target": "Recompiled.CullPatch.func_800B4028",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800B4244",
+      "target": "Recompiled.CullPatch.func_800B4244",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800A10D8",
+      "target": "Recompiled.CullPatch.func_800A10D8",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "80065D20",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065D54",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065D88",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065DC0",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065E0C",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065E8C",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065F8C",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB0FC",
+      "target": "Recompiled.PalCdCallbacks.SyncToMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB110",
+      "target": "Recompiled.PalCdCallbacks.SyncToMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800B2284",
+      "target": "Recompiled.PalCdCallbacks.AfterStUnSetRingGame",
+      "mode": "post"
+    },
+    {
+      "address": "801BBF70",
+      "target": "Recompiled.PalCdCallbacks.AfterStUnSetRingMain",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80079D90",
+      "target": "Recompiled.PalMovies.func_80079D90",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "8004EEE8",
+      "target": "Recompiled.IrisFadePatch.Begin",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8004EEE8",
+      "target": "Recompiled.IrisFadePatch.End",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "8009C990",
+      "target": "Recompiled.PalDisplay.BeforePutDispEnv",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8009C990",
+      "target": "Recompiled.PalDisplay.AfterPutDispEnv",
+      "mode": "post"
+    },
+    {
+      "address": "801B2A8C",
+      "target": "Recompiled.PalDisplay.BeforePutDispEnv",
+      "mode": "pre"
+    },
+    {
+      "address": "801B2A8C",
+      "target": "Recompiled.PalDisplay.AfterPutDispEnv",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "8006D0D8",
+      "target": "Recompiled.PalXaSpeech.TrackSelected",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB124",
+      "target": "Recompiled.PalXaSpeech.OnCdCommand",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB260",
+      "target": "Recompiled.PalXaSpeech.OnCdCommand",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB394",
+      "target": "Recompiled.PalXaSpeech.OnCdCommand",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8006D7A4",
+      "target": "Recompiled.PalXaSpeech.DataCallback",
+      "mode": "pre"
+    }
+  ],
+  "functions": [],
+  "relocations": [
+    {
+      "overlay": "game",
+      "comment": "the game uses a fixed table of 100 grid units, and there is an array right after it that wont let me expand it for widescreen, this will put it on another location so i can increase the size",
+      "name": "gapsPolySquaresCaptured",
+      "address": "800EEC88",
+      "size": "0x194",
+      "to": "80300000"
+    }
+  ],
+  "pgxp": false
+}

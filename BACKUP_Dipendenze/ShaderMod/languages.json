@@ -1,0 +1,179 @@
+{
+  "strings": {
+    "menu.shaders": {
+      "en": "Shaders",
+      "pt-BR": "Shaders",
+      "es-419": "Shaders"
+    },
+    "shaders.title": {
+      "en": "Shaders",
+      "pt-BR": "Shaders",
+      "es-419": "Shaders"
+    },
+    "shaders.installed": {
+      "en": "Installed",
+      "pt-BR": "Instalados",
+      "es-419": "Instalados"
+    },
+    "shaders.browse": {
+      "en": "Browse",
+      "pt-BR": "Procurar",
+      "es-419": "Explorar"
+    },
+    "shaders.search": {
+      "en": "Search",
+      "pt-BR": "Pesquisar",
+      "es-419": "Buscar"
+    },
+    "shaders.none": {
+      "en": "None",
+      "pt-BR": "Nenhum",
+      "es-419": "Ninguno"
+    },
+    "shaders.no_installed": {
+      "en": "No shaders installed. Get some in the Browse tab.",
+      "pt-BR": "Nenhum shader instalado. Pegue alguns na aba Procurar.",
+      "es-419": "No hay shaders instalados. Consigue algunos en la pestaña Explorar."
+    },
+    "shaders.inactive": {
+      "en": "No shader active",
+      "pt-BR": "Nenhum shader ativo",
+      "es-419": "Ningún shader activo"
+    },
+    "shaders.parameters": {
+      "en": "Parameters",
+      "pt-BR": "Parâmetros",
+      "es-419": "Parámetros"
+    },
+    "shaders.no_parameters": {
+      "en": "This shader has no parameters",
+      "pt-BR": "Este shader não tem parâmetros",
+      "es-419": "Este shader no tiene parámetros"
+    },
+    "shaders.reset": {
+      "en": "Reset",
+      "pt-BR": "Restaurar",
+      "es-419": "Restablecer"
+    },
+    "shaders.reload": {
+      "en": "Reload",
+      "pt-BR": "Recarregar",
+      "es-419": "Recargar"
+    },
+    "shaders.remove": {
+      "en": "Remove",
+      "pt-BR": "Remover",
+      "es-419": "Quitar"
+    },
+    "shaders.failed": {
+      "en": "The shader failed to load:",
+      "pt-BR": "O shader falhou ao carregar:",
+      "es-419": "El shader no se pudo cargar:"
+    },
+    "shaders.all_categories": {
+      "en": "All categories",
+      "pt-BR": "Todas as categorias",
+      "es-419": "Todas las categorías"
+    },
+    "shaders.refresh": {
+      "en": "Refresh catalog",
+      "pt-BR": "Atualizar catálogo",
+      "es-419": "Actualizar catálogo"
+    },
+    "shaders.loading": {
+      "en": "Loading catalog...",
+      "pt-BR": "Carregando catálogo...",
+      "es-419": "Cargando catálogo..."
+    },
+    "shaders.catalog_info": {
+      "en": "{0} presets in {1}",
+      "pt-BR": "{0} presets em {1}",
+      "es-419": "{0} presets en {1}"
+    },
+    "shaders.no_results": {
+      "en": "Nothing found",
+      "pt-BR": "Nada encontrado",
+      "es-419": "No se encontró nada"
+    },
+    "shaders.truncated": {
+      "en": "The repository is too big, some presets are missing",
+      "pt-BR": "O repositório é grande demais, alguns presets ficaram de fora",
+      "es-419": "El repositorio es demasiado grande, faltan algunos presets"
+    },
+    "shaders.install": {
+      "en": "Install",
+      "pt-BR": "Instalar",
+      "es-419": "Instalar"
+    },
+    "shaders.use": {
+      "en": "Use",
+      "pt-BR": "Usar",
+      "es-419": "Usar"
+    },
+    "shaders.active": {
+      "en": "Active",
+      "pt-BR": "Ativo",
+      "es-419": "Activo"
+    },
+    "shaders.installing": {
+      "en": "{0} files...",
+      "pt-BR": "{0} arquivos...",
+      "es-419": "{0} archivos..."
+    },
+    "shaders.installed_ok": {
+      "en": "Installed {0}",
+      "pt-BR": "{0} instalado",
+      "es-419": "{0} instalado"
+    },
+    "shaders.install_failed": {
+      "en": "Could not install {0}: {1}",
+      "pt-BR": "Não foi possível instalar {0}: {1}",
+      "es-419": "No se pudo instalar {0}: {1}"
+    },
+    "shaders.repository": {
+      "en": "Repository",
+      "pt-BR": "Repositório",
+      "es-419": "Repositorio"
+    },
+    "shaders.repository_hint": {
+      "en": "GitHub repository listed in the Browse tab",
+      "pt-BR": "Repositório do GitHub listado na aba Procurar",
+      "es-419": "Repositorio de GitHub que se lista en Explorar"
+    },
+    "shaders.branch": {
+      "en": "Branch",
+      "pt-BR": "Branch",
+      "es-419": "Rama"
+    },
+    "shaders.branch_hint": {
+      "en": "Empty uses the default branch",
+      "pt-BR": "Vazio usa a branch padrão",
+      "es-419": "Vacío usa la rama predeterminada"
+    },
+    "shaders.default_repository": {
+      "en": "Use default repository",
+      "pt-BR": "Usar repositório padrão",
+      "es-419": "Usar repositorio predeterminado"
+    },
+    "shaders.bad_repository": {
+      "en": "Not a GitHub repository",
+      "pt-BR": "Não é um repositório do GitHub",
+      "es-419": "No es un repositorio de GitHub"
+    },
+    "shaders.native": {
+      "en": "Native resolution input",
+      "pt-BR": "Entrada em resolução nativa",
+      "es-419": "Entrada en resolución nativa"
+    },
+    "shaders.native_hint": {
+      "en": "Feeds the shader the original resolution instead of the upscaled image. Best for CRT shaders",
+      "pt-BR": "Manda a resolução original para o shader em vez da imagem ampliada. Melhor para shaders CRT",
+      "es-419": "Envía al shader la resolución original en vez de la imagen escalada. Mejor para shaders CRT"
+    },
+    "shaders.open_folder": {
+      "en": "Open shaders folder",
+      "pt-BR": "Abrir pasta de shaders",
+      "es-419": "Abrir carpeta de shaders"
+    }
+  }
+}

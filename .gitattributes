@@ -1,0 +1,3 @@
+# Author: https://github.com/Leproide - GPL-3.0-or-later
+# script Windows della versione spagnola: sempre CRLF
+windows_*_es.bat text eol=crlf

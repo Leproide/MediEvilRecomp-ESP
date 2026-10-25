@@ -1,0 +1,2137 @@
+{
+  "_comment": "Per-version address table. Edit here, then run version_port.py gen-cs / gen-config / check. Author: https://github.com/Leproide - GPL-3.0-or-later",
+  "versions": {
+    "ita": {
+      "serial": "SCES-01494",
+      "gameId": "SCES-014.94",
+      "config": "config/MediEvil.json",
+      "generated": "generated",
+      "cue": "../disc/MediEvil (Italy).cue",
+      "bootFile": "SCES_014.94",
+      "updateRepo": "Leproide/MediEvilRecomp-ITA",
+      "title": "MediEvilRecomp"
+    },
+    "esp": {
+      "serial": "SCES-01495",
+      "gameId": "SCES-014.95",
+      "config": "config/es/MediEvil.json",
+      "generated": "generated-es",
+      "cue": "../../disc/MediEvil (Spain).cue",
+      "define": "LINGUA_ES",
+      "bootFile": "SCES_014.95",
+      "updateRepo": "Leproide/MediEvilRecomp-ESP",
+      "title": "MediEvilRecomp ESP"
+    }
+  },
+  "gp": {
+    "ita": "0x800ED848",
+    "esp": "0x800ED8C8"
+  },
+  "hooks": [
+    {
+      "overlay": "game",
+      "target": "Recompiled.WidescreenPatch.BeginScreenFadeRender",
+      "mode": "pre",
+      "key": "function",
+      "ita": "8004F358",
+      "esp": "8004F358"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.WidescreenPatch.EndScreenFadeRender",
+      "mode": "post",
+      "key": "function",
+      "ita": "8004F358",
+      "esp": "8004F358"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.TerrainPatch.Capture",
+      "mode": "pre",
+      "key": "address",
+      "ita": "800517DC",
+      "esp": "800517DC"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_80021D5C",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80021D5C",
+      "esp": "80021D5C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_80021E5C",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80021E5C",
+      "esp": "80021E5C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_80022070",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80022070",
+      "esp": "80022070"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_80022460",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80022460",
+      "esp": "80022460"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_80024B00",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80024B00",
+      "esp": "80024B00"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_800252D0",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800252D0",
+      "esp": "800252D0"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_8009A540",
+      "mode": "replace",
+      "key": "address",
+      "ita": "8009A540",
+      "esp": "8009A540"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_8009A694",
+      "mode": "replace",
+      "key": "address",
+      "ita": "8009A694",
+      "esp": "8009A694"
+    },
+    {
+      "overlay": "tl",
+      "target": "Recompiled.CullPatch.func_80010800_tl",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80010800",
+      "esp": "80010808"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B00E4",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B00E4",
+      "esp": "800B00E4"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B02BC",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B02BC",
+      "esp": "800B02BC"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B04D4",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B04D4",
+      "esp": "800B04D4"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B06D8",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B06D8",
+      "esp": "800B06D8"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B097C",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B097C",
+      "esp": "800B097C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B0B3C",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B0B3C",
+      "esp": "800B0B3C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B0D34",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B0D34",
+      "esp": "800B0D34"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B0F20",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B0F20",
+      "esp": "800B0F20"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B5A44",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B5A44",
+      "esp": "800B5A44"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B5E20",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B5E20",
+      "esp": "800B5E20"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B62B4",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B62B4",
+      "esp": "800B62B4"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B67A0",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B67A0",
+      "esp": "800B67A0"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B6EEC",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B6EEC",
+      "esp": "800B6EEC"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B72A0",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B72A0",
+      "esp": "800B72A0"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B7738",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B7738",
+      "esp": "800B7738"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B7A80",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B7A80",
+      "esp": "800B7A80"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B7E38",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B7E38",
+      "esp": "800B7E38"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B8304",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B8304",
+      "esp": "800B8304"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B8A24",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B8A24",
+      "esp": "800B8A24"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.EntityFloatFunctions.func_800B90E8",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B90E8",
+      "esp": "800B90E8"
+    },
+    {
+      "overlay": "landmap",
+      "target": "Recompiled.LandMapPatch.func_80012BBC",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80012BBC",
+      "esp": "80012BB4"
+    },
+    {
+      "overlay": "landmap",
+      "target": "Recompiled.LandMapPatch.func_80012F70",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80012F70",
+      "esp": "80012F68"
+    },
+    {
+      "overlay": "landmap",
+      "target": "Recompiled.LandMapPatch.func_80012FDC_landmap",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80012FDC",
+      "esp": "80012FD4"
+    },
+    {
+      "overlay": "landmap",
+      "target": "Recompiled.LandMapPatch.func_80013328_landmap",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80013328",
+      "esp": "80013320"
+    },
+    {
+      "overlay": "landmap",
+      "target": "Recompiled.LandMapPatch.func_80013C3C",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80013C3C",
+      "esp": "80013C34"
+    },
+    {
+      "overlay": "landmap",
+      "target": "Recompiled.LandMapPatch.func_80013C8C",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80013C8C",
+      "esp": "80013C84"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.TerrainPatch.PrepareFrame",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8009FDF4",
+      "esp": "8009FDF4"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.TerrainPatch.ReleaseViewport",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8009F370",
+      "esp": "8009F370"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_800B3748",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B3748",
+      "esp": "800B3748"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_800B4028",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B4028",
+      "esp": "800B4028"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_800B4244",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800B4244",
+      "esp": "800B4244"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CullPatch.func_800A10D8",
+      "mode": "replace",
+      "key": "address",
+      "ita": "800A10D8",
+      "esp": "800A10D8"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post",
+      "key": "address",
+      "ita": "80065D20",
+      "esp": "80065D20"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post",
+      "key": "address",
+      "ita": "80065D54",
+      "esp": "80065D54"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post",
+      "key": "address",
+      "ita": "80065D88",
+      "esp": "80065D88"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post",
+      "key": "address",
+      "ita": "80065DC0",
+      "esp": "80065DC0"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post",
+      "key": "address",
+      "ita": "80065E0C",
+      "esp": "80065E0C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post",
+      "key": "address",
+      "ita": "80065E8C",
+      "esp": "80065E8C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post",
+      "key": "address",
+      "ita": "80065F8C",
+      "esp": "80065F8C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.SyncToMemory",
+      "mode": "post",
+      "key": "address",
+      "ita": "800AB0FC",
+      "esp": "800AB0FC"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.SyncToMemory",
+      "mode": "post",
+      "key": "address",
+      "ita": "800AB110",
+      "esp": "800AB110"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalCdCallbacks.AfterStUnSetRingGame",
+      "mode": "post",
+      "key": "address",
+      "ita": "800B2284",
+      "esp": "800B2284"
+    },
+    {
+      "overlay": "main",
+      "target": "Recompiled.PalCdCallbacks.AfterStUnSetRingMain",
+      "mode": "post",
+      "key": "address",
+      "ita": "801BBF70",
+      "esp": "801BBF70"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalMovies.func_80079D90",
+      "mode": "replace",
+      "key": "address",
+      "ita": "80079D90",
+      "esp": "80079D90"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.IrisFadePatch.Begin",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8004EEE8",
+      "esp": "8004EEE8"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.IrisFadePatch.End",
+      "mode": "post",
+      "key": "address",
+      "ita": "8004EEE8",
+      "esp": "8004EEE8"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalDisplay.BeforePutDispEnv",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8009C990",
+      "esp": "8009C990"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalDisplay.AfterPutDispEnv",
+      "mode": "post",
+      "key": "address",
+      "ita": "8009C990",
+      "esp": "8009C990"
+    },
+    {
+      "overlay": "main",
+      "target": "Recompiled.PalDisplay.BeforePutDispEnv",
+      "mode": "pre",
+      "key": "address",
+      "ita": "801B2A8C",
+      "esp": "801B2A8C"
+    },
+    {
+      "overlay": "main",
+      "target": "Recompiled.PalDisplay.AfterPutDispEnv",
+      "mode": "post",
+      "key": "address",
+      "ita": "801B2A8C",
+      "esp": "801B2A8C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalXaSpeech.TrackSelected",
+      "mode": "post",
+      "key": "address",
+      "ita": "8006D0D8",
+      "esp": "8006D0D8"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalXaSpeech.OnCdCommand",
+      "mode": "pre",
+      "key": "address",
+      "ita": "800AB124",
+      "esp": "800AB124"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalXaSpeech.OnCdCommand",
+      "mode": "pre",
+      "key": "address",
+      "ita": "800AB260",
+      "esp": "800AB260"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalXaSpeech.OnCdCommand",
+      "mode": "pre",
+      "key": "address",
+      "ita": "800AB394",
+      "esp": "800AB394"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalXaSpeech.DataCallback",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8006D7A4",
+      "esp": "8006D7A4"
+    }
+  ],
+  "entryPoints": [
+    {
+      "overlay": "game",
+      "ita": "80099ACC",
+      "esp": "80099ACC"
+    },
+    {
+      "overlay": "game",
+      "ita": "80021E34",
+      "esp": "80021E34"
+    },
+    {
+      "overlay": "game",
+      "ita": "80021E5C",
+      "esp": "80021E5C"
+    },
+    {
+      "overlay": "game",
+      "ita": "80022070",
+      "esp": "80022070"
+    },
+    {
+      "overlay": "game",
+      "ita": "80022460",
+      "esp": "80022460"
+    },
+    {
+      "overlay": "game",
+      "ita": "80022AF0",
+      "esp": "80022AF0"
+    },
+    {
+      "overlay": "ch",
+      "ita": "800100E0",
+      "esp": "800100E0"
+    },
+    {
+      "overlay": "gg",
+      "ita": "80010078",
+      "esp": "80010078"
+    },
+    {
+      "overlay": "gs",
+      "ita": "80010148",
+      "esp": "80010148"
+    },
+    {
+      "overlay": "landmap",
+      "ita": "80012FDC",
+      "esp": "80012FD4"
+    },
+    {
+      "overlay": "landmap",
+      "ita": "80013328",
+      "esp": "80013320"
+    },
+    {
+      "overlay": "landmap",
+      "ita": "80013778",
+      "esp": "80013770"
+    },
+    {
+      "overlay": "landmap",
+      "ita": "80013798",
+      "esp": "80013790"
+    },
+    {
+      "overlay": "landmap",
+      "ita": "80013C8C",
+      "esp": "80013C84"
+    },
+    {
+      "overlay": "landmap",
+      "ita": "80013D90",
+      "esp": "80013D88"
+    },
+    {
+      "overlay": "landmap",
+      "ita": "80013FF0",
+      "esp": "80013FE8"
+    }
+  ],
+  "relocations": [
+    {
+      "overlay": "game",
+      "name": "gapsPolySquaresCaptured",
+      "ita": "800EEC88",
+      "esp": "800EED00"
+    }
+  ],
+  "constants": [
+    {
+      "name": "CdCbSync",
+      "kind": "data",
+      "ita": "0x800EB660",
+      "desc": "CD_cbsync, callback \"sync\" di libcd dentro MEDIEVIL.EXE",
+      "esp": "0x800EB6E0"
+    },
+    {
+      "name": "CdCbReady",
+      "kind": "data",
+      "ita": "0x800EB664",
+      "desc": "CD_cbready, callback \"ready\" di libcd dentro MEDIEVIL.EXE",
+      "esp": "0x800EB6E4"
+    },
+    {
+      "name": "CdEmulateFlag",
+      "kind": "data",
+      "ita": "0x800EB680",
+      "desc": "modalita' \"emulate\" di StUnSetRing (1 = non toccare i callback)",
+      "esp": "0x800EB700"
+    },
+    {
+      "name": "MoviePlayerState",
+      "kind": "data",
+      "ita": "0x800F19B0",
+      "desc": "struttura del lettore filmati (+0x40 = filmato finito)",
+      "esp": "0x800F1A28"
+    },
+    {
+      "name": "GpMovieInfo",
+      "kind": "gp",
+      "ita": "0x764",
+      "desc": "descrittore del filmato corrente",
+      "esp": "0x75C"
+    },
+    {
+      "name": "GpMovieFrame",
+      "kind": "gp",
+      "ita": "0x760",
+      "desc": "ultimo fotogramma letto",
+      "esp": "0x758"
+    },
+    {
+      "name": "GpMoviePrevFrame",
+      "kind": "gp",
+      "ita": "0x768",
+      "desc": "fotogramma precedente",
+      "esp": "0x760"
+    },
+    {
+      "name": "FreeTerrData",
+      "kind": "data",
+      "ita": "0x800EF024",
+      "desc": "struttura FreeTerrData (buffer delle primitive del terreno)",
+      "esp": "0x800EF09C"
+    },
+    {
+      "name": "TerrainFog",
+      "kind": "data",
+      "ita": "0x800F1A1C",
+      "desc": "tabella della nebbia del terreno",
+      "esp": "0x800F1A94"
+    },
+    {
+      "name": "ViewPlaneSvecs",
+      "kind": "data",
+      "ita": "0x800EEC68",
+      "desc": "vettori dei piani di vista (4 SVECTOR)",
+      "esp": "0x800EECE0"
+    },
+    {
+      "name": "CurrentLevel",
+      "kind": "data",
+      "ita": "0x800EF090",
+      "desc": "livello corrente",
+      "esp": "0x800EF108"
+    },
+    {
+      "name": "CurrentMap",
+      "kind": "data",
+      "ita": "0x800EF0E0",
+      "desc": "mappa corrente",
+      "esp": "0x800EF158"
+    },
+    {
+      "name": "ViewDistance",
+      "kind": "data",
+      "ita": "0x800EF048",
+      "desc": "distanza di vista del terreno",
+      "esp": "0x800EF0C0"
+    },
+    {
+      "name": "GpMainViewPort",
+      "kind": "gp",
+      "ita": "0x5D0",
+      "desc": "puntatore al viewport principale",
+      "esp": "0x5C8"
+    },
+    {
+      "name": "GpCameraTarget",
+      "kind": "gp",
+      "ita": "0x550",
+      "desc": "bersaglio della telecamera",
+      "esp": "0x548"
+    },
+    {
+      "name": "GpProjDepth",
+      "kind": "gp",
+      "ita": "0x5A0",
+      "desc": "profondita' di proiezione",
+      "esp": "0x598"
+    },
+    {
+      "name": "GpBasePoint",
+      "kind": "gp",
+      "ita": "0x5A4",
+      "desc": "punto base della griglia",
+      "esp": "0x59C"
+    },
+    {
+      "name": "GpTitleWorld",
+      "kind": "gp",
+      "ita": "0x638",
+      "desc": "mondo della schermata del titolo",
+      "esp": "0x630"
+    },
+    {
+      "name": "GpGridSlot0",
+      "kind": "gp",
+      "ita": "0x59C",
+      "desc": "variabile della griglia (candidata 0)",
+      "esp": "0x594"
+    },
+    {
+      "name": "GpGridSlot1",
+      "kind": "gp",
+      "ita": "0x5AC",
+      "desc": "variabile della griglia (candidata 1)",
+      "esp": "0x5A4"
+    },
+    {
+      "name": "GpGridSlot2",
+      "kind": "gp",
+      "ita": "0x5B0",
+      "desc": "variabile della griglia (candidata 2)",
+      "esp": "0x5A8"
+    },
+    {
+      "name": "GpGridSlot3",
+      "kind": "gp",
+      "ita": "0x5B4",
+      "desc": "variabile della griglia (candidata 3)",
+      "esp": "0x5AC"
+    },
+    {
+      "name": "GpGridSlot4",
+      "kind": "gp",
+      "ita": "0x5B8",
+      "desc": "variabile della griglia (candidata 4)",
+      "esp": "0x5B0"
+    },
+    {
+      "name": "CheatState",
+      "kind": "data",
+      "ita": "0x800EF0A2",
+      "desc": "stato dei trucchi, u16 (mod Trucchi)",
+      "usedBy": "mods/Trucchi",
+      "esp": "0x800EF11A"
+    },
+    {
+      "name": "CheatTableDust",
+      "kind": "data",
+      "ita": "0x800CE0B4",
+      "desc": "tabella \"DUST TO DUST\", primo tasto Giu' (mod Trucchi)",
+      "expect": "0x00080000",
+      "usedBy": "mods/Trucchi",
+      "esp": "0x800CE09C"
+    },
+    {
+      "name": "CheatTableExtended",
+      "kind": "data",
+      "ita": "0x800CE0DC",
+      "desc": "tabella trucchi estesa, primo tasto Triangolo (mod Trucchi)",
+      "expect": "0x00100000",
+      "usedBy": "mods/Trucchi",
+      "esp": "0x800CE0C4"
+    }
+  ],
+  "literals": [
+    {
+      "name": "Game_80021DA4",
+      "overlay": "game",
+      "instr": {
+        "ita": "80021DA4",
+        "esp": "80021DA4"
+      },
+      "index": 0,
+      "ita": "0xF024",
+      "esp": "0xF09C",
+      "where": "render/CullPatch.cs:func_80021D5C"
+    },
+    {
+      "name": "Game_80021DAC",
+      "overlay": "game",
+      "instr": {
+        "ita": "80021DAC",
+        "esp": "80021DAC"
+      },
+      "index": 0,
+      "ita": "0xDFF8",
+      "esp": "0xE070",
+      "where": "render/CullPatch.cs:func_80021D5C"
+    },
+    {
+      "name": "Game_80021DB0",
+      "overlay": "game",
+      "instr": {
+        "ita": "80021DB0",
+        "esp": "80021DB0"
+      },
+      "index": 0,
+      "ita": "0x1A1C",
+      "esp": "0x1A94",
+      "where": "render/CullPatch.cs:func_80021D5C"
+    },
+    {
+      "name": "Game_80021DB4",
+      "overlay": "game",
+      "instr": {
+        "ita": "80021DB4",
+        "esp": "80021DB4"
+      },
+      "index": 0,
+      "ita": "0xDDE0",
+      "esp": "0xDE58",
+      "where": "render/CullPatch.cs:func_80021D5C"
+    },
+    {
+      "name": "Game_80021DB8",
+      "overlay": "game",
+      "instr": {
+        "ita": "80021DB8",
+        "esp": "80021DB8"
+      },
+      "index": 0,
+      "ita": "0xDDDC",
+      "esp": "0xDE54",
+      "where": "render/CullPatch.cs:func_80021D5C"
+    },
+    {
+      "name": "Game_80024B08",
+      "overlay": "game",
+      "instr": {
+        "ita": "80024B08",
+        "esp": "80024B08"
+      },
+      "index": 0,
+      "ita": "0x0450",
+      "esp": "0x0448",
+      "where": "render/CullPatch.cs:func_80024B00"
+    },
+    {
+      "name": "Game_80025120",
+      "overlay": "game",
+      "instr": {
+        "ita": "80025120",
+        "esp": "80025120"
+      },
+      "index": 0,
+      "ita": "0x0FB0",
+      "esp": "0x0F38",
+      "where": "render/CullPatch.cs:func_80024B00"
+    },
+    {
+      "name": "Game_80025294",
+      "overlay": "game",
+      "instr": {
+        "ita": "80025294",
+        "esp": "80025294"
+      },
+      "index": 0,
+      "ita": "0x05D0",
+      "esp": "0x05C8",
+      "where": "render/CullPatch.cs:func_80024B00"
+    },
+    {
+      "name": "Game_80025298",
+      "overlay": "game",
+      "instr": {
+        "ita": "80025298",
+        "esp": "80025298"
+      },
+      "index": 0,
+      "ita": "0x0FBC",
+      "esp": "0x0F44",
+      "where": "render/CullPatch.cs:func_80024B00"
+    },
+    {
+      "name": "Game_800252D8",
+      "overlay": "game",
+      "instr": {
+        "ita": "800252D8",
+        "esp": "800252D8"
+      },
+      "index": 0,
+      "ita": "0x0450",
+      "esp": "0x0448",
+      "where": "render/CullPatch.cs:func_800252D0"
+    },
+    {
+      "name": "Game_80025690",
+      "overlay": "game",
+      "instr": {
+        "ita": "80025690",
+        "esp": "80025690"
+      },
+      "index": 0,
+      "ita": "0x0E8C",
+      "esp": "0x0E14",
+      "where": "render/CullPatch.cs:func_800252D0"
+    },
+    {
+      "name": "Game_800258B0",
+      "overlay": "game",
+      "instr": {
+        "ita": "800258B0",
+        "esp": "800258B0"
+      },
+      "index": 0,
+      "ita": "0x05D0",
+      "esp": "0x05C8",
+      "where": "render/CullPatch.cs:func_800252D0"
+    },
+    {
+      "name": "Game_8009A6C0",
+      "overlay": "game",
+      "instr": {
+        "ita": "8009A6C0",
+        "esp": "8009A6C0"
+      },
+      "index": 0,
+      "ita": "0x23D8",
+      "esp": "0x2360",
+      "where": "render/CullPatch.cs:func_8009A694"
+    },
+    {
+      "name": "Game_800A10E8",
+      "overlay": "game",
+      "instr": {
+        "ita": "800A10E8",
+        "esp": "800A10E8"
+      },
+      "index": 0,
+      "ita": "0x1FA0",
+      "esp": "0x1F28",
+      "where": "render/CullPatch.cs:func_800A10D8"
+    },
+    {
+      "name": "Game_800A13D8",
+      "overlay": "game",
+      "instr": {
+        "ita": "800A13D8",
+        "esp": "800A13D8"
+      },
+      "index": 0,
+      "ita": "0x23D8",
+      "esp": "0x2360",
+      "where": "render/CullPatch.cs:func_800A10D8"
+    },
+    {
+      "name": "Game_800A1AA0",
+      "overlay": "game",
+      "instr": {
+        "ita": "800A1AA0",
+        "esp": "800A1AA0"
+      },
+      "index": 0,
+      "ita": "0x3AB8",
+      "esp": "0x3B30",
+      "where": "render/CullPatch.cs:func_800A10D8"
+    },
+    {
+      "name": "Game_800A1D04",
+      "overlay": "game",
+      "instr": {
+        "ita": "800A1D04",
+        "esp": "800A1D04"
+      },
+      "index": 0,
+      "ita": "0x6DDC",
+      "esp": "0x6DC4",
+      "where": "render/CullPatch.cs:func_800A10D8"
+    },
+    {
+      "name": "Game_800B37A8",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B37A8",
+        "esp": "800B37A8"
+      },
+      "index": 0,
+      "ita": "0x78DC",
+      "esp": "0x78C4",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B37FC",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B37FC",
+        "esp": "800B37FC"
+      },
+      "index": 0,
+      "ita": "0x07B0",
+      "esp": "0x07A8",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B39B8",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B39B8",
+        "esp": "800B39B8"
+      },
+      "index": 0,
+      "ita": "0x07B0",
+      "esp": "0x07A8",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B3BF8",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B3BF8",
+        "esp": "800B3BF8"
+      },
+      "index": 0,
+      "ita": "0x07B0",
+      "esp": "0x07A8",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B3DB4",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B3DB4",
+        "esp": "800B3DB4"
+      },
+      "index": 0,
+      "ita": "0x07B0",
+      "esp": "0x07A8",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B4064",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4064",
+        "esp": "800B4064"
+      },
+      "index": 0,
+      "ita": "0x791C",
+      "esp": "0x7904",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B4160",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4160",
+        "esp": "800B4160"
+      },
+      "index": 0,
+      "ita": "0x07B0",
+      "esp": "0x07A8",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B425C",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B425C",
+        "esp": "800B425C"
+      },
+      "index": 0,
+      "ita": "0x1FA0",
+      "esp": "0x1F28",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B4410",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4410",
+        "esp": "800B4410"
+      },
+      "index": 0,
+      "ita": "0x23D8",
+      "esp": "0x2360",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B49D0",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B49D0",
+        "esp": "800B49D0"
+      },
+      "index": 0,
+      "ita": "0x795C",
+      "esp": "0x7944",
+      "where": "render/CullPatch.cs:func_800B3748"
+    },
+    {
+      "name": "Game_800B4E1C",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4E1C",
+        "esp": "800B4E1C"
+      },
+      "index": 0,
+      "ita": "0x2CB8",
+      "esp": "0x2C38",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4E24",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4E24",
+        "esp": "800B4E24"
+      },
+      "index": 0,
+      "ita": "0x2CA4",
+      "esp": "0x2C24",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4E34",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4E34",
+        "esp": "800B4E34"
+      },
+      "index": 0,
+      "ita": "0x6D24",
+      "esp": "0x6D9C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4E44",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4E44",
+        "esp": "800B4E44"
+      },
+      "index": 0,
+      "ita": "0x2CF0",
+      "esp": "0x2C70",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4E54",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4E54",
+        "esp": "800B4E54"
+      },
+      "index": 0,
+      "ita": "0x2CEC",
+      "esp": "0x2C6C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4E64",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4E64",
+        "esp": "800B4E64"
+      },
+      "index": 0,
+      "ita": "0x2CE8",
+      "esp": "0x2C68",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4E74",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4E74",
+        "esp": "800B4E74"
+      },
+      "index": 0,
+      "ita": "0x2CE4",
+      "esp": "0x2C64",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4E84",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4E84",
+        "esp": "800B4E84"
+      },
+      "index": 0,
+      "ita": "0x2CE0",
+      "esp": "0x2C60",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4E94",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4E94",
+        "esp": "800B4E94"
+      },
+      "index": 0,
+      "ita": "0x2CDC",
+      "esp": "0x2C5C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4EA8",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4EA8",
+        "esp": "800B4EA8"
+      },
+      "index": 0,
+      "ita": "0x2CBC",
+      "esp": "0x2C3C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4EB0",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4EB0",
+        "esp": "800B4EB0"
+      },
+      "index": 0,
+      "ita": "0x2CCC",
+      "esp": "0x2C4C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4ECC",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4ECC",
+        "esp": "800B4ECC"
+      },
+      "index": 0,
+      "ita": "0x6CDC",
+      "esp": "0x6D54",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4ED4",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4ED4",
+        "esp": "800B4ED4"
+      },
+      "index": 0,
+      "ita": "0x6C94",
+      "esp": "0x6D0C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4F44",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4F44",
+        "esp": "800B4F44"
+      },
+      "index": 0,
+      "ita": "0x2CB8",
+      "esp": "0x2C38",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4FD8",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4FD8",
+        "esp": "800B4FD8"
+      },
+      "index": 0,
+      "ita": "0x6D24",
+      "esp": "0x6D9C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4FEC",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4FEC",
+        "esp": "800B4FEC"
+      },
+      "index": 0,
+      "ita": "0x2C98",
+      "esp": "0x2C18",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B4FFC",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B4FFC",
+        "esp": "800B4FFC"
+      },
+      "index": 0,
+      "ita": "0x2CB0",
+      "esp": "0x2C30",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5040",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5040",
+        "esp": "800B5040"
+      },
+      "index": 0,
+      "ita": "0x3628",
+      "esp": "0x35A8",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5048",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5048",
+        "esp": "800B5048"
+      },
+      "index": 0,
+      "ita": "0x2CB0",
+      "esp": "0x2C30",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5050",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5050",
+        "esp": "800B5050"
+      },
+      "index": 0,
+      "ita": "0x2CAC",
+      "esp": "0x2C2C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B505C",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B505C",
+        "esp": "800B505C"
+      },
+      "index": 0,
+      "ita": "0x2C9C",
+      "esp": "0x2C1C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5068",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5068",
+        "esp": "800B5068"
+      },
+      "index": 0,
+      "ita": "0x2CB0",
+      "esp": "0x2C30",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5278",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5278",
+        "esp": "800B5278"
+      },
+      "index": 0,
+      "ita": "0x2CA8",
+      "esp": "0x2C28",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5298",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5298",
+        "esp": "800B5298"
+      },
+      "index": 0,
+      "ita": "0x2CA8",
+      "esp": "0x2C28",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5378",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5378",
+        "esp": "800B5378"
+      },
+      "index": 0,
+      "ita": "0x2CA8",
+      "esp": "0x2C28",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B539C",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B539C",
+        "esp": "800B539C"
+      },
+      "index": 0,
+      "ita": "0x2CA8",
+      "esp": "0x2C28",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B53B0",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B53B0",
+        "esp": "800B53B0"
+      },
+      "index": 0,
+      "ita": "0x2CA8",
+      "esp": "0x2C28",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5410",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5410",
+        "esp": "800B5410"
+      },
+      "index": 0,
+      "ita": "0x6D24",
+      "esp": "0x6D9C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5440",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5440",
+        "esp": "800B5440"
+      },
+      "index": 0,
+      "ita": "0x6D24",
+      "esp": "0x6D9C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5484",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5484",
+        "esp": "800B5484"
+      },
+      "index": 0,
+      "ita": "0x2CDC",
+      "esp": "0x2C5C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5550",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5550",
+        "esp": "800B5550"
+      },
+      "index": 0,
+      "ita": "0x2CDC",
+      "esp": "0x2C5C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B5648",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B5648",
+        "esp": "800B5648"
+      },
+      "index": 0,
+      "ita": "0x2CDC",
+      "esp": "0x2C5C",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B56B4",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B56B4",
+        "esp": "800B56B4"
+      },
+      "index": 0,
+      "ita": "0x799C",
+      "esp": "0x7984",
+      "where": "render/CullPatch.cs:func_800B4244"
+    },
+    {
+      "name": "Game_800B6F60",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B6F60",
+        "esp": "800B6F60"
+      },
+      "index": 0,
+      "ita": "0x2004",
+      "esp": "0x1F8C",
+      "where": "render/EntityFloatFunctions.cs:func_800B6EEC"
+    },
+    {
+      "name": "Game_800B7234",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B7234",
+        "esp": "800B7234"
+      },
+      "index": 0,
+      "ita": "0x2004",
+      "esp": "0x1F8C",
+      "where": "render/EntityFloatFunctions.cs:func_800B6EEC"
+    },
+    {
+      "name": "Game_800B7314",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B7314",
+        "esp": "800B7314"
+      },
+      "index": 0,
+      "ita": "0x2004",
+      "esp": "0x1F8C",
+      "where": "render/EntityFloatFunctions.cs:func_800B72A0"
+    },
+    {
+      "name": "Game_800B76CC",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B76CC",
+        "esp": "800B76CC"
+      },
+      "index": 0,
+      "ita": "0x2004",
+      "esp": "0x1F8C",
+      "where": "render/EntityFloatFunctions.cs:func_800B72A0"
+    },
+    {
+      "name": "Game_800B8A64",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B8A64",
+        "esp": "800B8A64"
+      },
+      "index": 0,
+      "ita": "0x07B4",
+      "esp": "0x07AC",
+      "where": "render/EntityFloatFunctions.cs:func_800B8A24"
+    },
+    {
+      "name": "Game_800B906C",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B906C",
+        "esp": "800B906C"
+      },
+      "index": 0,
+      "ita": "0x07B4",
+      "esp": "0x07AC",
+      "where": "render/EntityFloatFunctions.cs:func_800B8A24"
+    },
+    {
+      "name": "Game_800B9128",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B9128",
+        "esp": "800B9128"
+      },
+      "index": 0,
+      "ita": "0x07B4",
+      "esp": "0x07AC",
+      "where": "render/EntityFloatFunctions.cs:func_800B90E8"
+    },
+    {
+      "name": "Game_800B9A04",
+      "overlay": "game",
+      "instr": {
+        "ita": "800B9A04",
+        "esp": "800B9A04"
+      },
+      "index": 0,
+      "ita": "0x07B4",
+      "esp": "0x07AC",
+      "where": "render/EntityFloatFunctions.cs:func_800B90E8"
+    },
+    {
+      "name": "Landmap_80012BC4",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80012BC4",
+        "esp": "80012BBC"
+      },
+      "index": 0,
+      "ita": "0x4EC8",
+      "esp": "0x4EC0",
+      "where": "widescreen/LandMapPatch.cs:func_80012BBC"
+    },
+    {
+      "name": "Landmap_80012BE4",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80012BE4",
+        "esp": "80012BDC"
+      },
+      "index": 0,
+      "ita": "0x4530",
+      "esp": "0x4528",
+      "where": "widescreen/LandMapPatch.cs:func_80012BBC"
+    },
+    {
+      "name": "Landmap_80012F88",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80012F88",
+        "esp": "80012F80"
+      },
+      "index": 0,
+      "ita": "0x1454",
+      "esp": "0x14D4",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_80012FD8",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80012FD8",
+        "esp": "80012FD0"
+      },
+      "index": 0,
+      "ita": "0x4EB8",
+      "esp": "0x4EB0",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_80012FE4",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80012FE4",
+        "esp": "80012FDC"
+      },
+      "index": 0,
+      "ita": "0x4EC8",
+      "esp": "0x4EC0",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_80013274",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013274",
+        "esp": "8001326C"
+      },
+      "index": 0,
+      "ita": "0x21B4",
+      "esp": "0x213C",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_80013284",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013284",
+        "esp": "8001327C"
+      },
+      "index": 0,
+      "ita": "0x4EB8",
+      "esp": "0x4EB0",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_8001328C",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "8001328C",
+        "esp": "80013284"
+      },
+      "index": 0,
+      "ita": "0x2228",
+      "esp": "0x21B0",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_800132D0",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "800132D0",
+        "esp": "800132C8"
+      },
+      "index": 0,
+      "ita": "0x4EC8",
+      "esp": "0x4EC0",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_80013438",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013438",
+        "esp": "80013430"
+      },
+      "index": 0,
+      "ita": "0x0F80",
+      "esp": "0x0F08",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_80013C40",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013C40",
+        "esp": "80013C38"
+      },
+      "index": 0,
+      "ita": "0x4EB8",
+      "esp": "0x4EB0",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_80013C78",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013C78",
+        "esp": "80013C70"
+      },
+      "index": 0,
+      "ita": "0x4EC8",
+      "esp": "0x4EC0",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_80013C90",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013C90",
+        "esp": "80013C88"
+      },
+      "index": 0,
+      "ita": "0x4EC8",
+      "esp": "0x4EC0",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_80013CE8",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013CE8",
+        "esp": "80013CE0"
+      },
+      "index": 0,
+      "ita": "0x0F80",
+      "esp": "0x0F08",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_80013DD4",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013DD4",
+        "esp": "80013DCC"
+      },
+      "index": 0,
+      "ita": "0x1454",
+      "esp": "0x14D4",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_80013E04",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013E04",
+        "esp": "80013DFC"
+      },
+      "index": 0,
+      "ita": "0x1454",
+      "esp": "0x14D4",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_80013E58",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013E58",
+        "esp": "80013E50"
+      },
+      "index": 0,
+      "ita": "0x1454",
+      "esp": "0x14D4",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_80013EB0",
+      "overlay": "landmap",
+      "instr": {
+        "ita": "80013EB0",
+        "esp": "80013EA8"
+      },
+      "index": 0,
+      "ita": "0x4EC8",
+      "esp": "0x4EC0",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_Code_80012FDC",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80012FDC",
+      "esp": "0x80012FD4",
+      "where": "widescreen/LandMapPatch.cs:func_80013328_landmap"
+    },
+    {
+      "name": "Landmap_Code_80013328",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013328",
+      "esp": "0x80013320",
+      "where": "widescreen/LandMapPatch.cs:func_80012FDC_landmap"
+    },
+    {
+      "name": "Landmap_Code_80013510",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013510",
+      "esp": "0x80013508",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_Code_80013558",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013558",
+      "esp": "0x80013550",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_Code_800135A8",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x800135A8",
+      "esp": "0x800135A0",
+      "where": "widescreen/LandMapPatch.cs:func_80012F70"
+    },
+    {
+      "name": "Landmap_Code_80013778",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013778",
+      "esp": "0x80013770",
+      "where": "widescreen/LandMapPatch.cs:func_80012FDC_landmap"
+    },
+    {
+      "name": "Landmap_Code_80013798",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013798",
+      "esp": "0x80013790",
+      "where": "widescreen/LandMapPatch.cs:func_80012FDC_landmap"
+    },
+    {
+      "name": "Landmap_Code_80013D88",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013D88",
+      "esp": "0x80013D80",
+      "where": "widescreen/LandMapPatch.cs:func_80013C8C"
+    },
+    {
+      "name": "Landmap_Code_80013D90",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013D90",
+      "esp": "0x80013D88",
+      "where": "widescreen/LandMapPatch.cs:func_80013C8C"
+    },
+    {
+      "name": "Landmap_Code_80013D98",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013D98",
+      "esp": "0x80013D90",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_Code_80013DA0",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013DA0",
+      "esp": "0x80013D98",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_Code_80013DBC",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013DBC",
+      "esp": "0x80013DB4",
+      "where": "widescreen/LandMapPatch.cs:func_80013C3C"
+    },
+    {
+      "name": "Landmap_Code_80013FF0",
+      "overlay": "landmap",
+      "kind": "code",
+      "ita": "0x80013FF0",
+      "esp": "0x80013FE8",
+      "where": "widescreen/LandMapPatch.cs:func_80013C8C"
+    },
+    {
+      "name": "Tl_8001097C",
+      "overlay": "tl",
+      "instr": {
+        "ita": "8001097C",
+        "esp": "80010984"
+      },
+      "index": 0,
+      "ita": "0x23D8",
+      "esp": "0x2360",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_80010988",
+      "overlay": "tl",
+      "instr": {
+        "ita": "80010988",
+        "esp": "80010990"
+      },
+      "index": 0,
+      "ita": "0x23D8",
+      "esp": "0x2360",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_800109EC",
+      "overlay": "tl",
+      "instr": {
+        "ita": "800109EC",
+        "esp": "800109F4"
+      },
+      "index": 0,
+      "ita": "0x0FB8",
+      "esp": "0x0F40",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_80010A1C",
+      "overlay": "tl",
+      "instr": {
+        "ita": "80010A1C",
+        "esp": "80010A24"
+      },
+      "index": 0,
+      "ita": "0x7EE0",
+      "esp": "0x7ED8",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_80010A7C",
+      "overlay": "tl",
+      "instr": {
+        "ita": "80010A7C",
+        "esp": "80010A84"
+      },
+      "index": 0,
+      "ita": "0x0F2C",
+      "esp": "0x0EB4",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_80010C3C",
+      "overlay": "tl",
+      "instr": {
+        "ita": "80010C3C",
+        "esp": "80010C44"
+      },
+      "index": 0,
+      "ita": "0x1454",
+      "esp": "0x14D4",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_80010D90",
+      "overlay": "tl",
+      "instr": {
+        "ita": "80010D90",
+        "esp": "80010D98"
+      },
+      "index": 0,
+      "ita": "0x0F80",
+      "esp": "0x0F08",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_80010E10",
+      "overlay": "tl",
+      "instr": {
+        "ita": "80010E10",
+        "esp": "80010E18"
+      },
+      "index": 0,
+      "ita": "0x0F80",
+      "esp": "0x0F08",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_Code_800104BC",
+      "overlay": "tl",
+      "kind": "code",
+      "ita": "0x800104BC",
+      "esp": "0x800104C4",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_Code_800105B8",
+      "overlay": "tl",
+      "kind": "code",
+      "ita": "0x800105B8",
+      "esp": "0x800105C0",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_Code_8001084C",
+      "overlay": "tl",
+      "kind": "code",
+      "ita": "0x8001084C",
+      "esp": "0x80010854",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_Code_800108A0",
+      "overlay": "tl",
+      "kind": "code",
+      "ita": "0x800108A0",
+      "esp": "0x800108A8",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_Code_80010A78",
+      "overlay": "tl",
+      "kind": "code",
+      "ita": "0x80010A78",
+      "esp": "0x80010A80",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_Code_80010B14",
+      "overlay": "tl",
+      "kind": "code",
+      "ita": "0x80010B14",
+      "esp": "0x80010B1C",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    },
+    {
+      "name": "Tl_Code_80010F00",
+      "overlay": "tl",
+      "kind": "code",
+      "ita": "0x80010F00",
+      "esp": "0x80010F08",
+      "where": "render/CullPatch.cs:func_80010800_tl"
+    }
+  ]
+}

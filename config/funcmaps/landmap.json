@@ -1,0 +1,170 @@
+{
+  "functions": [
+    {
+      "address": "0x80010220",
+      "name": "func_80010220",
+      "size": 24
+    },
+    {
+      "address": "0x80010238",
+      "name": "func_80010238",
+      "size": 5088
+    },
+    {
+      "address": "0x80011618",
+      "name": "func_80011618",
+      "size": 324
+    },
+    {
+      "address": "0x8001175C",
+      "name": "func_8001175C",
+      "size": 2492
+    },
+    {
+      "address": "0x80012118",
+      "name": "func_80012118",
+      "size": 340
+    },
+    {
+      "address": "0x8001226C",
+      "name": "func_8001226C",
+      "size": 336
+    },
+    {
+      "address": "0x800123BC",
+      "name": "func_800123BC",
+      "size": 268
+    },
+    {
+      "address": "0x800124C8",
+      "name": "func_800124C8",
+      "size": 188
+    },
+    {
+      "address": "0x80012584",
+      "name": "func_80012584",
+      "size": 496
+    },
+    {
+      "address": "0x80012774",
+      "name": "func_80012774",
+      "size": 336
+    },
+    {
+      "address": "0x800128C4",
+      "name": "func_800128C4",
+      "size": 552
+    },
+    {
+      "address": "0x80012AEC",
+      "name": "func_80012AEC",
+      "size": 208
+    },
+    {
+      "address": "0x80012BBC",
+      "name": "func_80012BBC",
+      "size": 272
+    },
+    {
+      "address": "0x80012CCC",
+      "name": "func_80012CCC",
+      "size": 676
+    },
+    {
+      "address": "0x80012F70",
+      "name": "func_80012F70",
+      "size": 2152
+    },
+    {
+      "address": "0x800137D8",
+      "name": "func_800137D8",
+      "size": 212
+    },
+    {
+      "address": "0x800138AC",
+      "name": "func_800138AC",
+      "size": 912
+    },
+    {
+      "address": "0x80013C3C",
+      "name": "func_80013C3C",
+      "size": 1024
+    },
+    {
+      "address": "0x8001403C",
+      "name": "func_8001403C",
+      "size": 912
+    },
+    {
+      "address": "0x800143CC",
+      "name": "func_800143CC",
+      "size": 76
+    },
+    {
+      "address": "0x80014418",
+      "name": "func_80014418",
+      "size": 104
+    },
+    {
+      "address": "0x80014480",
+      "name": "func_80014480",
+      "size": 100
+    },
+    {
+      "address": "0x800144E4",
+      "name": "func_800144E4",
+      "size": 8
+    },
+    {
+      "address": "0x800144EC",
+      "name": "func_800144EC",
+      "size": 64
+    },
+    {
+      "address": "0x80014BB0",
+      "name": "func_80014BB0",
+      "size": 28
+    },
+    {
+      "address": "0x80014BCC",
+      "name": "func_80014BCC",
+      "size": 8
+    },
+    {
+      "address": "0x80014C14",
+      "name": "func_80014C14",
+      "size": 8
+    },
+    {
+      "address": "0x80014C24",
+      "name": "func_80014C24",
+      "size": 16
+    },
+    {
+      "address": "0x80014C68",
+      "name": "func_80014C68",
+      "size": 16
+    },
+    {
+      "address": "0x80014C7C",
+      "name": "func_80014C7C",
+      "size": 12
+    },
+    {
+      "address": "0x80014CB4",
+      "name": "func_80014CB4",
+      "size": 60
+    },
+    {
+      "address": "0x80014CFC",
+      "name": "func_80014CFC",
+      "size": 12
+    },
+    {
+      "address": "0x80014D40",
+      "name": "func_80014D40",
+      "size": 40
+    }
+  ],
+  "labels": []
+}

@@ -1,0 +1,17 @@
+<Project>
+  <!--
+    MediEvilRecomp - cartelle di uscita per versione.
+    Con -p:Lingua=es il gioco (e RecompOne, che e' dentro questa cartella) compila in
+    bin-es/ e obj-es/, cosi' le build italiana e spagnola non si sovrascrivono.
+    Ogni progetto ignora i file dell'altra versione (es. AssemblyInfo generati in obj-es/).
+    Author: https://github.com/Leproide - GPL-3.0-or-later
+  -->
+  <PropertyGroup Condition="'$(Lingua)' == 'es'">
+    <BaseOutputPath>bin-es\</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj-es\</BaseIntermediateOutputPath>
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin/**;obj/**</DefaultItemExcludes>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Lingua)' != 'es'">
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin-es/**;obj-es/**</DefaultItemExcludes>
+  </PropertyGroup>
+</Project>
