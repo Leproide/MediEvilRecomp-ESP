@@ -73,10 +73,21 @@ python3 tools/pal-port/version_port.py convert --ita ita --dst esp --force
 - `gen-cs` / `gen-config` rigenerano i file dopo una modifica alla tabella.
 - `convert` è il passo unico che ha creato la tabella: esegue `port.py` con il progetto italiano come origine e sostituisce i letterali nel C# con riferimenti alla tabella. `PORT_REPORT_ES.md` è il suo report.
 
+## LibCrypt: `libcrypt_check.py`
+
+Simula il controllo LibCrypt del gioco (0x80065D20..0x80065FC0) con le posizioni che `patches/PalLibCrypt.cs` fa riportare a GetlocP, calcola la chiave e, con `MEDRES.MWD`, decifra il primo settore della risorsa 0xD6. Poi controlla "PP20", la dimensione in coda al flusso confrontata con l'indice e la decompressione completa (`pp20.py`).
+
+```
+python3 tools/pal-port/libcrypt_check.py --ver esp --exe MEDIEVIL.EXE [--sbi X.sbi] --mwd MEDRES.MWD
+```
+
+Risultati: ITA chiave 0xAAA6; ESP chiave 0x0E57, "PP20", 315748 byte come nell'indice.
+
 ## File
 
 | File | Contenuto |
 |---|---|
+| `libcrypt_check.py`, `pp20.py` | verifica offline della correzione LibCrypt |
 | `version_port.py` | tabella degli indirizzi per versione (ITA / ESP): conversione, generatori, verifica |
 | `port.py` | punto d'ingresso: matching, mappa, generazione di config, funcmap e patch |
 | `matcher.py` | abbinamento delle funzioni USA→PAL |

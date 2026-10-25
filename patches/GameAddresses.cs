@@ -96,6 +96,20 @@ public static class Addr
     public const uint CheatTableDust = GameVersion.Spanish ? 0x800CE09Cu : 0x800CE0B4u;
     /// <summary>tabella trucchi estesa, primo tasto Triangolo (mod Trucchi) (data)</summary>
     public const uint CheatTableExtended = GameVersion.Spanish ? 0x800CE0C4u : 0x800CE0DCu;
+    /// <summary>LibCrypt: chiave a 16 bit (func_80065FC4 la usa per decifrare il Mausoleo) (data)</summary>
+    public const uint LcKey = GameVersion.Spanish ? 0x800DB32Cu : 0x800DB2ACu;
+    /// <summary>LibCrypt: numero di bit a 1 (data)</summary>
+    public const uint LcCount = GameVersion.Spanish ? 0x800DB330u : 0x800DB2B0u;
+    /// <summary>LibCrypt: puntatore alla voce corrente della tabella dei settori (data)</summary>
+    public const uint LcTablePtr = GameVersion.Spanish ? 0x800DB3B4u : 0x800DB334u;
+    /// <summary>LibCrypt: tabella dei settori (voci da 4 byte BCD: mm, ss, settore di partenza, fotogramma bersaglio) (data)</summary>
+    public const uint LcTableBase = GameVersion.Spanish ? 0x800DB334u : 0x800DB2B4u;
+    /// <summary>LibCrypt: controllo avviato dalla mappa (0/1/2), scritto da LANDMAP (data)</summary>
+    public const uint LcState = GameVersion.Spanish ? 0x800EDA8Cu : 0x800EDA14u;
+    /// <summary>LibCrypt: jal 0x80065F8C in LANDMAP che avvia il controllo (code)</summary>
+    public const uint LcLandmapCall = GameVersion.Spanish ? 0x80011E98u : 0x80011EA0u;
+    /// <summary>tabella delle risorse di MEDRES.MWD (voci da 32 byte; la 0xD6 e' il Mausoleo cifrato) (data)</summary>
+    public const uint MwdTable = GameVersion.Spanish ? 0x800CE5C0u : 0x800CE5D8u;
 }
 
 /// <summary>Immediati delle copie di funzioni ricompilate (CullPatch,

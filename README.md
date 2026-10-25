@@ -127,7 +127,8 @@ Todas las direcciones que cambian entre versiones están en **`config/versions.j
 | `hooks` | los 67 hooks de `config/*/MediEvil.json` (dirección ITA / ESP) |
 | `entryPoints` | puntos de entrada declarados en `overlays[].functions` |
 | `relocations` | arrays reubicados (`gapsPolySquaresCaptured`) |
-| `constants` | direcciones y offsets `$gp` con nombre, usados por los parches escritos a mano (`PalCdCallbacks`, `PalMovies`, `TerrainPatch`, `TerrainCapture`, mod Trucchi) |
+| `constants` | direcciones y offsets `$gp` con nombre, usados por los parches escritos a mano (`PalCdCallbacks`, `PalLibCrypt`, `PalMovies`, `TerrainPatch`, `TerrainCapture`, mod Trucchi) |
+| `versionHooks` | hooks que existen solo en una versión (los de `PalLibCrypt` en la española; la configuración italiana no cambia) |
 | `literals` | inmediatos de las copias de funciones recompiladas (`CullPatch`, `EntityFloatFunctions`, `LandMapPatch`), identificados por la instrucción italiana que los produce |
 
 A partir de la tabla se generan:
@@ -154,14 +155,15 @@ py tools\pal-port\version_port.py convert --ita CARPETA_ITA --dst CARPETA_ESP --
   - que cada constante con nombre corresponda en el mapa de direcciones ITA → ESP;
   - que los destinos de llamada de los parches (`PalDispatch`, `Dispatcher.Call`) se comporten igual en las dos versiones.
 - `gen-cs` / `gen-config` regeneran `GameAddresses.cs` y `config/es/MediEvil.json` después de editar la tabla.
+- `fill` calcula a partir de los dos discos el valor español de las constantes nuevas que solo tienen el valor italiano.
 - `convert` es el paso único que creó la tabla. Necesita los fuentes C# originales con los números escritos a mano, así que solo sirve para rehacer el port desde el repositorio italiano.
 
 Resultado de `check` sobre los dos discos:
 
 ```
 ita: 67 hooks (61 en inicios de funcmap, 6 en puntos de entrada declarados); jal: 6109 en su imagen + 6866 hacia game/main, 0 fuera de inicio de función
-esp: 67 hooks (61 en inicios de funcmap, 6 en puntos de entrada declarados); jal: 6109 en su imagen + 6866 hacia game/main, 0 fuera de inicio de función
-114 literals y 26 constantes verificados
+esp: 72 hooks (66 en inicios de funcmap, 6 en puntos de entrada declarados); jal: 6109 en su imagen + 6866 hacia game/main, 0 fuera de inicio de función
+114 literals y 33 constantes verificados
 RESULT: OK
 ```
 
@@ -171,9 +173,33 @@ Los archivos extraídos de los discos están protegidos por derechos de autor: *
 
 ---
 
+## LibCrypt: El Mausoleo de la Cima de la Colina
+
+El disco PAL español está protegido con **LibCrypt**, igual que el italiano. Desde el mapa, el juego (código en 0x80065D20..0x80065FC0, iniciado en LANDMAP 0x80011E98) lee con GetlocP la posición de 16 sectores de la tabla en 0x800DB334. Ocho de ellos tienen en el disco original el subcódigo Q modificado, y de ellos sale una clave de 16 bits (0x800DB32C). Con esa clave `func_80065FC4` descifra el primer sector del Mausoleo en `MEDRES.MWD` (recurso 0xD6). Un volcado bin/cue no tiene subcódigo: la clave sale mal y el juego se queda en la pantalla del CD con el signo de exclamación.
+
+`patches/PalLibCrypt.cs` (compartido con la versión italiana, direcciones en `config/versions.json`) hace que GetlocP devuelva lo que daría el lector real. Usa el archivo `.sbi`/`.lsd` junto al `.cue` si existe; si no, la lista incluida de SCES-01495. Comprobado sin ejecutar el juego con `tools/pal-port/libcrypt_check.py`:
+
+| | Italiana (SCES-01494) | Española (SCES-01495) |
+|---|---|---|
+| Sectores protegidos (LBA) | 13955 … 44009 | 14499, 14749, 14906, 15162, 15478, 15881, 15951, 16017, 42521, 42663, 42862, 43204, 43484, 43904, 44009, 44162 |
+| Clave | 0xAAA6 | **0x0E57** (8 bits a 1 en los primeros 16 controles) |
+| Recurso 0xD6 de `MEDRES.MWD` | — | sector 0x1401, 152020 bytes comprimidos, 315748 descomprimidos |
+| Resultado del descifrado | `PP20` | `PP20`; el tamaño al final del flujo (315748) coincide con el índice y se descomprime completo |
+
+La clave italiana no sirve para el disco español: los 16 sectores protegidos y los datos cifrados son distintos, aunque el código y la tabla de sectores sean iguales.
+
+```
+py tools\pal-port\libcrypt_check.py --ver esp --exe MEDIEVIL.EXE --mwd MEDRES.MWD
+py tools\pal-port\libcrypt_check.py --ver esp --exe MEDIEVIL.EXE --sbi "disc\MediEvil (Spain).sbi" --mwd MEDRES.MWD
+```
+
+---
+
 ## Debug
 
 `patches/PalDebug.cs` activa los logs internos de RecompOne cuando está definida la variable `MEDIEVIL_DEBUG`. Los canales disponibles son `cd`, `irq`, `bios`, `sdk`, `vsync`, `gpu`, `dma`, `spu`, `mdec` o `all`. Si la variable no está definida, no cambia nada.
+
+Con cualquier valor de `MEDIEVIL_DEBUG` (por ejemplo `libcrypt`), `PalLibCrypt` escribe además el detalle del control LibCrypt (líneas `[PalLibCrypt]`).
 
 Símbolo del sistema (cmd):
 ```

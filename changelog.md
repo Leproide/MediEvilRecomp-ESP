@@ -1,3 +1,17 @@
+# MediEvilRecomp ESP - LibCrypt (El Mausoleo de la Cima de la Colina)
+
+## Correcciones
+- El nivel **El Mausoleo de la Cima de la Colina** no se abría en la versión española y el juego se quedaba en la pantalla del CD con el signo de exclamación. Es la misma protección LibCrypt corregida en la versión italiana, pero el disco SCES-01495 tiene otros 16 sectores protegidos y otra clave (0x0E57 en lugar de 0xAAA6).
+- `patches/PalLibCrypt.cs` ahora es común a las dos versiones: direcciones en `config/versions.json` (`LcKey`, `LcCount`, `LcTablePtr`, `LcTableBase`), lista de sectores de SCES-01494 y de SCES-01495, y `GameId` según la versión compilada. Si junto al `.cue` hay un `.sbi`/`.lsd`, se usa ese.
+- Hooks de `PalLibCrypt` añadidos solo a `config/es/MediEvil.json` (sección `versionHooks` de `config/versions.json`); la configuración italiana no cambia.
+- El detalle del control (`[PalLibCrypt]`) se escribe solo con `MEDIEVIL_DEBUG` definida.
+- Nuevas herramientas: `tools/pal-port/libcrypt_check.py` (simula el control y comprueba el descifrado en `MEDRES.MWD`) y `version_port.py fill`.
+- Después de actualizar hay que regenerar el código: borra la carpeta `generated-es` y vuelve a ejecutar `windows_initial_build_es.bat`; al terminar, ejecuta `windows_run_es.bat`.
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ITA - dialoghi XA e filmati a schermo intero
 
 ## Correzioni

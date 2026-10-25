@@ -26,7 +26,7 @@
 //    StCdInterrupt come callback "ready" e viene richiamato centinaia di migliaia
 //    di volte al secondo.
 //
-// 2) Il gestore della musica XA (0x80065D20..0x80065FC0) scrive i propri callback
+// 2) Il controllo LibCrypt (0x80065D20..0x80065FC0, vedi PalLibCrypt.cs) scrive i propri callback
 //    direttamente nelle variabili di libcd (CD_cbsync ITA 0x800EB660 / ESP 0x800EB6E0,
 //    CD_cbready ITA 0x800EB664 / ESP 0x800EB6E4) invece di usare CdSyncCallback/CdReadyCallback. L'HLE conserva i
 //    callback in campi C# e non vedeva queste scritture: la macchina a stati restava
@@ -34,7 +34,7 @@
 //
 // Le funzioni qui sotto sono agganciate come "post" in config/MediEvil.json e
 // tengono allineati i due mondi. Verificato in gioco con la mod di diagnostica
-// DiagMappa 0.4 (mappa fluida, livello caricato, macchina XA che arriva in fondo).
+// DiagMappa 0.4 (mappa fluida, livello caricato, macchina a stati che arriva in fondo).
 
 using System.Reflection;
 using RecompOne.Runtime.Context;
@@ -68,7 +68,7 @@ public static class PalCdCallbacks
     static uint Get(FieldInfo? f) => f?.GetValue(null) is uint v ? v : 0u;
     static void Set(FieldInfo? f, uint v) => f?.SetValue(null, v);
 
-    // Dopo le funzioni della macchina XA: il gioco ha scritto CD_cbsync/CD_cbready
+    // Dopo le funzioni del controllo LibCrypt: il gioco ha scritto CD_cbsync/CD_cbready
     // in memoria, li copio nell'HLE.
     public static void SyncFromMemory(CpuContext c, IMemory m)
     {

@@ -293,7 +293,7 @@ def cmd_convert(a):
 def fill_constants(table, amap, sgp, dgp):
     """Target values of the named constants, from the address map (exact only)."""
     for c in table['constants']:
-        if c.get(TARGET) and not c.get('auto', True):
+        if c.get(TARGET) and not c.get('auto', False):
             continue
         v = int(c['ita'], 16)
         if c['kind'] == 'data':
@@ -340,10 +340,26 @@ def build_config(table, cfg, ver):
             f['address'] = ('0x' if f['address'].lower().startswith('0x') else '') + na
             if 'name' in f:
                 f['name'] = 'func_' + na
+    # hook che esistono solo in questa versione: inseriti davanti a un hook della config italiana
+    for grp in table.get('versionHooks', {}).get(ver, []):
+        b = grp['before']
+        pos = next((i for i, pt in enumerate(out['patches'])
+                    if pt['target'] == b['target'] and pt.get('address') == h_addr(b, out, ver, table)), None)
+        if pos is None:
+            raise ValueError(f'versionHooks: anchor {b} not found in the {ver} config')
+        out['patches'][pos:pos] = copy.deepcopy(grp['hooks'])
     rl = {(r['overlay'], r['name']): r[ver] for r in table['relocations']}
     for r in out.get('relocations', []):
         r['address'] = rl[(r['overlay'], r['name'])]
     return out
+
+
+def h_addr(anchor, out, ver, table):
+    """Address of an Italian-config hook (given with its ITA address) in version `ver`."""
+    for h in table['hooks']:
+        if h['target'] == anchor['target'] and h['ita'] == anchor['address']:
+            return h[ver]
+    return anchor['address']
 
 
 def write_config(root, table, cfg):
@@ -424,6 +440,23 @@ def write_cs(root, table):
         f.write('\n'.join(L))
 
 
+def cmd_fill(a):
+    """Compute the target values of constants that have none yet (needs both discs)."""
+    root = a.repo
+    table = load_table(root)
+    cfg = json.load(open(os.path.join(root, 'config', 'MediEvil.json')))
+    todo = [c['name'] for c in table['constants'] if not c.get(TARGET)]
+    _, _, sgp, dgp, amap, _ = build_maps(root, cfg, a.ita, a.dst)
+    for c in table['constants']:
+        if c['name'] in todo:
+            c['auto'] = True
+    fill_constants(table, amap, sgp, dgp)
+    for c in table['constants']:
+        c.pop('auto', None)
+    save_json(os.path.join(root, TABLE), table)
+    print('filled:', ', '.join(f"{c['name']}={c[TARGET]}" for c in table['constants'] if c['name'] in todo) or 'nothing')
+
+
 def cmd_gen_cs(a):
     write_cs(a.repo, load_table(a.repo))
     print('written', CS_OUT)
@@ -490,7 +523,7 @@ def cmd_check(a):
     ck.ok(not (used - names), f'references without a table entry: {sorted(used - names)}')
     mods = {c['name'] for c in table['constants'] if c.get('usedBy')}
     unused = names - used - mods
-    print(f'  {len(names)} entries, {len(used & names)} referenced by patches, {len(mods)} documented for mods'
+    print(f'  {len(names)} entries, {len(used & names)} referenced by patches, {len(mods)} documented only (mods, notes)'
           + (f', unused: {sorted(unused)}' if unused else ''))
 
     if not (a.ita and a.dst):
@@ -654,6 +687,9 @@ def main():
     p.add_argument('--game-id', default='SCES-014.95')
     p.add_argument('--cue', default='../../disc/MediEvil (Spain).cue')
     p.add_argument('--force', action='store_true')
+    p = sub.add_parser('fill')
+    p.add_argument('--ita', required=True, help='files of the Italian disc')
+    p.add_argument('--dst', required=True, help='files of the target disc')
     sub.add_parser('gen-cs')
     sub.add_parser('gen-config')
     p = sub.add_parser('check')
@@ -661,7 +697,7 @@ def main():
     p.add_argument('--dst', help='files of the target disc')
     a = ap.parse_args()
     a.repo = os.path.abspath(a.repo)
-    return {'convert': cmd_convert, 'gen-cs': cmd_gen_cs, 'gen-config': cmd_gen_config,
+    return {'convert': cmd_convert, 'fill': cmd_fill, 'gen-cs': cmd_gen_cs, 'gen-config': cmd_gen_config,
             'check': cmd_check}[a.cmd](a) or 0
 
 

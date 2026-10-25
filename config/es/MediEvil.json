@@ -570,6 +570,36 @@
     },
     {
       "overlay": "game",
+      "address": "80065E0C",
+      "target": "Recompiled.PalLibCrypt.OnGetlocPFirst",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "80065E8C",
+      "target": "Recompiled.PalLibCrypt.OnGetlocPBit",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "80065E8C",
+      "target": "Recompiled.PalLibCrypt.AfterBit",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065FC4",
+      "target": "Recompiled.PalLibCrypt.BeforeDecrypt",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "80065FC4",
+      "target": "Recompiled.PalLibCrypt.AfterDecrypt",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
       "address": "80065F8C",
       "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
       "mode": "post"

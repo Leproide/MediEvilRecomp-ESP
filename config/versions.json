@@ -842,6 +842,59 @@
       "expect": "0x00100000",
       "usedBy": "mods/Trucchi",
       "esp": "0x800CE0C4"
+    },
+    {
+      "name": "LcKey",
+      "kind": "data",
+      "ita": "0x800DB2AC",
+      "desc": "LibCrypt: chiave a 16 bit (func_80065FC4 la usa per decifrare il Mausoleo)",
+      "esp": "0x800DB32C"
+    },
+    {
+      "name": "LcCount",
+      "kind": "data",
+      "ita": "0x800DB2B0",
+      "desc": "LibCrypt: numero di bit a 1",
+      "esp": "0x800DB330"
+    },
+    {
+      "name": "LcTablePtr",
+      "kind": "data",
+      "ita": "0x800DB334",
+      "desc": "LibCrypt: puntatore alla voce corrente della tabella dei settori",
+      "esp": "0x800DB3B4"
+    },
+    {
+      "name": "LcTableBase",
+      "kind": "data",
+      "ita": "0x800DB2B4",
+      "desc": "LibCrypt: tabella dei settori (voci da 4 byte BCD: mm, ss, settore di partenza, fotogramma bersaglio)",
+      "esp": "0x800DB334"
+    },
+    {
+      "name": "LcState",
+      "kind": "data",
+      "ita": "0x800EDA14",
+      "desc": "LibCrypt: controllo avviato dalla mappa (0/1/2), scritto da LANDMAP",
+      "esp": "0x800EDA8C",
+      "usedBy": "documentazione (PalLibCrypt.cs)"
+    },
+    {
+      "name": "LcLandmapCall",
+      "kind": "code",
+      "overlay": "landmap",
+      "ita": "0x80011EA0",
+      "desc": "LibCrypt: jal 0x80065F8C in LANDMAP che avvia il controllo",
+      "usedBy": "documentazione (PalLibCrypt.cs)",
+      "esp": "0x80011E98"
+    },
+    {
+      "name": "MwdTable",
+      "kind": "data",
+      "ita": "0x800CE5D8",
+      "desc": "tabella delle risorse di MEDRES.MWD (voci da 32 byte; la 0xD6 e' il Mausoleo cifrato)",
+      "usedBy": "tools/pal-port/libcrypt_check.py",
+      "esp": "0x800CE5C0"
     }
   ],
   "literals": [
@@ -2133,5 +2186,48 @@
       "esp": "0x80010F08",
       "where": "render/CullPatch.cs:func_80010800_tl"
     }
-  ]
+  ],
+  "versionHooks": {
+    "_comment": "Hook presenti solo in alcune versioni (config italiana invariata). \"before\" = hook della config italiana davanti a cui inserirli.",
+    "esp": [
+      {
+        "before": {
+          "address": "80065F8C",
+          "target": "Recompiled.PalCdCallbacks.SyncFromMemory"
+        },
+        "hooks": [
+          {
+            "overlay": "game",
+            "address": "80065E0C",
+            "target": "Recompiled.PalLibCrypt.OnGetlocPFirst",
+            "mode": "pre"
+          },
+          {
+            "overlay": "game",
+            "address": "80065E8C",
+            "target": "Recompiled.PalLibCrypt.OnGetlocPBit",
+            "mode": "pre"
+          },
+          {
+            "overlay": "game",
+            "address": "80065E8C",
+            "target": "Recompiled.PalLibCrypt.AfterBit",
+            "mode": "post"
+          },
+          {
+            "overlay": "game",
+            "address": "80065FC4",
+            "target": "Recompiled.PalLibCrypt.BeforeDecrypt",
+            "mode": "pre"
+          },
+          {
+            "overlay": "game",
+            "address": "80065FC4",
+            "target": "Recompiled.PalLibCrypt.AfterDecrypt",
+            "mode": "post"
+          }
+        ]
+      }
+    ]
+  }
 }
