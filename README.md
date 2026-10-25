@@ -8,6 +8,8 @@
 
 Recompilación estática de **MediEvil para PlayStation, versión PAL española (SCES-01495)**, para jugarlo de forma nativa en ordenadores modernos, con panorámico y renderizado mejorado.
 
+<img width="1920" height="1032" alt="immagine" src="https://github.com/user-attachments/assets/7906b56a-7c8b-47fd-9370-c24c3d62c195" />
+
 Este repositorio parte de [MediEvilRecomp-ITA](https://github.com/Leproide/MediEvilRecomp-ITA), el port a la versión PAL italiana (SCES-01494), que a su vez es un **fork** de [MediEvilRecomp](https://github.com/BlackLabelHQ/MediEvilRecomp) de **BlackLabelHQ** (versión USA). Todo el trabajo base (recompilación, parches de renderizado y panorámico, runtime RecompOne) es suyo.
 
 Todas las correcciones PAL ya hechas para la versión italiana (callbacks del CD, reproducción de vídeos, fundido en iris, pantalla PAL de 256 líneas, voces XA) se **portan** a la versión española recalculando las direcciones. La lógica de las correcciones no cambia, y una sola copia del código sirve para las dos versiones.
@@ -169,7 +171,7 @@ Los archivos extraídos de los discos están protegidos por derechos de autor: *
 
 ---
 
-## Depuración
+## Debug
 
 `patches/PalDebug.cs` activa los logs internos de RecompOne cuando está definida la variable `MEDIEVIL_DEBUG`. Los canales disponibles son `cd`, `irq`, `bios`, `sdk`, `vsync`, `gpu`, `dma`, `spu`, `mdec` o `all`. Si la variable no está definida, no cambia nada.
 
@@ -197,6 +199,10 @@ El juego tiene dos menús de trucos integrados, y en el recomp funcionan igual q
 - **Modo trucos ampliado**: Triángulo, Círculo, Triángulo, Círculo, Círculo, Triángulo, Izquierda, Círculo, Arriba, Abajo, Derecha, Círculo, Izquierda, Izquierda, Triángulo, Derecha, Círculo, Izquierda, Izquierda, Triángulo, Círculo, Abajo, Círculo, Círculo, Derecha
 
 La versión española usa las mismas secuencias que la italiana: las dos tablas de `MEDIEVIL.EXE` tienen el mismo contenido y solo cambia su posición. La mod incluida **Trucchi** los activa desde el panel de mods, sin combinaciones, y funciona en las dos versiones. Detalles en el [README de la mod](mods/Trucchi/README.md) (en italiano).
+
+<img width="1920" height="1057" alt="immagine" src="https://github.com/user-attachments/assets/e63afa4e-62b0-4c83-8b22-3eb064944a8c" />
+
+<img width="1920" height="1080" alt="immagine" src="https://github.com/user-attachments/assets/02eb4635-7d14-45dd-bd4c-f63e5330c341" />
 
 ---
 
