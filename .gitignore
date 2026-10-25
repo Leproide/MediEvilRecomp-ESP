@@ -18,3 +18,4 @@ generated-es/
 bin-es/
 obj-es/
 __pycache__/
+publish-es/

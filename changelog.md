@@ -1,3 +1,14 @@
+# MediEvilRecomp ESP - Linux
+
+## Novedades
+- Scripts para Linux: `linux_initial_build_es.sh` (primera compilación) y `linux_run_es.sh` (inicio), equivalentes a los de Windows.
+- `windows_publish_es.bat <versión>` crea los paquetes de la release para Windows x64 (`.zip`) y Linux x64 (`.tar.gz` con `run.sh`), con los nombres que busca la actualización automática.
+- `Directory.Build.props` usa `/` en las rutas de salida (`bin-es/`, `obj-es/`) para que funcionen igual en Linux.
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP - LibCrypt (El Mausoleo de la Cima de la Colina)
 
 ## Correcciones

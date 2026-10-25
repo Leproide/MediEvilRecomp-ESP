@@ -16,7 +16,7 @@ Todas las correcciones PAL ya hechas para la versión italiana (callbacks del CD
 
 > **Proyecto en beta.** Puede haber errores, incluso graves. Repórtalos en las issues de este repositorio.
 
-> El README original en italiano está en [`README.it.md`](README.it.md).
+> La versión italiana del proyecto está en [MediEvilRecomp-ITA](https://github.com/Leproide/MediEvilRecomp-ITA).
 
 ---
 
@@ -31,6 +31,7 @@ Todas las correcciones PAL ya hechas para la versión italiana (callbacks del CD
 | Compilación | `dotnet build` | `dotnet build -p:Lingua=es` |
 | Salida | `bin/`, `obj/` | `bin-es/`, `obj-es/` |
 | Scripts de Windows | `windows_*.bat` | `windows_*_es.bat` |
+| Scripts de Linux | — | `linux_*_es.sh` |
 | Disco | `disc/MediEvil (Italy).cue` | `disc/MediEvil (Spain).cue` |
 
 La configuración, el código generado y la compilación por defecto de la versión italiana no cambian: los valores italianos de la tabla de direcciones son exactamente los que antes estaban escritos en el código.
@@ -85,6 +86,37 @@ dotnet run --project RecompOne.MediEvil.csproj -p:Lingua=es
 
 `git apply` solo hace falta la primera vez. Si la corrección ya está aplicada, da un error que puedes ignorar. Los mismos comandos sirven en Linux y macOS.
 
+### Linux
+
+Requisitos: [.NET 10 SDK](https://learn.microsoft.com/dotnet/core/install/linux), `git`, controladores OpenGL y, para el selector de archivos del disco, GTK 3 (en Debian/Ubuntu: `sudo apt install git libgtk-3-0`). OpenAL y SDL vienen incluidos con el juego.
+
+1. Clona el repositorio y copia en `disc/` los archivos del disco, con los mismos nombres de arriba (en Linux se distinguen mayúsculas y minúsculas).
+2. Compila y juega:
+   ```
+   chmod +x linux_*.sh
+   ./linux_initial_build_es.sh
+   ./linux_run_es.sh
+   ```
+
+`./linux_run_es.sh` lanza solo la primera compilación si hace falta. `./linux_run_es.sh --no-build` arranca sin recompilar.
+
+### Paquetes para la release (Windows y Linux)
+
+Una vez generado el código (`generated-es/`), `windows_publish_es.bat v1.1` crea en `publish-es/` los dos paquetes que espera la actualización automática:
+
+- `MediEvilRecomp-ESP-v1.1-windows-x64.zip`
+- `MediEvilRecomp-ESP-v1.1-linux-x64.tar.gz`, con `run.sh`, que instala el runtime de .NET 10 si falta.
+
+En Linux, el paquete se usa así:
+
+```
+mkdir -p MediEvilRecomp-ESP
+tar -xzf MediEvilRecomp-ESP-v1.1-linux-x64.tar.gz -C MediEvilRecomp-ESP
+cd MediEvilRecomp-ESP && bash run.sh
+```
+
+El paquete no contiene archivos del juego: la primera vez el juego pide el `.cue` de tu disco.
+
 Para la versión italiana, en el mismo repositorio: `dotnet run --project RecompOne/RecompOne.Recompiler config/MediEvil.json` y luego `dotnet run`, sin `-p:Lingua`. También puedes usar los scripts `windows_*.bat` sin `_es`.
 
 ---
@@ -92,6 +124,7 @@ Para la versión italiana, en el mismo repositorio: `dotnet run --project Recomp
 ## Ejecución
 
 - **Windows:** `windows_run_es.bat`. Si el juego todavía no está compilado, la primera compilación arranca sola.
+- **Linux:** `./linux_run_es.sh` (o `bash run.sh` en el paquete de la release).
 - **Inicio rápido sin recompilar:** `windows_run_no_build_es.bat`.
 - **Desde terminal:** `dotnet run --project RecompOne.MediEvil.csproj -p:Lingua=es`.
 

@@ -7,8 +7,8 @@
     Author: https://github.com/Leproide - GPL-3.0-or-later
   -->
   <PropertyGroup Condition="'$(Lingua)' == 'es'">
-    <BaseOutputPath>bin-es\</BaseOutputPath>
-    <BaseIntermediateOutputPath>obj-es\</BaseIntermediateOutputPath>
+    <BaseOutputPath>bin-es/</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj-es/</BaseIntermediateOutputPath>
     <DefaultItemExcludes>$(DefaultItemExcludes);bin/**;obj/**</DefaultItemExcludes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Lingua)' != 'es'">
