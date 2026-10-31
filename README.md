@@ -20,10 +20,6 @@ Todas las correcciones PAL de la versión italiana se **portan** a la española 
 
 > Varias capturas de este README son de la versión italiana: en la versión española el juego, los menús, las mods y los shaders funcionan y se ven igual.
 
-<img width="1920" height="1032" alt="MediEvil_PAL" src="https://github.com/user-attachments/assets/76ff3ae2-808c-4718-90fa-134b96d0b832" />
-<img width="1920" height="1032" alt="2_MediEvil_PAL" src="https://github.com/user-attachments/assets/7017f74a-eed7-4d3b-8e09-200d7f5ea67f" />
-
-
 ---
 
 ## Contribuciones
