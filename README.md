@@ -18,6 +18,12 @@ Todas las correcciones PAL de la versión italiana se **portan** a la española 
 
 > **Proyecto en beta.** Puede haber errores, incluso graves. Repórtalos en las [issues de este repositorio](https://github.com/Leproide/MediEvilRecomp-ESP/issues).
 
+> Varias capturas de este README son de la versión italiana: en la versión española el juego, los menús, las mods y los shaders funcionan y se ven igual.
+
+<img width="1920" height="1032" alt="MediEvil_PAL" src="https://github.com/user-attachments/assets/76ff3ae2-808c-4718-90fa-134b96d0b832" />
+<img width="1920" height="1032" alt="2_MediEvil_PAL" src="https://github.com/user-attachments/assets/7017f74a-eed7-4d3b-8e09-200d7f5ea67f" />
+
+
 ---
 
 ## Contribuciones
@@ -107,6 +113,9 @@ Hacen falta `git` y el [SDK de .NET 10](https://dotnet.microsoft.com/download/do
 
 `run.sh` es el lanzador del proyecto original para una build de Linux ya lista (ejecutable `medievil` en la misma carpeta, como en los paquetes de las releases): no compila nada.
 
+<img width="1920" height="1144" alt="Linux" src="https://github.com/user-attachments/assets/68db1f00-191e-4ce3-918f-1584e34475d3" />
+
+
 ### A mano (Windows, Linux, macOS)
 
 Desde la carpeta del repositorio:
@@ -192,6 +201,9 @@ La versión española usa las mismas secuencias que la italiana: las dos tablas 
 
 La mod opcional **Filmati a schermo intero** amplía los vídeos: en lugar de verlos pequeños en el centro del cuadro 4:3, muestra solo el área del vídeo y la adapta a la ventana sin deformarla. Se activa desde el panel de mods y funciona en las dos versiones. Detalles en el [README de la mod](mods/FilmatiSchermoIntero/README.md) (en italiano).
 
+<img width="1920" height="1080" alt="Videos_pantalla_completa" src="https://github.com/user-attachments/assets/dd6fb230-6839-4da4-ad41-76bc2b32bdd0" />
+
+
 ---
 
 ## Mod Hub
@@ -212,6 +224,17 @@ Quien quiera probar un hub de todos modos puede definirlo en `settings.json`, si
 ### Shader
 
 El shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** viene incluido en los paquetes de las releases y lo descargan los scripts de primera compilación en `shaders/dans-curse-v2-shader`, siempre en la última versión de su rama `main` (el mismo shader de la versión italiana). Para actualizarlo basta con volver a ejecutar el script de primera compilación. Se activa encendiendo la mod **Shaders** en el panel **Mods**, con "Better rendering" activo; los parámetros se ajustan en el menú **Shaders**. Recomendado: **Draw distance** a 3x en Settings → Display.
+
+<img width="1144" height="644" alt="v2-colina" src="https://github.com/user-attachments/assets/0368b567-9020-4379-8d38-cbb616ede017" />
+
+<img width="1144" height="644" alt="cementerio-off" src="https://github.com/user-attachments/assets/f4d73122-030e-4222-9c1e-c3a966a6967c" />
+
+<img width="1144" height="644" alt="cementerio-v2" src="https://github.com/user-attachments/assets/a4f400b2-ecaf-4ba6-858d-8ba09b5a4f94" />
+
+<img width="1144" height="644" alt="shader-off" src="https://github.com/user-attachments/assets/56a77238-b066-420e-9730-2d3aa2161a07" />
+
+<img width="1144" height="644" alt="shader-on" src="https://github.com/user-attachments/assets/267d7d33-eaa9-4625-b0e1-196eed13ec36" />
+
 
 ---
 
