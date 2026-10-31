@@ -1,8 +1,12 @@
 @echo off
 REM ==================================================================================================
 REM MediEvilRecomp ESP - inicio (version PAL espanola, SCES-01495)
-REM Basado en windows_run.bat de BlackLabelHQ y en el port PAL italiano.
-REM Author: https://github.com/Leproide - GPL-3.0-or-later
+REM Basado en windows_run.bat de BlackLabelHQ.
+REM Codigo original de MediEvilRecomp (BlackLabelHQ), adaptado a las versiones PAL.
+REM MediEvilRecomp no tiene una licencia explicita: los derechos sobre este codigo siguen siendo
+REM de sus autores. Este archivo NO se publica bajo GPL-3.0: la GPL del fork cubre solo los
+REM archivos escritos desde cero para el port (ver la seccion License del README).
+REM Cambios para el port PAL espanol: https://github.com/Leproide
 REM ==================================================================================================
 title MediEvilRecomp ESP
 

@@ -57,26 +57,6 @@ MEDIEVIL.EXE  USA base 0x80021ca4 gp 0x800ed5d4  |  PAL base 0x80021d14 gp 0x800
 | render/CullPatch.cs | func_800B3FAC | game | exact | 5 | 0 |
 | render/CullPatch.cs | func_800B41C8 | game | exact | 43 | 0 |
 | render/CullPatch.cs | func_800A105C | game | exact | 4 | 0 |
-| render/EntityFloatFunctions.cs | func_800B0068 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B0240 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B0458 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B065C | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B0900 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B0AC0 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B0CB8 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B0EA4 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B59C8 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B5DA4 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B6238 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B6724 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B6E70 | game | aligned | 2 | 0 |
-| render/EntityFloatFunctions.cs | func_800B7224 | game | aligned | 2 | 0 |
-| render/EntityFloatFunctions.cs | func_800B76BC | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B7A04 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B7DBC | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B8288 | game | exact | 0 | 0 |
-| render/EntityFloatFunctions.cs | func_800B89A8 | game | exact | 2 | 0 |
-| render/EntityFloatFunctions.cs | func_800B906C | game | exact | 2 | 0 |
 | widescreen/LandMapPatch.cs | func_80012B38 | landmap | aligned | 3 | 0 |
 | widescreen/LandMapPatch.cs | func_80012EEC | landmap | aligned | 11 | 0 |
 | widescreen/LandMapPatch.cs | func_80012F58_landmap | landmap | aligned | 6 | 0 |
@@ -86,7 +66,7 @@ MEDIEVIL.EXE  USA base 0x80021ca4 gp 0x800ed5d4  |  PAL base 0x80021d14 gp 0x800
 
 - relocation gapsPolySquaresCaptured: 0x800eea24 -> 0x800eec88 (exact)
 
-## Warnings (14)
+## Warnings (15)
 
 - game: PAL-only code at 0x80065f8c (+56) added to funcmap
 - game: PAL-only code at 0x80065fc4 (+56) added to funcmap
@@ -100,6 +80,7 @@ MEDIEVIL.EXE  USA base 0x80021ca4 gp 0x800ed5d4  |  PAL base 0x80021d14 gp 0x800
 - landmap: USA function 0x80014468 (+328) has no PAL counterpart; dropped
 - sf: USA 0x800180f4 ~ PAL 0x800180dc weak match (similarity 0.02); rewritten in PAL
 - zl: USA 0x80019ce0 ~ PAL 0x80019ce8 weak match (similarity 0.42); rewritten in PAL
+- patch Recompiled.WaterMaterialPatch.EndLevel @ game:0x80065904: function is fuzzy in PAL -> patch DISABLED (original PAL code runs instead)
 - render/CullPatch.cs:<consts>: 0x800eedd0 -> 0x800ef034 (inferred); review
 - render/TerrainCapture.cs:<consts>: free-standing upper-half literal 0x80010000 left as is; review
 

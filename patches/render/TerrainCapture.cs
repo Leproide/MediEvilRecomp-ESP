@@ -1,6 +1,8 @@
-// PAL port: addresses/constants rewritten for the PAL release by
-// medievil-pal-port (GPL-3.0-or-later), Author: https://github.com/Leproide
-// Original code: MediEvilRecomp by BlackLabelHQ - their license terms apply to it.
+// Codice originale di MediEvilRecomp (BlackLabelHQ), adattato alla versione PAL italiana.
+// MediEvilRecomp non ha una licenza esplicita: i diritti su questo codice restano ai suoi
+// autori. Questo file NON e' rilasciato sotto GPL-3.0: la GPL del fork copre solo i file
+// scritti da zero per il port (vedi la sezione Licenza del README).
+// Indirizzi e costanti PAL: https://github.com/Leproide
 
 using RecompOne.Runtime.Context;
 using RecompOne.Runtime.Memory;

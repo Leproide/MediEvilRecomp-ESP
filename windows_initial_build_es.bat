@@ -1,8 +1,12 @@
 @echo off
 REM ==================================================================================================
 REM MediEvilRecomp ESP - primera compilacion (version PAL espanola, SCES-01495)
-REM Basado en windows_initial_build.bat de BlackLabelHQ y en el port PAL italiano.
-REM Author: https://github.com/Leproide - GPL-3.0-or-later
+REM Basado en windows_initial_build.bat de BlackLabelHQ.
+REM Codigo original de MediEvilRecomp (BlackLabelHQ), adaptado a las versiones PAL.
+REM MediEvilRecomp no tiene una licencia explicita: los derechos sobre este codigo siguen siendo
+REM de sus autores. Este archivo NO se publica bajo GPL-3.0: la GPL del fork cubre solo los
+REM archivos escritos desde cero para el port (ver la seccion License del README).
+REM Cambios para el port PAL espanol: https://github.com/Leproide
 REM
 REM Usa config\es\MediEvil.json, genera el codigo en generated-es\ y compila con -p:Lingua=es
 REM (salida en bin-es\). La version italiana (config\MediEvil.json, generated\, bin\) no se toca.
@@ -218,6 +222,26 @@ if errorlevel 1 (
 )
 
 echo Compilacion terminada.
+echo.
+
+REM ================================ Shader Dan's Curse V2 (opcional) =================================
+REM Dan's Curse V2: ultima version de la rama main, en shaders\ como si estuviera instalado desde
+REM el Mod Hub (el commit descargado se escribe en el marcador .modhub). Comun a ITA y ESP: el
+REM shader no depende de la version del juego. Si la descarga falla, se continua.
+set "DCDIR=shaders\dans-curse-v2-shader"
+if not exist "%DCDIR%\dans-curse-v2.slangp" (
+    echo ^> Descargo el shader Dan's Curse V2...
+    if exist "%DCDIR%" rmdir /s /q "%DCDIR%"
+    git clone -q --depth 1 https://github.com/Leproide/DansCurseV2 "%DCDIR%" >nul 2>&1
+    if exist "%DCDIR%\.git" (
+        for /f "delims=" %%c in ('git -C "%DCDIR%" rev-parse HEAD') do >"%DCDIR%\.modhub" echo {"Id":"dans-curse-v2-shader","Type":"shader","Commit":"%%c","Repository":"https://github.com/Leproide/DansCurseV2"}
+        attrib -r -h "%DCDIR%\.git\*" /s /d >nul 2>&1
+        rmdir /s /q "%DCDIR%\.git"
+        echo Shader instalado: se activa encendiendo la mod Shaders en Mods, con "Better rendering" activo.
+    ) else (
+        echo No se ha podido descargar: vuelve a ejecutar este script mas tarde para instalar el shader.
+    )
+)
 echo.
 REM ===================================================================================================
 

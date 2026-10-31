@@ -45,8 +45,8 @@
 // controlli; verificabile con tools/pal-port/libcrypt_check.py).
 //
 // Log: la riga con l'elenco dei settori usato compare sempre. Il dettaglio di ogni
-// controllo e della decifratura compare solo con MEDIEVIL_DEBUG impostata
-// (es. MEDIEVIL_DEBUG=libcrypt, oppure all).
+// controllo e della decifratura compare sempre nella versione italiana e, nella
+// spagnola, solo con MEDIEVIL_DEBUG impostata (es. MEDIEVIL_DEBUG=libcrypt, oppure all).
 //
 // Agganci (config/MediEvil.json, mode "pre"): 0x80065E0C e 0x80065E8C, i due
 // callback che ricevono in $a1 il risultato di GetlocP (8 byte:
@@ -98,9 +98,10 @@ public static class PalLibCrypt
     const uint TablePtr = Addr.LcTablePtr;    // voce corrente della tabella dei 16 settori
     const uint TableBase = Addr.LcTableBase;
 
-    // Log diagnostici: righe "[PalLibCrypt]" nella console / debug.txt,
-    // solo con la variabile d'ambiente MEDIEVIL_DEBUG impostata (qualsiasi valore).
-    static readonly bool Verbose =
+    // Log diagnostici: righe "[PalLibCrypt]" nella console / debug.txt. Nella versione
+    // italiana sempre attivi (come prima); nella spagnola solo con la variabile
+    // d'ambiente MEDIEVIL_DEBUG impostata (qualsiasi valore).
+    static readonly bool Verbose = !GameVersion.Spanish ||
         !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
     static int _logLines;
     static void Diag(string s)

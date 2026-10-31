@@ -343,122 +343,102 @@
     {
       "overlay": "game",
       "address": "800B00E4",
-      "target": "Recompiled.EntityFloatFunctions.func_800B00E4",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B02BC",
-      "target": "Recompiled.EntityFloatFunctions.func_800B02BC",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B04D4",
-      "target": "Recompiled.EntityFloatFunctions.func_800B04D4",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B06D8",
-      "target": "Recompiled.EntityFloatFunctions.func_800B06D8",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B097C",
-      "target": "Recompiled.EntityFloatFunctions.func_800B097C",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B0B3C",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0B3C",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B0D34",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0D34",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B0F20",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0F20",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B5A44",
-      "target": "Recompiled.EntityFloatFunctions.func_800B5A44",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B5E20",
-      "target": "Recompiled.EntityFloatFunctions.func_800B5E20",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B62B4",
-      "target": "Recompiled.EntityFloatFunctions.func_800B62B4",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B67A0",
-      "target": "Recompiled.EntityFloatFunctions.func_800B67A0",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B6EEC",
-      "target": "Recompiled.EntityFloatFunctions.func_800B6EEC",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B72A0",
-      "target": "Recompiled.EntityFloatFunctions.func_800B72A0",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B7738",
-      "target": "Recompiled.EntityFloatFunctions.func_800B7738",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B7A80",
-      "target": "Recompiled.EntityFloatFunctions.func_800B7A80",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B7E38",
-      "target": "Recompiled.EntityFloatFunctions.func_800B7E38",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B8304",
-      "target": "Recompiled.EntityFloatFunctions.func_800B8304",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B8A24",
-      "target": "Recompiled.EntityFloatFunctions.func_800B8A24",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "game",
       "address": "800B90E8",
-      "target": "Recompiled.EntityFloatFunctions.func_800B90E8",
-      "mode": "replace"
+      "mode": "precise"
     },
     {
       "overlay": "landmap",
@@ -531,6 +511,252 @@
       "address": "800A10D8",
       "target": "Recompiled.CullPatch.func_800A10D8",
       "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "800A10D8",
+      "target": "Recompiled.InterpGroupPatch.BeginAnimMesh",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "800A10D8",
+      "target": "Recompiled.InterpGroupPatch.EndMesh",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800B4244",
+      "target": "Recompiled.InterpGroupPatch.BeginStaticMesh",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "800B4244",
+      "target": "Recompiled.InterpGroupPatch.EndMesh",
+      "mode": "post"
+    },
+    {
+      "overlay": "ac",
+      "address": "80014140",
+      "mode": "precise"
+    },
+    {
+      "overlay": "ac",
+      "address": "80014948",
+      "mode": "precise"
+    },
+    {
+      "overlay": "ag",
+      "address": "80011FA8",
+      "mode": "precise"
+    },
+    {
+      "overlay": "ag",
+      "address": "80015364",
+      "mode": "precise"
+    },
+    {
+      "overlay": "ee",
+      "address": "80014E48",
+      "mode": "precise"
+    },
+    {
+      "overlay": "gy1",
+      "address": "8001200C",
+      "mode": "precise"
+    },
+    {
+      "overlay": "gy2",
+      "address": "8001555C",
+      "mode": "precise"
+    },
+    {
+      "overlay": "gy2",
+      "address": "800166C8",
+      "mode": "precise"
+    },
+    {
+      "overlay": "hr",
+      "address": "80014F88",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "800294DC",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "80029B68",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "80055230",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "80057DC0",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "8007C354",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "8007CAE8",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "80088AD4",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "80089304",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "80094068",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "800996DC",
+      "mode": "precise"
+    },
+    {
+      "overlay": "pg",
+      "address": "80016844",
+      "mode": "precise"
+    },
+    {
+      "overlay": "pg",
+      "address": "80016D98",
+      "mode": "precise"
+    },
+    {
+      "overlay": "ps",
+      "address": "80017F34",
+      "mode": "precise"
+    },
+    {
+      "overlay": "ps",
+      "address": "800185F0",
+      "mode": "precise"
+    },
+    {
+      "overlay": "sf",
+      "address": "80015430",
+      "mode": "precise"
+    },
+    {
+      "overlay": "sf",
+      "address": "80015FE0",
+      "mode": "precise"
+    },
+    {
+      "overlay": "sf",
+      "address": "80016574",
+      "mode": "precise"
+    },
+    {
+      "overlay": "sv",
+      "address": "80012870",
+      "mode": "precise"
+    },
+    {
+      "overlay": "zl",
+      "address": "80018368",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "800A57F0",
+      "mode": "precise"
+    },
+    {
+      "overlay": "tl",
+      "address": "800105C0",
+      "mode": "precise"
+    },
+    {
+      "overlay": "game",
+      "address": "800A04FC",
+      "target": "Recompiled.InterpGroupPatch.UpdateCamera",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "8002D274",
+      "target": "Recompiled.CameraControlPatch.AfterCameraUpdate",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "8002D274",
+      "target": "Recompiled.WaterMaterialPatch.Update",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065618",
+      "target": "Recompiled.WaterMaterialPatch.BeginLevel",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8007A140",
+      "target": "Recompiled.TerrainPatch.ReleaseFog",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8005153C",
+      "target": "Recompiled.TerrainPatch.ReleaseTerrain",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8004EB60",
+      "target": "Recompiled.FadeWidenPatch.BeginFadeUpdate",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8004EB60",
+      "target": "Recompiled.FadeWidenPatch.EndFadeUpdate",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "8009FDF4",
+      "target": "Recompiled.InterpGroupPatch.BeginViewport",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8009FDF4",
+      "target": "Recompiled.InterpGroupPatch.EndViewport",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800A483C",
+      "target": "Recompiled.PolyPoolPatch.Relocate",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800A48AC",
+      "target": "Recompiled.PolyPoolPatch.Restore",
+      "mode": "pre"
     },
     {
       "overlay": "game",
@@ -696,6 +922,12 @@
       "address": "8006D7A4",
       "target": "Recompiled.PalXaSpeech.DataCallback",
       "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "800658BC",
+      "target": "Recompiled.WaterMaterialPatch.EndLevel",
+      "mode": "pre"
     }
   ],
   "functions": [],
@@ -708,6 +940,5 @@
       "size": "0x194",
       "to": "80300000"
     }
-  ],
-  "pgxp": false
+  ]
 }

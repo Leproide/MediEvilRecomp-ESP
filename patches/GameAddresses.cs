@@ -110,6 +110,70 @@ public static class Addr
     public const uint LcLandmapCall = GameVersion.Spanish ? 0x80011E98u : 0x80011EA0u;
     /// <summary>tabella delle risorse di MEDRES.MWD (voci da 32 byte; la 0xD6 e' il Mausoleo cifrato) (data)</summary>
     public const uint MwdTable = GameVersion.Spanish ? 0x800CE5C0u : 0x800CE5D8u;
+    /// <summary>valore di $gp in MEDIEVIL.EXE (wrapers/Game.cs) (data)</summary>
+    public const uint GpBase = GameVersion.Spanish ? 0x800ED8C8u : 0x800ED848u;
+    /// <summary>puntatore al giocatore (gp)</summary>
+    public const uint GpPlayer = GameVersion.Spanish ? 0x550u : 0x558u;
+    /// <summary>radice della lista dei viewport (gp)</summary>
+    public const uint GpViewportRoot = GameVersion.Spanish ? 0x7D8u : 0x7E0u;
+    /// <summary>dati della telecamera (gp)</summary>
+    public const uint GpCamera = GameVersion.Spanish ? 0x458u : 0x460u;
+    /// <summary>entita' della telecamera (gp)</summary>
+    public const uint GpCameraEntity = GameVersion.Spanish ? 0x45Cu : 0x464u;
+    /// <summary>plugin attivo della telecamera (gp)</summary>
+    public const uint GpCameraPlugin = GameVersion.Spanish ? 0x46Cu : 0x474u;
+    /// <summary>lista delle texture (gp)</summary>
+    public const uint GpTextureList = GameVersion.Spanish ? 0x7A8u : 0x7B0u;
+    /// <summary>dimensione del pool dei poligoni dinamici (gp)</summary>
+    public const uint GpPolyPoolSize = GameVersion.Spanish ? 0x804u : 0x80Cu;
+    /// <summary>dimensione del buffer dei poligoni dinamici (gp)</summary>
+    public const uint GpPolyBufferSize = GameVersion.Spanish ? 0x800u : 0x808u;
+    /// <summary>attributi delle texture (data)</summary>
+    public const uint TextureAttributes = GameVersion.Spanish ? 0x800EDAA0u : 0x800EDA28u;
+    /// <summary>pool dei poligoni dinamici di MR (data)</summary>
+    public const uint MrDynamicPools = GameVersion.Spanish ? 0x800EE0D0u : 0x800EE058u;
+    /// <summary>fine dei pool dei poligoni dinamici di MR (data)</summary>
+    public const uint MrDynamicPoolEnds = GameVersion.Spanish ? 0x800EE0D8u : 0x800EE060u;
+    /// <summary>funzione MRAllocMem di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRAllocMem = GameVersion.Spanish ? 0x800A40B8u : 0x800A40B8u;
+    /// <summary>funzione MRFreeMem di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRFreeMem = GameVersion.Spanish ? 0x800A4330u : 0x800A4330u;
+    /// <summary>funzione MRInitialiseResources di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRInitialiseResources = GameVersion.Spanish ? 0x800A7EC8u : 0x800A7EC8u;
+    /// <summary>funzione MRLoadResource di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRLoadResource = GameVersion.Spanish ? 0x800A80C8u : 0x800A80C8u;
+    /// <summary>funzione MRProcessResource di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRProcessResource = GameVersion.Spanish ? 0x800A845Cu : 0x800A845Cu;
+    /// <summary>funzione MRUnloadResource di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRUnloadResource = GameVersion.Spanish ? 0x800A85E0u : 0x800A85E0u;
+    /// <summary>funzione PowerPackerDecrunch di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnPowerPackerDecrunch = GameVersion.Spanish ? 0x800BA550u : 0x800BA550u;
+    /// <summary>funzione MRAllocateDynamicPolys di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRAllocateDynamicPolys = GameVersion.Spanish ? 0x800A483Cu : 0x800A483Cu;
+    /// <summary>funzione MRFreeDynamicPolys di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRFreeDynamicPolys = GameVersion.Spanish ? 0x800A48ACu : 0x800A48ACu;
+    /// <summary>funzione MRRenderViewport di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRRenderViewport = GameVersion.Spanish ? 0x8009FDF4u : 0x8009FDF4u;
+    /// <summary>funzione MRKillViewport di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRKillViewport = GameVersion.Spanish ? 0x8009F370u : 0x8009F370u;
+    /// <summary>funzione MRKillAllViewports di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRKillAllViewports = GameVersion.Spanish ? 0x8009BC78u : 0x8009BC78u;
+    /// <summary>funzione MRUpdateViewportRenderMatrices di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnMRUpdateViewportRenderMatrices = GameVersion.Spanish ? 0x800A04FCu : 0x800A04FCu;
+    /// <summary>funzione CamUpdate di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnCamUpdate = GameVersion.Spanish ? 0x8002D274u : 0x8002D274u;
+    /// <summary>funzione FadeUpdate di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnFadeUpdate = GameVersion.Spanish ? 0x8004EB60u : 0x8004EB60u;
+    /// <summary>funzione EntLibPointOccluded di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnEntLibPointOccluded = GameVersion.Spanish ? 0x800494C8u : 0x800494C8u;
+    /// <summary>funzione LevelStartUp di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnLevelStartUp = GameVersion.Spanish ? 0x80065618u : 0x80065618u;
+    /// <summary>funzione LevelShutDown di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnLevelShutDown = GameVersion.Spanish ? 0x800658BCu : 0x800658BCu;
+    /// <summary>funzione FreeTerrShutDown di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnFreeTerrShutDown = GameVersion.Spanish ? 0x8005153Cu : 0x8005153Cu;
+    /// <summary>funzione TerrainFogShutdown di MEDIEVIL.EXE (wrapers/Functions.cs) (code)</summary>
+    public const uint FnTerrainFogShutdown = GameVersion.Spanish ? 0x8007A140u : 0x8007A140u;
 }
 
 /// <summary>Immediati delle copie di funzioni ricompilate (CullPatch,
@@ -178,14 +242,6 @@ public static class RAddr
     public const uint Game_800B5550 = GameVersion.Spanish ? 0x2C5Cu : 0x2CDCu; // render/CullPatch.cs:func_800B4244, istr. ESP 800B5550
     public const uint Game_800B5648 = GameVersion.Spanish ? 0x2C5Cu : 0x2CDCu; // render/CullPatch.cs:func_800B4244, istr. ESP 800B5648
     public const uint Game_800B56B4 = GameVersion.Spanish ? 0x7984u : 0x799Cu; // render/CullPatch.cs:func_800B4244, istr. ESP 800B56B4
-    public const uint Game_800B6F60 = GameVersion.Spanish ? 0x1F8Cu : 0x2004u; // render/EntityFloatFunctions.cs:func_800B6EEC, istr. ESP 800B6F60
-    public const uint Game_800B7234 = GameVersion.Spanish ? 0x1F8Cu : 0x2004u; // render/EntityFloatFunctions.cs:func_800B6EEC, istr. ESP 800B7234
-    public const uint Game_800B7314 = GameVersion.Spanish ? 0x1F8Cu : 0x2004u; // render/EntityFloatFunctions.cs:func_800B72A0, istr. ESP 800B7314
-    public const uint Game_800B76CC = GameVersion.Spanish ? 0x1F8Cu : 0x2004u; // render/EntityFloatFunctions.cs:func_800B72A0, istr. ESP 800B76CC
-    public const uint Game_800B8A64 = GameVersion.Spanish ? 0x07ACu : 0x07B4u; // render/EntityFloatFunctions.cs:func_800B8A24, istr. ESP 800B8A64
-    public const uint Game_800B906C = GameVersion.Spanish ? 0x07ACu : 0x07B4u; // render/EntityFloatFunctions.cs:func_800B8A24, istr. ESP 800B906C
-    public const uint Game_800B9128 = GameVersion.Spanish ? 0x07ACu : 0x07B4u; // render/EntityFloatFunctions.cs:func_800B90E8, istr. ESP 800B9128
-    public const uint Game_800B9A04 = GameVersion.Spanish ? 0x07ACu : 0x07B4u; // render/EntityFloatFunctions.cs:func_800B90E8, istr. ESP 800B9A04
     public const uint Landmap_80012BC4 = GameVersion.Spanish ? 0x4EC0u : 0x4EC8u; // widescreen/LandMapPatch.cs:func_80012BBC, istr. ESP 80012BBC
     public const uint Landmap_80012BE4 = GameVersion.Spanish ? 0x4528u : 0x4530u; // widescreen/LandMapPatch.cs:func_80012BBC, istr. ESP 80012BDC
     public const uint Landmap_80012F88 = GameVersion.Spanish ? 0x14D4u : 0x1454u; // widescreen/LandMapPatch.cs:func_80012F70, istr. ESP 80012F80

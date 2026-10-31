@@ -25,6 +25,10 @@
 //    modalita' "emulate"). Quello HLE no: dopo un filmato resta installato
 //    StCdInterrupt come callback "ready" e viene richiamato centinaia di migliaia
 //    di volte al secondo.
+//    Dal RecompOne di MediEvilRecomp 1.0 (cc18281) lo StUnSetRing HLE azzera da solo
+//    questi callback (LibCd.ClearStreamCallbacks); gli agganci qui sotto restano
+//    perche' aggiornano anche la variabile CD_cbready in memoria e rispettano la
+//    modalita' "emulate" come l'originale.
 //
 // 2) Il controllo LibCrypt (0x80065D20..0x80065FC0, vedi PalLibCrypt.cs) scrive i propri callback
 //    direttamente nelle variabili di libcd (CD_cbsync ITA 0x800EB660 / ESP 0x800EB6E0,
@@ -44,8 +48,8 @@ namespace Recompiled;
 
 public static class PalCdCallbacks
 {
-    // Variabili della copia di libcd dentro MEDIEVIL.EXE (overlay "game"): indirizzi
-    // per versione in GameAddresses.cs (config/versions.json).
+    // Variabili della copia di libcd dentro MEDIEVIL.EXE (overlay "game"), versione PAL.
+    // indirizzi per versione in GameAddresses.cs (config/versions.json)
     const uint SlotSync = Addr.CdCbSync;        // CD_cbsync
     const uint SlotReady = Addr.CdCbReady;      // CD_cbready
     const uint EmulateFlag = Addr.CdEmulateFlag; // se vale 1 lo StUnSetRing originale non tocca i callback

@@ -52,10 +52,13 @@ GP_REG = 28
 
 # Prepended to every ported C# file. The original code belongs to the
 # MediEvilRecomp authors (BlackLabelHQ); only the PAL address port is ours.
+# Il file risultante NON e' GPL: MediEvilRecomp non ha una licenza esplicita.
 PORT_HEADER = (
-    '// PAL port: addresses/constants rewritten for the PAL release by\n'
-    '// medievil-pal-port (GPL-3.0-or-later), Author: https://github.com/Leproide\n'
-    '// Original code: MediEvilRecomp by BlackLabelHQ - their license terms apply to it.\n\n')
+    "// Codice originale di MediEvilRecomp (BlackLabelHQ), adattato alla versione PAL italiana.\n"
+    "// MediEvilRecomp non ha una licenza esplicita: i diritti su questo codice restano ai suoi\n"
+    "// autori. Questo file NON e' rilasciato sotto GPL-3.0: la GPL del fork copre solo i file\n"
+    "// scritti da zero per il port (vedi la sezione Licenza del README).\n"
+    "// Indirizzi e costanti PAL: https://github.com/Leproide\n\n")
 
 
 class Report:
@@ -329,6 +332,22 @@ def main():
         fm = func_of(ov, a)
         na, q = tr_for(ov)(a)
         kind = fm.kind if fm else 'missing'
+        if 'target' not in pt:
+            # mode "precise" (MediEvilRecomp 1.0): no C# target, only a code-generation
+            # flag on the function; it needs the PAL function start
+            if q != 'exact' or fm is None or fm.pal != na:
+                rep.warn(f'patch mode {pt.get("mode")} @ {ov}:{a:#010x}: no exact PAL function start '
+                         f'({kind}, {q}) -> DROPPED')
+                continue
+            if kind not in ('exact', 'aligned'):
+                rep.warn(f'patch mode {pt.get("mode")} @ {ov}:{a:#010x} -> {na:#010x}: function is '
+                         f'{kind} in PAL; kept (it only changes how the PAL code is emitted)')
+            if 'address' in pt:
+                pt['address'] = '%08X' % na
+            else:
+                pt['function'] = 'func_%08X' % na
+            new_patches.append(pt)
+            continue
         tgt_cls, tgt_meth = pt['target'].rsplit('.', 1)
         if kind not in ('exact', 'aligned') or q != 'exact':
             disabled.append((pt, kind))
@@ -380,15 +399,20 @@ def main():
 
     src_patches = os.path.join(args.repo, 'patches')
     out_patches = os.path.join(args.out, 'patches')
-    disabled_methods = {p['target'].rsplit('.', 1)[1] for p, _ in disabled}
+    disabled_methods = {p['target'].rsplit('.', 1)[1] for p, _ in disabled if 'target' in p}
     needed = {}          # overlay -> PAL entry points the C# patches call
     used_dispatch = set()
-    for root, _, files in os.walk(src_patches):
+    # patches/ plus the game wrappers folder of MediEvilRecomp 1.0 (wrapers/)
+    src_dirs = [(src_patches, out_patches)]
+    if os.path.isdir(os.path.join(args.repo, 'wrapers')):
+        src_dirs.append((os.path.join(args.repo, 'wrapers'), os.path.join(args.out, 'wrapers')))
+    walk = [(root, files, base, outb) for base, outb in src_dirs for root, _, files in os.walk(base)]
+    for root, files, base_dir, out_dir in walk:
         for fn in sorted(files):
             if not fn.endswith('.cs'):
                 continue
             src = os.path.join(root, fn)
-            rel = os.path.relpath(src, src_patches)
+            rel = os.path.relpath(src, base_dir)
             text = open(src, encoding='utf-8').read()
             spans = list(method_spans(text))
             pieces = []
@@ -447,7 +471,7 @@ def main():
             text = re.sub(r'\0FREF(\w+?)\.([0-9A-F]{8})\0', fref, text)
 
             text = PORT_HEADER + text
-            dst = os.path.join(out_patches, rel)
+            dst = os.path.join(out_dir, rel)
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             with open(dst, 'w', encoding='utf-8', newline='') as f:
                 f.write(text)

@@ -63,6 +63,7 @@ La versione spagnola (SCES-01495) ha lo stesso codice dell'italiana con dati spo
 python3 tools/pal-port/version_port.py check --ita ita --dst esp
 python3 tools/pal-port/version_port.py gen-cs
 python3 tools/pal-port/version_port.py gen-config
+python3 tools/pal-port/version_port.py fill --ita ita --dst esp
 python3 tools/pal-port/version_port.py convert --ita ita --dst esp --force
 ```
 
@@ -70,8 +71,8 @@ python3 tools/pal-port/version_port.py convert --ita ita --dst esp --force
   - hook e destinazioni `jal`, che devono essere inizi di funzione;
   - ogni immediato della tabella, confrontato con l'istruzione nei due binari;
   - ogni costante con nome, confrontata con la mappa ITA → ESP.
-- `gen-cs` / `gen-config` rigenerano i file dopo una modifica alla tabella.
-- `convert` è il passo unico che ha creato la tabella: esegue `port.py` con il progetto italiano come origine e sostituisce i letterali nel C# con riferimenti alla tabella. `PORT_REPORT_ES.md` è il suo report.
+- `gen-cs` / `gen-config` rigenerano i file dopo una modifica alla tabella; `fill` calcola il valore spagnolo delle costanti nuove.
+- `convert` rifà la tabella partendo da un repository italiano aggiornato (sorgenti con i numeri scritti a mano): esegue `port.py` con il progetto italiano come origine e sostituisce i letterali nel C# con riferimenti alla tabella. `PORT_REPORT_ES.md` è il suo report.
 
 ## LibCrypt: `libcrypt_check.py`
 
@@ -83,12 +84,20 @@ python3 tools/pal-port/libcrypt_check.py --ver esp --exe MEDIEVIL.EXE [--sbi X.s
 
 Risultati: ITA chiave 0xAAA6; ESP chiave 0x0E57, "PP20", 315748 byte come nell'indice.
 
+## Release della versione spagnola: `tools/ci/disc_lba.py`
+
+Legge il file system ISO del `Track 1.bin` e stampa i settori reali di `MEDIEVIL.EXE` e degli overlay, da copiare in `REAL_LBA_ESP` di `tools/ci/fix_overlay_lba.py` (usato dal workflow con `--ver esp`).
+
+```
+python3 tools/ci/disc_lba.py "disc/MediEvil (Spain) (Track 1).bin"
+```
+
 ## File
 
 | File | Contenuto |
 |---|---|
-| `libcrypt_check.py`, `pp20.py` | verifica offline della correzione LibCrypt |
 | `version_port.py` | tabella degli indirizzi per versione (ITA / ESP): conversione, generatori, verifica |
+| `libcrypt_check.py`, `pp20.py` | verifica offline della correzione LibCrypt |
 | `port.py` | punto d'ingresso: matching, mappa, generazione di config, funcmap e patch |
 | `matcher.py` | abbinamento delle funzioni USA→PAL |
 | `addrmap.py` | mappa degli indirizzi di codice e dati |

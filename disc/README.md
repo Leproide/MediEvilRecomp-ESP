@@ -20,6 +20,14 @@ Metti qui questi tre file, con esattamente questi nomi:
 
 Il file `.cue` richiama i `.bin` per nome. Se rinomini i `.bin`, aggiorna anche le righe `FILE` dentro il `.cue`.
 
+## LibCrypt
+
+Il disco PAL italiano è protetto con **LibCrypt**: 16 settori del disco hanno un sottocodice modificato, da cui il gioco ricava la chiave per aprire il livello **Il Mausoleo in Cima alla Collina**. Il formato bin/cue non contiene il sottocodice.
+
+Non serve fare nulla: l'elenco dei settori protetti di SCES-01494 è già incluso in `patches/PalLibCrypt.cs`. Se nella cartella c'è un file `MediEvil (Italy).sbi` (o `.lsd`), lo stesso che usano gli emulatori, viene usato quello al posto dell'elenco incluso.
+
+All'avvio il log indica quale elenco è stato usato (`[PalLibCrypt]`).
+
 ## Controlli
 
 - Ogni `.bin` deve avere una dimensione multipla esatta di 2352 byte.

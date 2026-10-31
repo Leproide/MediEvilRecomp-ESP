@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!--
-    MediEvilRecomp - progetto del gioco.
-    Versione: senza proprieta' (o -p:Lingua=it) compila la PAL italiana SCES-01494
-    (config/MediEvil.json, generated/); con -p:Lingua=es la PAL spagnola SCES-01495
-    (config/es/MediEvil.json, generated-es/, simbolo LINGUA_ES, uscita in bin-es/ e obj-es/,
-    vedi Directory.Build.props). Gli indirizzi per versione sono in patches/GameAddresses.cs.
-    Modifiche per le versioni: Author: https://github.com/Leproide - GPL-3.0-or-later
+    Codice originale di MediEvilRecomp (BlackLabelHQ), senza licenza esplicita: i diritti
+    restano ai suoi autori; questo file NON e' rilasciato sotto GPL-3.0.
+    Modifica del fork (https://github.com/Leproide), scelta della versione: senza proprieta'
+    (o -p:Lingua=it) compila la PAL italiana SCES-01494 (config/MediEvil.json, generated/);
+    con -p:Lingua=es la PAL spagnola SCES-01495 (config/es/MediEvil.json, generated-es/,
+    simbolo LINGUA_ES, uscita in bin-es/ e obj-es/, vedi Directory.Build.props).
   -->
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -26,10 +26,6 @@
   <PropertyGroup Condition="'$(Lingua)' != 'es'">
     <DefaultItemExcludes>$(DefaultItemExcludes);generated-es/**</DefaultItemExcludes>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-  </PropertyGroup>
   <Target Name="CheckLingua" BeforeTargets="BeforeBuild"
           Condition="'$(Lingua)' != '' and '$(Lingua)' != 'it' and '$(Lingua)' != 'es'">
     <Error Text="Lingua='$(Lingua)' non valida: usa it (predefinita) oppure es." />
@@ -38,14 +34,15 @@
     <Error Condition="'$(Lingua)' == 'es' and !Exists('generated-es')"
            Text="Manca generated-es/: genera prima il codice con dotnet run --project RecompOne/RecompOne.Recompiler config/es/MediEvil.json" />
   </Target>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="assets/languages.json" />
      <EmbeddedResource Include="assets/icon/*.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="RecompOne/RecompOne.Runtime/RecompOne.Runtime.csproj" UndefineProperties="OutputType" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,4 @@
-# Author: https://github.com/Leproide - GPL-3.0-or-later
-# script Windows della versione spagnola: sempre CRLF
-windows_*_es.bat text eol=crlf
-# script Linux: sempre LF
+# Gli script Linux devono avere fine riga LF anche se il repo viene clonato su Windows
 *.sh text eol=lf
+# Script Windows della versione spagnola: sempre CRLF
+windows_*_es.bat text eol=crlf

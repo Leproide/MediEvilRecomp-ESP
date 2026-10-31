@@ -4,5 +4,6 @@
     "version": "1.0",
     "author": "https://github.com/Leproide",
     "description": "Attiva la Modalita' Trucchi o la Modalita' Trucchi Estesa del gioco senza inserire le combinazioni. Versioni PAL italiana (SCES-01494) e spagnola (SCES-01495). Licenza GPL-3.0-or-later.",
+    "defaultEnabled": true,
     "dependencies": []
 }

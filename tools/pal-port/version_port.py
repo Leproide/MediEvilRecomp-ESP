@@ -71,7 +71,7 @@ from mips import Image                                          # noqa: E402
 TABLE = os.path.join('config', 'versions.json')
 CS_OUT = os.path.join('patches', 'GameAddresses.cs')
 # C# files that are copies of recompiled functions: their literals go in the table
-RECOMPILED_COPIES = ('render/CullPatch.cs', 'render/EntityFloatFunctions.cs',
+RECOMPILED_COPIES = ('render/CullPatch.cs',
                      'widescreen/LandMapPatch.cs')
 TARGET = 'esp'
 
@@ -193,7 +193,7 @@ def cmd_convert(a):
     for sp, tp in zip(cfg['patches'], tcfg['patches']):
         k, sa = hook_addr(sp)
         _, ta = hook_addr(tp)
-        hooks.append({'overlay': sp.get('overlay', 'main'), 'target': sp['target'], 'mode': sp['mode'],
+        hooks.append({'overlay': sp.get('overlay', 'main'), 'target': sp.get('target'), 'mode': sp['mode'],
                       'key': k, 'ita': '%08X' % sa, TARGET: '%08X' % ta})
     entries = []
     for so, to in zip(cfg['overlays'], tcfg['overlays']):
@@ -216,7 +216,7 @@ def cmd_convert(a):
         rel = rel.replace(os.sep, '/')
         if rel not in RECOMPILED_COPIES or meth.startswith('<'):
             continue          # hand-written code: named constants (see 'constants')
-        ov = next(h['overlay'] for h in hooks if h['target'].endswith('.' + meth))
+        ov = next(h['overlay'] for h in hooks if (h['target'] or '').endswith('.' + meth))
         tok = d['tok']
         if tok[5] != 'u':
             sys.exit(f'{ctx}: literal {tok[4]} has no u suffix, cannot move it to a uint table')
@@ -267,8 +267,8 @@ def cmd_convert(a):
 
     old = load_table(root) if os.path.exists(os.path.join(root, TABLE)) else {}
     table = {
-        '_comment': 'Per-version address table. Edit here, then run version_port.py gen-cs / '
-                    'gen-config / check. Author: https://github.com/Leproide - GPL-3.0-or-later',
+        '_comment': old.get('_comment', 'Tabella degli indirizzi per versione (ITA/ESP): modificala qui e '
+                    'poi lancia tools/pal-port/version_port.py gen-cs / gen-config / check.'),
         'versions': old.get('versions', {
             'ita': {'serial': 'SCES-01494', 'gameId': 'SCES-014.94', 'config': 'config/MediEvil.json',
                     'generated': 'generated', 'cue': '../disc/MediEvil (Italy).cue'},
@@ -327,7 +327,7 @@ def build_config(table, cfg, ver):
     for pt, h in zip(out['patches'], hooks):
         key, a = hook_addr(pt)
         if (h['overlay'], h['target'], h['mode'], key, '%08X' % a) != \
-                (pt.get('overlay', 'main'), pt['target'], pt['mode'], h['key'], h['ita']):
+                (pt.get('overlay', 'main'), pt.get('target'), pt['mode'], h['key'], h['ita']):
             raise ValueError(f'hook table out of sync with config/MediEvil.json at {h}')
         if key == 'address':
             pt['address'] = h[ver]
@@ -344,7 +344,7 @@ def build_config(table, cfg, ver):
     for grp in table.get('versionHooks', {}).get(ver, []):
         b = grp['before']
         pos = next((i for i, pt in enumerate(out['patches'])
-                    if pt['target'] == b['target'] and pt.get('address') == h_addr(b, out, ver, table)), None)
+                    if pt.get('target') == b['target'] and pt.get('address') == h_addr(b, out, ver, table)), None)
         if pos is None:
             raise ValueError(f'versionHooks: anchor {b} not found in the {ver} config')
         out['patches'][pos:pos] = copy.deepcopy(grp['hooks'])
@@ -514,7 +514,7 @@ def cmd_check(a):
     shutil.rmtree(tmp)
     ck.ok(before == now, f'{CS_OUT} is not up to date (run gen-cs)')
     used = set()
-    for dp, _, files in os.walk(os.path.join(root, 'patches')):
+    for dp, _, files in [w for d in ('patches', 'wrapers') for w in os.walk(os.path.join(root, d))]:
         for fn in files:
             if fn.endswith('.cs') and fn != 'GameAddresses.cs':
                 t = open(os.path.join(dp, fn), encoding='utf-8').read()
@@ -554,7 +554,7 @@ def cmd_check(a):
             _, adr = hook_addr(pt)
             if adr in starts[ov]:
                 n_start += 1
-            elif ck.ok(adr in inner[ov], f'{ver} hook {pt["target"]} @ {ov}:{adr:08X} is not a function start'):
+            elif ck.ok(adr in inner[ov], f'{ver} hook {pt.get("target", pt["mode"])} @ {ov}:{adr:08X} is not a function start'):
                 n_inner += 1
         # every jal: into its own image, or from an overlay into MEDIEVIL.EXE / boot executable
         ranges = {}
@@ -588,7 +588,7 @@ def cmd_check(a):
     print('== calls made by the C# patches (PalDispatch / Dispatcher.Call / MediEvil_*.func_)')
     lits = {c['name']: c for c in table['literals']}
     calls = set()
-    for dp, _, files in os.walk(os.path.join(root, 'patches')):
+    for dp, _, files in [w for d in ('patches', 'wrapers') for w in os.walk(os.path.join(root, d))]:
         for fn in files:
             if not fn.endswith('.cs'):
                 continue
@@ -632,7 +632,7 @@ def cmd_check(a):
         sa, ta = int(h['ita'], 16), int(h[TARGET], 16)
         m = next((x for x in matches[ov] if x.usa <= sa < x.usa + x.size), None)
         good = m is not None and m.kind in ('exact', 'aligned') and m.pal + (sa - m.usa) == ta
-        ck.ok(good, f'hook {h["target"]} {ov}:{h["ita"]} -> {h[TARGET]} not matched')
+        ck.ok(good, f'hook {h["target"] or h["mode"]} {ov}:{h["ita"]} -> {h[TARGET]} not matched')
 
     print('== literals (RAddr) against the instructions')
     for c in table['literals']:

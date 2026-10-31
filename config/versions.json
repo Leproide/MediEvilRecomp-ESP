@@ -1,5 +1,5 @@
 {
-  "_comment": "Per-version address table. Edit here, then run version_port.py gen-cs / gen-config / check. Author: https://github.com/Leproide - GPL-3.0-or-later",
+  "_comment": "Tabella degli indirizzi per versione (ITA/ESP): modificala qui e poi lancia tools/pal-port/version_port.py gen-cs / gen-config / check. Hook, entry point e rilocazioni derivano dalla configurazione di MediEvilRecomp: vedi la sezione License del README.",
   "versions": {
     "ita": {
       "serial": "SCES-01494",
@@ -126,160 +126,160 @@
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B00E4",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B00E4",
       "esp": "800B00E4"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B02BC",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B02BC",
       "esp": "800B02BC"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B04D4",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B04D4",
       "esp": "800B04D4"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B06D8",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B06D8",
       "esp": "800B06D8"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B097C",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B097C",
       "esp": "800B097C"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0B3C",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B0B3C",
       "esp": "800B0B3C"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0D34",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B0D34",
       "esp": "800B0D34"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0F20",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B0F20",
       "esp": "800B0F20"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B5A44",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B5A44",
       "esp": "800B5A44"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B5E20",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B5E20",
       "esp": "800B5E20"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B62B4",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B62B4",
       "esp": "800B62B4"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B67A0",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B67A0",
       "esp": "800B67A0"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B6EEC",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B6EEC",
       "esp": "800B6EEC"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B72A0",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B72A0",
       "esp": "800B72A0"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B7738",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B7738",
       "esp": "800B7738"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B7A80",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B7A80",
       "esp": "800B7A80"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B7E38",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B7E38",
       "esp": "800B7E38"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B8304",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B8304",
       "esp": "800B8304"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B8A24",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B8A24",
       "esp": "800B8A24"
     },
     {
       "overlay": "game",
-      "target": "Recompiled.EntityFloatFunctions.func_800B90E8",
-      "mode": "replace",
+      "target": null,
+      "mode": "precise",
       "key": "address",
       "ita": "800B90E8",
       "esp": "800B90E8"
@@ -382,6 +382,374 @@
     },
     {
       "overlay": "game",
+      "target": "Recompiled.InterpGroupPatch.BeginAnimMesh",
+      "mode": "pre",
+      "key": "address",
+      "ita": "800A10D8",
+      "esp": "800A10D8"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.InterpGroupPatch.EndMesh",
+      "mode": "post",
+      "key": "address",
+      "ita": "800A10D8",
+      "esp": "800A10D8"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.InterpGroupPatch.BeginStaticMesh",
+      "mode": "pre",
+      "key": "address",
+      "ita": "800B4244",
+      "esp": "800B4244"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.InterpGroupPatch.EndMesh",
+      "mode": "post",
+      "key": "address",
+      "ita": "800B4244",
+      "esp": "800B4244"
+    },
+    {
+      "overlay": "ac",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80014140",
+      "esp": "80014140"
+    },
+    {
+      "overlay": "ac",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80014948",
+      "esp": "80014948"
+    },
+    {
+      "overlay": "ag",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80011FA8",
+      "esp": "80011FA8"
+    },
+    {
+      "overlay": "ag",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80015364",
+      "esp": "80015364"
+    },
+    {
+      "overlay": "ee",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80014E48",
+      "esp": "80014E48"
+    },
+    {
+      "overlay": "gy1",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "8001200C",
+      "esp": "8001200C"
+    },
+    {
+      "overlay": "gy2",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "8001555C",
+      "esp": "8001555C"
+    },
+    {
+      "overlay": "gy2",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "800166C8",
+      "esp": "800166C8"
+    },
+    {
+      "overlay": "hr",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80014F88",
+      "esp": "80014F88"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "800294DC",
+      "esp": "800294DC"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80029B68",
+      "esp": "80029B68"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80055230",
+      "esp": "80055230"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80057DC0",
+      "esp": "80057DC0"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "8007C354",
+      "esp": "8007C354"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "8007CAE8",
+      "esp": "8007CAE8"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80088AD4",
+      "esp": "80088AD4"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80089304",
+      "esp": "80089304"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80094068",
+      "esp": "80094068"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "800996DC",
+      "esp": "800996DC"
+    },
+    {
+      "overlay": "pg",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80016844",
+      "esp": "80016844"
+    },
+    {
+      "overlay": "pg",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80016D98",
+      "esp": "80016D98"
+    },
+    {
+      "overlay": "ps",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80017F34",
+      "esp": "80017F34"
+    },
+    {
+      "overlay": "ps",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "800185F0",
+      "esp": "800185F0"
+    },
+    {
+      "overlay": "sf",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80015430",
+      "esp": "80015430"
+    },
+    {
+      "overlay": "sf",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80015FE0",
+      "esp": "80015FE0"
+    },
+    {
+      "overlay": "sf",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80016574",
+      "esp": "80016574"
+    },
+    {
+      "overlay": "sv",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80012870",
+      "esp": "80012870"
+    },
+    {
+      "overlay": "zl",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "80018368",
+      "esp": "80018368"
+    },
+    {
+      "overlay": "game",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "800A57F0",
+      "esp": "800A57F0"
+    },
+    {
+      "overlay": "tl",
+      "target": null,
+      "mode": "precise",
+      "key": "address",
+      "ita": "800105B8",
+      "esp": "800105C0"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.InterpGroupPatch.UpdateCamera",
+      "mode": "post",
+      "key": "address",
+      "ita": "800A04FC",
+      "esp": "800A04FC"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.CameraControlPatch.AfterCameraUpdate",
+      "mode": "post",
+      "key": "address",
+      "ita": "8002D274",
+      "esp": "8002D274"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.WaterMaterialPatch.Update",
+      "mode": "post",
+      "key": "address",
+      "ita": "8002D274",
+      "esp": "8002D274"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.WaterMaterialPatch.BeginLevel",
+      "mode": "pre",
+      "key": "address",
+      "ita": "80065618",
+      "esp": "80065618"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.TerrainPatch.ReleaseFog",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8007A140",
+      "esp": "8007A140"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.TerrainPatch.ReleaseTerrain",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8005153C",
+      "esp": "8005153C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.FadeWidenPatch.BeginFadeUpdate",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8004EB60",
+      "esp": "8004EB60"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.FadeWidenPatch.EndFadeUpdate",
+      "mode": "post",
+      "key": "address",
+      "ita": "8004EB60",
+      "esp": "8004EB60"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.InterpGroupPatch.BeginViewport",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8009FDF4",
+      "esp": "8009FDF4"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.InterpGroupPatch.EndViewport",
+      "mode": "post",
+      "key": "address",
+      "ita": "8009FDF4",
+      "esp": "8009FDF4"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PolyPoolPatch.Relocate",
+      "mode": "post",
+      "key": "address",
+      "ita": "800A483C",
+      "esp": "800A483C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PolyPoolPatch.Restore",
+      "mode": "pre",
+      "key": "address",
+      "ita": "800A48AC",
+      "esp": "800A48AC"
+    },
+    {
+      "overlay": "game",
       "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
       "mode": "post",
       "key": "address",
@@ -427,6 +795,46 @@
       "key": "address",
       "ita": "80065E8C",
       "esp": "80065E8C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalLibCrypt.OnGetlocPFirst",
+      "mode": "pre",
+      "key": "address",
+      "ita": "80065E0C",
+      "esp": "80065E0C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalLibCrypt.OnGetlocPBit",
+      "mode": "pre",
+      "key": "address",
+      "ita": "80065E8C",
+      "esp": "80065E8C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalLibCrypt.AfterBit",
+      "mode": "post",
+      "key": "address",
+      "ita": "80065E8C",
+      "esp": "80065E8C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalLibCrypt.BeforeDecrypt",
+      "mode": "pre",
+      "key": "address",
+      "ita": "80065FC4",
+      "esp": "80065FC4"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.PalLibCrypt.AfterDecrypt",
+      "mode": "post",
+      "key": "address",
+      "ita": "80065FC4",
+      "esp": "80065FC4"
     },
     {
       "overlay": "game",
@@ -563,6 +971,14 @@
       "key": "address",
       "ita": "8006D7A4",
       "esp": "8006D7A4"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.WaterMaterialPatch.EndLevel",
+      "mode": "pre",
+      "key": "address",
+      "ita": "800658BC",
+      "esp": "800658BC"
     }
   ],
   "entryPoints": [
@@ -895,6 +1311,250 @@
       "desc": "tabella delle risorse di MEDRES.MWD (voci da 32 byte; la 0xD6 e' il Mausoleo cifrato)",
       "usedBy": "tools/pal-port/libcrypt_check.py",
       "esp": "0x800CE5C0"
+    },
+    {
+      "name": "GpBase",
+      "kind": "data",
+      "ita": "0x800ED848",
+      "desc": "valore di $gp in MEDIEVIL.EXE (wrapers/Game.cs)",
+      "esp": "0x800ED8C8"
+    },
+    {
+      "name": "GpPlayer",
+      "kind": "gp",
+      "ita": "0x558",
+      "desc": "puntatore al giocatore",
+      "esp": "0x550"
+    },
+    {
+      "name": "GpViewportRoot",
+      "kind": "gp",
+      "ita": "0x7E0",
+      "desc": "radice della lista dei viewport",
+      "esp": "0x7D8"
+    },
+    {
+      "name": "GpCamera",
+      "kind": "gp",
+      "ita": "0x460",
+      "desc": "dati della telecamera",
+      "esp": "0x458"
+    },
+    {
+      "name": "GpCameraEntity",
+      "kind": "gp",
+      "ita": "0x464",
+      "desc": "entita' della telecamera",
+      "esp": "0x45C"
+    },
+    {
+      "name": "GpCameraPlugin",
+      "kind": "gp",
+      "ita": "0x474",
+      "desc": "plugin attivo della telecamera",
+      "esp": "0x46C"
+    },
+    {
+      "name": "GpTextureList",
+      "kind": "gp",
+      "ita": "0x7B0",
+      "desc": "lista delle texture",
+      "esp": "0x7A8"
+    },
+    {
+      "name": "GpPolyPoolSize",
+      "kind": "gp",
+      "ita": "0x80C",
+      "desc": "dimensione del pool dei poligoni dinamici",
+      "esp": "0x804"
+    },
+    {
+      "name": "GpPolyBufferSize",
+      "kind": "gp",
+      "ita": "0x808",
+      "desc": "dimensione del buffer dei poligoni dinamici",
+      "esp": "0x800"
+    },
+    {
+      "name": "TextureAttributes",
+      "kind": "data",
+      "ita": "0x800EDA28",
+      "desc": "attributi delle texture",
+      "esp": "0x800EDAA0"
+    },
+    {
+      "name": "MrDynamicPools",
+      "kind": "data",
+      "ita": "0x800EE058",
+      "desc": "pool dei poligoni dinamici di MR",
+      "esp": "0x800EE0D0"
+    },
+    {
+      "name": "MrDynamicPoolEnds",
+      "kind": "data",
+      "ita": "0x800EE060",
+      "desc": "fine dei pool dei poligoni dinamici di MR",
+      "esp": "0x800EE0D8"
+    },
+    {
+      "name": "FnMRAllocMem",
+      "kind": "code",
+      "ita": "0x800A40B8",
+      "desc": "funzione MRAllocMem di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800A40B8"
+    },
+    {
+      "name": "FnMRFreeMem",
+      "kind": "code",
+      "ita": "0x800A4330",
+      "desc": "funzione MRFreeMem di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800A4330"
+    },
+    {
+      "name": "FnMRInitialiseResources",
+      "kind": "code",
+      "ita": "0x800A7EC8",
+      "desc": "funzione MRInitialiseResources di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800A7EC8"
+    },
+    {
+      "name": "FnMRLoadResource",
+      "kind": "code",
+      "ita": "0x800A80C8",
+      "desc": "funzione MRLoadResource di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800A80C8"
+    },
+    {
+      "name": "FnMRProcessResource",
+      "kind": "code",
+      "ita": "0x800A845C",
+      "desc": "funzione MRProcessResource di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800A845C"
+    },
+    {
+      "name": "FnMRUnloadResource",
+      "kind": "code",
+      "ita": "0x800A85E0",
+      "desc": "funzione MRUnloadResource di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800A85E0"
+    },
+    {
+      "name": "FnPowerPackerDecrunch",
+      "kind": "code",
+      "ita": "0x800BA550",
+      "desc": "funzione PowerPackerDecrunch di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800BA550"
+    },
+    {
+      "name": "FnMRAllocateDynamicPolys",
+      "kind": "code",
+      "ita": "0x800A483C",
+      "desc": "funzione MRAllocateDynamicPolys di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800A483C"
+    },
+    {
+      "name": "FnMRFreeDynamicPolys",
+      "kind": "code",
+      "ita": "0x800A48AC",
+      "desc": "funzione MRFreeDynamicPolys di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800A48AC"
+    },
+    {
+      "name": "FnMRRenderViewport",
+      "kind": "code",
+      "ita": "0x8009FDF4",
+      "desc": "funzione MRRenderViewport di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x8009FDF4"
+    },
+    {
+      "name": "FnMRKillViewport",
+      "kind": "code",
+      "ita": "0x8009F370",
+      "desc": "funzione MRKillViewport di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x8009F370"
+    },
+    {
+      "name": "FnMRKillAllViewports",
+      "kind": "code",
+      "ita": "0x8009BC78",
+      "desc": "funzione MRKillAllViewports di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x8009BC78"
+    },
+    {
+      "name": "FnMRUpdateViewportRenderMatrices",
+      "kind": "code",
+      "ita": "0x800A04FC",
+      "desc": "funzione MRUpdateViewportRenderMatrices di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800A04FC"
+    },
+    {
+      "name": "FnCamUpdate",
+      "kind": "code",
+      "ita": "0x8002D274",
+      "desc": "funzione CamUpdate di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x8002D274"
+    },
+    {
+      "name": "FnFadeUpdate",
+      "kind": "code",
+      "ita": "0x8004EB60",
+      "desc": "funzione FadeUpdate di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x8004EB60"
+    },
+    {
+      "name": "FnEntLibPointOccluded",
+      "kind": "code",
+      "ita": "0x800494C8",
+      "desc": "funzione EntLibPointOccluded di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800494C8"
+    },
+    {
+      "name": "FnLevelStartUp",
+      "kind": "code",
+      "ita": "0x80065618",
+      "desc": "funzione LevelStartUp di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x80065618"
+    },
+    {
+      "name": "FnLevelShutDown",
+      "kind": "code",
+      "ita": "0x800658BC",
+      "desc": "funzione LevelShutDown di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x800658BC"
+    },
+    {
+      "name": "FnFreeTerrShutDown",
+      "kind": "code",
+      "ita": "0x8005153C",
+      "desc": "funzione FreeTerrShutDown di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x8005153C"
+    },
+    {
+      "name": "FnTerrainFogShutdown",
+      "kind": "code",
+      "ita": "0x8007A140",
+      "desc": "funzione TerrainFogShutdown di MEDIEVIL.EXE (wrapers/Functions.cs)",
+      "overlay": "game",
+      "esp": "0x8007A140"
     }
   ],
   "literals": [
@@ -1619,102 +2279,6 @@
       "where": "render/CullPatch.cs:func_800B4244"
     },
     {
-      "name": "Game_800B6F60",
-      "overlay": "game",
-      "instr": {
-        "ita": "800B6F60",
-        "esp": "800B6F60"
-      },
-      "index": 0,
-      "ita": "0x2004",
-      "esp": "0x1F8C",
-      "where": "render/EntityFloatFunctions.cs:func_800B6EEC"
-    },
-    {
-      "name": "Game_800B7234",
-      "overlay": "game",
-      "instr": {
-        "ita": "800B7234",
-        "esp": "800B7234"
-      },
-      "index": 0,
-      "ita": "0x2004",
-      "esp": "0x1F8C",
-      "where": "render/EntityFloatFunctions.cs:func_800B6EEC"
-    },
-    {
-      "name": "Game_800B7314",
-      "overlay": "game",
-      "instr": {
-        "ita": "800B7314",
-        "esp": "800B7314"
-      },
-      "index": 0,
-      "ita": "0x2004",
-      "esp": "0x1F8C",
-      "where": "render/EntityFloatFunctions.cs:func_800B72A0"
-    },
-    {
-      "name": "Game_800B76CC",
-      "overlay": "game",
-      "instr": {
-        "ita": "800B76CC",
-        "esp": "800B76CC"
-      },
-      "index": 0,
-      "ita": "0x2004",
-      "esp": "0x1F8C",
-      "where": "render/EntityFloatFunctions.cs:func_800B72A0"
-    },
-    {
-      "name": "Game_800B8A64",
-      "overlay": "game",
-      "instr": {
-        "ita": "800B8A64",
-        "esp": "800B8A64"
-      },
-      "index": 0,
-      "ita": "0x07B4",
-      "esp": "0x07AC",
-      "where": "render/EntityFloatFunctions.cs:func_800B8A24"
-    },
-    {
-      "name": "Game_800B906C",
-      "overlay": "game",
-      "instr": {
-        "ita": "800B906C",
-        "esp": "800B906C"
-      },
-      "index": 0,
-      "ita": "0x07B4",
-      "esp": "0x07AC",
-      "where": "render/EntityFloatFunctions.cs:func_800B8A24"
-    },
-    {
-      "name": "Game_800B9128",
-      "overlay": "game",
-      "instr": {
-        "ita": "800B9128",
-        "esp": "800B9128"
-      },
-      "index": 0,
-      "ita": "0x07B4",
-      "esp": "0x07AC",
-      "where": "render/EntityFloatFunctions.cs:func_800B90E8"
-    },
-    {
-      "name": "Game_800B9A04",
-      "overlay": "game",
-      "instr": {
-        "ita": "800B9A04",
-        "esp": "800B9A04"
-      },
-      "index": 0,
-      "ita": "0x07B4",
-      "esp": "0x07AC",
-      "where": "render/EntityFloatFunctions.cs:func_800B90E8"
-    },
-    {
       "name": "Landmap_80012BC4",
       "overlay": "landmap",
       "instr": {
@@ -2186,48 +2750,5 @@
       "esp": "0x80010F08",
       "where": "render/CullPatch.cs:func_80010800_tl"
     }
-  ],
-  "versionHooks": {
-    "_comment": "Hook presenti solo in alcune versioni (config italiana invariata). \"before\" = hook della config italiana davanti a cui inserirli.",
-    "esp": [
-      {
-        "before": {
-          "address": "80065F8C",
-          "target": "Recompiled.PalCdCallbacks.SyncFromMemory"
-        },
-        "hooks": [
-          {
-            "overlay": "game",
-            "address": "80065E0C",
-            "target": "Recompiled.PalLibCrypt.OnGetlocPFirst",
-            "mode": "pre"
-          },
-          {
-            "overlay": "game",
-            "address": "80065E8C",
-            "target": "Recompiled.PalLibCrypt.OnGetlocPBit",
-            "mode": "pre"
-          },
-          {
-            "overlay": "game",
-            "address": "80065E8C",
-            "target": "Recompiled.PalLibCrypt.AfterBit",
-            "mode": "post"
-          },
-          {
-            "overlay": "game",
-            "address": "80065FC4",
-            "target": "Recompiled.PalLibCrypt.BeforeDecrypt",
-            "mode": "pre"
-          },
-          {
-            "overlay": "game",
-            "address": "80065FC4",
-            "target": "Recompiled.PalLibCrypt.AfterDecrypt",
-            "mode": "post"
-          }
-        ]
-      }
-    ]
-  }
+  ]
 }

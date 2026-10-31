@@ -13,9 +13,13 @@ interface.ini
 debug_dump/
 mods/.cache
 recordings/
-# build spagnola (-p:Lingua=es) e strumenti
+shaders/
+packs/
+.modhub/
+__pycache__/
+# versione spagnola (-p:Lingua=es)
 generated-es/
 bin-es/
 obj-es/
-__pycache__/
-publish-es/
+# log di debug
+debug.txt

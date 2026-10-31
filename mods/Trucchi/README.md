@@ -31,9 +31,9 @@ Queste sequenze sono ricavate dalle tabelle dentro `MEDIEVIL.EXE` della versione
 ## Dettagli tecnici
 
 - La routine `func_80022C2C` gira a ogni frame e confronta i tasti premuti con due tabelle: `0x800CE0B4` (10 tasti) e `0x800CE0DC` (25 tasti).
+- Versione spagnola (SCES-01495): stessa routine, tabelle a `0x800CE09C` e `0x800CE0C4`, stato a `0x800EF11A`.
 - Lo stato dei trucchi è un halfword a `0x800EF0A2`: `0` nessuno, `1` Modalità Trucchi, `3` Modalità Trucchi Estesa.
-- Versione spagnola (SCES-01495): stessa routine `func_80022C2C`, tabelle a `0x800CE09C` e `0x800CE0C4`, stato a `0x800EF11A`.
-- La mod si aggancia dopo `func_80022C2C` e scrive lo stato scelto. Prima riconosce la versione controllando dove si trovano le due tabelle.
+- La mod si aggancia dopo `func_80022C2C` e scrive lo stato scelto. Prima controlla che le due tabelle contengano i valori attesi.
 
 ## Licenza
 

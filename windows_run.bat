@@ -2,7 +2,11 @@
 REM ==================================================================================================
 REM MediEvilRecomp ITA - avvio (versione PAL italiana, SCES-01494)
 REM Basato su windows_run.bat di BlackLabelHQ.
-REM Modifiche per il port PAL: Author: https://github.com/Leproide - GPL-3.0-or-later
+REM Codice originale di MediEvilRecomp (BlackLabelHQ), adattato alla versione PAL italiana.
+REM MediEvilRecomp non ha una licenza esplicita: i diritti su questo codice restano ai suoi
+REM autori. Questo file NON e' rilasciato sotto GPL-3.0: la GPL del fork copre solo i file
+REM scritti da zero per il port (vedi la sezione Licenza del README).
+REM Modifiche per il port PAL: https://github.com/Leproide
 REM ==================================================================================================
 title MediEvilRecomp ITA
 

@@ -65,7 +65,7 @@ internal sealed class ShadersPopup : Popup
 
     private void DrawInstalledList()
     {
-        ImGui.BeginChild("##installed-list", new Vector2(ListWidth * Theme.Scale, 0f), ImGuiChildFlags.Border);
+        ImGui.BeginChild("##installed-list", new Vector2(ListWidth * Theme.Scale, 0f), ImGuiChildFlags.Borders);
         SearchBox("##installed-filter", ref installedFilter, -1f);
         ImGui.Spacing();
 
@@ -107,7 +107,7 @@ internal sealed class ShadersPopup : Popup
 
     private void DrawDetail()
     {
-        ImGui.BeginChild("##installed-detail", Vector2.Zero, ImGuiChildFlags.Border);
+        ImGui.BeginChild("##installed-detail", Vector2.Zero, ImGuiChildFlags.Borders);
 
         if (mod.Selected.Length == 0)
         {
@@ -125,7 +125,7 @@ internal sealed class ShadersPopup : Popup
             if (PostFx.Error == null && PostFx.Parameters.Count > 0)
             {
                 var reset = Localization.T("shaders.reset");
-                ImGui.SameLine(ImGui.GetWindowContentRegionMax().X - ImGui.CalcTextSize(reset).X - ImGui.GetStyle().FramePadding.X * 2f);
+                ImGui.SameLine((ImGui.GetCursorPosX() + ImGui.GetContentRegionAvail().X) - ImGui.CalcTextSize(reset).X - ImGui.GetStyle().FramePadding.X * 2f);
                 if (ImGui.Button(reset)) mod.ResetParams();
             }
 
@@ -278,7 +278,7 @@ internal sealed class ShadersPopup : Popup
         var status = repository.Status;
         var footer = status != null ? ImGui.GetTextLineHeightWithSpacing() + style.ItemSpacing.Y : 0f;
 
-        ImGui.BeginChild("##catalog", new Vector2(0f, -footer), ImGuiChildFlags.Border);
+        ImGui.BeginChild("##catalog", new Vector2(0f, -footer), ImGuiChildFlags.Borders);
         DrawCatalog(repository);
         ImGui.EndChild();
 
@@ -323,7 +323,7 @@ internal sealed class ShadersPopup : Popup
         ImGui.TextDisabled(entry.Folder);
         Tooltip(entry.Path);
 
-        ImGui.SameLine(ImGui.GetWindowContentRegionMax().X - action);
+        ImGui.SameLine((ImGui.GetCursorPosX() + ImGui.GetContentRegionAvail().X) - action);
         if (repository.Progress(entry) is { } progress)
         {
             ImGui.TextDisabled(Localization.T("shaders.installing", progress)); ///w

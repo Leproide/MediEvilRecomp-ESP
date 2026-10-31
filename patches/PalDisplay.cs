@@ -25,7 +25,14 @@
 // filmato risultava spostato in basso e tagliato sotto.
 // Solo per la durata di PutDispEnv mettiamo screen.h = 256 quando vale 0, poi
 // rimettiamo il valore del gioco.
+//
+// Schermo tagliato in basso (es. dialogo del gargoyle dopo lo skip di un filmato):
+// PutDispEnv di RecompOne calcola le righe visibili in base al modo video registrato
+// da SetVideoMode. Se a un certo punto risulta NTSC (modo 0), le 256 righe PAL vengono
+// limitate a 226 (righe 32..258 del modo NTSC) e l'immagine perde la parte sotto.
+// Questo e' il disco PAL: prima di ogni PutDispEnv rimettiamo il modo PAL.
 
+using System.Reflection;
 using RecompOne.Runtime.Context;
 using RecompOne.Runtime.Memory;
 
@@ -37,9 +44,24 @@ public static class PalDisplay
     static uint _env;
     static bool _patched;
 
+    // modo video di LibGpu (privato): -1 non ancora deciso, 0 NTSC, 1 PAL
+    static readonly FieldInfo? VideoMode =
+        typeof(RecompOne.Runtime.Sdk.LibGpu).GetField("_videoMode", BindingFlags.Static | BindingFlags.NonPublic);
+    static readonly bool DiagOn = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
+    static int _ntscFixes;
+
+    static void ForcePal()
+    {
+        if (VideoMode?.GetValue(null) is not int mode || mode == 1) return;
+        VideoMode.SetValue(null, 1);
+        if (DiagOn && mode == 0 && _ntscFixes++ < 20)
+            Console.WriteLine("[PalDisplay] modo video NTSC trovato prima di PutDispEnv: rimesso PAL");
+    }
+
     // pre su PutDispEnv (overlay "game" ed eseguibile di avvio)
     public static void BeforePutDispEnv(CpuContext c, IMemory m)
     {
+        ForcePal();
         _patched = false;
         uint env = c.A0;
         if (m.ReadU16(env + 0xE) != 0) return;

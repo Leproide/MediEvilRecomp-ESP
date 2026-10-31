@@ -19,9 +19,11 @@ Finito il filmato, l'immagine del gioco torna quella normale.
 
 ## Dettagli tecnici
 
-- Si attiva durante i due lettori di filmati: quello del gioco (`func_80079660`, descrittore a `$gp+0x764`) e quello dell'eseguibile di avvio per l'introduzione (`func_801B0978`, descrittore a `$gp+0x48`).
+- Si attiva durante i due lettori di filmati: quello del gioco (`func_80079660`, descrittore a `$gp+0x764`, `$gp+0x75C` nella versione spagnola) e quello dell'eseguibile di avvio per l'introduzione (`func_801B0978`, descrittore a `$gp+0x48`).
 - Solo per la durata di `PutDispEnv` imposta `disp.y`, `disp.h` e `screen.h` della DISPENV sulle righe del video, poi rimette i valori del gioco.
 - Imposta il formato d'uscita a `4/3 × 256 / altezza del video` e lo ripristina a fine filmato.
+- A fine filmato rimanda a `PutDispEnv` la DISPENV originale, così lo schermo non resta tagliato anche se il filmato viene saltato subito e il gioco non la reimposta.
+- Con `MEDIEVIL_DEBUG` impostata, il log mostra inizio e fine dei filmati e ogni ritaglio (righe `[FilmatiSchermoIntero]`).
 
 ## Licenza
 

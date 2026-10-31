@@ -32,8 +32,7 @@ public class ShaderMod : IMod
         var source = ModLoader.LoadedMods.FirstOrDefault(m => m.Id == ModId)?.SourcePath ?? Path.GetFullPath(Path.Combine("mods", ModId));
         LoadStrings(source);
 
-        var root = Directory.Exists(source) ? source : Path.Combine(Path.GetDirectoryName(source) ?? "", ModId);
-        Library = new ShaderLibrary(Path.Combine(root, "shaders"));
+        Library = new ShaderLibrary(Path.GetFullPath("shaders"));
         Repository = new ShaderRepository(Library);
 
         repositoryInput = Settings.Get(Prefix + "repository", DefaultRepository);

@@ -1,0 +1,209 @@
+# MediEvilRecomp ESP - compilazione automatica delle release (versione PAL spagnola, SCES-01495)
+# Basato sul workflow di release di MediEvilRecomp (BlackLabelHQ).
+# Codice originale di MediEvilRecomp (BlackLabelHQ), adattato alle versioni PAL.
+# MediEvilRecomp non ha una licenza esplicita: i diritti su questo codice restano ai suoi
+# autori. Questo file NON e' rilasciato sotto GPL-3.0: la GPL del fork copre solo i file
+# scritti da zero per il port (vedi la sezione Licenza del README).
+# Modifiche per il port PAL italiano e spagnolo: https://github.com/Leproide
+#
+# Si avvia con un tag "v*" (es. git tag v1.2 && git push origin v1.2) oppure
+# a mano da Actions -> Release -> Run workflow (in quel caso crea solo gli artifact,
+# senza pubblicare la release).
+#
+# Serve un repository PRIVATO con i file estratti dal proprio disco PAL spagnolo
+# (SYSTEM.CNF, SCES_014.95, MEDIEVIL.EXE, cartella OVERLAYS, nella radice) e queste
+# impostazioni del repository (Settings -> Secrets and variables -> Actions):
+#   - secret   DISC_SOURCE_PAT : token con accesso in lettura a quel repository
+#   - variable DISC_SOURCE_REPO (facoltativa): nome del repository, predefinito
+#     Leproide/MediEvilRecomp-ESP-Disc
+# Il codice del gioco viene generato solo da questi file: musica, filmati e dati dei
+# livelli non servono e restano sul disco di chi gioca.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout MediEvilRecomp ESP
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Checkout file del disco (repository privato)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.DISC_SOURCE_REPO || 'Leproide/MediEvilRecomp-ESP-Disc' }}
+          token: ${{ secrets.DISC_SOURCE_PAT }}
+          path: disc-files
+
+      - name: Immagine disco minima
+        run: |
+          pip install --quiet pycdlib
+          python3 tools/ci/make_disc.py disc-files "disc/MediEvil (Spain).cue"
+
+      - name: Correzione RecompOne (lettore CD)
+        run: git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build recompiler
+        run: dotnet build RecompOne/RecompOne.Recompiler/RecompOne.Recompiler.csproj -c Release
+
+      - name: Generazione del codice
+        run: dotnet run --project RecompOne/RecompOne.Recompiler -c Release --no-build -- config/es/MediEvil.json
+
+      - name: Settori reali degli overlay
+        run: python3 tools/ci/fix_overlay_lba.py generated-es --ver esp
+
+      - name: Upload codice generato
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-source
+          path: generated-es/
+          retention-days: 1
+
+  build:
+    needs: [generate]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - rid: win-x64
+            asset: windows-x64
+            archive: zip
+            outputType: WinExe
+          - rid: win-arm64
+            asset: windows-arm64
+            archive: zip
+            outputType: WinExe
+          - rid: linux-x64
+            asset: linux-x64
+            archive: tar
+            outputType: Exe
+          - rid: osx-x64
+            asset: macos-x64
+            archive: zip
+            outputType: Exe
+          - rid: osx-arm64
+            asset: macos-arm64
+            archive: zip
+            outputType: Exe
+    steps:
+      - name: Checkout MediEvilRecomp ESP
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Correzione RecompOne (lettore CD)
+        run: git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
+
+      - name: Download codice generato
+        uses: actions/download-artifact@v4
+        with:
+          name: generated-source
+          path: generated-es
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish (framework-dependent, ReadyToRun)
+        run: >
+          dotnet publish RecompOne.MediEvil.csproj -c Release
+          -r ${{ matrix.rid }}
+          --self-contained false
+          -p:PublishSingleFile=false
+          -p:PublishReadyToRun=true
+          -p:OutputType=${{ matrix.outputType }}
+          -p:UseRidGraph=true
+          -p:InformationalVersion=${{ github.ref_name }}
+          -p:NoWarn=0162
+          -p:Lingua=es
+          -o publish/${{ matrix.rid }}
+
+      - name: Lanciatore Linux
+        if: startsWith(matrix.rid, 'linux')
+        run: |
+          cp run.sh "publish/${{ matrix.rid }}/run.sh"
+          chmod +x "publish/${{ matrix.rid }}/run.sh"
+          chmod +x "publish/${{ matrix.rid }}/medievil"
+
+      - name: Mod incluse e istruzioni
+        run: |
+          rsync -a --exclude '.git*' --exclude '.cache' mods/ "publish/${{ matrix.rid }}/mods/"
+          mkdir -p "publish/${{ matrix.rid }}/disc"
+          cp disc/README.md disc/LEEME.md "publish/${{ matrix.rid }}/disc/"
+          cp README.md changelog.md "publish/${{ matrix.rid }}/"
+          cp tools/pal-port/LICENSE "publish/${{ matrix.rid }}/LICENSE-GPL-3.0.txt"
+          cp RecompOne/LICENSE "publish/${{ matrix.rid }}/LICENSE-RecompOne-MIT.txt"
+
+      # Dan's Curse V2 (GPL-3.0): ultima versione del ramo main; il commit scaricato
+      # viene scritto nel marcatore del Mod Hub (voce dans-curse-v2-shader)
+      - name: Shader Dan's Curse V2
+        env:
+          DC_REPO: https://github.com/Leproide/DansCurseV2
+        run: |
+          DIR="publish/${{ matrix.rid }}/shaders/dans-curse-v2-shader"
+          git clone -q --depth 1 "$DC_REPO" "$DIR"
+          DC_COMMIT="$(git -C "$DIR" rev-parse HEAD)"
+          echo "Dan's Curse V2: $DC_COMMIT"
+          rm -rf "$DIR/.git"
+          printf '{"Id":"dans-curse-v2-shader","Type":"shader","Commit":"%s","Repository":"%s"}' "$DC_COMMIT" "$DC_REPO" > "$DIR/.modhub"
+
+      - name: Pacchetto (zip)
+        if: matrix.archive == 'zip'
+        run: |
+          cd publish/${{ matrix.rid }}
+          zip -qr "../../MediEvilRecomp-ESP-${{ github.ref_name }}-${{ matrix.asset }}.zip" .
+
+      - name: Pacchetto (tar.gz)
+        if: matrix.archive == 'tar'
+        run: |
+          cd publish/${{ matrix.rid }}
+          tar -czf "../../MediEvilRecomp-ESP-${{ github.ref_name }}-${{ matrix.asset }}.tar.gz" .
+
+      - name: Upload pacchetto
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.asset }}
+          path: MediEvilRecomp-ESP-${{ github.ref_name }}-${{ matrix.asset }}.*
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout MediEvilRecomp ESP
+        uses: actions/checkout@v4
+
+      - name: Download pacchetti
+        uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          path: dist
+          merge-multiple: true
+
+      - name: Note di rilascio (prima sezione di changelog.md)
+        run: |
+          awk 'NR>1 && /^---[[:space:]]*$/ {exit} {print}' changelog.md > release_notes.md
+          [ -s release_notes.md ] || printf 'MediEvilRecomp ESP %s\n' "$GITHUB_REF_NAME" > release_notes.md
+
+      - name: Release su GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          name: MediEvilRecomp ESP ${{ github.ref_name }}
+          body_path: release_notes.md
+          files: dist/*

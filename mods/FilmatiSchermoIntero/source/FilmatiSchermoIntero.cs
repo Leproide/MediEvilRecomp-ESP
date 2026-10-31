@@ -27,6 +27,13 @@
 //  - imposta il formato d'uscita a 4/3 * 256 / altezza del video, cosi' l'immagine
 //    viene adattata alla finestra senza deformazioni.
 // Finito il filmato rimette il formato d'uscita precedente.
+//
+// 1.2: se il filmato viene saltato molto in fretta, il gioco puo' non chiamare piu'
+// PutDispEnv dopo il filmato e lo schermo restava tagliato alle righe del video
+// (per esempio nel dialogo del gargoyle). A fine filmato la mod rimanda quindi la
+// DISPENV originale, non ritagliata, all'ultima PutDispEnv modificata.
+// Con MEDIEVIL_DEBUG impostata le righe "[FilmatiSchermoIntero]" del log mostrano
+// inizio e fine dei filmati e ogni ritaglio.
 
 using System;
 using ImGuiNET;
@@ -55,11 +62,24 @@ public class FilmatiSchermoInteroMod : IMod
     static uint _env;
     static ushort _savedDispY, _savedDispH, _savedScrH;
     static bool _patched;
+
+    // copia della DISPENV originale dell'ultimo ritaglio, per rimandarla a fine filmato
+    static readonly byte[] _envCopy = new byte[0x14];
+    static uint _envCopyAddr;
+    static bool _croppedThisMovie;
+
+    static readonly bool DiagOn = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
+    static int _lines;
+    static int _afterMovieLogs;   // PutDispEnv da registrare dopo la fine di un filmato
+    static void Diag(string s)
+    {
+        if (DiagOn && _lines++ < 300) Console.WriteLine("[FilmatiSchermoIntero] " + s);
+    }
     static string _info = "nessun filmato";
 
     public void OnLoad()
     {
-        Enabled = RecompOne.Runtime.Runtime.View.GetString(SettingKey, "1") != "0";
+        Enabled = RecompOne.Runtime.Config.Settings.Get<string>(SettingKey, "1") != "0";
     }
 
     public void OnUnload()
@@ -71,7 +91,7 @@ public class FilmatiSchermoInteroMod : IMod
     public void DrawSettings()
     {
         if (ImGui.Checkbox("Filmati a schermo intero", ref Enabled))
-            RecompOne.Runtime.Runtime.View.SetString(SettingKey, Enabled ? "1" : "0");
+            RecompOne.Runtime.Config.Settings.Set(SettingKey, Enabled ? "1" : "0");
         ImGui.TextDisabled(_info);
     }
 
@@ -80,31 +100,80 @@ public class FilmatiSchermoInteroMod : IMod
     // a $gp). La versione si riconosce dalla tabella dei trucchi, dato costante
     // dell'eseguibile (valori in config/versions.json: CheatTableDust, GpMovieInfo).
     [PreHook("game", Address = 0x80079660u)]
-    public static void GameMovieStart(CpuContext c, IMemory m) =>
+    public static void GameMovieStart(CpuContext c, IMemory m)
+    {
         _gameInfoSlot = m.ReadU32(0x800CE09Cu) == 0x00080000u && m.ReadU32(0x800CE0C4u) == 0x00100000u
             ? 0x75Cu   // PAL spagnola (SCES-01495)
             : 0x764u;  // PAL italiana (SCES-01494)
+        Diag("inizio filmato (gioco)");
+    }
 
     [PostHook("game", Address = 0x80079660u)]
-    public static void GameMovieEnd(CpuContext c, IMemory m) { _gameInfoSlot = 0; MovieEnd(); }
+    public static void GameMovieEnd(CpuContext c, IMemory m)
+    {
+        _gameInfoSlot = 0;
+        Diag("fine filmato (gioco)");
+        MovieEnd(c, m);
+    }
 
     // lettore filmati dell'eseguibile di avvio (introduzione): descrittore a $gp+0x48
     [PreHook("main", Address = 0x801B0978u)]
-    public static void MainMovieStart(CpuContext c, IMemory m) => _mainInfoSlot = 0x48u;
+    public static void MainMovieStart(CpuContext c, IMemory m)
+    {
+        _mainInfoSlot = 0x48u;
+        Diag("inizio filmato (avvio)");
+    }
 
     [PostHook("main", Address = 0x801B0978u)]
-    public static void MainMovieEnd(CpuContext c, IMemory m) { _mainInfoSlot = 0; MovieEnd(); }
+    public static void MainMovieEnd(CpuContext c, IMemory m)
+    {
+        _mainInfoSlot = 0;
+        Diag("fine filmato (avvio)");
+        MovieEnd(c, m);
+    }
 
-    static void MovieEnd()
+    static void MovieEnd(CpuContext c, IMemory m)
     {
         RestoreAspect();
         _info = "nessun filmato";
+        Diag($"fine filmato: ritaglio fatto={_croppedThisMovie}, dispenv={_envCopyAddr:X8}");
+        if (_croppedThisMovie) ReissueDisplay(c, m);
+        _croppedThisMovie = false;
+        _afterMovieLogs = 12;
+    }
+
+    // Rimanda a PutDispEnv la DISPENV originale dell'ultimo ritaglio: usa per un istante
+    // la sua posizione in memoria e poi rimette quello che c'era.
+    static void ReissueDisplay(CpuContext c, IMemory m)
+    {
+        uint addr = _envCopyAddr;
+        if ((addr & 0xFF000000u) != 0x80000000u) return;
+
+        var saved = new byte[_envCopy.Length];
+        for (int i = 0; i < saved.Length; i++) saved[i] = m.ReadU8(addr + (uint)i);
+        for (int i = 0; i < _envCopy.Length; i++) m.WriteU8(addr + (uint)i, _envCopy[i]);
+        if (m.ReadU16(addr + 0xEu) == 0) m.WriteU16(addr + 0xEu, PalLines);   // come PalDisplay
+
+        uint a0 = c.A0, v0 = c.V0;
+        c.A0 = addr;
+        RecompOne.Runtime.Sdk.LibGpu.PutDispEnv(c, m);
+        c.A0 = a0;
+        c.V0 = v0;
+
+        for (int i = 0; i < saved.Length; i++) m.WriteU8(addr + (uint)i, saved[i]);
+        Diag($"schermo ripristinato: disp y={m.ReadU16(addr + 2u)} h={m.ReadU16(addr + 6u)}");
     }
 
     [PreHook("game", Address = 0x8009C990u)]
     public static void GameBefore(CpuContext c, IMemory m)
     {
-        _mainInfoSlot = 0;   // il gioco e' partito: il lettore di avvio non e' piu' attivo
+        if (_mainInfoSlot != 0)
+        {
+            // il gioco e' partito: il lettore di avvio non e' piu' attivo e questa
+            // PutDispEnv del gioco reimposta comunque lo schermo
+            _mainInfoSlot = 0;
+            if (_gameInfoSlot == 0) _croppedThisMovie = false;
+        }
         BeforePutDispEnv(c, m, _gameInfoSlot);
     }
 
@@ -120,6 +189,12 @@ public class FilmatiSchermoInteroMod : IMod
     static void BeforePutDispEnv(CpuContext c, IMemory m, uint infoSlot)
     {
         _patched = false;
+        if (DiagOn && _afterMovieLogs > 0)
+        {
+            _afterMovieLogs--;
+            uint e = c.A0;
+            Diag($"PutDispEnv {e:X8} slot={infoSlot:X}: disp {m.ReadU16(e)},{m.ReadU16(e + 2u)} {m.ReadU16(e + 4u)}x{m.ReadU16(e + 6u)} screen y={m.ReadU16(e + 0xAu)} h={m.ReadU16(e + 0xEu)}");
+        }
         if (!Enabled || infoSlot == 0)
         {
             RestoreAspect();
@@ -135,6 +210,10 @@ public class FilmatiSchermoInteroMod : IMod
 
         uint env = c.A0;
         _env = env;
+        for (int i = 0; i < _envCopy.Length; i++) _envCopy[i] = m.ReadU8(env + (uint)i);
+        _envCopyAddr = env;
+        if (!_croppedThisMovie) Diag($"ritaglio: video {h} righe da y={y}");
+        _croppedThisMovie = true;
         _savedDispY = m.ReadU16(env + 0x2u);
         _savedDispH = m.ReadU16(env + 0x6u);
         _savedScrH = m.ReadU16(env + 0xEu);
