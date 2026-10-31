@@ -217,7 +217,7 @@ El shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** viene in
 
 ## Releases automáticas (GitHub Actions)
 
-`.github/workflows/release.yml` compila la versión española para Windows (x64, ARM64), Linux x64 y macOS (Intel, Apple Silicon) y publica la release cuando se sube una etiqueta `v*` (por ejemplo `git tag v1.2 && git push origin v1.2`). Desde Actions → Release → Run workflow se obtienen solo los artefactos, sin release.
+`.github/workflows/release.yml` compila la versión española para Windows (x64, ARM64), Linux x64 y macOS (Intel, Apple Silicon) y publica la release cuando se sube una etiqueta `v*` (por ejemplo `git tag v1.1.3 && git push origin v1.1.3`; los números de versión siguen los de MediEvilRecomp-ITA). Desde Actions → Release → Run workflow se obtienen solo los artefactos, sin release.
 
 El workflow solo necesita los ejecutables del disco (unos 2 MB), tomados de un repositorio **privado**:
 1. Crea un repositorio privado (por ejemplo `MediEvilRecomp-ESP-Disc`) con, en la raíz, `SYSTEM.CNF`, `SCES_014.95`, `MEDIEVIL.EXE` y la carpeta `OVERLAYS` extraídos del disco PAL español (sin `MEDRES.MWD`, que no hace falta). Tiene que seguir siendo privado.

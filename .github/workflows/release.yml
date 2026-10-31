@@ -6,7 +6,7 @@
 # scritti da zero per il port (vedi la sezione Licenza del README).
 # Modifiche per il port PAL italiano e spagnolo: https://github.com/Leproide
 #
-# Si avvia con un tag "v*" (es. git tag v1.2 && git push origin v1.2) oppure
+# Si avvia con un tag "v*" (es. git tag v1.1.3 && git push origin v1.1.3) oppure
 # a mano da Actions -> Release -> Run workflow (in quel caso crea solo gli artifact,
 # senza pubblicare la release).
 #

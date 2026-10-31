@@ -1,4 +1,4 @@
-# MediEvilRecomp ESP v1.2 - base MediEvilRecomp 1.0 (como MediEvilRecomp-ITA 1.1.3)
+# MediEvilRecomp ESP v1.1.3 - base MediEvilRecomp 1.0 (alineada con MediEvilRecomp-ITA 1.1.3)
 
 ## Novedades
 - Toda la base de MediEvilRecomp-ITA 1.1.3 portada a la versión española: MediEvilRecomp 1.0 y su RecompOne (cámara con la palanca derecha, interpolación mejorada, shaders slang, color de 24 bits, nuevo sistema de ajustes, correcciones de cierres inesperados), shader Dan's Curse V2 incluido (el mismo de la versión italiana). La versión española no tiene Mod Hub: el menú queda desactivado.
@@ -18,7 +18,7 @@ Autor: https://github.com/Leproide
 
 ## Novedades
 - Scripts para Linux: `linux_initial_build_es.sh` (primera compilación) y `linux_run_es.sh` (inicio), equivalentes a los de Windows.
-- `windows_publish_es.bat <versión>` creaba los paquetes de la release para Windows y Linux. En la v1.2 lo sustituyen las releases automáticas de GitHub Actions.
+- `windows_publish_es.bat <versión>` creaba los paquetes de la release para Windows y Linux. En la v1.1.3 lo sustituyen las releases automáticas de GitHub Actions.
 - `Directory.Build.props` usa `/` en las rutas de salida (`bin-es/`, `obj-es/`) para que funcionen igual en Linux.
 
 Autor: https://github.com/Leproide
