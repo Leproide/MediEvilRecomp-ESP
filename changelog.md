@@ -7,6 +7,7 @@
 - Releases automáticas con GitHub Actions para Windows, Linux y macOS (`.github/workflows/release.yml`, repositorio privado con los ejecutables del disco español).
 - Licencias como en la versión italiana: la GPL-3.0 cubre solo el código escrito para el fork; el código de MediEvilRecomp queda sin licencia (derechos de sus autores) y RecompOne es MIT. Ver la sección License del README.
 - Los ajustes de las versiones anteriores no se conservan (nuevo sistema de MediEvilRecomp 1.0).
+- Quitados de este repositorio los scripts de la versión italiana (`windows_initial_build.bat`, `windows_run.bat`, `windows_run_no_build.bat`, `linux_initial_build.sh`, `linux_run.sh`): aquí solo quedan los `_es`. La versión italiana se compila desde MediEvilRecomp-ITA.
 - Después de actualizar hay que regenerar el código: borra la carpeta `generated-es` y vuelve a ejecutar `windows_initial_build_es.bat` (Linux: `./linux_initial_build_es.sh`).
 
 Autor: https://github.com/Leproide

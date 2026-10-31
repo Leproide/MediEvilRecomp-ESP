@@ -53,7 +53,7 @@ Los problemas de esta versión (PAL española) se comunican **aquí**, no en el 
 | Código generado | `generated-es/` | `generated/` |
 | Compilación | `dotnet build -p:Lingua=es` | `dotnet build` |
 | Salida | `bin-es/`, `obj-es/` | `bin/`, `obj/` |
-| Scripts | `windows_*_es.bat`, `linux_*_es.sh` | `windows_*.bat`, `linux_*.sh` |
+| Scripts | `windows_*_es.bat`, `linux_*_es.sh` | en [MediEvilRecomp-ITA](https://github.com/Leproide/MediEvilRecomp-ITA) |
 | Disco | `disc/MediEvil (Spain).cue` | `disc/MediEvil (Italy).cue` |
 
 ---
@@ -323,7 +323,7 @@ Directory.Build.props      carpetas de salida bin-es/obj-es con -p:Lingua=es
 
 Este repositorio contiene código con licencias distintas.
 
-**Código de MediEvilRecomp (BlackLabelHQ): sin licencia.** MediEvilRecomp no tiene una licencia explícita, así que los derechos sobre su código siguen siendo de sus autores. Este fork **no** aplica la GPL a ese código, ni a las partes adaptadas a las versiones PAL. Son los archivos con la cabecera "Codice originale di MediEvilRecomp" o "Código original de MediEvilRecomp": `Program.cs`, `RecompOne.MediEvil.csproj`, `wrapers/`, `misc/AutoUpdater.cs`, `assets/`, los parches de `patches/render/` (salvo `TitleShaderPatch.cs`), `patches/widescreen/` (salvo `IrisFadePatch.cs`) y `patches/qol/`, los scripts `windows_*.bat` (también los `_es`), `run.sh`, `.github/workflows/release.yml` y la configuración de `config/` (también `config/es/` y `config/versions.json`). Lo mismo vale para ShaderMod (`mods/ShaderMod`, `BACKUP_Dipendenze/ShaderMod`).
+**Código de MediEvilRecomp (BlackLabelHQ): sin licencia.** MediEvilRecomp no tiene una licencia explícita, así que los derechos sobre su código siguen siendo de sus autores. Este fork **no** aplica la GPL a ese código, ni a las partes adaptadas a las versiones PAL. Son los archivos con la cabecera "Codice originale di MediEvilRecomp" o "Código original de MediEvilRecomp": `Program.cs`, `RecompOne.MediEvil.csproj`, `wrapers/`, `misc/AutoUpdater.cs`, `assets/`, los parches de `patches/render/` (salvo `TitleShaderPatch.cs`), `patches/widescreen/` (salvo `IrisFadePatch.cs`) y `patches/qol/`, los scripts `windows_*_es.bat`, `run.sh`, `.github/workflows/release.yml` y la configuración de `config/` (también `config/es/` y `config/versions.json`). Lo mismo vale para ShaderMod (`mods/ShaderMod`, `BACKUP_Dipendenze/ShaderMod`).
 
 **RecompOne: licencia MIT**, Copyright (c) 2026 flaffy. El texto está en el archivo `LICENSE` del submódulo `RecompOne` (y en `BACKUP_Dipendenze/RecompOne`); los paquetes de las releases lo incluyen como `LICENSE-RecompOne-MIT.txt`.
 
@@ -333,7 +333,7 @@ Este repositorio contiene código con licencias distintas.
 - las mods `mods/Trucchi/` y `mods/FilmatiSchermoIntero/`;
 - `recompone-fixes/`;
 - las herramientas de `tools/pal-port/` y `tools/ci/`;
-- los scripts `linux_initial_build.sh`, `linux_run.sh`, `linux_initial_build_es.sh`, `linux_run_es.sh` y `Directory.Build.props`;
+- los scripts `linux_initial_build_es.sh`, `linux_run_es.sh` y `Directory.Build.props`;
 - la documentación escrita para el fork (`disc/README.md`, `disc/LEEME.md`, los README de las mods y de las herramientas).
 
 MediEvil es una marca de sus respectivos propietarios: este proyecto no está afiliado ni aprobado por Sony Interactive Entertainment.
