@@ -225,19 +225,28 @@ echo Compilacion terminada.
 echo.
 
 REM ================================ Shader Dan's Curse V2 (opcional) =================================
-REM Dan's Curse V2: ultima version de la rama main, en shaders\ como si estuviera instalado desde
-REM el Mod Hub (el commit descargado se escribe en el marcador .modhub). Comun a ITA y ESP: el
-REM shader no depende de la version del juego. Si la descarga falla, se continua.
+REM Dan's Curse V2: siempre la ultima version de la rama main (git clone --depth 1, sin commit
+REM fijo), en shaders\dans-curse-v2-shader. La version espanola no tiene Mod Hub, asi que el shader
+REM se actualiza cada vez que se ejecuta este script: se descarga en una carpeta temporal y solo
+REM si la descarga sale bien sustituye a la anterior. Comun a ITA y ESP: el shader no depende de
+REM la version del juego. Si la descarga falla, se continua con el shader que ya estaba.
 set "DCDIR=shaders\dans-curse-v2-shader"
-if not exist "%DCDIR%\dans-curse-v2.slangp" (
-    echo ^> Descargo el shader Dan's Curse V2...
+set "DCNEW=shaders\dans-curse-v2-shader.new"
+echo ^> Descargo la ultima version del shader Dan's Curse V2...
+if not exist shaders mkdir shaders
+if exist "%DCNEW%" rmdir /s /q "%DCNEW%"
+git clone -q --depth 1 https://github.com/Leproide/DansCurseV2 "%DCNEW%" >nul 2>&1
+if exist "%DCNEW%\dans-curse-v2.slangp" (
+    for /f "delims=" %%c in ('git -C "%DCNEW%" rev-parse --short HEAD') do echo Dan's Curse V2: commit %%c
+    attrib -r -h "%DCNEW%\.git\*" /s /d >nul 2>&1
+    rmdir /s /q "%DCNEW%\.git"
     if exist "%DCDIR%" rmdir /s /q "%DCDIR%"
-    git clone -q --depth 1 https://github.com/Leproide/DansCurseV2 "%DCDIR%" >nul 2>&1
-    if exist "%DCDIR%\.git" (
-        for /f "delims=" %%c in ('git -C "%DCDIR%" rev-parse HEAD') do >"%DCDIR%\.modhub" echo {"Id":"dans-curse-v2-shader","Type":"shader","Commit":"%%c","Repository":"https://github.com/Leproide/DansCurseV2"}
-        attrib -r -h "%DCDIR%\.git\*" /s /d >nul 2>&1
-        rmdir /s /q "%DCDIR%\.git"
-        echo Shader instalado: se activa encendiendo la mod Shaders en Mods, con "Better rendering" activo.
+    move "%DCNEW%" "%DCDIR%" >nul
+    echo Shader instalado: se activa encendiendo la mod Shaders en Mods, con "Better rendering" activo.
+) else (
+    if exist "%DCNEW%" rmdir /s /q "%DCNEW%"
+    if exist "%DCDIR%\dans-curse-v2.slangp" (
+        echo No se ha podido descargar: se mantiene el shader ya instalado.
     ) else (
         echo No se ha podido descargar: vuelve a ejecutar este script mas tarde para instalar el shader.
     )

@@ -135,19 +135,26 @@ dotnet build "$GAMEPROJ" -p:Lingua=es || fail "la compilación de MediEvilRecomp
 echo "Compilación terminada."
 
 # ------------------------------------------------------------------ shader Dan's Curse V2 (opcional)
-# Última versión de la rama main, en shaders/ como si estuviera instalado desde el Mod Hub
-# (el commit descargado se escribe en el marcador .modhub). Si la descarga falla, se continúa.
+# Siempre la última versión de la rama main (git clone --depth 1, sin commit fijo), en
+# shaders/dans-curse-v2-shader. La versión española no tiene Mod Hub, así que el shader se
+# actualiza cada vez que se ejecuta este script: se descarga en una carpeta temporal y solo si
+# la descarga sale bien sustituye a la anterior. Si falla, se continúa con el shader que ya estaba.
 DCDIR="shaders/dans-curse-v2-shader"
-if [ ! -f "$DCDIR/dans-curse-v2.slangp" ]; then
-    say "Descargo el shader Dan's Curse V2..."
-    rm -rf "$DCDIR"
-    if git clone -q --depth 1 https://github.com/Leproide/DansCurseV2 "$DCDIR" >/dev/null 2>&1; then
-        DCCOMMIT="$(git -C "$DCDIR" rev-parse HEAD)"
-        rm -rf "$DCDIR/.git"
-        printf '{"Id":"dans-curse-v2-shader","Type":"shader","Commit":"%s","Repository":"https://github.com/Leproide/DansCurseV2"}' "$DCCOMMIT" > "$DCDIR/.modhub"
-        echo "Shader instalado: se activa encendiendo la mod Shaders en Mods, con \"Better rendering\" activo."
+DCNEW="shaders/dans-curse-v2-shader.new"
+say "Descargo la última versión del shader Dan's Curse V2..."
+mkdir -p shaders
+rm -rf "$DCNEW"
+if git clone -q --depth 1 https://github.com/Leproide/DansCurseV2 "$DCNEW" >/dev/null 2>&1 \
+        && [ -f "$DCNEW/dans-curse-v2.slangp" ]; then
+    echo "Dan's Curse V2: commit $(git -C "$DCNEW" rev-parse --short HEAD)"
+    rm -rf "$DCNEW/.git" "$DCDIR"
+    mv "$DCNEW" "$DCDIR"
+    echo "Shader instalado: se activa encendiendo la mod Shaders en Mods, con \"Better rendering\" activo."
+else
+    rm -rf "$DCNEW"
+    if [ -f "$DCDIR/dans-curse-v2.slangp" ]; then
+        echo "No se ha podido descargar: se mantiene el shader ya instalado."
     else
-        rm -rf "$DCDIR"
         echo "No se ha podido descargar: vuelve a ejecutar este script más tarde para instalar el shader."
     fi
 fi

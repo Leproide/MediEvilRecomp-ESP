@@ -32,6 +32,7 @@ Dispatcher.Tolerant = true;
 GameDisc.Register();
 TerrainPatch.Register();
 WaterMaterialPatch.Register();
+ShaderDrawDistance.Register();
 TitleShaderPatch.Register();
 PalQuitFix.Register();
 GpuDisplayDiag.Register();

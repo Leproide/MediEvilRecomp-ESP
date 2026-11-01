@@ -1,3 +1,13 @@
+# MediEvilRecomp ESP v1.1.6 (alineada con MediEvilRecomp-ITA 1.1.6)
+
+- La distancia de dibujado del juego se pasa a los shaders (`patches/render/ShaderDrawDistance.cs`, de la versión italiana, con la dirección española 0x800EF0C0): Dan's Curse V2 la usa para fundir a negro el límite de dibujado, como en el original, sin que la niebla se acerque delante de los muros. Sin esta patch el shader funciona igual, pero estima la distancia por su cuenta y es menos estable.
+- Shader Dan's Curse V2 siempre en la última versión de la rama `main` (ahora el commit 0a54879: límite de dibujado y vacío bajo el horizonte oscuros en lugar de grises, distancia de dibujado tomada del juego, bloom predeterminado a 0.70). Como la versión española no tiene Mod Hub, `windows_initial_build_es.bat` y `linux_initial_build_es.sh` lo actualizan cada vez que se ejecutan; los paquetes de las releases incluyen la última versión.
+- Para actualizar desde la v1.1.5 basta con volver a ejecutar `windows_initial_build_es.bat` (Linux: `./linux_initial_build_es.sh`): no hace falta borrar `generated-es`.
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.5 (alineada con MediEvilRecomp-ITA 1.1.5)
 
 - **Sistema → Salir** ya no bloquea el juego. Antes salía sin detener el audio y, a pantalla completa, el proceso podía quedarse bloqueado en el controlador de vídeo, hasta el punto de que ni el Administrador de tareas lo terminaba (con la X de la ventana no pasaba). Ahora Salir vuelve primero a ventana si el juego está a pantalla completa y después lo cierra como la X; por seguridad, si el proceso sigue activo después de unos segundos, se termina (`patches/PalQuitFix.cs`, el mismo de la versión italiana).
