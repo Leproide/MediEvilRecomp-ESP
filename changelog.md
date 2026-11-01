@@ -1,3 +1,11 @@
+# MediEvilRecomp ESP v1.1.5 (alineada con MediEvilRecomp-ITA 1.1.5)
+
+- **Sistema → Salir** ya no bloquea el juego. Antes salía sin detener el audio y, a pantalla completa, el proceso podía quedarse bloqueado en el controlador de vídeo, hasta el punto de que ni el Administrador de tareas lo terminaba (con la X de la ventana no pasaba). Ahora Salir vuelve primero a ventana si el juego está a pantalla completa y después lo cierra como la X; por seguridad, si el proceso sigue activo después de unos segundos, se termina (`patches/PalQuitFix.cs`, el mismo de la versión italiana).
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.3 - base MediEvilRecomp 1.0 (alineada con MediEvilRecomp-ITA 1.1.3)
 
 ## Novedades

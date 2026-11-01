@@ -43,6 +43,7 @@ Los problemas de esta versión (PAL española) se comunican **aquí**, no en el 
 | `patches/PalDisplay.cs` | — | 256 líneas PAL: vídeos centrados en vez de desplazados hacia abajo |
 | `patches/PalLibCrypt.cs` | — | protección LibCrypt con un volcado bin/cue: se abre El Mausoleo de la Cima de la Colina |
 | `patches/PalXaSpeech.cs` | — | los diálogos ya no se cierran solos cuando empieza una voz mientras suena la música |
+| `patches/PalQuitFix.cs` | — | Sistema → Salir cierra el juego como la X de la ventana, sin bloquearse |
 | `patches/GameAddresses.cs`, `GameDisc.cs` | — | direcciones por versión y comprobación del disco español |
 | `recompone-fixes/` | — | corrección del lector de CD de RecompOne (modo sector entero) |
 | Scripts de compilación | solo Windows, nombres USA, en inglés | Windows y Linux (`*_es`), nombres `(Spain)`, en español, corrección aplicada automáticamente |
@@ -347,7 +348,7 @@ Este repositorio contiene código con licencias distintas.
 **RecompOne: licencia MIT**, Copyright (c) 2026 flaffy. El texto está en el archivo `LICENSE` del submódulo `RecompOne` (y en `BACKUP_Dipendenze/RecompOne`); los paquetes de las releases lo incluyen como `LICENSE-RecompOne-MIT.txt`.
 
 **Código escrito para este fork: GPL-3.0-or-later.** Texto completo en [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
-- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `GameAddresses.cs`, `GameDisc.cs`;
+- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`, `GameAddresses.cs`, `GameDisc.cs`;
 - `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/diag/`;
 - las mods `mods/Trucchi/` y `mods/FilmatiSchermoIntero/`;
 - `recompone-fixes/`;
