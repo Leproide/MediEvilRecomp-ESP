@@ -1,3 +1,12 @@
+# MediEvilRecomp ESP v1.1.9 (alineada con MediEvilRecomp-ITA 1.1.9)
+
+- **Objetos visibles desde lejos**: también con **Draw distance** a 1x (útil con los shaders, donde la niebla deja ver lejos), puertas, verjas y decorados se cargan y se dibujan desde lejos en lugar de aparecer solo cerca de Dan (por ejemplo, las hojas de la verja del cementerio, que de lejos parecían abiertas o faltaban). Vale con cualquier cámara. Enemigos, trampas y eventos se activan a la distancia original; de lejos los objetos quedan quietos y las antorchas, como en el original, solo aparecen al acercarse. Activo por defecto, se desactiva en **Misc → Quality of life → Distant objects** (`patches/render/DistantObjectsPatch.cs`, de la versión italiana, con las direcciones españolas 0x800EEAC8 / 0x800EEBF8 / 0x800EEC0C en `config/versions.json`).
+- Después de actualizar hay que regenerar el código, porque cambia `config/es/MediEvil.json`: ejecuta `windows_initial_build_es.bat` y responde **S** a la pregunta de repetir la primera compilación (Linux: `./linux_initial_build_es.sh`).
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.8 (alineada con MediEvilRecomp-ITA 1.1.8)
 
 - El cursor del ratón desaparece tras 2,5 segundos sin moverlo (también a pantalla completa y jugando con el mando) y vuelve a aparecer al moverlo. Sigue visible con menús o ventanas abiertos y sobre la barra de menús.

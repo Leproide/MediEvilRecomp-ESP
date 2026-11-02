@@ -706,6 +706,30 @@
     },
     {
       "overlay": "game",
+      "address": "8004218C",
+      "target": "Recompiled.DistantObjectsPatch.BeforeLoader",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8004218C",
+      "target": "Recompiled.DistantObjectsPatch.AfterLoader",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80041B84",
+      "target": "Recompiled.DistantObjectsPatch.BeforeActivation",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "80041B84",
+      "target": "Recompiled.DistantObjectsPatch.AfterActivation",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
       "address": "80065618",
       "target": "Recompiled.WaterMaterialPatch.BeginLevel",
       "mode": "pre"

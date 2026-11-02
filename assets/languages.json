@@ -282,6 +282,21 @@
             "en": "Original camera (R3 for free camera)",
             "pt-BR": "Câmera original (R3 para câmera livre)",
             "es-419": "Cámara original (R3 para cámara libre)"
+        },
+        "qol.render": {
+            "en": "Rendering",
+            "pt-BR": "Renderização",
+            "es-419": "Renderizado"
+        },
+        "qol.distant_objects": {
+            "en": "Distant objects",
+            "pt-BR": "Objetos distantes",
+            "es-419": "Objetos lejanos"
+        },
+        "qol.distant_objects.hint": {
+            "en": "Doors, gates and scenery are loaded and drawn from farther away instead of popping in near Dan (also at 1x, useful with shaders), farther with a higher Draw distance. Enemies and events still activate at the original distance.",
+            "pt-BR": "Portas, portões e cenário são carregados e desenhados de mais longe em vez de aparecerem perto do Dan (também em 1x, útil com shaders), mais longe com distância de desenho maior. Inimigos e eventos continuam ativando na distância original.",
+            "es-419": "Puertas, verjas y decorados se cargan y dibujan desde más lejos en lugar de aparecer cerca de Dan (también en 1x, útil con shaders), más lejos con mayor distancia de dibujado. Enemigos y eventos se siguen activando a la distancia original."
         }
     }
 }

@@ -678,6 +678,38 @@
     },
     {
       "overlay": "game",
+      "target": "Recompiled.DistantObjectsPatch.BeforeLoader",
+      "mode": "pre",
+      "key": "address",
+      "ita": "8004218C",
+      "esp": "8004218C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.DistantObjectsPatch.AfterLoader",
+      "mode": "post",
+      "key": "address",
+      "ita": "8004218C",
+      "esp": "8004218C"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.DistantObjectsPatch.BeforeActivation",
+      "mode": "pre",
+      "key": "address",
+      "ita": "80041B84",
+      "esp": "80041B84"
+    },
+    {
+      "overlay": "game",
+      "target": "Recompiled.DistantObjectsPatch.AfterActivation",
+      "mode": "post",
+      "key": "address",
+      "ita": "80041B84",
+      "esp": "80041B84"
+    },
+    {
+      "overlay": "game",
       "target": "Recompiled.WaterMaterialPatch.BeginLevel",
       "mode": "pre",
       "key": "address",
@@ -1555,6 +1587,27 @@
       "desc": "funzione TerrainFogShutdown di MEDIEVIL.EXE (wrapers/Functions.cs)",
       "overlay": "game",
       "esp": "0x8007A140"
+    },
+    {
+      "name": "ThingList",
+      "kind": "data",
+      "ita": "0x800EEA50",
+      "desc": "lista degli oggetti attorno a Dan (DistantObjectsPatch)",
+      "esp": "0x800EEAC8"
+    },
+    {
+      "name": "ThingRefPoint",
+      "kind": "data",
+      "ita": "0x800EEB80",
+      "desc": "punto di riferimento per la distanza degli oggetti (DistantObjectsPatch)",
+      "esp": "0x800EEBF8"
+    },
+    {
+      "name": "ThingRangePtr",
+      "kind": "data",
+      "ita": "0x800EEB94",
+      "desc": "puntatore alle soglie sveglia/disattivazione degli oggetti (DistantObjectsPatch)",
+      "esp": "0x800EEC0C"
     }
   ],
   "literals": [

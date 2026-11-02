@@ -37,6 +37,10 @@ public sealed class QualityOfLifePanel : IPanel
         Toggle(QualityOfLifeOptions.InvertCameraY, "qol.invert_camera_y");
         if (!QualityOfLife.CameraControl) ImGui.EndDisabled();
 
+        // fork ITA: oggetti visibili da lontano (patches/render/DistantObjectsPatch.cs, GPL)
+        ImGui.SeparatorText(Localization.T("qol.render"));
+        Toggle(DistantObjectsPatch.Setting, "qol.distant_objects");
+
         IsOpen = open;
         ImGui.End();
     }
