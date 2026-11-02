@@ -239,9 +239,9 @@
             "es-419": "Cámara con el stick derecho"
         },
         "qol.camera_control.hint": {
-            "en": "Orbit the camera around Dan with the right analog stick.",
-            "pt-BR": "Gira a câmera em volta do Dan com o analógico direito.",
-            "es-419": "Gira la cámara alrededor de Dan con el stick derecho."
+            "en": "Orbit the camera around Dan with the right analog stick. Press R3 to turn it on or off.",
+            "pt-BR": "Gira a câmera em volta do Dan com o analógico direito. Pressione R3 para ligar ou desligar.",
+            "es-419": "Gira la cámara alrededor de Dan con el stick derecho. Pulsa R3 para activarla o desactivarla."
         },
         "qol.camera_recenter": {
             "en": "Auto recenter",
@@ -272,6 +272,16 @@
             "en": "Reverses up and down on the right stick.",
             "pt-BR": "Inverte cima e baixo no analógico direito.",
             "es-419": "Invierte arriba y abajo en el stick derecho."
+        },
+        "qol.camera_toggle.on": {
+            "en": "Free camera on (R3 to turn off)",
+            "pt-BR": "Câmera livre ligada (R3 para desligar)",
+            "es-419": "Cámara libre activada (R3 para desactivar)"
+        },
+        "qol.camera_toggle.off": {
+            "en": "Original camera (R3 for free camera)",
+            "pt-BR": "Câmera original (R3 para câmera livre)",
+            "es-419": "Cámara original (R3 para cámara libre)"
         }
     }
 }

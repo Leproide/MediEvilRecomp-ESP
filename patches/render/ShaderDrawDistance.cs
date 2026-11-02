@@ -23,8 +23,9 @@
 // di disegno corrente del gioco (gia' scalata dall'opzione "Distanza di disegno" del
 // runtime) e la si passa come "SceneViewDistance" (x = distanza, y = 1 se valida).
 // Con MEDIEVIL_DEBUG le righe "[DrawDistance]" del log mostrano ogni cambiamento.
+// Si aggiorna prima di ogni frame della catena degli shader (ShaderData.BeforeFrame): l'evento
+// VSync del runtime puo' non arrivare in MediEvil.
 
-using RecompOne.Runtime.Events;
 using RecompOne.Runtime.Hle;
 
 namespace Recompiled;
@@ -40,14 +41,16 @@ public static class ShaderDrawDistance
     static readonly bool DiagOn = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
     static int _lines;
     static int _last = -1;
+    static long _frame;
 
     public static void Register()
     {
-        Event.AddListener<VSyncEvent>(OnVSync);
+        ShaderData.BeforeFrame += Update;
     }
 
-    static void OnVSync(VSyncEvent e)
+    static void Update()
     {
+        _frame++;
         var m = RecompOne.Runtime.Runtime.Mem;
         if (m == null) return;
 
@@ -60,6 +63,6 @@ public static class ShaderDrawDistance
         if (distance == _last) return;
         _last = distance;
         if (DiagOn && _lines++ < 200)
-            Console.WriteLine($"[DrawDistance] frame {e.Frame}: {(valid ? distance.ToString() : "non valida")}");
+            Console.WriteLine($"[DrawDistance] frame {_frame}: {(valid ? distance.ToString() : "non valida")}");
     }
 }

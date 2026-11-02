@@ -1,3 +1,13 @@
+# MediEvilRecomp ESP v1.1.7 (alineada con MediEvilRecomp-ITA 1.1.7)
+
+- Cámara libre con el stick derecho **desactivada por defecto**: se juega con la cámara original. Se vuelve a activar en **Misc → Quality of life → Right stick camera** (en español: **Varios → Calidad de vida → Cámara con el stick derecho**). Quien ya la había cambiado en los ajustes mantiene su elección.
+- **R3** (pulsar el stick derecho) activa y desactiva la cámara libre en cualquier momento, con un aviso en pantalla; la elección se guarda (`patches/qol/CameraToggle.cs`).
+- Corregida la distancia de dibujado pasada a los shaders (`patches/render/ShaderDrawDistance.cs`): la versión anterior se actualizaba con el evento VSync, que en MediEvil no llega, así que Dan's Curse V2 nunca la recibía. Ahora se actualiza antes de cada frame de los shaders (dirección española 0x800EF0C0).
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.6 (alineada con MediEvilRecomp-ITA 1.1.6)
 
 - La distancia de dibujado del juego se pasa a los shaders (`patches/render/ShaderDrawDistance.cs`, de la versión italiana, con la dirección española 0x800EF0C0): Dan's Curse V2 la usa para fundir a negro el límite de dibujado, como en el original, sin que la niebla se acerque delante de los muros. Sin esta patch el shader funciona igual, pero estima la distancia por su cuenta y es menos estable.

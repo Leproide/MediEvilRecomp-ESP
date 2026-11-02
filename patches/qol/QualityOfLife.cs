@@ -10,7 +10,8 @@ namespace Recompiled;
 
 public static class QualityOfLifeOptions
 {
-    public static readonly Option<bool> CameraControl = Options.Bool("qol.camera_control", true);
+    // telecamera libera spenta di default (si accende da Misc -> Quality of life)
+    public static readonly Option<bool> CameraControl = Options.Bool("qol.camera_control", false);
     public static readonly Option<bool> CameraRecenter = Options.Bool("qol.camera_recenter", true);
     public static readonly Option<bool> InvertCameraX = Options.Bool("qol.invert_camera_x");
     public static readonly Option<bool> InvertCameraY = Options.Bool("qol.invert_camera_y");
