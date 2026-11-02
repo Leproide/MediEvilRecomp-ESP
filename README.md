@@ -18,6 +18,8 @@ Todas las correcciones PAL de la versión italiana se **portan** a la española 
 
 > **Proyecto en beta.** Puede haber errores, incluso graves. Repórtalos en las [issues de este repositorio](https://github.com/Leproide/MediEvilRecomp-ESP/issues).
 
+> **Cámara libre: pulsa R3** (presionar el stick derecho) para activarla o desactivarla en cualquier momento. Activada, el stick derecho gira la vista 360° alrededor de Dan; desactivada, se juega con la cámara original del juego, que es la predeterminada. Un aviso en pantalla confirma el cambio y la elección se guarda. La misma opción está en **Misc → Quality of life → Right stick camera**.
+
 ---
 
 ## Contribuciones
@@ -41,6 +43,7 @@ Los problemas de esta versión (PAL española) se comunican **aquí**, no en el 
 | `patches/PalDisplay.cs` | — | 256 líneas PAL: vídeos centrados en vez de desplazados hacia abajo |
 | `patches/PalLibCrypt.cs` | — | protección LibCrypt con un volcado bin/cue: se abre El Mausoleo de la Cima de la Colina |
 | `patches/PalXaSpeech.cs` | — | los diálogos ya no se cierran solos cuando empieza una voz mientras suena la música |
+| `patches/PalQuitFix.cs` | — | Sistema → Salir cierra el juego como la X de la ventana, sin bloquearse |
 | `misc/InterfaceAutoHide.cs` | — | el cursor del ratón y la barra de menús se ocultan solos; System → Autohide Menu Bar funciona |
 | `patches/GameAddresses.cs`, `GameDisc.cs` | — | direcciones por versión y comprobación del disco español |
 | `recompone-fixes/` | — | corrección del lector de CD de RecompOne (modo sector entero) |
@@ -107,6 +110,8 @@ Hacen falta `git` y el [SDK de .NET 10](https://dotnet.microsoft.com/download/do
    El script hace los mismos pasos que el de Windows.
 
 `run.sh` es el lanzador del proyecto original para una build de Linux ya lista (ejecutable `medievil` en la misma carpeta, como en los paquetes de las releases): no compila nada.
+
+<img width="1920" height="1144" alt="Linux" src="https://github.com/user-attachments/assets/68db1f00-191e-4ce3-918f-1584e34475d3" />
 
 ### A mano (Windows, Linux, macOS)
 
@@ -193,6 +198,8 @@ La versión española usa las mismas secuencias que la italiana: las dos tablas 
 
 La mod opcional **Filmati a schermo intero** amplía los vídeos: en lugar de verlos pequeños en el centro del cuadro 4:3, muestra solo el área del vídeo y la adapta a la ventana sin deformarla. Se activa desde el panel de mods y funciona en las dos versiones. Detalles en el [README de la mod](mods/FilmatiSchermoIntero/README.md) (en italiano).
 
+<img width="1920" height="1080" alt="Videos_pantalla_completa" src="https://github.com/user-attachments/assets/dd6fb230-6839-4da4-ad41-76bc2b32bdd0" />
+
 ---
 
 ## Mod Hub
@@ -212,7 +219,17 @@ Quien quiera probar un hub de todos modos puede definirlo en `settings.json`, si
 
 ### Shader
 
-El shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** viene incluido en los paquetes de las releases y lo descargan los scripts de primera compilación en `shaders/dans-curse-v2-shader`, siempre en la última versión de su rama `main` (el mismo shader de la versión italiana). Para actualizarlo basta con volver a ejecutar el script de primera compilación. Se activa encendiendo la mod **Shaders** en el panel **Mods**, con "Better rendering" activo; los parámetros se ajustan en el menú **Shaders**. Recomendado: **Draw distance** a 3x en Settings → Display.
+El shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0, basado en Dan's Curse de flaffymg, con niebla e iluminación reescritas) viene incluido en los paquetes de las releases y lo descargan los scripts de primera compilación en `shaders/dans-curse-v2-shader`, siempre en la última versión de su rama `main` (el mismo shader de la versión italiana). Para actualizarlo basta con volver a ejecutar el script de primera compilación. Se activa encendiendo la mod **Shaders** en el panel **Mods**, con "Better rendering" activo; los parámetros se ajustan en el menú **Shaders**. Recomendado: **Draw distance** a 3x en Settings → Display.
+
+<img width="1144" height="644" alt="v2-colina" src="https://github.com/user-attachments/assets/0368b567-9020-4379-8d38-cbb616ede017" />
+
+<img width="1144" height="644" alt="cementerio-off" src="https://github.com/user-attachments/assets/f4d73122-030e-4222-9c1e-c3a966a6967c" />
+
+<img width="1144" height="644" alt="cementerio-v2" src="https://github.com/user-attachments/assets/a4f400b2-ecaf-4ba6-858d-8ba09b5a4f94" />
+
+<img width="1144" height="644" alt="shader-off" src="https://github.com/user-attachments/assets/56a77238-b066-420e-9730-2d3aa2161a07" />
+
+<img width="1144" height="644" alt="shader-on" src="https://github.com/user-attachments/assets/267d7d33-eaa9-4625-b0e1-196eed13ec36" />
 
 ---
 
@@ -329,7 +346,7 @@ Este repositorio contiene código con licencias distintas.
 **RecompOne: licencia MIT**, Copyright (c) 2026 flaffy. El texto está en el archivo `LICENSE` del submódulo `RecompOne` (y en `BACKUP_Dipendenze/RecompOne`); los paquetes de las releases lo incluyen como `LICENSE-RecompOne-MIT.txt`.
 
 **Código escrito para este fork: GPL-3.0-or-later.** Texto completo en [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
-- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `GameAddresses.cs`, `GameDisc.cs`;
+- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`, `GameAddresses.cs`, `GameDisc.cs`;
 - `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/diag/`;
 - `misc/InterfaceAutoHide.cs`;
 - las mods `mods/Trucchi/` y `mods/FilmatiSchermoIntero/`;
