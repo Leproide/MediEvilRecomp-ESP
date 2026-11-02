@@ -1,3 +1,12 @@
+# MediEvilRecomp ESP v1.1.8 (alineada con MediEvilRecomp-ITA 1.1.8)
+
+- El cursor del ratón desaparece tras 2,5 segundos sin moverlo (también a pantalla completa y jugando con el mando) y vuelve a aparecer al moverlo. Sigue visible con menús o ventanas abiertos y sobre la barra de menús.
+- **System → Autohide Menu Bar** ahora funciona (antes era una opción desactivada): la barra de menús se oculta tras 3 segundos sin mover el ratón y vuelve a aparecer al moverlo. F1 sigue mostrándola u ocultándola a mano (`misc/InterfaceAutoHide.cs`, de la versión italiana; respuesta a la issue 17 de BlackLabelHQ/MediEvilRecomp).
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.7 (alineada con MediEvilRecomp-ITA 1.1.7)
 
 - Cámara libre con el stick derecho **desactivada por defecto**: se juega con la cámara original. Se vuelve a activar en **Misc → Quality of life → Right stick camera** (en español: **Varios → Calidad de vida → Cámara con el stick derecho**). Quien ya la había cambiado en los ajustes mantiene su elección.

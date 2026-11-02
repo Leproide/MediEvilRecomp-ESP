@@ -39,6 +39,7 @@ GpuDisplayDiag.Register();
 WidescreenPatch.Register();
 QualityOfLifeMenu.Register();
 CameraToggle.Register();
+InterfaceAutoHide.Register();
 AutoUpdater.Register();
 // Mod Hub della versione PAL (MediEvilRecomp ITA, Author: https://github.com/Leproide).
 // La build spagnola non ha un hub: le mod dell'hub ITA sono pensate per la versione italiana.
