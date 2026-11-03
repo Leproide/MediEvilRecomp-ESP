@@ -164,6 +164,31 @@ Adjunta `debug.txt` a las issues cuando informes de un bloqueo o un cierre inesp
 
 ---
 
+## Objetos visibles desde lejos
+
+Con **Draw distance** alta, con los shaders (la niebla deja ver lejos) o con la cámara libre se ven zonas que el juego original nunca mostraba desde esa distancia. Pero el juego carga y dibuja los objetos del nivel (puertas, verjas, muros destructibles, decorados) solo cerca de Dan: de lejos una verja cerrada parecía abierta, y un muro destructible desaparecía y dejaba ver la sala de detrás, como un truco. `patches/render/DistantObjectsPatch.cs` lo corrige. Está activo por defecto y se desactiva en **Misc → Quality of life → Distant objects**; no hace falta pulsar R3, vale con cualquier cámara.
+
+Cómo funciona, en resumen (los detalles están en los comentarios del archivo):
+
+| Paso | Qué hace | Cuándo hace falta |
+|---|---|---|
+| Radio de carga | cuando Dan cambia de zona, el juego crea los objetos más lejos (distancia original × Draw distance, mínimo ×1,5 también a 1x, máximo ×3) | siempre: sin él, los objetos lejanos ni siquiera existen |
+| Lista ampliada | los objetos siguen cargados hasta la misma distancia en lugar de descartarse | siempre |
+| Precarga | un objeto creado lejos nunca ha estado "despierto" y todavía no tiene el modelo quieto que dibujar: durante un frame el juego lo considera cercano y lo crea | puertas y verjas vistas de lejos por primera vez |
+| Modelo quieto visible | los objetos dormidos lejanos se dibujan quietos en su última pose | puertas, verjas, decorados, antorchas (apagadas, se encienden al acercarse) |
+| Mantenidos despiertos | algunos objetos no tienen modelo quieto y el juego solo los dibuja despiertos: a los tipos de la lista `KeepAwake` (hoy los muros destructibles, tipo `800109F8`) el juego no los vuelve a dormir dentro de la distancia ampliada | muros destructibles, en cualquier estado (entero, agrietado, en pedazos) |
+
+El despertar de verdad sigue siendo el del juego: enemigos, trampas y eventos se activan a la distancia original. Dos listas del archivo permiten ajustar los casos particulares:
+
+- `NoPreload`: tipos que no se precargan, si despertarlos durante un frame hace sonar algo o lanza eventos;
+- `KeepAwake`: tipos sin modelo quieto que se mantienen despiertos de lejos. Solo objetos sin IA: un enemigo mantenido despierto se movería también de lejos.
+
+Para encontrar el tipo de un objeto que desaparece de lejos: arranca con `MEDIEVIL_DEBUG` definida (ver [Debug](#debug)), quédate quieto unos diez segundos donde el objeto no se ve y luego donde sí se ve. Las líneas `[DistantObjects]` muestran cada ~4 segundos los objetos dormidos con tipo, flags, modelo quieto (`el=00000000` si falta), posición y distancia: el que aparece solo en la primera lista es el objeto buscado.
+
+En la versión española las direcciones de las listas y de las distancias son otras (`config/versions.json`); el tipo `800109F8` es el mismo, porque el overlay de la Cripta coincide en ese punto.
+
+---
+
 ## LibCrypt: El Mausoleo de la Cima de la Colina
 
 El disco PAL español está protegido con **LibCrypt**, igual que el italiano. Desde el mapa, el juego (código en 0x80065D20..0x80065FC0, iniciado en LANDMAP 0x80011E98) lee con GetlocP la posición de 16 sectores de la tabla en 0x800DB334. Ocho de ellos tienen en el disco original el subcódigo Q modificado, y de ellos sale una clave de 16 bits (0x800DB32C). Con esa clave `func_80065FC4` descifra el primer sector del Mausoleo en `MEDRES.MWD` (recurso 0xD6). Un volcado bin/cue no tiene subcódigo: la clave sale mal y el juego se queda en la pantalla del CD con el signo de exclamación.

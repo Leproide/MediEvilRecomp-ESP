@@ -1,3 +1,13 @@
+# MediEvilRecomp ESP v1.1.11 (alineada con MediEvilRecomp-ITA 1.1.11)
+
+- **Muros destructibles visibles desde lejos**: el juego solo los dibuja cuando están "despiertos", así que de lejos (Draw distance alta, shaders o cámara libre) desaparecían en cualquier estado y dejaban ver la sala de detrás. Ahora, dentro de la distancia ampliada, siguen despiertos y visibles; los golpes y la rotura funcionan como antes (`patches/render/DistantObjectsPatch.cs`, de la versión italiana; nueva dirección española de la lista de objetos despiertos 0x800EEB60 en `config/versions.json`).
+- Diagnóstico de los objetos lejanos más completo con `MEDIEVIL_DEBUG`; el README explica cómo funciona la carga de los objetos lejanos y cómo encontrar el tipo de un objeto que desaparece.
+- Solo cambia código C#: basta con volver a compilar (`windows_run_es.bat`), no hace falta regenerar el código.
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.10 (alineada con MediEvilRecomp-ITA 1.1.10)
 
 - **Objetos visibles desde lejos**: ahora también las antorchas se dibujan desde lejos en lugar de desaparecer; de lejos están apagadas y se encienden al acercarse, como en el original (`patches/render/DistantObjectsPatch.cs`, de la versión italiana).

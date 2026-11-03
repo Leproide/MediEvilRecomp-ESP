@@ -176,6 +176,8 @@ public static class Addr
     public const uint FnTerrainFogShutdown = GameVersion.Spanish ? 0x8007A140u : 0x8007A140u;
     /// <summary>lista degli oggetti attorno a Dan (DistantObjectsPatch) (data)</summary>
     public const uint ThingList = GameVersion.Spanish ? 0x800EEAC8u : 0x800EEA50u;
+    /// <summary>lista degli oggetti svegli, sentinella (DistantObjectsPatch) (data)</summary>
+    public const uint ThingAwakeList = GameVersion.Spanish ? 0x800EEB60u : 0x800EEAE8u;
     /// <summary>punto di riferimento per la distanza degli oggetti (DistantObjectsPatch) (data)</summary>
     public const uint ThingRefPoint = GameVersion.Spanish ? 0x800EEBF8u : 0x800EEB80u;
     /// <summary>puntatore alle soglie sveglia/disattivazione degli oggetti (DistantObjectsPatch) (data)</summary>

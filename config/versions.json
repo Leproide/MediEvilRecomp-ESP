@@ -1596,6 +1596,13 @@
       "esp": "0x800EEAC8"
     },
     {
+      "name": "ThingAwakeList",
+      "kind": "data",
+      "ita": "0x800EEAE8",
+      "desc": "lista degli oggetti svegli, sentinella (DistantObjectsPatch)",
+      "esp": "0x800EEB60"
+    },
+    {
       "name": "ThingRefPoint",
       "kind": "data",
       "ita": "0x800EEB80",
