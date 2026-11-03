@@ -1,3 +1,12 @@
+# MediEvilRecomp ESP v1.1.10 (alineada con MediEvilRecomp-ITA 1.1.10)
+
+- **Objetos visibles desde lejos**: ahora también las antorchas se dibujan desde lejos en lugar de desaparecer; de lejos están apagadas y se encienden al acercarse, como en el original (`patches/render/DistantObjectsPatch.cs`, de la versión italiana).
+- Solo cambia código C#: basta con volver a compilar (`windows_run_es.bat`), no hace falta regenerar el código.
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.9 (alineada con MediEvilRecomp-ITA 1.1.9)
 
 - **Objetos visibles desde lejos**: también con **Draw distance** a 1x (útil con los shaders, donde la niebla deja ver lejos), puertas, verjas y decorados se cargan y se dibujan desde lejos en lugar de aparecer solo cerca de Dan (por ejemplo, las hojas de la verja del cementerio, que de lejos parecían abiertas o faltaban). Vale con cualquier cámara. Enemigos, trampas y eventos se activan a la distancia original; de lejos los objetos quedan quietos y las antorchas, como en el original, solo aparecen al acercarse. Activo por defecto, se desactiva en **Misc → Quality of life → Distant objects** (`patches/render/DistantObjectsPatch.cs`, de la versión italiana, con las direcciones españolas 0x800EEAC8 / 0x800EEBF8 / 0x800EEC0C en `config/versions.json`).

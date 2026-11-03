@@ -43,9 +43,9 @@
 //     l'elemento fermo;
 //  4. gli oggetti addormentati entro la distanza allargata hanno l'elemento fermo visibile.
 // Le soglie vengono sempre rimesse com'erano: la sveglia (IA, eventi, trappole) resta quella
-// del gioco. Gli oggetti lontani restano fermi nell'ultima posa. Le fiaccole (flag 0x80 in
-// +0x4C) non vengono ridisegnate: la fiamma la fanno solo da sveglie, da lontano sparirebbero
-// spente; restano come nell'originale.
+// del gioco. Gli oggetti lontani restano fermi nell'ultima posa. Anche le fiaccole (flag 0x80
+// in +0x4C) vengono disegnate da lontano, ma spente: la fiamma la fanno solo da sveglie e il
+// gioco non le sveglia in base alla distanza; si accendono avvicinandosi, come nell'originale.
 // Opzione: Misc -> Quality of life -> "Distant objects" (attiva di default).
 // Con MEDIEVIL_DEBUG: righe "[DistantObjects]" con soglie, oggetti precaricati e oggetti
 // svegliati dal gioco (con tipo e posizione), per riconoscere i tipi da escludere.
@@ -73,7 +73,6 @@ public static class DistantObjectsPatch
     const uint ThingType = 0x08u;
     const uint ThingPos = 0x24u;
     const uint ThingWakeCounter = 0x35u;
-    const uint ThingKind = 0x4Cu;
     const uint ThingFlags = 0x50u;
     const uint ThingItems = 0x70u;
     const uint TypeRadius = 0x54u;
@@ -83,7 +82,6 @@ public static class DistantObjectsPatch
     static readonly HashSet<uint> NoPreload = new() { };
 
     const uint FlagAsleep = 0x20000000u;
-    const uint KindLight = 0x00000080u;
     const ushort FlagHidden = 0x0040;
 
     static readonly bool DiagOn = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
@@ -191,7 +189,6 @@ public static class DistantObjectsPatch
         {
             uint item = Item(m, thing);
             bool sleeping = (m.ReadU32(thing + ThingFlags) & FlagAsleep) != 0;
-            bool light = (m.ReadU32(thing + ThingKind) & KindLight) != 0;
             if (DiagOn)
             {
                 if (sleeping) _asleepLast.Add(thing);
@@ -199,7 +196,7 @@ public static class DistantObjectsPatch
                     Log($"il gioco sveglia {thing:X8} tipo {m.ReadU32(thing + ThingType):X8} pos {(int)m.ReadU32(thing + ThingPos)},{(int)m.ReadU32(thing + ThingPos + 4u)},{(int)m.ReadU32(thing + ThingPos + 8u)}");
             }
 
-            if (item != 0 && sleeping && !light)
+            if (item != 0 && sleeping)
             {
                 long dx = (int)m.ReadU32(thing + ThingPos) - rx;
                 long dy = (int)m.ReadU32(thing + ThingPos + 4u) - ry;
