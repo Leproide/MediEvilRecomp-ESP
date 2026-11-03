@@ -44,6 +44,9 @@ Los problemas de esta versión (PAL española) se comunican **aquí**, no en el 
 | `patches/PalLibCrypt.cs` | — | protección LibCrypt con un volcado bin/cue: se abre El Mausoleo de la Cima de la Colina |
 | `patches/PalXaSpeech.cs` | — | los diálogos ya no se cierran solos cuando empieza una voz mientras suena la música |
 | `patches/PalQuitFix.cs` | — | Sistema → Salir cierra el juego como la X de la ventana, sin bloquearse |
+| `patches/render/ShaderDrawDistance.cs` | — | la distancia de dibujado del juego se pasa a los shaders (Dan's Curse V2 funde el límite de dibujado a negro) |
+| `patches/render/DistantObjectsPatch.cs` | — | puertas, verjas, muros destructibles y decorados visibles desde lejos en lugar de aparecer cerca de Dan (ver "Objetos visibles desde lejos") |
+| `patches/qol/CameraToggle.cs` | — | R3 activa y desactiva la cámara libre (desactivada por defecto) |
 | `misc/InterfaceAutoHide.cs` | — | el cursor del ratón y la barra de menús se ocultan solos; System → Autohide Menu Bar funciona |
 | `patches/GameAddresses.cs`, `GameDisc.cs` | — | direcciones por versión y comprobación del disco español |
 | `recompone-fixes/` | — | corrección del lector de CD de RecompOne (modo sector entero) |
@@ -366,13 +369,13 @@ Directory.Build.props      carpetas de salida bin-es/obj-es con -p:Lingua=es
 
 Este repositorio contiene código con licencias distintas.
 
-**Código de MediEvilRecomp (BlackLabelHQ): sin licencia.** MediEvilRecomp no tiene una licencia explícita, así que los derechos sobre su código siguen siendo de sus autores. Este fork **no** aplica la GPL a ese código, ni a las partes adaptadas a las versiones PAL. Son los archivos con la cabecera "Codice originale di MediEvilRecomp" o "Código original de MediEvilRecomp": `Program.cs`, `RecompOne.MediEvil.csproj`, `wrapers/`, `misc/AutoUpdater.cs`, `assets/`, los parches de `patches/render/` (salvo `TitleShaderPatch.cs`), `patches/widescreen/` (salvo `IrisFadePatch.cs`) y `patches/qol/`, los scripts `windows_*_es.bat`, `run.sh`, `.github/workflows/release.yml` y la configuración de `config/` (también `config/es/` y `config/versions.json`). Lo mismo vale para ShaderMod (`mods/ShaderMod`, `BACKUP_Dipendenze/ShaderMod`).
+**Código de MediEvilRecomp (BlackLabelHQ): sin licencia.** MediEvilRecomp no tiene una licencia explícita, así que los derechos sobre su código siguen siendo de sus autores. Este fork **no** aplica la GPL a ese código, ni a las partes adaptadas a las versiones PAL. Son los archivos con la cabecera "Codice originale di MediEvilRecomp" o "Código original de MediEvilRecomp": `Program.cs`, `RecompOne.MediEvil.csproj`, `wrapers/`, `misc/AutoUpdater.cs`, `assets/`, los parches de `patches/render/` (salvo `TitleShaderPatch.cs`, `ShaderDrawDistance.cs` y `DistantObjectsPatch.cs`), `patches/widescreen/` (salvo `IrisFadePatch.cs`) y `patches/qol/` (salvo `CameraToggle.cs`), los scripts `windows_*_es.bat`, `run.sh`, `.github/workflows/release.yml` y la configuración de `config/` (también `config/es/` y `config/versions.json`). Lo mismo vale para ShaderMod (`mods/ShaderMod`, `BACKUP_Dipendenze/ShaderMod`).
 
 **RecompOne: licencia MIT**, Copyright (c) 2026 flaffy. El texto está en el archivo `LICENSE` del submódulo `RecompOne` (y en `BACKUP_Dipendenze/RecompOne`); los paquetes de las releases lo incluyen como `LICENSE-RecompOne-MIT.txt`.
 
 **Código escrito para este fork: GPL-3.0-or-later.** Texto completo en [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
 - `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`, `GameAddresses.cs`, `GameDisc.cs`;
-- `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/diag/`;
+- `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/render/ShaderDrawDistance.cs`, `patches/render/DistantObjectsPatch.cs`, `patches/qol/CameraToggle.cs`, `patches/diag/`;
 - `misc/InterfaceAutoHide.cs`;
 - las mods `mods/Trucchi/` y `mods/FilmatiSchermoIntero/`;
 - `recompone-fixes/`;
