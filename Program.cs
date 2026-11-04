@@ -66,5 +66,6 @@ if (!RecompOne.Runtime.Config.Settings.Has("display.true_color"))
 if (!RecompOne.Runtime.Config.Settings.Has("render.better_rendering"))
     RecompOne.Runtime.Config.Settings.Set("render.better_rendering", true);
 
-RecompOne.Runtime.Runtime.Run(() => Entry.Run(new PSMemory(0x00400000), args.Length > 0 ? args[0] : null, title));
+// fork ITA: 8 MB invece di 4, per la memoria aggiunta al gioco da patches/HeapExpansion.cs (GPL)
+RecompOne.Runtime.Runtime.Run(() => Entry.Run(new PSMemory(0x00800000), args.Length > 0 ? args[0] : null, title));
 return 0;

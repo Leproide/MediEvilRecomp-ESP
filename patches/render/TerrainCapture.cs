@@ -168,7 +168,8 @@ public static class TerrainCapture
 
     static bool Ram(uint address)
     {
-        return address >= 0x80010000u && address < 0x80400000u;
+        // fork ITA: tutta la memoria emulata (8 MB, vedi patches/HeapExpansion.cs)
+        return address >= 0x80010000u && address < 0x80000000u + RecompOne.Runtime.Runtime.RamSize;
     }
 
     static bool Project(CpuContext c, IMemory m, uint matrix, Span<int> gridX, Span<int> gridZ)

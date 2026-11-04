@@ -182,6 +182,8 @@ public static class Addr
     public const uint ThingRefPoint = GameVersion.Spanish ? 0x800EEBF8u : 0x800EEB80u;
     /// <summary>puntatore alle soglie sveglia/disattivazione degli oggetti (DistantObjectsPatch) (data)</summary>
     public const uint ThingRangePtr = GameVersion.Spanish ? 0x800EEC0Cu : 0x800EEB94u;
+    /// <summary>12 liste libere dell'allocatore del gioco, 0x14 byte l'una (HeapExpansion) (data)</summary>
+    public const uint HeapFreeBins = GameVersion.Spanish ? 0x800F3B80u : 0x800F3B08u;
 }
 
 /// <summary>Immediati delle copie di funzioni ricompilate (CullPatch,

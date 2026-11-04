@@ -710,6 +710,14 @@
     },
     {
       "overlay": "game",
+      "target": "Recompiled.HeapExpansion.AfterInitHeap",
+      "mode": "post",
+      "key": "address",
+      "ita": "800A4028",
+      "esp": "800A4028"
+    },
+    {
+      "overlay": "game",
       "target": "Recompiled.WaterMaterialPatch.BeginLevel",
       "mode": "pre",
       "key": "address",
@@ -1615,6 +1623,13 @@
       "ita": "0x800EEB94",
       "desc": "puntatore alle soglie sveglia/disattivazione degli oggetti (DistantObjectsPatch)",
       "esp": "0x800EEC0C"
+    },
+    {
+      "name": "HeapFreeBins",
+      "kind": "data",
+      "ita": "0x800F3B08",
+      "desc": "12 liste libere dell'allocatore del gioco, 0x14 byte l'una (HeapExpansion)",
+      "esp": "0x800F3B80"
     }
   ],
   "literals": [

@@ -49,6 +49,7 @@ public static class ParticleIdentityPatch
 
     private static bool IsRam(uint address)
     {
-        return (address & 0xFF000000u) == 0x80000000u && (address & 0x00FFFFFFu) < 0x00400000u;
+        // fork ITA: tutta la memoria emulata (8 MB, vedi patches/HeapExpansion.cs)
+        return (address & 0xFF000000u) == 0x80000000u && (address & 0x00FFFFFFu) < RecompOne.Runtime.Runtime.RamSize;
     }
 }

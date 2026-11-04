@@ -53,7 +53,17 @@
 // la distanza allargata: se dormono, il contatore +0x35 li sveglia; se sono svegli, durante il
 // controllo +0x36 vale -2 (poi torna com'era), cosi' restano svegli e disegnati. La loro logica
 // (colpi, rottura) resta quella del gioco.
-// Opzione: Misc -> Quality of life -> "Distant objects" (attiva di default).
+// Precaricamento solo per gli oggetti di scena: i tipi che stanno nel codice del livello
+// (0x80010000-0x80021D14, personaggi con la loro logica, es. 80018670 al Villaggio Addormentato)
+// non vengono precaricati, perche' la loro inizializzazione fatta lontano da Dan crasha. Restano
+// invisibili da lontano come nell'originale.
+// Memoria: ogni oggetto caricato occupa memoria del gioco. HeapExpansion.cs aggiunge 2 MB; come
+// protezione estrema, se la memoria libera scende sotto 96 KB il fix smette di caricare e tenere
+// oggetti lontani (soglie originali, gli oggetti lontani vengono scaricati) finche' non torna
+// sopra 256 KB.
+// Opzione: Misc -> Quality of life -> "Distant objects". SPENTA di default dalla v1.1.12: con il
+// raggio di caricamento allargato il Villaggio Addormentato crasha quando il gioco sveglia per la
+// prima volta un suo oggetto (inizializzazione in func_8001626C dell'overlay sv), in corso di analisi.
 // Con MEDIEVIL_DEBUG: righe "[DistantObjects]" con soglie, oggetti precaricati, mostrati, tenuti
 // svegli e svegliati dal gioco, e ogni ~4 secondi l'elenco completo degli oggetti addormentati
 // (tipo, flag, elemento fermo, posizione, distanza), per riconoscere i tipi da aggiungere a
@@ -67,7 +77,7 @@ namespace Recompiled;
 
 public static class DistantObjectsPatch
 {
-    public static readonly Option<bool> Setting = Options.Bool("qol.distant_objects", true);
+    public static readonly Option<bool> Setting = Options.Bool("qol.distant_objects", false);
 
     const float MinFactor = 1.5f;
     const float MaxFactor = 3f;
@@ -91,6 +101,14 @@ public static class DistantObjectsPatch
 
     // tipi esclusi dal precaricamento (svegliarli un frame fa partire suoni/eventi, es. le casse)
     static readonly HashSet<uint> NoPreload = new() { };
+
+    // codice del livello (overlay caricati a 0x80010000, prima del codice comune del gioco)
+    // uguale nelle due versioni (overlay a 0x80010000, codice comune del gioco da 0x80021D14)
+    const uint LevelCodeStart = 0x80010000u;
+    const uint LevelCodeEnd = 0x80021D14u;
+
+    static bool Preloadable(uint type) =>
+        !NoPreload.Contains(type) && !(type >= LevelCodeStart && type < LevelCodeEnd);
 
     // tipi senza elemento fermo, innocui da tenere svegli lontano (nessuna IA)
     // 0x800109F8 e' lo stesso nelle due versioni (overlay CR identico in quel punto)
@@ -117,6 +135,30 @@ public static class DistantObjectsPatch
 
     static bool Active => _enabled;
 
+    // protezione estrema: memoria del gioco quasi esaurita
+    const long LowMemoryEnter = 96 * 1024;
+    const long LowMemoryExit = 256 * 1024;
+    static bool _lowMemory;
+    static int _memoryTick;
+
+    static bool LowMemory(IMemory m)
+    {
+        if (_memoryTick++ % 30 != 0) return _lowMemory;
+        long free = HeapExpansion.FreeBytes(m);
+        if (!_lowMemory && free < LowMemoryEnter)
+        {
+            _lowMemory = true;
+            Console.WriteLine($"[DistantObjects] memoria quasi esaurita ({free} byte liberi): oggetti lontani sospesi");
+        }
+        else if (_lowMemory && free > LowMemoryExit)
+        {
+            _lowMemory = false;
+            Console.WriteLine($"[DistantObjects] memoria di nuovo disponibile ({free} byte liberi): oggetti lontani ripresi");
+        }
+
+        return _lowMemory;
+    }
+
     // diagnostica (MEDIEVIL_DEBUG): oggetti che il gioco sveglia, per riconoscere i tipi
     static readonly HashSet<uint> _asleepLast = new();
     static readonly HashSet<uint> _loggedShown = new();
@@ -140,7 +182,7 @@ public static class DistantObjectsPatch
     {
         _loaderPatched = false;
         uint range = m.ReadU32(RangePtr);
-        if (!Active || !Ram(range) || range != _range) return;
+        if (!Active || !Ram(range) || range != _range || LowMemory(m)) return;
         _loaderSaved = m.ReadU32(range);
         m.WriteU32(range, Extended(Factor()));
         _loaderPatched = true;
@@ -176,7 +218,7 @@ public static class DistantObjectsPatch
             Log($"soglie: sveglia {Math.Sqrt(wake):0}, disattivazione {Math.Sqrt(far):0}");
         }
 
-        if (!Active) return;
+        if (!Active || LowMemory(m)) return;
         m.WriteU32(range + 4u, Extended(Factor()));
         _farPatched = true;
 
@@ -192,7 +234,7 @@ public static class DistantObjectsPatch
         {
             uint items = m.ReadU32(thing + ThingItems);
             if ((m.ReadU32(thing + ThingFlags) & FlagAsleep) != 0 && Ram(items) && !Ram(m.ReadU32(items)) &&
-                !NoPreload.Contains(m.ReadU32(thing + ThingType)) && _preloaded.Add(thing))
+                Preloadable(m.ReadU32(thing + ThingType)) && _preloaded.Add(thing))
             {
                 m.WriteU8(thing + ThingWakeCounter, 1);
                 Log($"precarico {thing:X8} tipo {m.ReadU32(thing + ThingType):X8}");
@@ -312,7 +354,19 @@ public static class DistantObjectsPatch
                         }
                     }
 
-                    if (_keptLogged.Add(thing)) Log($"tengo sveglio {thing:X8} tipo {kind:X8} ({(awake ? "sveglio" : "addormentato")})");
+                    if (_keptLogged.Add(thing))
+                    {
+                        Log($"tengo sveglio {thing:X8} tipo {kind:X8} ({(awake ? "sveglio" : "addormentato")}) " +
+                            $"pos {(int)m.ReadU32(thing + ThingPos)},{(int)m.ReadU32(thing + ThingPos + 4u)},{(int)m.ReadU32(thing + ThingPos + 8u)} " +
+                            $"a {Math.Sqrt(dx * dx + dy * dy + dz * dz):0}");
+                        if (DiagOn)
+                        {
+                            // primi 0x80 byte dell'oggetto, per distinguere i tipi che condividono il comportamento
+                            var raw = new System.Text.StringBuilder();
+                            for (uint o = 0; o < 0x80u; o += 4u) raw.Append($"{m.ReadU32(thing + o):X8} ");
+                            Log($"  dati {thing:X8}: {raw}");
+                        }
+                    }
                 }
             }
 
@@ -328,5 +382,6 @@ public static class DistantObjectsPatch
         return Ram(item) ? item : 0;
     }
 
-    static bool Ram(uint a) => (a & 0xFF000000u) == 0x80000000u && (a & 0x00FFFFFFu) < 0x00200000u;
+    // tutta la memoria emulata: gli oggetti possono stare anche nel blocco aggiunto da HeapExpansion
+    static bool Ram(uint a) => HeapExpansion.IsRam(a);
 }

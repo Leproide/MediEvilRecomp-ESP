@@ -1,3 +1,16 @@
+# MediEvilRecomp ESP v1.1.12 (alineada con MediEvilRecomp-ITA 1.1.12)
+
+- **Objetos visibles desde lejos desactivados por defecto** (Misc → Quality of life → Distant objects): con la opción activa la Aldea Dormida puede cerrarse de forma inesperada, porque el juego inicializa un objeto del nivel cargado mucho antes de lo normal. Está en análisis; las correcciones siguen en el código y la opción se puede volver a activar bajo tu responsabilidad. Quien ya la había cambiado en los ajustes mantiene su elección.
+- **Corregido el cierre por memoria agotada** (por ejemplo en los Campos de Espantapájaros con Draw distance alta): los objetos cargados desde lejos llenaban la memoria del juego (poco más de 100 KB libres) y el juego se cerraba en puntos distintos. Ahora el juego tiene 2 MB más de memoria: la memoria emulada pasa de 4 a 8 MB y el bloque se añade al gestor de memoria del juego al arrancar (`patches/HeapExpansion.cs`; listas libres en la dirección española 0x800F3B80). Los controles de direcciones de los parches usan toda la memoria.
+- Precarga de los objetos lejanos limitada a los objetos de escena (puertas, verjas, decorados): los personajes del nivel ya no se despiertan durante un frame desde lejos y siguen invisibles de lejos como en el original.
+- Protección: si la memoria libre baja aun así de 96 KB, los objetos lejanos se suspenden hasta que vuelve a superar los 256 KB (`patches/render/DistantObjectsPatch.cs`).
+- Nuevos `windows_run_debug_es.bat` y `windows_run_debug_no_build_es.bat`: arrancan con `MEDIEVIL_DEBUG=1` y guardan el log en `debug.txt`.
+- Después de actualizar hay que regenerar el código, porque cambia `config/es/MediEvil.json`: ejecuta `windows_initial_build_es.bat` y responde **S** a la pregunta de repetir la primera compilación (Linux: `./linux_initial_build_es.sh`).
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.11 (alineada con MediEvilRecomp-ITA 1.1.11)
 
 - **Muros destructibles visibles desde lejos**: el juego solo los dibuja cuando están "despiertos", así que de lejos (Draw distance alta, shaders o cámara libre) desaparecían en cualquier estado y dejaban ver la sala de detrás. Ahora, dentro de la distancia ampliada, siguen despiertos y visibles; los golpes y la rotura funcionan como antes (`patches/render/DistantObjectsPatch.cs`, de la versión italiana; nueva dirección española de la lista de objetos despiertos 0x800EEB60 en `config/versions.json`).

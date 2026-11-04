@@ -730,6 +730,12 @@
     },
     {
       "overlay": "game",
+      "address": "800A4028",
+      "target": "Recompiled.HeapExpansion.AfterInitHeap",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
       "address": "80065618",
       "target": "Recompiled.WaterMaterialPatch.BeginLevel",
       "mode": "pre"

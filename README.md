@@ -44,6 +44,7 @@ Los problemas de esta versión (PAL española) se comunican **aquí**, no en el 
 | `patches/PalLibCrypt.cs` | — | protección LibCrypt con un volcado bin/cue: se abre El Mausoleo de la Cima de la Colina |
 | `patches/PalXaSpeech.cs` | — | los diálogos ya no se cierran solos cuando empieza una voz mientras suena la música |
 | `patches/PalQuitFix.cs` | — | Sistema → Salir cierra el juego como la X de la ventana, sin bloquearse |
+| `patches/HeapExpansion.cs` | — | 2 MB más de memoria para el juego: sin cierres por memoria agotada con los objetos lejanos |
 | `patches/render/ShaderDrawDistance.cs` | — | la distancia de dibujado del juego se pasa a los shaders (Dan's Curse V2 funde el límite de dibujado a negro) |
 | `patches/render/DistantObjectsPatch.cs` | — | puertas, verjas, muros destructibles y decorados visibles desde lejos en lugar de aparecer cerca de Dan (ver "Objetos visibles desde lejos") |
 | `patches/qol/CameraToggle.cs` | — | R3 activa y desactiva la cámara libre (desactivada por defecto) |
@@ -163,13 +164,17 @@ $env:MEDIEVIL_DEBUG = "cd,irq"
 dotnet run --project RecompOne.MediEvil.csproj -p:Lingua=es > debug.txt 2>&1
 ```
 
+Más sencillo: `windows_run_debug_es.bat` (o `windows_run_debug_no_build_es.bat`, sin recompilar) arranca el juego con `MEDIEVIL_DEBUG=1` y guarda toda la salida en `debug.txt`, mostrándola también en la consola.
+
 Adjunta `debug.txt` a las issues cuando informes de un bloqueo o un cierre inesperado.
 
 ---
 
 ## Objetos visibles desde lejos
 
-Con **Draw distance** alta, con los shaders (la niebla deja ver lejos) o con la cámara libre se ven zonas que el juego original nunca mostraba desde esa distancia. Pero el juego carga y dibuja los objetos del nivel (puertas, verjas, muros destructibles, decorados) solo cerca de Dan: de lejos una verja cerrada parecía abierta, y un muro destructible desaparecía y dejaba ver la sala de detrás, como un truco. `patches/render/DistantObjectsPatch.cs` lo corrige. Está activo por defecto y se desactiva en **Misc → Quality of life → Distant objects**; no hace falta pulsar R3, vale con cualquier cámara.
+Con **Draw distance** alta, con los shaders (la niebla deja ver lejos) o con la cámara libre se ven zonas que el juego original nunca mostraba desde esa distancia. Pero el juego carga y dibuja los objetos del nivel (puertas, verjas, muros destructibles, decorados) solo cerca de Dan: de lejos una verja cerrada parecía abierta, y un muro destructible desaparecía y dejaba ver la sala de detrás, como un truco. `patches/render/DistantObjectsPatch.cs` lo corrige. Se activa en **Misc → Quality of life → Distant objects** y vale con cualquier cámara (no hace falta pulsar R3).
+
+> **Desactivado por defecto desde la v1.1.12:** con esta opción activa la Aldea Dormida puede cerrarse de forma inesperada (el juego inicializa un objeto del nivel cargado mucho antes de lo normal). El problema está en análisis; quien la active lo hace bajo su responsabilidad, sobre todo en los niveles grandes.
 
 Cómo funciona, en resumen (los detalles están en los comentarios del archivo):
 
@@ -177,9 +182,11 @@ Cómo funciona, en resumen (los detalles están en los comentarios del archivo):
 |---|---|---|
 | Radio de carga | cuando Dan cambia de zona, el juego crea los objetos más lejos (distancia original × Draw distance, mínimo ×1,5 también a 1x, máximo ×3) | siempre: sin él, los objetos lejanos ni siquiera existen |
 | Lista ampliada | los objetos siguen cargados hasta la misma distancia en lugar de descartarse | siempre |
-| Precarga | un objeto creado lejos nunca ha estado "despierto" y todavía no tiene el modelo quieto que dibujar: durante un frame el juego lo considera cercano y lo crea | puertas y verjas vistas de lejos por primera vez |
+| Precarga | un objeto creado lejos nunca ha estado "despierto" y todavía no tiene el modelo quieto que dibujar: durante un frame el juego lo considera cercano y lo crea. Solo para los objetos de escena: los personajes con su propia lógica (tipo en el código del nivel) siguen invisibles de lejos como en el original, porque inicializarlos lejos de Dan hace que el juego se cierre | puertas y verjas vistas de lejos por primera vez |
 | Modelo quieto visible | los objetos dormidos lejanos se dibujan quietos en su última pose | puertas, verjas, decorados, antorchas (apagadas, se encienden al acercarse) |
 | Mantenidos despiertos | algunos objetos no tienen modelo quieto y el juego solo los dibuja despiertos: a los tipos de la lista `KeepAwake` (hoy los muros destructibles, tipo `800109F8`) el juego no los vuelve a dormir dentro de la distancia ampliada | muros destructibles, en cualquier estado (entero, agrietado, en pedazos) |
+
+Cada objeto cargado ocupa memoria del juego, que en un nivel tiene poco más de 100 KB libres: en los niveles grandes (por ejemplo los Campos de Espantapájaros a 3x) la memoria se agotaba y el juego se cerraba. `patches/HeapExpansion.cs` añade al juego 2 MB de memoria (la memoria emulada pasa de 4 a 8 MB); como protección extrema, si la memoria libre baja aun así de 96 KB, el fix suspende los objetos lejanos hasta que vuelve a superar los 256 KB.
 
 El despertar de verdad sigue siendo el del juego: enemigos, trampas y eventos se activan a la distancia original. Dos listas del archivo permiten ajustar los casos particulares:
 
@@ -188,7 +195,7 @@ El despertar de verdad sigue siendo el del juego: enemigos, trampas y eventos se
 
 Para encontrar el tipo de un objeto que desaparece de lejos: arranca con `MEDIEVIL_DEBUG` definida (ver [Debug](#debug)), quédate quieto unos diez segundos donde el objeto no se ve y luego donde sí se ve. Las líneas `[DistantObjects]` muestran cada ~4 segundos los objetos dormidos con tipo, flags, modelo quieto (`el=00000000` si falta), posición y distancia: el que aparece solo en la primera lista es el objeto buscado.
 
-En la versión española las direcciones de las listas y de las distancias son otras (`config/versions.json`); el tipo `800109F8` es el mismo, porque el overlay de la Cripta coincide en ese punto.
+En la versión española las direcciones de las listas, de las distancias y de las listas libres de la memoria son otras (`config/versions.json`); el tipo `800109F8` es el mismo, porque el overlay de la Cripta coincide en ese punto.
 
 ---
 
@@ -369,19 +376,21 @@ Directory.Build.props      carpetas de salida bin-es/obj-es con -p:Lingua=es
 
 Este repositorio contiene código con licencias distintas.
 
-**Código de MediEvilRecomp (BlackLabelHQ): sin licencia.** MediEvilRecomp no tiene una licencia explícita, así que los derechos sobre su código siguen siendo de sus autores. Este fork **no** aplica la GPL a ese código, ni a las partes adaptadas a las versiones PAL. Son los archivos con la cabecera "Codice originale di MediEvilRecomp" o "Código original de MediEvilRecomp": `Program.cs`, `RecompOne.MediEvil.csproj`, `wrapers/`, `misc/AutoUpdater.cs`, `assets/`, los parches de `patches/render/` (salvo `TitleShaderPatch.cs`, `ShaderDrawDistance.cs` y `DistantObjectsPatch.cs`), `patches/widescreen/` (salvo `IrisFadePatch.cs`) y `patches/qol/` (salvo `CameraToggle.cs`), los scripts `windows_*_es.bat`, `run.sh`, `.github/workflows/release.yml` y la configuración de `config/` (también `config/es/` y `config/versions.json`). Lo mismo vale para ShaderMod (`mods/ShaderMod`, `BACKUP_Dipendenze/ShaderMod`).
+**Código de MediEvilRecomp (BlackLabelHQ): sin licencia.** MediEvilRecomp no tiene una licencia explícita, así que los derechos sobre su código siguen siendo de sus autores. Este fork **no** aplica la GPL a ese código, ni a las partes adaptadas a las versiones PAL. Son los archivos con la cabecera "Codice originale di MediEvilRecomp" o "Código original de MediEvilRecomp": `Program.cs`, `RecompOne.MediEvil.csproj`, `wrapers/`, `misc/AutoUpdater.cs`, `assets/`, los parches de `patches/render/`, `patches/widescreen/` y `patches/qol/` (salvo los archivos GPL indicados abajo), los scripts `windows_*_es.bat` (salvo `windows_run_debug*_es.bat`), `run.sh`, `.github/workflows/release.yml` y la configuración de `config/` (también `config/es/` y `config/versions.json`). Lo mismo vale para ShaderMod (`mods/ShaderMod`, `BACKUP_Dipendenze/ShaderMod`).
 
 **RecompOne: licencia MIT**, Copyright (c) 2026 flaffy. El texto está en el archivo `LICENSE` del submódulo `RecompOne` (y en `BACKUP_Dipendenze/RecompOne`); los paquetes de las releases lo incluyen como `LICENSE-RecompOne-MIT.txt`.
 
 **Código escrito para este fork: GPL-3.0-or-later.** Texto completo en [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
-- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`, `GameAddresses.cs`, `GameDisc.cs`;
+- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`, `HeapExpansion.cs`, `GameAddresses.cs`, `GameDisc.cs`;
 - `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/render/ShaderDrawDistance.cs`, `patches/render/DistantObjectsPatch.cs`, `patches/qol/CameraToggle.cs`, `patches/diag/`;
 - `misc/InterfaceAutoHide.cs`;
 - las mods `mods/Trucchi/` y `mods/FilmatiSchermoIntero/`;
 - `recompone-fixes/`;
 - las herramientas de `tools/pal-port/` y `tools/ci/`;
-- los scripts `linux_initial_build_es.sh`, `linux_run_es.sh` y `Directory.Build.props`;
+- los scripts `linux_initial_build_es.sh`, `linux_run_es.sh`, `windows_run_debug_es.bat`, `windows_run_debug_no_build_es.bat` y `Directory.Build.props`;
 - la documentación escrita para el fork (`disc/README.md`, `disc/LEEME.md`, los README de las mods y de las herramientas).
+
+La lista recoge los archivos principales, pero no es exhaustiva: otros archivos escritos para el fork pueden ser GPL. Vale la cabecera de cada archivo: los archivos GPL tienen la cabecera GPL-3.0-or-later (`SPDX-License-Identifier: GPL-3.0-or-later`, autor https://github.com/Leproide), los de MediEvilRecomp la cabecera "Codice originale di MediEvilRecomp" o "Código original de MediEvilRecomp". Los archivos de BlackLabelHQ con pequeños añadidos del fork (por ejemplo `patches/qol/QualityOfLifePanel.cs`, `config/MediEvil.json`, `config/es/MediEvil.json`, `assets/languages.json`) siguen bajo las condiciones de MediEvilRecomp.
 
 MediEvil es una marca de sus respectivos propietarios: este proyecto no está afiliado ni aprobado por Sony Interactive Entertainment.
 
