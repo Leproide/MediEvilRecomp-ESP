@@ -23,3 +23,7 @@ bin-es/
 obj-es/
 # log di debug
 debug.txt
+# mod di diagnostica (sempre chiamate Diag*) e strumenti locali, non vanno nel repo
+mods/Diag*/
+mods/ConvertiTextureDuckStation/
+*.log

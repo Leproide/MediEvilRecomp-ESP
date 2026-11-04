@@ -1,6 +1,16 @@
+# MediEvilRecomp ESP v1.1.13 (alineada con MediEvilRecomp-ITA 1.1.13)
+
+- **Objetos visibles desde lejos de nuevo activos por defecto** (Misc → Quality of life → Distant objects), con la precarga para todos los objetos como antes de la v1.1.12. El cierre en la Aldea Durmiente no lo causaban las modificaciones del fork (pasa también con los objetos lejanos desactivados): lo provoca saltarse una parte de la historia con los trucos. El nivel carga los modelos por grupos a medida que avanza la historia; si te saltas esa parte, el grupo 426 nunca se carga y, al entrar por la chimenea de la casa después de poner la cruz en la iglesia, el juego busca el modelo 429, que no está en memoria. Se explica en la sección Trucos del README. Si habías desactivado la opción, vuelve a activarla en Misc → Quality of life → Distant objects.
+- Se mantienen los 2 MB de memoria extra y la protección por memoria casi agotada de la v1.1.12, y los muros destructibles que se mantienen despiertos.
+- Solo cambia código C#: basta con volver a compilar (`windows_run_es.bat`), no hace falta regenerar el código.
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.12 (alineada con MediEvilRecomp-ITA 1.1.12)
 
-- **Objetos visibles desde lejos desactivados por defecto** (Misc → Quality of life → Distant objects): con la opción activa la Aldea Dormida puede cerrarse de forma inesperada, porque el juego inicializa un objeto del nivel cargado mucho antes de lo normal. Está en análisis; las correcciones siguen en el código y la opción se puede volver a activar bajo tu responsabilidad. Quien ya la había cambiado en los ajustes mantiene su elección.
+- **Objetos visibles desde lejos desactivados por defecto** (Misc → Quality of life → Distant objects): con la opción activa la Aldea Durmiente puede cerrarse de forma inesperada, porque el juego inicializa un objeto del nivel cargado mucho antes de lo normal. Está en análisis; las correcciones siguen en el código y la opción se puede volver a activar bajo tu responsabilidad. Quien ya la había cambiado en los ajustes mantiene su elección.
 - **Corregido el cierre por memoria agotada** (por ejemplo en los Campos de Espantapájaros con Draw distance alta): los objetos cargados desde lejos llenaban la memoria del juego (poco más de 100 KB libres) y el juego se cerraba en puntos distintos. Ahora el juego tiene 2 MB más de memoria: la memoria emulada pasa de 4 a 8 MB y el bloque se añade al gestor de memoria del juego al arrancar (`patches/HeapExpansion.cs`; listas libres en la dirección española 0x800F3B80). Los controles de direcciones de los parches usan toda la memoria.
 - Precarga de los objetos lejanos limitada a los objetos de escena (puertas, verjas, decorados): los personajes del nivel ya no se despiertan durante un frame desde lejos y siguen invisibles de lejos como en el original.
 - Protección: si la memoria libre baja aun así de 96 KB, los objetos lejanos se suspenden hasta que vuelve a superar los 256 KB (`patches/render/DistantObjectsPatch.cs`).

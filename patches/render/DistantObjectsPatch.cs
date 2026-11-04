@@ -53,17 +53,13 @@
 // la distanza allargata: se dormono, il contatore +0x35 li sveglia; se sono svegli, durante il
 // controllo +0x36 vale -2 (poi torna com'era), cosi' restano svegli e disegnati. La loro logica
 // (colpi, rottura) resta quella del gioco.
-// Precaricamento solo per gli oggetti di scena: i tipi che stanno nel codice del livello
-// (0x80010000-0x80021D14, personaggi con la loro logica, es. 80018670 al Villaggio Addormentato)
-// non vengono precaricati, perche' la loro inizializzazione fatta lontano da Dan crasha. Restano
-// invisibili da lontano come nell'originale.
 // Memoria: ogni oggetto caricato occupa memoria del gioco. HeapExpansion.cs aggiunge 2 MB; come
 // protezione estrema, se la memoria libera scende sotto 96 KB il fix smette di caricare e tenere
 // oggetti lontani (soglie originali, gli oggetti lontani vengono scaricati) finche' non torna
 // sopra 256 KB.
-// Opzione: Misc -> Quality of life -> "Distant objects". SPENTA di default dalla v1.1.12: con il
-// raggio di caricamento allargato il Villaggio Addormentato crasha quando il gioco sveglia per la
-// prima volta un suo oggetto (inizializzazione in func_8001626C dell'overlay sv), in corso di analisi.
+// Opzione: Misc -> Quality of life -> "Distant objects" (attiva di default).
+// Nota: il crash al Villaggio Addormentato per cui la v1.1.12 l'aveva spenta non dipende da questo
+// fix: succede anche senza, se si salta la trama con i trucchi (modello 429 mai caricato, vedi README).
 // Con MEDIEVIL_DEBUG: righe "[DistantObjects]" con soglie, oggetti precaricati, mostrati, tenuti
 // svegli e svegliati dal gioco, e ogni ~4 secondi l'elenco completo degli oggetti addormentati
 // (tipo, flag, elemento fermo, posizione, distanza), per riconoscere i tipi da aggiungere a
@@ -77,7 +73,7 @@ namespace Recompiled;
 
 public static class DistantObjectsPatch
 {
-    public static readonly Option<bool> Setting = Options.Bool("qol.distant_objects", false);
+    public static readonly Option<bool> Setting = Options.Bool("qol.distant_objects", true);
 
     const float MinFactor = 1.5f;
     const float MaxFactor = 3f;
@@ -101,14 +97,6 @@ public static class DistantObjectsPatch
 
     // tipi esclusi dal precaricamento (svegliarli un frame fa partire suoni/eventi, es. le casse)
     static readonly HashSet<uint> NoPreload = new() { };
-
-    // codice del livello (overlay caricati a 0x80010000, prima del codice comune del gioco)
-    // uguale nelle due versioni (overlay a 0x80010000, codice comune del gioco da 0x80021D14)
-    const uint LevelCodeStart = 0x80010000u;
-    const uint LevelCodeEnd = 0x80021D14u;
-
-    static bool Preloadable(uint type) =>
-        !NoPreload.Contains(type) && !(type >= LevelCodeStart && type < LevelCodeEnd);
 
     // tipi senza elemento fermo, innocui da tenere svegli lontano (nessuna IA)
     // 0x800109F8 e' lo stesso nelle due versioni (overlay CR identico in quel punto)
@@ -234,7 +222,7 @@ public static class DistantObjectsPatch
         {
             uint items = m.ReadU32(thing + ThingItems);
             if ((m.ReadU32(thing + ThingFlags) & FlagAsleep) != 0 && Ram(items) && !Ram(m.ReadU32(items)) &&
-                Preloadable(m.ReadU32(thing + ThingType)) && _preloaded.Add(thing))
+                !NoPreload.Contains(m.ReadU32(thing + ThingType)) && _preloaded.Add(thing))
             {
                 m.WriteU8(thing + ThingWakeCounter, 1);
                 Log($"precarico {thing:X8} tipo {m.ReadU32(thing + ThingType):X8}");

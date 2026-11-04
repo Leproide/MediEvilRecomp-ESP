@@ -172,9 +172,7 @@ Adjunta `debug.txt` a las issues cuando informes de un bloqueo o un cierre inesp
 
 ## Objetos visibles desde lejos
 
-Con **Draw distance** alta, con los shaders (la niebla deja ver lejos) o con la cámara libre se ven zonas que el juego original nunca mostraba desde esa distancia. Pero el juego carga y dibuja los objetos del nivel (puertas, verjas, muros destructibles, decorados) solo cerca de Dan: de lejos una verja cerrada parecía abierta, y un muro destructible desaparecía y dejaba ver la sala de detrás, como un truco. `patches/render/DistantObjectsPatch.cs` lo corrige. Se activa en **Misc → Quality of life → Distant objects** y vale con cualquier cámara (no hace falta pulsar R3).
-
-> **Desactivado por defecto desde la v1.1.12:** con esta opción activa la Aldea Dormida puede cerrarse de forma inesperada (el juego inicializa un objeto del nivel cargado mucho antes de lo normal). El problema está en análisis; quien la active lo hace bajo su responsabilidad, sobre todo en los niveles grandes.
+Con **Draw distance** alta, con los shaders (la niebla deja ver lejos) o con la cámara libre se ven zonas que el juego original nunca mostraba desde esa distancia. Pero el juego carga y dibuja los objetos del nivel (puertas, verjas, muros destructibles, decorados) solo cerca de Dan: de lejos una verja cerrada parecía abierta, y un muro destructible desaparecía y dejaba ver la sala de detrás, como un truco. `patches/render/DistantObjectsPatch.cs` lo corrige. Está activo por defecto y se desactiva en **Misc → Quality of life → Distant objects**; vale con cualquier cámara (no hace falta pulsar R3).
 
 Cómo funciona, en resumen (los detalles están en los comentarios del archivo):
 
@@ -182,7 +180,7 @@ Cómo funciona, en resumen (los detalles están en los comentarios del archivo):
 |---|---|---|
 | Radio de carga | cuando Dan cambia de zona, el juego crea los objetos más lejos (distancia original × Draw distance, mínimo ×1,5 también a 1x, máximo ×3) | siempre: sin él, los objetos lejanos ni siquiera existen |
 | Lista ampliada | los objetos siguen cargados hasta la misma distancia en lugar de descartarse | siempre |
-| Precarga | un objeto creado lejos nunca ha estado "despierto" y todavía no tiene el modelo quieto que dibujar: durante un frame el juego lo considera cercano y lo crea. Solo para los objetos de escena: los personajes con su propia lógica (tipo en el código del nivel) siguen invisibles de lejos como en el original, porque inicializarlos lejos de Dan hace que el juego se cierre | puertas y verjas vistas de lejos por primera vez |
+| Precarga | un objeto creado lejos nunca ha estado "despierto" y todavía no tiene el modelo quieto que dibujar: durante un frame el juego lo considera cercano y lo crea. | puertas y verjas vistas de lejos por primera vez |
 | Modelo quieto visible | los objetos dormidos lejanos se dibujan quietos en su última pose | puertas, verjas, decorados, antorchas (apagadas, se encienden al acercarse) |
 | Mantenidos despiertos | algunos objetos no tienen modelo quieto y el juego solo los dibuja despiertos: a los tipos de la lista `KeepAwake` (hoy los muros destructibles, tipo `800109F8`) el juego no los vuelve a dormir dentro de la distancia ampliada | muros destructibles, en cualquier estado (entero, agrietado, en pedazos) |
 
@@ -222,6 +220,8 @@ El juego tiene dos menús de trucos integrados, y en el recomp funcionan igual q
 - **Modo trucos ampliado**: Triángulo, Círculo, Triángulo, Círculo, Círculo, Triángulo, Izquierda, Círculo, Arriba, Abajo, Derecha, Círculo, Izquierda, Izquierda, Triángulo, Derecha, Círculo, Izquierda, Izquierda, Triángulo, Círculo, Abajo, Círculo, Círculo, Derecha
 
 La versión española usa las mismas secuencias que la italiana: las dos tablas de `MEDIEVIL.EXE` tienen el mismo contenido y solo cambia su posición. La mod incluida **Trucchi** los activa desde el panel de mods, sin combinaciones, y reconoce las dos versiones. Detalles en el [README de la mod](mods/Trucchi/README.md) (en italiano).
+
+> **Atención: los trucos pueden cerrar el juego.** Algunos niveles cargan los modelos por grupos, a medida que avanza la historia. Si con los trucos te saltas una parte de la historia (por ejemplo, cogiendo enseguida un objeto que se consigue más adelante), el grupo siguiente nunca se carga: cuando Dan se acerca a un objeto de esa parte del nivel, el juego busca un modelo que no está en memoria y se cierra. No depende de las modificaciones de este fork; el caso conocido es la **Aldea Durmiente**, al llegar con los trucos a la casa después de poner la cruz en la iglesia y entrar por la chimenea (modelo 429, objeto `0xB1D1`). Para evitarlo, en los niveles con eventos de historia usa los trucos sin saltarte partes, o vuelve a una partida guardada antes.
 
 <img width="1920" height="1057" alt="Trucos_MediEvil_PAL_ESP" src="https://github.com/user-attachments/assets/e63afa4e-62b0-4c83-8b22-3eb064944a8c" />
 
