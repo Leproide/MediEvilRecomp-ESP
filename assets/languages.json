@@ -273,6 +273,16 @@
             "pt-BR": "Inverte cima e baixo no analógico direito.",
             "es-419": "Invierte arriba y abajo en el stick derecho."
         },
+        "qol.no_camera_collision": {
+            "en": "Disable camera collision",
+            "pt-BR": "Desativar colisão da câmera",
+            "es-419": "Desactivar colisión de la cámara"
+        },
+        "qol.no_camera_collision.hint": {
+            "en": "The orbit camera no longer moves closer to Dan when a wall or fence is in the way, so it can end up behind walls.",
+            "pt-BR": "A câmera orbital não se aproxima mais do Dan quando uma parede ou cerca está no caminho, então pode ficar atrás das paredes.",
+            "es-419": "La cámara orbital ya no se acerca a Dan cuando hay una pared o una valla en medio, así que puede quedar detrás de las paredes."
+        },
         "qol.camera_toggle.on": {
             "en": "Free camera on (R3 to turn off)",
             "pt-BR": "Câmera livre ligada (R3 para desligar)",

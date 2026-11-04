@@ -22,10 +22,15 @@
 // disattivato. Qui:
 //  - cursore: sparisce dopo qualche secondo senza muovere il mouse, se non ci sono menu,
 //    popup o elementi dell'interfaccia sotto il puntatore; ricompare appena si muove;
-//  - barra dei menu: la voce "Autohide Menu Bar" diventa attiva (stessa impostazione,
-//    interface.autohide_menu_bar). Accesa, la barra si nasconde dopo qualche secondo senza
-//    muovere il mouse e ricompare muovendolo. F1 continua a mostrarla/nasconderla a mano
-//    quando l'opzione e' spenta.
+//  - barra dei menu: la voce "Autohide Menu Bar" diventa attiva. Accesa, la barra si nasconde
+//    dopo qualche secondo senza muovere il mouse e ricompare muovendolo. F1 continua a
+//    mostrarla/nasconderla a mano quando l'opzione e' spenta.
+// Da RecompOne 5b99f31 (MediEvilRecomp 1.0.2) anche RecompOne ha un suo "Autohide Menu Bar"
+// (la barra compare solo portando il mouse in cima allo schermo) sulla stessa impostazione
+// interface.autohide_menu_bar. Il fork tiene il suo comportamento: usa un'impostazione propria
+// (interface.autohide_menu_bar_ita), al primo avvio ci copia il valore di quella vecchia e la
+// lascia sempre spenta, cosi' quella di RecompOne non si attiva mai. Il cursore nascosto di
+// RecompOne (dopo 5 secondi) convive con questo (dopo 2,5 secondi).
 // Si aggiorna ad ogni frame dell'interfaccia tramite un popup invisibile che non si apre mai.
 
 using System.Diagnostics;
@@ -51,14 +56,22 @@ public static class InterfaceAutoHide
     static bool _installed;
     static bool _menuHiddenByUs;
 
+    // impostazione del fork, separata da quella di RecompOne (vedi sopra)
+    public static readonly Option<bool> AutoHideMenuBar = Options.Bool("interface.autohide_menu_bar_ita");
+
     public static void Register()
     {
         PopupManager.Register(new Ticker());
         // le voci predefinite del menu esistono solo dopo l'avvio della finestra
         Event.AddListener<RuntimeReadyEvent>(_ => GpuJobs.Run(Install));
-        InterfaceOptions.AutoHideMenuBar.Changed += on =>
+        AutoHideMenuBar.Changed += on =>
         {
             if (!on) ShowMenuBar();
+        };
+        // l'impostazione di RecompOne resta spenta: se qualcosa la accende passa alla nostra
+        InterfaceOptions.AutoHideMenuBar.Changed += on =>
+        {
+            if (on) MoveFromRecompOne();
         };
     }
 
@@ -66,12 +79,22 @@ public static class InterfaceAutoHide
     {
         if (_installed) return;
         _installed = true;
+        MoveFromRecompOne();
         if (!MenuRegistry.Remove(AutoHideItem)) return;
         MenuRegistry.Menu(SystemMenu)
             .Check(AutoHideItem,
-                static () => InterfaceOptions.AutoHideMenuBar,
-                static on => InterfaceOptions.AutoHideMenuBar.Value = on)
+                static () => AutoHideMenuBar,
+                static on => AutoHideMenuBar.Value = on)
             .After(ShowMenuItem);
+    }
+
+    // impostazioni salvate dalle versioni precedenti (o dalla voce di RecompOne): il valore
+    // passa alla nostra impostazione e quella di RecompOne torna spenta
+    static void MoveFromRecompOne()
+    {
+        if (!InterfaceOptions.AutoHideMenuBar) return;
+        AutoHideMenuBar.Value = true;
+        InterfaceOptions.AutoHideMenuBar.Value = false;
     }
 
     internal static void Tick()
@@ -94,7 +117,7 @@ public static class InterfaceAutoHide
         if (idle >= CursorIdleMs && !overMenuBar)
             ImGui.SetMouseCursor(ImGuiMouseCursor.None);
 
-        if (!InterfaceOptions.AutoHideMenuBar) return;
+        if (!AutoHideMenuBar) return;
         if (moved || busy) ShowMenuBar();
         else if (idle >= MenuIdleMs && !overMenuBar && !InterfaceOptions.HideMenuBar)
         {
@@ -105,7 +128,7 @@ public static class InterfaceAutoHide
 
     static void ShowMenuBar()
     {
-        if (!_menuHiddenByUs && !InterfaceOptions.AutoHideMenuBar) return;
+        if (!_menuHiddenByUs && !AutoHideMenuBar) return;
         if (InterfaceOptions.HideMenuBar) InterfaceOptions.HideMenuBar.Value = false;
         _menuHiddenByUs = false;
     }

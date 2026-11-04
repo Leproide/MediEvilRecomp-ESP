@@ -14,11 +14,11 @@ Este repositorio parte de [MediEvilRecomp-ITA](https://github.com/Leproide/MediE
 
 Todas las correcciones PAL de la versión italiana se **portan** a la española recalculando las direcciones: la lógica no cambia y una sola copia del código sirve para las dos versiones.
 
-> **Versión basada en MediEvilRecomp 1.0**, igual que MediEvilRecomp-ITA 1.1.3: cámara con la palanca derecha, interpolación mejorada, shaders slang, color de 24 bits, nuevo sistema de ajustes y correcciones de cierres inesperados. Incluye todas las correcciones PAL. La versión española no tiene Mod Hub (ver "Mod Hub"). Los ajustes de las versiones anteriores no se conservan.
+> **Versión basada en MediEvilRecomp 1.0**, con el RecompOne de la 1.0.3 (desde la v1.1.14), igual que MediEvilRecomp-ITA: cámara con la palanca derecha, interpolación mejorada, shaders slang, color de 24 bits, nuevo sistema de ajustes y correcciones de cierres inesperados. Incluye todas las correcciones PAL. La versión española no tiene Mod Hub (ver "Mod Hub"). Los ajustes de las versiones anteriores no se conservan.
 
 > **Proyecto en beta.** Puede haber errores, incluso graves. Repórtalos en las [issues de este repositorio](https://github.com/Leproide/MediEvilRecomp-ESP/issues).
 
-> **Cámara libre: pulsa R3** (presionar el stick derecho) para activarla o desactivarla en cualquier momento. Activada, el stick derecho gira la vista 360° alrededor de Dan; desactivada, se juega con la cámara original del juego, que es la predeterminada. Un aviso en pantalla confirma el cambio y la elección se guarda. La misma opción está en **Misc → Quality of life → Right stick camera**.
+> **Cámara libre: pulsa R3** (presionar el stick derecho) para activarla o desactivarla en cualquier momento. Activada, el stick derecho gira la vista 360° alrededor de Dan; desactivada, se juega con la cámara original del juego, que es la predeterminada. Un aviso en pantalla confirma el cambio y la elección se guarda. La misma opción está en **Misc → Quality of life → Right stick camera**; allí está también **Disable camera collision**, que hace que la cámara no se acerque a Dan cuando hay un muro en medio.
 
 ---
 
@@ -48,7 +48,7 @@ Los problemas de esta versión (PAL española) se comunican **aquí**, no en el 
 | `patches/render/ShaderDrawDistance.cs` | — | la distancia de dibujado del juego se pasa a los shaders (Dan's Curse V2 funde el límite de dibujado a negro) |
 | `patches/render/DistantObjectsPatch.cs` | — | puertas, verjas, muros destructibles y decorados visibles desde lejos en lugar de aparecer cerca de Dan (ver "Objetos visibles desde lejos") |
 | `patches/qol/CameraToggle.cs` | — | R3 activa y desactiva la cámara libre (desactivada por defecto) |
-| `misc/InterfaceAutoHide.cs` | — | el cursor del ratón y la barra de menús se ocultan solos; System → Autohide Menu Bar funciona |
+| `misc/InterfaceAutoHide.cs` | barra de menús que aparece llevando el ratón a la parte de arriba de la pantalla | cursor y barra de menús ocultos tras unos segundos sin mover el ratón, vuelven a aparecer al moverlo |
 | `patches/GameAddresses.cs`, `GameDisc.cs` | — | direcciones por versión y comprobación del disco español |
 | `recompone-fixes/` | — | corrección del lector de CD de RecompOne (modo sector entero) |
 | Scripts de compilación | solo Windows, nombres USA, en inglés | Windows y Linux (`*_es`), nombres `(Spain)`, en español, corrección aplicada automáticamente |

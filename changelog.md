@@ -1,3 +1,20 @@
+# MediEvilRecomp ESP v1.1.14 (alineada con MediEvilRecomp-ITA 1.1.14)
+
+- **RecompOne actualizado a la versión de MediEvilRecomp 1.0.3** (`b18bec0`, antes `cc18281`). Correcciones incluidas:
+  - packs de texturas: el área de VRAM dibujada se calculaba mal y algunas texturas sustitutas se asociaban a la textura equivocada;
+  - packs de texturas: al entrar en un nivel que empieza con un vídeo las texturas sustitutas no se cargaban bien;
+  - audio XA sustituido: reproducción y búsqueda más fiables, y el lector de CD ya no llena el búfer XA durante una búsqueda;
+  - selector de archivos (disco, packs de texturas): en Windows se abre en otro hilo y ya no bloquea la ventana, en Linux con Wayland ya no se cierra;
+  - pequeñas correcciones en el editor de packs de texturas y en la cámara de los shaders.
+- **Nueva opción Disable camera collision** (Misc → Quality of life, de la 1.0.3 original): con la cámara libre, la cámara ya no se acerca a Dan cuando hay un muro o una valla en medio. Desactivada por defecto; las correcciones del fork a la cámara se mantienen.
+- **Barra de menús oculta automáticamente: se queda la del fork.** RecompOne tiene ahora su propia versión (la barra aparece llevando el ratón a la parte de arriba de la pantalla) sobre el mismo ajuste; el fork usa un ajuste propio y deja apagado el de RecompOne. Quien tenía la opción activada la encuentra activada.
+- La corrección del lector de CD del fork (`recompone-fixes/`) se aplica sin cambios al nuevo RecompOne.
+- Después de actualizar: `git submodule update --init` (o vuelve a ejecutar `windows_initial_build_es.bat`) para bajar el nuevo RecompOne. El código generado no cambia.
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.13 (alineada con MediEvilRecomp-ITA 1.1.13)
 
 - **Objetos visibles desde lejos de nuevo activos por defecto** (Misc → Quality of life → Distant objects), con la precarga para todos los objetos como antes de la v1.1.12. El cierre en la Aldea Durmiente no lo causaban las modificaciones del fork (pasa también con los objetos lejanos desactivados): lo provoca saltarse una parte de la historia con los trucos. El nivel carga los modelos por grupos a medida que avanza la historia; si te saltas esa parte, el grupo 426 nunca se carga y, al entrar por la chimenea de la casa después de poner la cruz en la iglesia, el juego busca el modelo 429, que no está en memoria. Se explica en la sección Trucos del README. Si habías desactivado la opción, vuelve a activarla en Misc → Quality of life → Distant objects.

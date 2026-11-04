@@ -15,8 +15,10 @@ public static class QualityOfLifeOptions
     public static readonly Option<bool> CameraRecenter = Options.Bool("qol.camera_recenter", true);
     public static readonly Option<bool> InvertCameraX = Options.Bool("qol.invert_camera_x");
     public static readonly Option<bool> InvertCameraY = Options.Bool("qol.invert_camera_y");
+    // dalla 1.0.3 originale: telecamera orbitale senza collisione con i muri
+    public static readonly Option<bool> NoCameraCollision = Options.Bool("qol.no_camera_collision");
 
-    public static IEnumerable<Option<bool>> All => [CameraControl, CameraRecenter, InvertCameraX, InvertCameraY];
+    public static IEnumerable<Option<bool>> All => [CameraControl, CameraRecenter, InvertCameraX, InvertCameraY, NoCameraCollision];
 }
 
 internal static class QualityOfLife
@@ -25,6 +27,7 @@ internal static class QualityOfLife
     public static bool CameraRecenter;
     public static bool InvertCameraX;
     public static bool InvertCameraY;
+    public static bool NoCameraCollision;
 
     public static void Load()
     {
@@ -32,5 +35,6 @@ internal static class QualityOfLife
         CameraRecenter = QualityOfLifeOptions.CameraRecenter;
         InvertCameraX = QualityOfLifeOptions.InvertCameraX;
         InvertCameraY = QualityOfLifeOptions.InvertCameraY;
+        NoCameraCollision = QualityOfLifeOptions.NoCameraCollision;
     }
 }
