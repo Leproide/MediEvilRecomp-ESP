@@ -41,6 +41,8 @@ public sealed class QualityOfLifePanel : IPanel
         // fork ITA: oggetti visibili da lontano (patches/render/DistantObjectsPatch.cs, GPL)
         ImGui.SeparatorText(Localization.T("qol.render"));
         Toggle(DistantObjectsPatch.Setting, "qol.distant_objects");
+        Toggle(TerrainEdgeFade.Setting, "qol.terrain_edge_fade");
+        DistantObjectsPatch.DrawTypeList();   // solo con MEDIEVIL_DEBUG
 
         IsOpen = open;
         ImGui.End();

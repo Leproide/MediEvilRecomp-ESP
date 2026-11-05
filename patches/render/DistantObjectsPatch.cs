@@ -96,7 +96,21 @@ public static class DistantObjectsPatch
     const uint ItemFlags = 0x0Au;
 
     // tipi esclusi dal precaricamento (svegliarli un frame fa partire suoni/eventi, es. le casse)
-    static readonly HashSet<uint> NoPreload = new() { };
+    // tipi per versione (config/versions.json): runa ITA 0x800D73C0 / ESP 0x800D73A8, casse ITA
+    // 0x800D528C / ESP 0x800D5274 (stessa struttura del tipo, spostata di -0x18)
+    static readonly HashSet<uint> NoPreload = new() { Addr.TypeRuneHand };   // runa sulla mano (vedi sotto)
+
+    // tipi visibili solo in certi stati (il gioco li nasconde da svegli): da lontano mostrati fermi
+    // solo se l'ultima volta che erano svegli (anche solo il frame del precaricamento) il gioco li
+    // mostrava.
+    //  - 800D73C0 runa sulla mano dei cancelli: anche esclusa dal precaricamento, cosi' compare solo
+    //    dopo averla posizionata e poi resta visibile da lontano;
+    //  - 800D528C casse (anche quelle esplosive): una cassa gia' aperta, ricreata dal caricatore, si
+    //    nasconde da sola quando si sveglia; prima da lontano la si vedeva ancora chiusa.
+    static readonly HashSet<uint> FollowAwakeVisibility = new() { Addr.TypeRuneHand, Addr.TypeChest };
+    static readonly HashSet<uint> _visibleWhenAwake = new();
+
+    const uint TypeInit = 0x88u;   // inizializzazione del tipo (mostrata nel pannello di diagnostica)
 
     // tipi senza elemento fermo, innocui da tenere svegli lontano (nessuna IA)
     // 0x800109F8 e' lo stesso nelle due versioni (overlay CR identico in quel punto)
@@ -107,7 +121,7 @@ public static class DistantObjectsPatch
     const uint FlagAsleep = 0x20000000u;
     const ushort FlagHidden = 0x0040;
 
-    static readonly bool DiagOn = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
+    public static readonly bool DiagOn = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
     static readonly HashSet<uint> _shown = new();
     static readonly HashSet<uint> _preloaded = new();
     static bool _enabled = Setting.Value;
@@ -117,6 +131,150 @@ public static class DistantObjectsPatch
     static DistantObjectsPatch()
     {
         Setting.Changed += value => _enabled = value;
+        LoadExcluded(ExcludedSetting.Value);
+        ExcludedSetting.Changed += LoadExcluded;
+    }
+
+    // --- tipi spuntati a mano (pannello di diagnostica, vedi DrawTypeList, solo con MEDIEVIL_DEBUG) ---
+    // Un tipo spuntato non viene precaricato e i suoi oggetti vengono nascosti del tutto, a qualsiasi
+    // distanza, svegli o addormentati: serve a capire quale tipo e' un oggetto a schermo.
+    // Gli oggetti che il gioco ha svegliato davvero restano visibili da lontano nell'ultimo stato
+    // (es. la mano con la runa dopo aver messo la runa). Vale subito, senza riavviare.
+    public static readonly Option<string> ExcludedSetting = Options.String("qol.distant_objects.excluded_types", "");
+    static readonly object _excludedGate = new();
+    static HashSet<uint> _excluded = new();
+    static readonly HashSet<uint> _natural = new();   // oggetti svegliati dal gioco vicino a Dan
+
+    static void LoadExcluded(string text)
+    {
+        var set = new HashSet<uint>();
+        foreach (var part in (text ?? "").Split(',', ';', ' '))
+        {
+            var hex = part.Trim();
+            if (hex.StartsWith("0x", StringComparison.OrdinalIgnoreCase)) hex = hex[2..];
+            if (uint.TryParse(hex, System.Globalization.NumberStyles.HexNumber, null, out var type)) set.Add(type);
+        }
+        lock (_excludedGate) _excluded = set;
+    }
+
+    // solo con MEDIEVIL_DEBUG: le spunte sono uno strumento per trovare i tipi
+    static bool Excluded(uint type)
+    {
+        if (!DiagOn) return false;
+        lock (_excludedGate) return _excluded.Contains(type);
+    }
+
+    static void SetExcluded(uint type, bool on)
+    {
+        HashSet<uint> set;
+        lock (_excludedGate)
+        {
+            set = new HashSet<uint>(_excluded);
+            if (on) set.Add(type);
+            else set.Remove(type);
+        }
+        ExcludedSetting.Value = string.Join(",", set.OrderBy(t => t).Select(t => t.ToString("X8")));
+    }
+
+    // elenco dei tipi nel livello per il pannello (aggiornato dal gioco ogni ~1 secondo)
+    sealed class TypeInfo
+    {
+        public uint Type;
+        public int Count, Awake, WithItem, Shown, Preloaded, Hidden;
+        public long NearestSq = long.MaxValue;
+        public int X, Y, Z;
+        public string Model = "";
+        public uint Init;
+    }
+
+    static readonly object _typesGate = new();
+    static List<TypeInfo> _types = new();
+    static int _typesTick;
+
+    static readonly Dictionary<uint, bool> _forcedHidden = new();   // oggetto -> nascosto prima di noi
+
+    static void ExcludedPass(IMemory m, uint list, bool asleepList, int rx, int ry, int rz,
+        Dictionary<uint, TypeInfo>? stats)
+    {
+        uint thing = m.ReadU32(list + ThingNext);
+        for (int guard = 0; guard < 2048 && Ram(thing) && thing != list; guard++)
+        {
+            uint type = m.ReadU32(thing + ThingType);
+            long dx = (int)m.ReadU32(thing + ThingPos) - rx, dy = (int)m.ReadU32(thing + ThingPos + 4u) - ry,
+                dz = (int)m.ReadU32(thing + ThingPos + 8u) - rz;
+            long d = dx * dx + dy * dy + dz * dz;
+            uint item = Item(m, thing);
+
+            if (item != 0)
+            {
+                // diagnostica: tipo spuntato = nascosto sempre, a qualsiasi distanza, sveglio o addormentato
+                bool hide = Excluded(type);
+                ushort flags = m.ReadU16(item + ItemFlags);
+                if (hide)
+                {
+                    if (!_forcedHidden.ContainsKey(thing)) _forcedHidden[thing] = (flags & FlagHidden) != 0;
+                    if ((flags & FlagHidden) == 0) m.WriteU16(item + ItemFlags, (ushort)(flags | FlagHidden));
+                    _shown.Remove(thing);
+                }
+                else if (_forcedHidden.Remove(thing, out var wasHidden) && !wasHidden)
+                    m.WriteU16(item + ItemFlags, (ushort)(flags & ~FlagHidden));
+            }
+
+            if (stats != null)
+            {
+                if (!stats.TryGetValue(type, out var info))
+                    stats[type] = info = new TypeInfo
+                    {
+                        Type = type, Model = ModelOf(m, thing, type), Init = Ram(type) ? m.ReadU32(type + TypeInit) : 0
+                    };
+                info.Count++;
+                if (!asleepList) info.Awake++;
+                if (item != 0) info.WithItem++;
+                if (_preloaded.Contains(thing)) info.Preloaded++;
+                if (_shown.Contains(thing)) info.Shown++;
+                if (_forcedHidden.ContainsKey(thing)) info.Hidden++;
+                if (d < info.NearestSq)
+                {
+                    info.NearestSq = d;
+                    info.X = (int)m.ReadU32(thing + ThingPos);
+                    info.Y = (int)m.ReadU32(thing + ThingPos + 4u);
+                    info.Z = (int)m.ReadU32(thing + ThingPos + 8u);
+                }
+            }
+
+            thing = m.ReadU32(thing + ThingNext);
+        }
+    }
+
+    static string ModelOf(IMemory m, uint thing, uint type)
+    {
+        if (!Ram(type)) return "?";
+        uint table = m.ReadU32(type + 0xB0u);
+        if (table <= 0xFFFFu) return table.ToString();
+        uint entry = m.ReadU32(thing + 0x0Cu);
+        if (!Ram(table) || !Ram(entry)) return "?";
+        return m.ReadU16(table + (uint)m.ReadU8(entry + 0x6u) * 8u).ToString();
+    }
+
+    // pannello Misc -> Quality of life, solo con MEDIEVIL_DEBUG
+    public static void DrawTypeList()
+    {
+        if (!DiagOn) return;
+        ImGuiNET.ImGui.SeparatorText("Distant objects: tipi nel livello (diagnostica)");
+        ImGuiNET.ImGui.TextWrapped("Spunta un tipo per nasconderlo del tutto, a qualsiasi distanza (e non " +
+                                   "precaricarlo): serve a riconoscere gli oggetti a schermo. Effetto immediato, " +
+                                   "scelta salvata, solo con MEDIEVIL_DEBUG.");
+        List<TypeInfo> types;
+        lock (_typesGate) types = _types;
+        foreach (var t in types)
+        {
+            bool on = Excluded(t.Type);
+            var label = $"{t.Type:X8} (init {t.Init:X8})  x{t.Count} (svegli {t.Awake}, con modello fermo {t.WithItem})  modello {t.Model}  " +
+                        $"precaricati {t.Preloaded}  mostrati {t.Shown}  nascosti {t.Hidden}  " +
+                        $"piu' vicino {Math.Sqrt(t.NearestSq):0} a {t.X},{t.Y},{t.Z}";
+            if (ImGuiNET.ImGui.Checkbox(label + "##" + t.Type.ToString("X8"), ref on)) SetExcluded(t.Type, on);
+        }
+        if (types.Count == 0) ImGuiNET.ImGui.TextDisabled("Nessun oggetto nel livello.");
     }
 
     static float Factor() => Math.Clamp(TerrainPatch.DrawDistanceScale, MinFactor, MaxFactor);
@@ -158,9 +316,14 @@ public static class DistantObjectsPatch
         if (DiagOn && _lines++ < 20000) Console.WriteLine("[DistantObjects] " + s);
     }
 
+    // raggio allargato: distanza originale x Draw distance, ma almeno fin dove si vede il livello
+    // (in alcuni livelli la distanza di visione supera quella a cui il gioco elimina gli oggetti: le
+    // mani dei cancelli comparivano solo avvicinandosi). +10% per gli oggetti grandi.
     static uint Extended(float factor)
     {
         double d = Math.Sqrt(_origFar) * factor;
+        int view = TerrainPatch.CurrentViewDistance;
+        if (view > 0) d = Math.Max(d, view * 1.1);
         return (uint)Math.Min(d * d, uint.MaxValue);
     }
 
@@ -200,6 +363,9 @@ public static class DistantObjectsPatch
             _origFar = far;
             _shown.Clear();
             _preloaded.Clear();
+            _natural.Clear();
+            _visibleWhenAwake.Clear();
+            _forcedHidden.Clear();
             _keptLogged.Clear();
             _asleepLast.Clear();
             _loggedShown.Clear();
@@ -222,10 +388,12 @@ public static class DistantObjectsPatch
         {
             uint items = m.ReadU32(thing + ThingItems);
             if ((m.ReadU32(thing + ThingFlags) & FlagAsleep) != 0 && Ram(items) && !Ram(m.ReadU32(items)) &&
-                !NoPreload.Contains(m.ReadU32(thing + ThingType)) && _preloaded.Add(thing))
+                !NoPreload.Contains(m.ReadU32(thing + ThingType)) && !Excluded(m.ReadU32(thing + ThingType)) &&
+                _preloaded.Add(thing))
             {
                 m.WriteU8(thing + ThingWakeCounter, 1);
-                Log($"precarico {thing:X8} tipo {m.ReadU32(thing + ThingType):X8}");
+                Log($"precarico {thing:X8} tipo {m.ReadU32(thing + ThingType):X8} " +
+                    $"pos {(int)m.ReadU32(thing + ThingPos)},{(int)m.ReadU32(thing + ThingPos + 4u)},{(int)m.ReadU32(thing + ThingPos + 8u)}");
             }
             thing = m.ReadU32(thing + ThingNext);
         }
@@ -250,6 +418,26 @@ public static class DistantObjectsPatch
         bool summary = DiagOn && _calls++ % 120 == 0;
         int total = 0, asleep = 0, noItem = 0;
         var missing = summary ? new List<string>() : null;
+
+        // oggetti svegliati dal gioco vicino a Dan (non dal precaricamento): restano visibili da lontano
+        uint awake = m.ReadU32(AwakeList + ThingNext);
+        for (int guard = 0; guard < 2048 && Ram(awake) && awake != AwakeList; guard++)
+        {
+            long ax = (int)m.ReadU32(awake + ThingPos) - rx, ay = (int)m.ReadU32(awake + ThingPos + 4u) - ry,
+                az = (int)m.ReadU32(awake + ThingPos + 8u) - rz;
+            if (ax * ax + ay * ay + az * az < wake) _natural.Add(awake);
+            if (FollowAwakeVisibility.Contains(m.ReadU32(awake + ThingType)))
+            {
+                uint awakeItem = Item(m, awake);
+                if (awakeItem != 0 && (m.ReadU16(awakeItem + ItemFlags) & FlagHidden) == 0) _visibleWhenAwake.Add(awake);
+                else _visibleWhenAwake.Remove(awake);
+            }
+            awake = m.ReadU32(awake + ThingNext);
+        }
+
+        // tipi esclusi: oltre la distanza a cui il gioco originale li eliminava, nascosti (svegli o
+        // addormentati) se il gioco non li ha mai svegliati vicino a Dan; elenco per il pannello
+        var stats = DiagOn && _typesTick++ % 30 == 0 ? new Dictionary<uint, TypeInfo>() : null;
 
         uint thing = m.ReadU32(ThingList + ThingNext);
         for (int guard = 0; guard < 2048 && Ram(thing) && thing != ThingList; guard++)
@@ -294,7 +482,9 @@ public static class DistantObjectsPatch
                 long d = dx * dx + dy * dy + dz * dz - (Ram(type) ? (int)m.ReadU32(type + TypeRadius) : 0);
 
                 ushort flags = m.ReadU16(item + ItemFlags);
-                if (_farPatched && d >= wake && d < limit)
+                bool allowed = !Excluded(type) &&
+                               (!FollowAwakeVisibility.Contains(type) || _visibleWhenAwake.Contains(thing));
+                if (_farPatched && allowed && d >= wake && d < limit)
                 {
                     if ((flags & FlagHidden) != 0) m.WriteU16(item + ItemFlags, (ushort)(flags & ~FlagHidden));
                     _shown.Add(thing);
@@ -307,6 +497,18 @@ public static class DistantObjectsPatch
             else _shown.Remove(thing);
 
             thing = m.ReadU32(thing + ThingNext);
+        }
+
+        if (DiagOn)
+        {
+            ExcludedPass(m, ThingList, true, rx, ry, rz, stats);
+            ExcludedPass(m, AwakeList, false, rx, ry, rz, stats);
+        }
+
+        if (stats != null)
+        {
+            var list = stats.Values.OrderBy(t => t.NearestSq).ToList();
+            lock (_typesGate) _types = list;
         }
 
         if (summary)

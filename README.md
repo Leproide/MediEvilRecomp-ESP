@@ -45,6 +45,7 @@ Los problemas de esta versión (PAL española) se comunican **aquí**, no en el 
 | `patches/PalXaSpeech.cs` | — | los diálogos ya no se cierran solos cuando empieza una voz mientras suena la música |
 | `patches/PalQuitFix.cs` | — | Sistema → Salir cierra el juego como la X de la ventana, sin bloquearse |
 | `patches/HeapExpansion.cs` | — | 2 MB más de memoria para el juego: sin cierres por memoria agotada con los objetos lejanos |
+| `patches/render/TerrainEdgeFade.cs` | — | opción Map edge fade (desactivada por defecto): el suelo cerca del vacío más allá de los bordes del mapa se funde a negro en lugar de terminar en escalones |
 | `patches/render/ShaderDrawDistance.cs` | — | la distancia de dibujado del juego se pasa a los shaders (Dan's Curse V2 funde el límite de dibujado a negro) |
 | `patches/render/DistantObjectsPatch.cs` | — | puertas, verjas, muros destructibles y decorados visibles desde lejos en lugar de aparecer cerca de Dan (ver "Objetos visibles desde lejos") |
 | `patches/qol/CameraToggle.cs` | — | R3 activa y desactiva la cámara libre (desactivada por defecto) |
@@ -178,7 +179,7 @@ Cómo funciona, en resumen (los detalles están en los comentarios del archivo):
 
 | Paso | Qué hace | Cuándo hace falta |
 |---|---|---|
-| Radio de carga | cuando Dan cambia de zona, el juego crea los objetos más lejos (distancia original × Draw distance, mínimo ×1,5 también a 1x, máximo ×3) | siempre: sin él, los objetos lejanos ni siquiera existen |
+| Radio de carga | cuando Dan cambia de zona, el juego crea los objetos más lejos (distancia original × Draw distance, mínimo ×1,5 también a 1x, máximo ×3, y en todo caso al menos hasta donde se ve el terreno) | siempre: sin él, los objetos lejanos ni siquiera existen |
 | Lista ampliada | los objetos siguen cargados hasta la misma distancia en lugar de descartarse | siempre |
 | Precarga | un objeto creado lejos nunca ha estado "despierto" y todavía no tiene el modelo quieto que dibujar: durante un frame el juego lo considera cercano y lo crea. | puertas y verjas vistas de lejos por primera vez |
 | Modelo quieto visible | los objetos dormidos lejanos se dibujan quietos en su última pose | puertas, verjas, decorados, antorchas (apagadas, se encienden al acercarse) |
@@ -189,11 +190,20 @@ Cada objeto cargado ocupa memoria del juego, que en un nivel tiene poco más de 
 El despertar de verdad sigue siendo el del juego: enemigos, trampas y eventos se activan a la distancia original. Dos listas del archivo permiten ajustar los casos particulares:
 
 - `NoPreload`: tipos que no se precargan, si despertarlos durante un frame hace sonar algo o lanza eventos;
-- `KeepAwake`: tipos sin modelo quieto que se mantienen despiertos de lejos. Solo objetos sin IA: un enemigo mantenido despierto se movería también de lejos.
+- `KeepAwake`: tipos sin modelo quieto que se mantienen despiertos de lejos. Solo objetos sin IA: un enemigo mantenido despierto se movería también de lejos;
+- `FollowAwakeVisibility`: tipos que de lejos solo se ven si eran visibles la última vez que el juego los despertó. El modelo quieto de estos objetos muestra un estado que el juego oculta: hoy la runa en la mano que la sostiene (`800D73C0` en la versión italiana, `800D73A8` en la española; se veía antes de ponerla) y los cofres ya abiertos (`800D528C` / `800D5274`; de lejos parecían cerrados).
 
-Para encontrar el tipo de un objeto que desaparece de lejos: arranca con `MEDIEVIL_DEBUG` definida (ver [Debug](#debug)), quédate quieto unos diez segundos donde el objeto no se ve y luego donde sí se ve. Las líneas `[DistantObjects]` muestran cada ~4 segundos los objetos dormidos con tipo, flags, modelo quieto (`el=00000000` si falta), posición y distancia: el que aparece solo en la primera lista es el objeto buscado.
+Para encontrar el tipo de un objeto: arranca con `MEDIEVIL_DEBUG` definida (ver [Debug](#debug)) y abre **Misc → Quality of life**. Debajo de Distant objects aparece la lista de los tipos de objetos del nivel (cuántos hay, cuántos despiertos, precargados, mostrados, el más cercano); al marcar un tipo sus objetos desaparecen del todo a cualquier distancia, al instante y sin reiniciar, así se reconoce el objeto en pantalla. Las marcas solo valen con `MEDIEVIL_DEBUG`. Otra forma: quédate quieto unos diez segundos donde el objeto no se ve y luego donde sí se ve. Las líneas `[DistantObjects]` muestran cada ~4 segundos los objetos dormidos con tipo, flags, modelo quieto (`el=00000000` si falta), posición y distancia: el que aparece solo en la primera lista es el objeto buscado.
 
-En la versión española las direcciones de las listas, de las distancias y de las listas libres de la memoria son otras (`config/versions.json`); el tipo `800109F8` es el mismo, porque el overlay de la Cripta coincide en ese punto.
+En la versión española las direcciones de las listas, de las distancias y de las listas libres de la memoria son otras (`config/versions.json`); el tipo `800109F8` es el mismo, porque el overlay de la Cripta coincide en ese punto; los tipos de la runa y de los cofres están 0x18 bytes antes (misma estructura).
+
+### Bordes del mapa
+
+El terreno es una cuadrícula de cuadrados de 512 unidades: donde el nivel termina en el vacío el borde sigue los cuadrados y, con la cámara libre o alta, se ven los escalones contra el negro. En el juego original la cámara casi nunca los muestra.
+
+- Con el shader Dan's Curse V2 el vacío más allá de los bordes vuelve a ser negro como en el original (antes la niebla lo volvía gris).
+- **Misc → Quality of life → Map edge fade** (desactivada por defecto) funde a negro el suelo cerca del vacío, según la distancia real al borde: los escalones desaparecen en el negro. Pero también oscurece los objetos de escena cercanos al borde y, en los niveles con muchos cuadrados vacíos bajo otra geometría (por ejemplo el cementerio), zonas que no son bordes.
+
 
 ---
 
@@ -382,7 +392,7 @@ Este repositorio contiene código con licencias distintas.
 
 **Código escrito para este fork: GPL-3.0-or-later.** Texto completo en [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
 - `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`, `HeapExpansion.cs`, `GameAddresses.cs`, `GameDisc.cs`;
-- `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/render/ShaderDrawDistance.cs`, `patches/render/DistantObjectsPatch.cs`, `patches/qol/CameraToggle.cs`, `patches/diag/`;
+- `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/render/ShaderDrawDistance.cs`, `patches/render/DistantObjectsPatch.cs`, `patches/render/TerrainEdgeFade.cs`, `patches/qol/CameraToggle.cs`, `patches/diag/`;
 - `misc/InterfaceAutoHide.cs`;
 - las mods `mods/Trucchi/` y `mods/FilmatiSchermoIntero/`;
 - `recompone-fixes/`;

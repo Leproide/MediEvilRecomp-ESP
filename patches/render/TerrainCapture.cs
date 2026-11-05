@@ -151,6 +151,10 @@ public static class TerrainCapture
         Rows(gridX, gridZ);
         Scan(c, m, matrix, grid);
 
+        // fork ITA: bordi della mappa sfumati nel nero (TerrainEdgeFade.cs, GPL, spento di default)
+        TerrainEdgeFade.Update(m, grid, (int)m.ReadU32(c.GP + _shift),
+            (short)m.ReadU16(c.GP + GpBasePoint), (short)m.ReadU16(c.GP + GpBasePoint + 4u));
+
         m.WriteU32(SquaresCaptured, 0u);
 
         c.V0 = (uint)Captured;

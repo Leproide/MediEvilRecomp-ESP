@@ -1630,6 +1630,34 @@
       "ita": "0x800F3B08",
       "desc": "12 liste libere dell'allocatore del gioco, 0x14 byte l'una (HeapExpansion)",
       "esp": "0x800F3B80"
+    },
+    {
+      "name": "TerrainPolyArrayPtr",
+      "kind": "data",
+      "ita": "0x800EDDDC",
+      "desc": "puntatore all'array dei poligoni del terreno (TerrainEdgeFade)",
+      "esp": "0x800EDE54"
+    },
+    {
+      "name": "TerrainVertexArrayPtr",
+      "kind": "data",
+      "ita": "0x800EDDE0",
+      "desc": "puntatore all'array dei vertici del terreno (TerrainEdgeFade)",
+      "esp": "0x800EDE58"
+    },
+    {
+      "name": "TypeRuneHand",
+      "kind": "fixed",
+      "ita": "0x800D73C0",
+      "desc": "tipo oggetto: runa sulla mano dei cancelli (DistantObjectsPatch); mappa solo \"inferred\": verificato a mano, struttura del tipo identica a parte i puntatori (spostati di -0x18 / +0x80 come il resto dei dati)",
+      "esp": "0x800D73A8"
+    },
+    {
+      "name": "TypeChest",
+      "kind": "fixed",
+      "ita": "0x800D528C",
+      "desc": "tipo oggetto: casse, anche esplosive (DistantObjectsPatch); mappa solo \"inferred\": verificato a mano, struttura del tipo identica a parte i puntatori (spostati di -0x18 / +0x80 come il resto dei dati)",
+      "esp": "0x800D5274"
     }
   ],
   "literals": [

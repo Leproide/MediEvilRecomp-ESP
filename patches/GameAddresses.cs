@@ -184,6 +184,14 @@ public static class Addr
     public const uint ThingRangePtr = GameVersion.Spanish ? 0x800EEC0Cu : 0x800EEB94u;
     /// <summary>12 liste libere dell'allocatore del gioco, 0x14 byte l'una (HeapExpansion) (data)</summary>
     public const uint HeapFreeBins = GameVersion.Spanish ? 0x800F3B80u : 0x800F3B08u;
+    /// <summary>puntatore all'array dei poligoni del terreno (TerrainEdgeFade) (data)</summary>
+    public const uint TerrainPolyArrayPtr = GameVersion.Spanish ? 0x800EDE54u : 0x800EDDDCu;
+    /// <summary>puntatore all'array dei vertici del terreno (TerrainEdgeFade) (data)</summary>
+    public const uint TerrainVertexArrayPtr = GameVersion.Spanish ? 0x800EDE58u : 0x800EDDE0u;
+    /// <summary>tipo oggetto: runa sulla mano dei cancelli (DistantObjectsPatch); mappa solo "inferred": verificato a mano, struttura del tipo identica a parte i puntatori (spostati di -0x18 / +0x80 come il resto dei dati) (fixed)</summary>
+    public const uint TypeRuneHand = GameVersion.Spanish ? 0x800D73A8u : 0x800D73C0u;
+    /// <summary>tipo oggetto: casse, anche esplosive (DistantObjectsPatch); mappa solo "inferred": verificato a mano, struttura del tipo identica a parte i puntatori (spostati di -0x18 / +0x80 come il resto dei dati) (fixed)</summary>
+    public const uint TypeChest = GameVersion.Spanish ? 0x800D5274u : 0x800D528Cu;
 }
 
 /// <summary>Immediati delle copie di funzioni ricompilate (CullPatch,

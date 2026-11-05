@@ -303,6 +303,16 @@
             "pt-BR": "Objetos distantes",
             "es-419": "Objetos lejanos"
         },
+        "qol.terrain_edge_fade": {
+            "en": "Map edge fade",
+            "pt-BR": "Bordas do mapa esfumadas",
+            "es-419": "Bordes del mapa difuminados"
+        },
+        "qol.terrain_edge_fade.hint": {
+            "en": "Where the map ends on the void, the ground fades to black like around holes, instead of ending in sharp steps.",
+            "pt-BR": "Onde o mapa termina no vazio, o chão escurece até o preto como em volta dos buracos, em vez de terminar em degraus.",
+            "es-419": "Donde el mapa termina en el vacío, el suelo se oscurece hasta el negro como alrededor de los agujeros, en lugar de acabar en escalones."
+        },
         "qol.distant_objects.hint": {
             "en": "Doors, gates and scenery are loaded and drawn from farther away instead of popping in near Dan (also at 1x, useful with shaders), farther with a higher Draw distance. Enemies and events still activate at the original distance.",
             "pt-BR": "Portas, portões e cenário são carregados e desenhados de mais longe em vez de aparecerem perto do Dan (também em 1x, útil com shaders), mais longe com distância de desenho maior. Inimigos e eventos continuam ativando na distância original.",

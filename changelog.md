@@ -1,3 +1,18 @@
+# MediEvilRecomp ESP v1.1.15 (alineada con MediEvilRecomp-ITA 1.1.15)
+
+- **Runa en la mano corregida de lejos**: las manos que sostienen las runas (tipo `800D73A8` en la versión española, `800D73C0` en la italiana) mostraban de lejos la runa ya colocada antes de ponerla. Ya no se precargan y de lejos solo se ven en el estado en que el juego las mostró por última vez de cerca (`patches/render/DistantObjectsPatch.cs`).
+- **Cofres ya abiertos**: de lejos se veían cerrados (tipo `800D5274`, en la italiana `800D528C`); ahora se quedan como el juego los mostró por última vez de cerca.
+- Los objetos lejanos se cargan al menos hasta donde se ve el terreno (`TerrainPatch.CurrentViewDistance`): en algunos niveles las manos vacías aparecían tarde.
+- **Panel de diagnóstico de los objetos lejanos** (solo con `MEDIEVIL_DEBUG`, en Misc → Quality of life): lista los tipos de objetos del nivel y, al marcar uno, lo oculta al instante a cualquier distancia, sin reiniciar, para identificar objetos en pantalla y reportar fallos. Explicado en el README.
+- **Nueva opción Map edge fade** (Misc → Quality of life, desactivada por defecto): el suelo cerca del vacío en los bordes del mapa se funde a negro según la distancia al borde, en vez de terminar en escalones (`patches/render/TerrainEdgeFade.cs`). Oscurece también objetos cercanos al borde y algunas zonas (por ejemplo el cementerio), por eso viene apagada.
+- Shader Dan's Curse V2 actualizado aparte: nuevas opciones *Disable fog* y *Keep game darkness in fog*, y el vacío más allá de los bordes del mapa vuelve a ser negro en vez de gris. Se descarga la última versión al volver a ejecutar `windows_initial_build_es.bat`.
+- Direcciones españolas nuevas en `config/versions.json`: tipos de la runa y de los cofres (0x800D73A8 / 0x800D5274) y punteros a los polígonos y vértices del terreno (0x800EDE54 / 0x800EDE58). Solo cambia código C#: basta con volver a compilar.
+- Recordatorio: si usas trucos para saltarte partes de la historia, la Aldea Durmiente puede cerrarse. No es un fallo del recomp (ver la sección Trucos del README).
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.14 (alineada con MediEvilRecomp-ITA 1.1.14)
 
 - **RecompOne actualizado a la versión de MediEvilRecomp 1.0.3** (`b18bec0`, antes `cc18281`). Correcciones incluidas:

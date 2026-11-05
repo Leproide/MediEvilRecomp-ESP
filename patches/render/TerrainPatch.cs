@@ -106,6 +106,10 @@ public static class TerrainPatch
     static uint _originalOt0;
     static uint _originalOt1;
     static int _lastDistance;
+
+    // fork ITA: distanza di visione attuale (ingrandita), usata da DistantObjectsPatch per caricare gli
+    // oggetti almeno fin dove si vede il livello
+    public static int CurrentViewDistance => _lastDistance;
     static uint _originalFogTable;
     static ushort _originalFogEntries;
 
