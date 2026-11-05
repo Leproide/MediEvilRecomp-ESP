@@ -1,3 +1,21 @@
+# MediEvilRecomp ESP v1.1.17 (alineada con MediEvilRecomp-ITA 1.1.16 y 1.1.17)
+
+- **Nuevo shader predeterminado [Gallowmere](https://github.com/Leproide/gallowmere-shader)** (GPL-3.0), escrito para el fork sobre los datos reales del renderizado: luz del juego con oclusión, luna y luces 3D, sombras, reflejos en metal y agua, agua del lago (olas, reflejos, cáusticas), niebla y bruma también sobre el cielo y el fondo, vacío más allá de los bordes del mapa negro, bloom. Incluido en las releases y descargado por los scripts de primera compilación, siempre en la última versión (se actualiza volviendo a ejecutar el script). En el primer arranque se selecciona si no se ha elegido ya otro shader. Dan's Curse V2 sigue incluido.
+- **Materiales de las texturas para los shaders** (`patches/render/MaterialTags.cs`): metal, vidrio, mojado, agua, luminoso, piedra, madera, usados por los shaders que leen los materiales de RecompOne para los reflejos.
+  - Los metales principales (armadura de Dan, armas, verjas y rejas) son fijos en el código. **Nueva opción Default materials** (Misc → Quality of life, activada por defecto) para desactivarlos. Son los de la versión italiana: si alguno no sale metálico en la española, se marca con el selector.
+  - Las marcas propias se guardan en `assets/materials.json`, local: no está en el repositorio ni en las releases.
+- **Nueva opción Development mode** (Misc → Quality of life → Development, desactivada por defecto): selector de texturas para marcar los materiales uno mismo. Clic izquierdo en el juego, un botón para el material, **Togli** y **Annulla** (hasta 3 cambios). Explicado en el README.
+- **Nuevas correcciones de RecompOne** en `recompone-fixes/`, aplicadas por los scripts de compilación y por las releases en este orden después de la del lector de CD:
+  - `shader-gbuffer.patch`: color de las texturas y color de los vértices de la escena separados para los shaders (G-buffer);
+  - `effect-lights.patch`: los efectos luminosos en 3D (fuego, magias) se convierten en luces para los shaders;
+  - `material-picker.patch`: lectura de la textura bajo el ratón para el selector de materiales.
+  Quien compila a mano tiene que aplicarlas todas (comandos en el README).
+- Para actualizar: vuelve a ejecutar `windows_initial_build_es.bat` (aplica las correcciones nuevas y descarga Gallowmere). El código generado no cambia.
+
+Autor: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ESP v1.1.15 (alineada con MediEvilRecomp-ITA 1.1.15)
 
 - **Runa en la mano corregida de lejos**: las manos que sostienen las runas (tipo `800D73A8` en la versión española, `800D73C0` en la italiana) mostraban de lejos la runa ya colocada antes de ponerla. Ya no se precargan y de lejos solo se ven en el estado en que el juego las mostró por última vez de cerca (`patches/render/DistantObjectsPatch.cs`).

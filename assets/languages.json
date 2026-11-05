@@ -313,6 +313,31 @@
             "pt-BR": "Onde o mapa termina no vazio, o chão escurece até o preto como em volta dos buracos, em vez de terminar em degraus.",
             "es-419": "Donde el mapa termina en el vacío, el suelo se oscurece hasta el negro como alrededor de los agujeros, en lugar de acabar en escalones."
         },
+        "qol.default_materials": {
+            "en": "Default materials",
+            "pt-BR": "Materiais predefinidos",
+            "es-419": "Materiales predeterminados"
+        },
+        "qol.default_materials.hint": {
+            "en": "Dan's armour, weapons, gates and grates are always metal for shaders that read materials (Gallowmere). Turn off to leave them to the shader's own guess.",
+            "pt-BR": "Armadura de Dan, armas, portões e grades são sempre metal para os shaders que leem os materiais (Gallowmere). Desligue para deixá-los à estimativa do próprio shader.",
+            "es-419": "La armadura de Dan, las armas, las verjas y las rejas son siempre metal para los shaders que leen los materiales (Gallowmere). Desactívalo para dejarlos a la estimación del propio shader."
+        },
+        "qol.dev": {
+            "en": "Development",
+            "pt-BR": "Desenvolvimento",
+            "es-419": "Desarrollo"
+        },
+        "qol.dev_mode": {
+            "en": "Development mode",
+            "pt-BR": "Modo de desenvolvimento",
+            "es-419": "Modo de desarrollo"
+        },
+        "qol.dev_mode.hint": {
+            "en": "Shows the texture material picker for the Gallowmere shader: click on the game to pick a point, then choose metal, glass, wood... Saved to assets/materials.json.",
+            "pt-BR": "Mostra o seletor de materiais das texturas para o shader Gallowmere: clique no jogo para escolher um ponto e depois metal, vidro, madeira... Salvo em assets/materials.json.",
+            "es-419": "Muestra el selector de materiales de las texturas para el shader Gallowmere: haz clic en el juego para elegir un punto y luego metal, vidrio, madera... Se guarda en assets/materials.json."
+        },
         "qol.distant_objects.hint": {
             "en": "Doors, gates and scenery are loaded and drawn from farther away instead of popping in near Dan (also at 1x, useful with shaders), farther with a higher Draw distance. Enemies and events still activate at the original distance.",
             "pt-BR": "Portas, portões e cenário são carregados e desenhados de mais longe em vez de aparecerem perto do Dan (também em 1x, útil com shaders), mais longe com distância de desenho maior. Inimigos e eventos continuam ativando na distância original.",

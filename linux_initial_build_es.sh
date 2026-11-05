@@ -33,6 +33,9 @@ RECOMPONE="RecompOne"
 RECOMPILER="$RECOMPONE/RecompOne.Recompiler"
 MEDIEVILJSON="config/es/MediEvil.json"
 CDFIX="recompone-fixes/cd-whole-sector-mode.patch"
+GBUFFIX="recompone-fixes/shader-gbuffer.patch"
+LIGHTFIX="recompone-fixes/effect-lights.patch"
+PICKFIX="recompone-fixes/material-picker.patch"
 GAMEPROJ="RecompOne.MediEvil.csproj"
 ASK=1
 CREDITS=1
@@ -83,15 +86,19 @@ if ! git submodule update --init --recursive >/dev/null 2>&1; then
     echo "Continúo de todos modos..."
 fi
 
-# ------------------------------------------------------------------ corrección CD
-say "Corrección de RecompOne para el arranque PAL..."
-if git -C "$RECOMPONE" apply --reverse --check "../$CDFIX" >/dev/null 2>&1; then
-    echo "La corrección ya está aplicada."
-else
-    git -C "$RECOMPONE" apply "../$CDFIX" \
-        || fail "no se puede aplicar $CDFIX. Comprueba que el submódulo RecompOne esté en la versión prevista."
-    echo "Corrección aplicada."
-fi
+# ------------------------------------------------------------------ correcciones RecompOne
+# en este orden: lector de CD en modo "sector entero", G-buffer y luces de los efectos para los
+# shaders, selector de materiales; las que ya están aplicadas se saltan
+say "Correcciones de RecompOne..."
+for FIX in "$CDFIX" "$GBUFFIX" "$LIGHTFIX" "$PICKFIX"; do
+    if git -C "$RECOMPONE" apply --reverse --check "../$FIX" >/dev/null 2>&1; then
+        echo "$FIX ya está aplicada."
+    else
+        git -C "$RECOMPONE" apply "../$FIX" \
+            || fail "no se puede aplicar $FIX. Comprueba que el submódulo RecompOne esté en la versión prevista."
+        echo "$FIX aplicada."
+    fi
+done
 
 # ------------------------------------------------------------------ .NET
 say "Compruebo .NET 10..."
@@ -153,6 +160,31 @@ if git clone -q --depth 1 https://github.com/Leproide/DansCurseV2 "$DCNEW" >/dev
 else
     rm -rf "$DCNEW"
     if [ -f "$DCDIR/dans-curse-v2.slangp" ]; then
+        echo "No se ha podido descargar: se mantiene el shader ya instalado."
+    else
+        echo "No se ha podido descargar: vuelve a ejecutar este script más tarde para instalar el shader."
+    fi
+fi
+
+# ------------------------------------------------------------------ shader Gallowmere (predeterminado)
+# Gallowmere (GPL-3.0): shader predeterminado del fork, siempre la última versión de la rama principal
+# (git clone --depth 1, sin commit fijo), en shaders/gallowmere-shader. Se actualiza cada vez que se
+# ejecuta este script, como Dan's Curse V2; si la descarga falla se mantiene el que ya estaba. El juego
+# lo selecciona en el primer arranque si no se ha elegido otro shader.
+GMDIR="shaders/gallowmere-shader"
+GMNEW="shaders/gallowmere-shader.new"
+say "Descargo la última versión del shader Gallowmere..."
+mkdir -p shaders
+rm -rf "$GMNEW"
+if git clone -q --depth 1 https://github.com/Leproide/gallowmere-shader "$GMNEW" >/dev/null 2>&1 \
+        && [ -f "$GMNEW/gallowmere.slangp" ]; then
+    echo "Gallowmere: commit $(git -C "$GMNEW" rev-parse --short HEAD)"
+    rm -rf "$GMNEW/.git" "$GMDIR"
+    mv "$GMNEW" "$GMDIR"
+    echo "Shader Gallowmere instalado: se selecciona en el primer arranque."
+else
+    rm -rf "$GMNEW"
+    if [ -f "$GMDIR/gallowmere.slangp" ]; then
         echo "No se ha podido descargar: se mantiene el shader ya instalado."
     else
         echo "No se ha podido descargar: vuelve a ejecutar este script más tarde para instalar el shader."

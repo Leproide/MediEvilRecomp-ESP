@@ -32,6 +32,7 @@ Dispatcher.Tolerant = true;
 GameDisc.Register();
 TerrainPatch.Register();
 WaterMaterialPatch.Register();
+MaterialTags.Register();   // fork ITA: materiali delle texture per gli shader (GPL)
 ShaderDrawDistance.Register();
 TitleShaderPatch.Register();
 PalQuitFix.Register();
@@ -65,6 +66,18 @@ if (!RecompOne.Runtime.Config.Settings.Has("display.true_color"))
     RecompOne.Runtime.Config.Settings.Set("display.true_color", true);
 if (!RecompOne.Runtime.Config.Settings.Has("render.better_rendering"))
     RecompOne.Runtime.Config.Settings.Set("render.better_rendering", true);
+
+// fork ITA: shader predefinito Gallowmere (scaricato dagli script di compilazione e incluso
+// nelle release; la versione spagnola non usa il Mod Hub). Viene scelto una sola volta, solo se lo
+// shader c'e' e l'utente non ne ha gia' scelto un altro; poi resta la scelta dell'utente.
+const string DefaultShader = "gallowmere-shader/gallowmere.slangp";
+if (!RecompOne.Runtime.Config.Settings.Has("fork.default_shader_applied") &&
+    File.Exists(Path.Combine("shaders", DefaultShader)))
+{
+    if (string.IsNullOrEmpty(RecompOne.Runtime.Config.Settings.Get("mods.shaders.selected", "")))
+        RecompOne.Runtime.Config.Settings.Set("mods.shaders.selected", DefaultShader);
+    RecompOne.Runtime.Config.Settings.Set("fork.default_shader_applied", true);
+}
 
 // fork ITA: 8 MB invece di 4, per la memoria aggiunta al gioco da patches/HeapExpansion.cs (GPL)
 RecompOne.Runtime.Runtime.Run(() => Entry.Run(new PSMemory(0x00800000), args.Length > 0 ? args[0] : null, title));

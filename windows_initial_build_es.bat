@@ -21,6 +21,9 @@ set "RECOMPILER=%RECOMPONE%\RecompOne.Recompiler"
 set "MISSING=0"
 set "MEDIEVILJSON=%CONFIG%\MediEvil.json"
 set "CDFIX=recompone-fixes\cd-whole-sector-mode.patch"
+set "GBUFFIX=recompone-fixes\shader-gbuffer.patch"
+set "LIGHTFIX=recompone-fixes\effect-lights.patch"
+set "PICKFIX=recompone-fixes\material-picker.patch"
 set "GAMEPROJ=RecompOne.MediEvil.csproj"
 REM ===================================================================================================
 
@@ -83,21 +86,24 @@ if errorlevel 1 (
 echo.
 REM ===================================================================================================
 
-REM =================================== Correccion RecompOne (CD) =====================================
-REM Aplica al submodulo RecompOne la correccion del modo "sector entero" del lector de CD.
-REM Si ya esta aplicada no hace nada.
-echo ^> Correccion de RecompOne para el arranque PAL...
-git -C "%RECOMPONE%" apply --reverse --check "..\%CDFIX%" >nul 2>&1
-if errorlevel 1 (
-    git -C "%RECOMPONE%" apply "..\%CDFIX%"
+REM =================================== Correcciones RecompOne =========================================
+REM Aplica al submodulo RecompOne las correcciones del fork, en este orden: lector de CD en modo
+REM "sector entero", G-buffer y luces de los efectos para los shaders, selector de materiales.
+REM Las que ya estan aplicadas se saltan.
+echo ^> Correcciones de RecompOne...
+for %%P in ("%CDFIX%" "%GBUFFIX%" "%LIGHTFIX%" "%PICKFIX%") do (
+    git -C "%RECOMPONE%" apply --reverse --check "..\%%~P" >nul 2>&1
     if errorlevel 1 (
-        echo No se puede aplicar %CDFIX%. Comprueba que el submodulo RecompOne este en la version prevista.
-        pause
-        exit /b 1
+        git -C "%RECOMPONE%" apply "..\%%~P"
+        if errorlevel 1 (
+            echo No se puede aplicar %%~P. Comprueba que el submodulo RecompOne este en la version prevista.
+            pause
+            exit /b 1
+        )
+        echo %%~P aplicada.
+    ) else (
+        echo %%~P ya esta aplicada.
     )
-    echo Correccion aplicada.
-) else (
-    echo La correccion ya esta aplicada.
 )
 echo.
 REM ===================================================================================================
@@ -246,6 +252,36 @@ if exist "%DCNEW%\dans-curse-v2.slangp" (
 ) else (
     if exist "%DCNEW%" rmdir /s /q "%DCNEW%"
     if exist "%DCDIR%\dans-curse-v2.slangp" (
+        echo No se ha podido descargar: se mantiene el shader ya instalado.
+    ) else (
+        echo No se ha podido descargar: vuelve a ejecutar este script mas tarde para instalar el shader.
+    )
+)
+echo.
+REM ===================================================================================================
+
+REM ================================ Shader Gallowmere (predeterminado) ================================
+REM Gallowmere (GPL-3.0): shader predeterminado del fork, siempre la ultima version de la rama
+REM principal (git clone --depth 1, sin commit fijo), en shaders\gallowmere-shader. Como Dan's Curse V2,
+REM se actualiza cada vez que se ejecuta este script: se descarga en una carpeta temporal y solo si la
+REM descarga sale bien sustituye a la anterior. El juego lo selecciona en el primer arranque si no se ha
+REM elegido otro shader.
+set "GMDIR=shaders\gallowmere-shader"
+set "GMNEW=shaders\gallowmere-shader.new"
+echo ^> Descargo la ultima version del shader Gallowmere...
+if not exist shaders mkdir shaders
+if exist "%GMNEW%" rmdir /s /q "%GMNEW%"
+git clone -q --depth 1 https://github.com/Leproide/gallowmere-shader "%GMNEW%" >nul 2>&1
+if exist "%GMNEW%\gallowmere.slangp" (
+    for /f "delims=" %%c in ('git -C "%GMNEW%" rev-parse --short HEAD') do echo Gallowmere: commit %%c
+    attrib -r -h "%GMNEW%\.git\*" /s /d >nul 2>&1
+    rmdir /s /q "%GMNEW%\.git"
+    if exist "%GMDIR%" rmdir /s /q "%GMDIR%"
+    move "%GMNEW%" "%GMDIR%" >nul
+    echo Shader Gallowmere instalado: se selecciona en el primer arranque.
+) else (
+    if exist "%GMNEW%" rmdir /s /q "%GMNEW%"
+    if exist "%GMDIR%\gallowmere.slangp" (
         echo No se ha podido descargar: se mantiene el shader ya instalado.
     ) else (
         echo No se ha podido descargar: vuelve a ejecutar este script mas tarde para instalar el shader.

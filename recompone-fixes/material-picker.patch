@@ -1,0 +1,204 @@
+RecompOne change for MediEvilRecomp ITA: texture picker for shader materials.
+With ShaderMaterials.PickEnabled, the G-buffer gets a third target with the texture of every pixel
+(tpage, clut, u, v) and ShaderMaterials.Picked holds the one under the point chosen with a left click
+on the game image (ShaderMaterials.PickX/PickY, default the centre).
+Author: https://github.com/Leproide
+License of this change: GPL-3.0-or-later (RecompOne code itself keeps its own license).
+Apply after effect-lights.patch:  git -C RecompOne apply ../recompone-fixes/material-picker.patch
+
+diff --git a/RecompOne.Runtime/Gpu/Backends/Common/GlCore.cs b/RecompOne.Runtime/Gpu/Backends/Common/GlCore.cs
+index 0698398..ee9cbab 100644
+--- a/RecompOne.Runtime/Gpu/Backends/Common/GlCore.cs
++++ b/RecompOne.Runtime/Gpu/Backends/Common/GlCore.cs
+@@ -1224,7 +1224,7 @@ public sealed class GlCore : IGpuBackend
+             }
+         }
+ 
+-        if (_kDepth && rt != null && !_legacy && !_kTransparent && _uGbuffer >= 0 && PostFx.Active && SlangChain.GbufferWanted)
++        if (_kDepth && rt != null && !_legacy && !_kTransparent && _uGbuffer >= 0 && PostFx.Active && (SlangChain.GbufferWanted || ShaderMaterials.PickEnabled))
+             DrawGbuffer(rt, surface);
+ 
+         if (_kLayer && rt != null && !_legacy) DrawLayer(rt);
+@@ -1535,7 +1535,8 @@ public sealed class GlCore : IGpuBackend
+         _gl.DepthMask(false);
+         _gl.Disable(EnableCap.StencilTest);
+         _gl.Disable(EnableCap.Blend);
+-        for (var i = 0; i < 2; i++)
++        var targets = ShaderMaterials.PickEnabled ? 3 : 2;
++        for (var i = 0; i < targets; i++)
+         {
+             rt.PrepareGbuffer(_gl, _depthScene, i);
+             _gl.Enable(EnableCap.ScissorTest);
+@@ -1600,6 +1601,19 @@ public sealed class GlCore : IGpuBackend
+             _gl.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
+         }
+         chain.SetGbuffer(_gbufPresentTex[0], _gbufPresentTex[1], fbW, fbH);
++
++        // selettore dei materiali: texture sotto il punto scelto (ShaderMaterials.PickX/PickY)
++        if (ShaderMaterials.PickEnabled && src.GbufTex[2] != 0)
++        {
++            var fy = ShaderMaterials.PickFlipY ? 1f - ShaderMaterials.PickY : ShaderMaterials.PickY;
++            var px = (dispX - src.X + Math.Clamp((int)(w1x * ShaderMaterials.PickX), 0, w1x - 1)) * GlVram.Scale;
++            var py = (dispY - src.Y + Math.Clamp((int)(h1x * fy), 0, h1x - 1)) * GlVram.Scale;
++            var texel = new ushort[4];
++            _gl.BindFramebuffer(FramebufferTarget.Framebuffer, src.GbufFbo[2]);
++            fixed (ushort* p = texel)
++                _gl.ReadPixels(px, py, 1, 1, PixelFormat.Rgba, PixelType.UnsignedShort, p);
++            ShaderMaterials.Picked = texel[3] == 0 ? null : (texel[0], texel[1], texel[2], texel[3] - 1);
++        }
+     }
+ 
+     private void ResetLayer(GlDisplayRt rt)
+diff --git a/RecompOne.Runtime/Gpu/Backends/Common/GlDisplayRt.cs b/RecompOne.Runtime/Gpu/Backends/Common/GlDisplayRt.cs
+index d2df426..ac72457 100644
+--- a/RecompOne.Runtime/Gpu/Backends/Common/GlDisplayRt.cs
++++ b/RecompOne.Runtime/Gpu/Backends/Common/GlDisplayRt.cs
+@@ -9,9 +9,10 @@ public sealed class GlDisplayRt
+     public uint Tex, Fbo;
+     public uint UiTex, UiFbo;
+     // G-buffer per gli shader (MediEvilRecomp ITA): 0 = colore della texture, 1 = colore dei vertici + id
+-    public readonly uint[] GbufTex = new uint[2];
+-    public readonly uint[] GbufFbo = new uint[2];
+-    private readonly uint[] _gbufDepth = new uint[2];
++    // 2 = texture del pixel (tpage, clut, u, v) per il selettore dei materiali
++    public readonly uint[] GbufTex = new uint[3];
++    public readonly uint[] GbufFbo = new uint[3];
++    private readonly uint[] _gbufDepth = new uint[3];
+     private long _gbufScene = -1;
+     public bool GbufferCurrent => GbufTex[0] != 0 && _gbufScene == LastScene;
+     private long _uiScene = -1;
+@@ -145,7 +146,7 @@ public sealed class GlDisplayRt
+         if (GbufTex[0] == 0)
+         {
+             gl.GetInteger(GetPName.TextureBinding2D, out var previous);
+-            for (var i = 0; i < 2; i++)
++            for (var i = 0; i < 3; i++)
+             {
+                 GbufTex[i] = gl.GenTexture();
+                 gl.BindTexture(TextureTarget.Texture2D, GbufTex[i]);
+@@ -153,8 +154,12 @@ public sealed class GlDisplayRt
+                 gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)GLEnum.Nearest);
+                 gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)GLEnum.ClampToEdge);
+                 gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)GLEnum.ClampToEdge);
+-                gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba8, (uint)TexW, (uint)TexH, 0,
+-                    PixelFormat.Rgba, PixelType.UnsignedByte, (void*)0);
++                if (i == 2)
++                    gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba16, (uint)TexW, (uint)TexH, 0,
++                        PixelFormat.Rgba, PixelType.UnsignedShort, (void*)0);
++                else
++                    gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba8, (uint)TexW, (uint)TexH, 0,
++                        PixelFormat.Rgba, PixelType.UnsignedByte, (void*)0);
+                 GbufFbo[i] = gl.GenFramebuffer();
+                 gl.BindFramebuffer(FramebufferTarget.Framebuffer, GbufFbo[i]);
+                 gl.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0,
+@@ -170,7 +175,7 @@ public sealed class GlDisplayRt
+             gl.Disable(EnableCap.ScissorTest);
+             gl.ColorMask(true, true, true, true);
+             gl.ClearColor(0f, 0f, 0f, 0f);
+-            for (var i = 0; i < 2; i++)
++            for (var i = 0; i < 3; i++)
+             {
+                 gl.BindFramebuffer(FramebufferTarget.Framebuffer, GbufFbo[i]);
+                 gl.Clear(ClearBufferMask.ColorBufferBit);
+@@ -190,7 +195,7 @@ public sealed class GlDisplayRt
+ 
+     public void Destroy(GL gl)
+     {
+-        for (var i = 0; i < 2; i++)
++        for (var i = 0; i < 3; i++)
+         {
+             if (GbufFbo[i] != 0) gl.DeleteFramebuffer(GbufFbo[i]);
+             if (GbufTex[i] != 0) gl.DeleteTexture(GbufTex[i]);
+diff --git a/RecompOne.Runtime/Gpu/Backends/Common/GlShaders.cs b/RecompOne.Runtime/Gpu/Backends/Common/GlShaders.cs
+index dbde60e..522e6f6 100644
+--- a/RecompOne.Runtime/Gpu/Backends/Common/GlShaders.cs
++++ b/RecompOne.Runtime/Gpu/Backends/Common/GlShaders.cs
+@@ -114,6 +114,8 @@ internal static class GlShaders
+                                  flat out int   texMode;
+                                  flat out int   vDither;
+                                  flat out int   vRepClut;
++                                 flat out int   vTpage;
++                                 flat out int   vClut;
+ 
+                                  uniform vec2 uVertexOffset;
+                                  uniform vec2 uPosBias;
+@@ -130,6 +132,8 @@ internal static class GlShaders
+                                      vColor = vec4(inColorF, 0.0) / 255.0;
+                                      vDither = (inTexpage >> 10) & 1;
+                                      vRepClut = (inTexpage >> 12) & 1;
++                                     vTpage = inTexpage & 0x1ff;
++                                     vClut = inClut;
+ 
+                                      if ((inTexpage & 0x8000) != 0) {
+                                          texMode = 4;
+@@ -157,6 +161,8 @@ internal static class GlShaders
+                                  flat in int   texMode;
+                                  flat in int   vDither;
+                                  flat in int   vRepClut;
++                                 flat in int   vTpage;
++                                 flat in int   vClut;
+ 
+                                  layout(location = 0, index = 0) out vec4 FragColor;
+                                  layout(location = 0, index = 1) out vec4 BlendColor;
+@@ -215,6 +221,15 @@ internal static class GlShaders
+                                          BlendColor = vec4(0.0);
+                                          return;
+                                      }
++                                     if (uGbuffer == 3) {
++                                         // texture del pixel (per scegliere i materiali): tpage, clut, u, v+1
++                                         bool vramTex = texMode <= 2 || texMode == 6;
++                                         FragColor = vramTex
++                                             ? vec4(float(vTpage), float(vClut), floor(vUV.x), floor(vUV.y) + 1.0) / 65535.0
++                                             : vec4(0.0);
++                                         BlendColor = vec4(0.0);
++                                         return;
++                                     }
+                                      if (uGbuffer == 2) {
+                                          FragColor = vec4(gShade, float(gl_PrimitiveID & 255) / 255.0);
+                                          BlendColor = vec4(0.0);
+diff --git a/RecompOne.Runtime/Gpu/Backends/Common/Slang/ShaderMaterials.cs b/RecompOne.Runtime/Gpu/Backends/Common/Slang/ShaderMaterials.cs
+index 6efa494..ff97f53 100644
+--- a/RecompOne.Runtime/Gpu/Backends/Common/Slang/ShaderMaterials.cs
++++ b/RecompOne.Runtime/Gpu/Backends/Common/Slang/ShaderMaterials.cs
+@@ -30,6 +30,16 @@ public static class ShaderMaterials
+ 
+     public static bool Any { get; private set; }
+ 
++    // selettore dei materiali (MediEvilRecomp ITA): con PickEnabled RecompOne scrive la texture di ogni
++    // pixel della scena e mette in Picked quella sotto il centro dello schermo (tpage, clut, u, v)
++    public static volatile bool PickEnabled;
++    public static (int TPage, int Clut, int U, int V)? Picked;
++    // punto del selettore, 0..1 sull'immagine del gioco (clic sinistro sull'Output); ViewRect = rettangolo
++    // dell'immagine sullo schermo (x0, y0, x1, y1) per disegnare il mirino
++    public static volatile float PickX = 0.5f, PickY = 0.5f;
++    public static volatile bool PickFlipY;
++    public static System.Numerics.Vector4 ViewRect;
++
+     public static bool IsSurface(byte material) => material == Water;
+ 
+     public static void Tag(int tpage, int clut, int u0, int v0, int u1, int v1, byte material)
+diff --git a/RecompOne.Runtime/Host/Window/Panels/Debug/OutputPanel.cs b/RecompOne.Runtime/Host/Window/Panels/Debug/OutputPanel.cs
+index b441198..8e1fa7b 100644
+--- a/RecompOne.Runtime/Host/Window/Panels/Debug/OutputPanel.cs
++++ b/RecompOne.Runtime/Host/Window/Panels/Debug/OutputPanel.cs
+@@ -54,6 +54,20 @@ internal sealed class OutputPanel : IPanel
+             var offset = (avail - imageSize) * 0.5f;
+             ImGui.SetCursorPos(ImGui.GetCursorPos() + offset);
+             ImGui.Image((nint)_texId, imageSize);
++
++            // selettore dei materiali (MediEvilRecomp ITA): clic sinistro sull'immagine = punto da leggere
++            if (RecompOne.Runtime.Hle.ShaderMaterials.PickEnabled)
++            {
++                var min = ImGui.GetItemRectMin();
++                var max = ImGui.GetItemRectMax();
++                RecompOne.Runtime.Hle.ShaderMaterials.ViewRect = new Vector4(min.X, min.Y, max.X, max.Y);
++                if (ImGui.IsItemHovered() && ImGui.IsMouseDown(ImGuiMouseButton.Left) && max.X > min.X && max.Y > min.Y)
++                {
++                    var m = ImGui.GetIO().MousePos;
++                    RecompOne.Runtime.Hle.ShaderMaterials.PickX = Math.Clamp((m.X - min.X) / (max.X - min.X), 0f, 1f);
++                    RecompOne.Runtime.Hle.ShaderMaterials.PickY = Math.Clamp((m.Y - min.Y) / (max.Y - min.Y), 0f, 1f);
++                }
++            }
+         }
+ 
+         ToastNotifications.Draw();

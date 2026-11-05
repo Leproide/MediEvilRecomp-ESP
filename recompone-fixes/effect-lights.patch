@@ -1,0 +1,31 @@
+RecompOne change for MediEvilRecomp ITA: scene lights from 3D additive polygons.
+Additive textured quads that already have native 3D positions (fire arrow trails, fire, magic)
+become SceneLights for slang shaders, like anchored billboards already do.
+Author: https://github.com/Leproide
+License of this change: GPL-3.0-or-later (RecompOne code itself keeps its own license).
+Apply after shader-gbuffer.patch:  git -C RecompOne apply ../recompone-fixes/effect-lights.patch
+
+diff --git a/RecompOne.Runtime/Gpu/GpuRaster.cs b/RecompOne.Runtime/Gpu/GpuRaster.cs
+index 9526a9b..af38b45 100644
+--- a/RecompOne.Runtime/Gpu/GpuRaster.cs
++++ b/RecompOne.Runtime/Gpu/GpuRaster.cs
+@@ -85,6 +85,10 @@ public sealed partial class Gpu
+ 
+         if (quad && Hle.NativeGeometry.HasAnchors && AnchorBillboard(v, words) && tex && semi && _blendMode == 1)
+             EmitLight(v, clut, raw);
++        // MediEvilRecomp ITA: anche i poligoni additivi gia' in 3D (scie infuocate delle frecce, fuoco,
++        // magie) diventano luci per gli shader, con la posizione vera della telecamera
++        else if (EffectLights && quad && tex && semi && _blendMode == 1 && v[0].Native && v[1].Native && v[2].Native && v[0].Pw > 0f)
++            EmitLight(v, clut, raw);
+ 
+         if (_fifoBase != 0u && Hle.PrimIdentity.Any && !v[0].Native && Hle.PrimIdentity.TryResolve(_fifoBase, out var prim))
+             for (var i = 0; i < n; i++)
+@@ -341,6 +345,8 @@ public sealed partial class Gpu
+     private const float LightReach = 8f;
+     private readonly Dictionary<ulong, Vector3> _textureAverages = new();
+ 
++    public static bool EffectLights = true;
++
+     private void EmitLight(ReadOnlySpan<Vert> v, int clut, bool raw)
+     {
+         var h = (short)Gte.ReadControl(26);

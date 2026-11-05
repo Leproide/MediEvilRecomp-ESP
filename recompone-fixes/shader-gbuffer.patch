@@ -1,0 +1,400 @@
+RecompOne change for MediEvilRecomp ITA: G-buffer for slang shaders.
+Adds two textures to the shader chain: "Albedo" (texture color without the vertex color) and
+"Shading" (vertex color, 0.5 = neutral, triangle id in alpha), plus "GbufferAvailable".
+Drawn only when the active shader samples them. GL 3.3+ backends only.
+Author: https://github.com/Leproide
+License of this change: GPL-3.0-or-later (RecompOne code itself keeps its own license).
+Apply from the MediEvilRecomp ITA folder, after cd-whole-sector-mode.patch:
+  git -C RecompOne apply ../recompone-fixes/shader-gbuffer.patch
+
+diff --git a/RecompOne.Runtime/Gpu/Backends/Common/GlCore.cs b/RecompOne.Runtime/Gpu/Backends/Common/GlCore.cs
+index 1c83a9c..0698398 100644
+--- a/RecompOne.Runtime/Gpu/Backends/Common/GlCore.cs
++++ b/RecompOne.Runtime/Gpu/Backends/Common/GlCore.cs
+@@ -49,6 +49,11 @@ public sealed class GlCore : IGpuBackend
+     private int _uDepthEnabled;
+     private int _uSurface;
+     private int _uLayerReset;
++    // G-buffer per gli shader (MediEvilRecomp ITA): colore della texture e colore dei vertici separati
++    private int _uGbuffer = -1;
++    private readonly uint[] _gbufPresentTex = new uint[2];
++    private readonly uint[] _gbufPresentFbo = new uint[2];
++    private int _gbufPresentW, _gbufPresentH;
+     private uint _progPresentDepth, _depthPresentTex, _depthPresentFbo;
+     private int _depthPresentW, _depthPresentH;
+     private int _uDepthOrigin, _uDepthSize, _uDepthTexSize;
+@@ -140,6 +145,7 @@ public sealed class GlCore : IGpuBackend
+         _uDepthEnabled = _gl.GetUniformLocation(_progPrim, "uDepthEnabled");
+         _uSurface = _gl.GetUniformLocation(_progPrim, "uSurface");
+         _uLayerReset = _gl.GetUniformLocation(_progPrim, "uLayerReset");
++        _uGbuffer = _gl.GetUniformLocation(_progPrim, "uGbuffer");
+         _uFbInv = _gl.GetUniformLocation(_progPrim, "uFbInv");
+         _uRepRect = _gl.GetUniformLocation(_progPrim, "uRepRect");
+         _uRepClutCount = _gl.GetUniformLocation(_progPrim, "uRepClutCount");
+@@ -1218,6 +1224,9 @@ public sealed class GlCore : IGpuBackend
+             }
+         }
+ 
++        if (_kDepth && rt != null && !_legacy && !_kTransparent && _uGbuffer >= 0 && PostFx.Active && SlangChain.GbufferWanted)
++            DrawGbuffer(rt, surface);
++
+         if (_kLayer && rt != null && !_legacy) DrawLayer(rt);
+         else if (_kDepth && rt != null && !_legacy && rt.HasUi(_depthScene)) ResetLayer(rt);
+ 
+@@ -1388,6 +1397,7 @@ public sealed class GlCore : IGpuBackend
+             chain.SetDepth(0, 0, 0);
+             chain.SetMaterial(0, 0, 0);
+             chain.SetUiLayer(0, 0, 0);
++            chain.SetGbuffer(0, 0, 0, 0);
+             return;
+         }
+ 
+@@ -1426,6 +1436,7 @@ public sealed class GlCore : IGpuBackend
+         chain.SetDepth(_depthPresentTex, fbW, fbH);
+         PresentMaterial(src, dispX, dispY, w1x, h1x, fbW, fbH);
+         PresentLayer(src, dispX, dispY, w1x, h1x, fbW, fbH);
++        PresentGbuffer(src, dispX, dispY, w1x, h1x, fbW, fbH);
+     }
+ 
+     private unsafe void PresentMaterial(GlDisplayRt src, int dispX, int dispY, int w1x, int h1x, int fbW, int fbH)
+@@ -1513,6 +1524,84 @@ public sealed class GlCore : IGpuBackend
+         RebindTarget(rt);
+     }
+ 
++    // ridisegna il gruppo appena disegnato nei due G-buffer, con lo stesso depth buffer: passano
++    // solo i pixel rimasti in vista (LEQUAL, senza scrivere la profondita')
++    private void DrawGbuffer(GlDisplayRt rt, bool surface)
++    {
++        if (surface) return;
++        _gl.Viewport(0, 0, (uint)rt.TexW, (uint)rt.TexH);
++        _gl.Enable(EnableCap.DepthTest);
++        _gl.DepthFunc(DepthFunction.Lequal);
++        _gl.DepthMask(false);
++        _gl.Disable(EnableCap.StencilTest);
++        _gl.Disable(EnableCap.Blend);
++        for (var i = 0; i < 2; i++)
++        {
++            rt.PrepareGbuffer(_gl, _depthScene, i);
++            _gl.Enable(EnableCap.ScissorTest);
++            _gl.Uniform1(_uGbuffer, i + 1);
++            _gl.DrawArrays(PrimitiveType.Triangles, 0, (uint)_count);
++        }
++        _gl.Uniform1(_uGbuffer, 0);
++        RebindTarget(rt);
++    }
++
++    private unsafe void PresentGbuffer(GlDisplayRt src, int dispX, int dispY, int w1x, int h1x, int fbW, int fbH)
++    {
++        var chain = _postChain!;
++        if (_progPresentLayer == 0 || !src.GbufferCurrent)
++        {
++            chain.SetGbuffer(0, 0, 0, 0);
++            return;
++        }
++
++        for (var i = 0; i < 2; i++)
++        {
++            if (_gbufPresentTex[i] == 0)
++            {
++                _gbufPresentTex[i] = _gl.GenTexture();
++                _gbufPresentFbo[i] = _gl.GenFramebuffer();
++                _gbufPresentW = -1;
++            }
++        }
++
++        if (_gbufPresentW != fbW || _gbufPresentH != fbH)
++        {
++            for (var i = 0; i < 2; i++)
++            {
++                _gl.BindTexture(TextureTarget.Texture2D, _gbufPresentTex[i]);
++                _gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba8, (uint)fbW, (uint)fbH, 0,
++                    PixelFormat.Rgba, PixelType.UnsignedByte, null);
++                _gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)GLEnum.Nearest);
++                _gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)GLEnum.Nearest);
++                _gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)GLEnum.ClampToEdge);
++                _gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)GLEnum.ClampToEdge);
++                _gl.BindFramebuffer(FramebufferTarget.Framebuffer, _gbufPresentFbo[i]);
++                _gl.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0,
++                    TextureTarget.Texture2D, _gbufPresentTex[i], 0);
++            }
++            _gbufPresentW = fbW;
++            _gbufPresentH = fbH;
++        }
++
++        _gl.Disable(EnableCap.Blend);
++        _gl.Disable(EnableCap.ScissorTest);
++        _gl.UseProgram(_progPresentLayer);
++        _gl.BindVertexArray(_presentVao);
++        _gl.Uniform2(_uLayerOrigin, (float)(dispX - src.X), dispY - src.Y);
++        _gl.Uniform2(_uLayerSize, (float)w1x, h1x);
++        _gl.Uniform2(_uLayerTexSize, (float)src.Wide1x, src.H);
++        for (var i = 0; i < 2; i++)
++        {
++            _gl.BindFramebuffer(FramebufferTarget.Framebuffer, _gbufPresentFbo[i]);
++            _gl.Viewport(0, 0, (uint)fbW, (uint)fbH);
++            _gl.ActiveTexture(TextureUnit.Texture0);
++            _gl.BindTexture(TextureTarget.Texture2D, src.GbufTex[i]);
++            _gl.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
++        }
++        chain.SetGbuffer(_gbufPresentTex[0], _gbufPresentTex[1], fbW, fbH);
++    }
++
+     private void ResetLayer(GlDisplayRt rt)
+     {
+         rt.PrepareUi(_gl, _depthScene);
+@@ -1619,6 +1708,11 @@ public sealed class GlCore : IGpuBackend
+         if (_materialPresentTex != 0) _gl.DeleteTexture(_materialPresentTex);
+         if (_materialPresentFbo != 0) _gl.DeleteFramebuffer(_materialPresentFbo);
+         if (_progPresentMaterial != 0) _gl.DeleteProgram(_progPresentMaterial);
++        for (var i = 0; i < 2; i++)
++        {
++            if (_gbufPresentTex[i] != 0) _gl.DeleteTexture(_gbufPresentTex[i]);
++            if (_gbufPresentFbo[i] != 0) _gl.DeleteFramebuffer(_gbufPresentFbo[i]);
++        }
+         _postChain?.Dispose();
+     }
+ }
+diff --git a/RecompOne.Runtime/Gpu/Backends/Common/GlDisplayRt.cs b/RecompOne.Runtime/Gpu/Backends/Common/GlDisplayRt.cs
+index 85e97cf..d2df426 100644
+--- a/RecompOne.Runtime/Gpu/Backends/Common/GlDisplayRt.cs
++++ b/RecompOne.Runtime/Gpu/Backends/Common/GlDisplayRt.cs
+@@ -8,6 +8,12 @@ public sealed class GlDisplayRt
+     public int Margin;
+     public uint Tex, Fbo;
+     public uint UiTex, UiFbo;
++    // G-buffer per gli shader (MediEvilRecomp ITA): 0 = colore della texture, 1 = colore dei vertici + id
++    public readonly uint[] GbufTex = new uint[2];
++    public readonly uint[] GbufFbo = new uint[2];
++    private readonly uint[] _gbufDepth = new uint[2];
++    private long _gbufScene = -1;
++    public bool GbufferCurrent => GbufTex[0] != 0 && _gbufScene == LastScene;
+     private long _uiScene = -1;
+     private uint _depth;
+     private long _depthScene = -1;
+@@ -134,8 +140,63 @@ public sealed class GlDisplayRt
+         _uiScene = scene;
+     }
+     
++    public unsafe void PrepareGbuffer(GL gl, long scene, int index)
++    {
++        if (GbufTex[0] == 0)
++        {
++            gl.GetInteger(GetPName.TextureBinding2D, out var previous);
++            for (var i = 0; i < 2; i++)
++            {
++                GbufTex[i] = gl.GenTexture();
++                gl.BindTexture(TextureTarget.Texture2D, GbufTex[i]);
++                gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)GLEnum.Nearest);
++                gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)GLEnum.Nearest);
++                gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)GLEnum.ClampToEdge);
++                gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)GLEnum.ClampToEdge);
++                gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba8, (uint)TexW, (uint)TexH, 0,
++                    PixelFormat.Rgba, PixelType.UnsignedByte, (void*)0);
++                GbufFbo[i] = gl.GenFramebuffer();
++                gl.BindFramebuffer(FramebufferTarget.Framebuffer, GbufFbo[i]);
++                gl.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0,
++                    TextureTarget.Texture2D, GbufTex[i], 0);
++                _gbufDepth[i] = 0;
++            }
++            gl.BindTexture(TextureTarget.Texture2D, (uint)previous);
++            _gbufScene = -1;
++        }
++
++        if (_gbufScene != scene)
++        {
++            gl.Disable(EnableCap.ScissorTest);
++            gl.ColorMask(true, true, true, true);
++            gl.ClearColor(0f, 0f, 0f, 0f);
++            for (var i = 0; i < 2; i++)
++            {
++                gl.BindFramebuffer(FramebufferTarget.Framebuffer, GbufFbo[i]);
++                gl.Clear(ClearBufferMask.ColorBufferBit);
++            }
++            _gbufScene = scene;
++            gl.Enable(EnableCap.ScissorTest);
++        }
++
++        gl.BindFramebuffer(FramebufferTarget.Framebuffer, GbufFbo[index]);
++        if (_depth != 0 && _gbufDepth[index] != _depth)
++        {
++            gl.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment,
++                TextureTarget.Texture2D, _depth, 0);
++            _gbufDepth[index] = _depth;
++        }
++    }
++
+     public void Destroy(GL gl)
+     {
++        for (var i = 0; i < 2; i++)
++        {
++            if (GbufFbo[i] != 0) gl.DeleteFramebuffer(GbufFbo[i]);
++            if (GbufTex[i] != 0) gl.DeleteTexture(GbufTex[i]);
++            GbufFbo[i] = GbufTex[i] = _gbufDepth[i] = 0;
++        }
++        _gbufScene = -1;
+         if (_depth != 0) gl.DeleteTexture(_depth);
+         _depth = 0;
+         _depthScene = -1;
+diff --git a/RecompOne.Runtime/Gpu/Backends/Common/GlShaders.cs b/RecompOne.Runtime/Gpu/Backends/Common/GlShaders.cs
+index 798acf1..dbde60e 100644
+--- a/RecompOne.Runtime/Gpu/Backends/Common/GlShaders.cs
++++ b/RecompOne.Runtime/Gpu/Backends/Common/GlShaders.cs
+@@ -178,6 +178,11 @@ internal static class GlShaders
+                                  uniform vec2  uPosBias;
+                                  uniform int   uSurface;
+                                  uniform int   uLayerReset;
++                                 // G-buffer per gli shader: 0 = disegno normale, 1 = colore della texture
++                                 // senza la luce dei vertici, 2 = colore dei vertici (0.5 = neutro) e id del triangolo
++                                 uniform int   uGbuffer;
++                                 vec3 gAlbedo = vec3(1.0);
++                                 vec3 gShade = vec3(0.5);
+ 
+                                  const int ditherTbl[16] = int[16](
+                                      -4,  0, -3,  1,
+@@ -203,7 +208,18 @@ internal static class GlShaders
+                                  void shade();
+ 
+                                  void main() {
++                                     gShade = vColor.rgb;
+                                      shade();
++                                     if (uGbuffer == 1) {
++                                         FragColor = vec4(gAlbedo, 1.0);
++                                         BlendColor = vec4(0.0);
++                                         return;
++                                     }
++                                     if (uGbuffer == 2) {
++                                         FragColor = vec4(gShade, float(gl_PrimitiveID & 255) / 255.0);
++                                         BlendColor = vec4(0.0);
++                                         return;
++                                     }
+                                      if (uLayerReset != 0) {
+                                          FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+                                          BlendColor = vec4(0.0);
+@@ -214,6 +230,8 @@ internal static class GlShaders
+                                      if (uCheckMask != 0 && texelFetch(uDest, ivec2(gl_FragCoord.xy), 0).a >= 0.5) discard;
+ 
+                                      if (texMode == 4) {
++                                         gAlbedo = min(vColor.rgb * (255.0 / 128.0), vec3(1.0));
++                                         gShade = vec3(0.5);
+                                          FragColor = vec4(quant5(ivec3(vColor.rgb * 255.0 + 0.5)), uSetMask);
+                                          BlendColor = uBlend;
+                                          return;
+@@ -224,6 +242,8 @@ internal static class GlShaders
+                                          if (img.a <= 0.0) { if (uSurface != 0) { FragColor = vec4(0.0); BlendColor = vec4(0.0, 0.0, 0.0, 1.0); return; } discard; }
+                                          vec3 dst = texelFetch(uDest, ivec2(gl_FragCoord.xy), 0).rgb;
+                                          vec3 rgb = mix(dst, img.rgb, img.a);
++                                         gAlbedo = img.rgb;
++                                         gShade = vec3(0.5);
+                                          FragColor = vec4(uTrueColor != 0 ? rgb : floor(rgb * 31.0 + 0.5) / 31.0, uSetMask);
+                                          BlendColor = uBlendOpaque;
+                                          return;
+@@ -233,6 +253,7 @@ internal static class GlShaders
+                                          vec4 img = texture(uExtTex, vUV);
+                                          if (img.a < 0.5) { if (uSurface != 0) { FragColor = vec4(0.0); BlendColor = vec4(0.0, 0.0, 0.0, 1.0); return; } discard; }
+                                          ivec3 e8 = (ivec3(img.rgb * 255.0 + 0.5) * ivec3(vColor.rgb * 255.0 + 0.5)) >> 7;
++                                         gAlbedo = img.rgb;
+                                          FragColor = vec4(quant5(e8), uSetMask);
+                                          BlendColor = uBlend;
+                                          return;
+@@ -250,6 +271,7 @@ internal static class GlShaders
+                                          vec4 img = textureGrad(uRepTex, t, dFdx(vUV) / uRepRect.zw, dFdy(vUV) / uRepRect.zw);
+                                          if (img.a < 0.5) { if (uSurface != 0) { FragColor = vec4(0.0); BlendColor = vec4(0.0, 0.0, 0.0, 1.0); return; } discard; }
+                                          ivec3 e8 = (ivec3(img.rgb * 255.0 + 0.5) * ivec3(vColor.rgb * 255.0 + 0.5)) >> 7;
++                                         gAlbedo = img.rgb;
+                                          float stp = img.a < 0.95 ? 1.0 : 0.0;
+                                          FragColor = vec4(quant5(e8), max(stp, uSetMask));
+                                          BlendColor = stp > 0.5 ? uBlend : uBlendOpaque;
+@@ -277,6 +299,7 @@ internal static class GlShaders
+                                      if (vRepClut != 0 && texMode != 2) {
+                                          if (texel.a < 0.5) { if (uSurface != 0) { FragColor = vec4(0.0); BlendColor = vec4(0.0, 0.0, 0.0, 1.0); return; } discard; }
+                                          ivec3 e8 = (ivec3(texel.rgb * 255.0 + 0.5) * ivec3(vColor.rgb * 255.0 + 0.5)) >> 7;
++                                         gAlbedo = texel.rgb;
+                                          float stp = texel.a < 0.95 ? 1.0 : 0.0;
+                                          FragColor = vec4(quant5(e8), max(stp, uSetMask));
+                                          BlendColor = stp > 0.5 ? uBlend : uBlendOpaque;
+@@ -285,6 +308,7 @@ internal static class GlShaders
+ 
+                                      if (texel.rgb == vec3(0.0) && texel.a < 0.5) { if (uSurface != 0) { FragColor = vec4(0.0); BlendColor = vec4(0.0, 0.0, 0.0, 1.0); return; } discard; }
+                                      ivec3 t8 = ivec3(texel.rgb * 31.0 + 0.5) << 3;
++                                     gAlbedo = vec3(t8) / 255.0;
+                                      ivec3 c8 = (t8 * ivec3(vColor.rgb * 255.0 + 0.5)) >> 7;
+                                      FragColor = vec4(quant5(c8), max(texel.a, uSetMask));
+                                      BlendColor = texel.a >= 0.5 ? uBlend : uBlendOpaque;
+diff --git a/RecompOne.Runtime/Gpu/Backends/Common/Slang/SlangChain.cs b/RecompOne.Runtime/Gpu/Backends/Common/Slang/SlangChain.cs
+index 4ee6b36..50a32ae 100644
+--- a/RecompOne.Runtime/Gpu/Backends/Common/Slang/SlangChain.cs
++++ b/RecompOne.Runtime/Gpu/Backends/Common/Slang/SlangChain.cs
+@@ -81,6 +81,11 @@ internal sealed unsafe class SlangChain : IDisposable
+     private uint _depthTex, _farTex, _materialTex, _noMaterialTex, _uiTex, _noUiTex;
+     private int _depthW, _depthH, _materialW, _materialH, _uiW, _uiH;
+     private float _projX, _projY;
++    // G-buffer (MediEvilRecomp ITA): "Albedo" = colore della texture senza luce dei vertici,
++    // "Shading" = colore dei vertici (0.5 = neutro) con l'id del triangolo in alpha
++    private uint _albedoTex, _shadingTex;
++    private int _gbufW, _gbufH;
++    public static volatile bool GbufferWanted;
+     private readonly Dictionary<string, Vector4> _dataValues = new(StringComparer.Ordinal);
+     private readonly Dictionary<string, Matrix4x4> _dataMatrices = new(StringComparer.Ordinal);
+     private readonly Dictionary<string, ShaderData.Texture> _dataTextures = new(StringComparer.Ordinal);
+@@ -119,6 +124,14 @@ internal sealed unsafe class SlangChain : IDisposable
+         _uiH = h;
+     }
+ 
++    public void SetGbuffer(uint albedo, uint shading, int w, int h)
++    {
++        _albedoTex = albedo;
++        _shadingTex = shading;
++        _gbufW = w;
++        _gbufH = h;
++    }
++
+     public void SetMaterial(uint tex, int w, int h)
+     {
+         _materialTex = tex;
+@@ -342,6 +355,7 @@ internal sealed unsafe class SlangChain : IDisposable
+         }
+ 
+         _passes = passes;
++        GbufferWanted = passes.Any(p => p.Samplers.Any(x => x.Name is "Albedo" or "Shading"));
+ 
+         var historyDepth = 0;
+         foreach (var pass in _passes)
+@@ -506,6 +520,10 @@ internal sealed unsafe class SlangChain : IDisposable
+             return _uiTex != 0
+                 ? new Bound(_uiTex, _uiW, _uiH, false, SlangWrap.ClampToEdge, false)
+                 : new Bound(NoUiTexture(), 1, 1, false, SlangWrap.ClampToEdge, false);
++        if (name is "Albedo" or "Shading")
++            return _albedoTex != 0
++                ? new Bound(name == "Albedo" ? _albedoTex : _shadingTex, _gbufW, _gbufH, false, SlangWrap.ClampToEdge, false)
++                : new Bound(NoUiTexture(), 1, 1, false, SlangWrap.ClampToEdge, false);
+         if (name == "Depth")
+             return _depthTex != 0
+                 ? new Bound(_depthTex, _depthW, _depthH, false, SlangWrap.ClampToEdge, false)
+@@ -603,6 +621,9 @@ internal sealed unsafe class SlangChain : IDisposable
+             case "UiLayerAvailable":
+                 Set(member, data, _uiTex != 0 ? 1 : 0);
+                 return;
++            case "GbufferAvailable":
++                Set(member, data, _albedoTex != 0 ? 1 : 0);
++                return;
+             case "MaterialAvailable":
+                 Set(member, data, _materialTex != 0 ? 1 : 0);
+                 return;
+@@ -680,6 +701,9 @@ internal sealed unsafe class SlangChain : IDisposable
+                 return (MaxLights * 2, 1);
+             case "UiLayerSize":
+                 return _uiTex != 0 ? (_uiW, _uiH) : (1, 1);
++            case "AlbedoSize":
++            case "ShadingSize":
++                return _albedoTex != 0 ? (_gbufW, _gbufH) : (1, 1);
+             case "MaterialSize":
+                 return _materialTex != 0 ? (_materialW, _materialH) : (1, 1);
+         }
+@@ -985,6 +1009,7 @@ internal sealed unsafe class SlangChain : IDisposable
+         _dataUploads.Clear();
+ 
+         _passes = [];
++        GbufferWanted = false;
+         _history = [];
+         _luts = [];
+         _vao = _vbo = _readFbo = _farTex = _noMaterialTex = _noUiTex = 0;

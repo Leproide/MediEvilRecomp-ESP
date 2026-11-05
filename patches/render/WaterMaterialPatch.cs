@@ -70,6 +70,11 @@ public static class WaterMaterialPatch
             }
         }
 
+        // fork ITA: texture marcate a mano (MaterialTags.cs, GPL)
+        var level = Game.CurrentLevel;
+        MaterialTags.AddTo(Tags, level);
+        signature = (signature * 31 + MaterialTags.Version) * 31 + level + Tags.Count;
+
         if (signature == _signature) return;
         _signature = signature;
         if (Tags.Count == 0) ShaderMaterials.Clear();

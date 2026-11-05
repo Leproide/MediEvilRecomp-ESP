@@ -48,8 +48,11 @@ jobs:
           pip install --quiet pycdlib
           python3 tools/ci/make_disc.py disc-files "disc/MediEvil (Spain).cue"
 
-      - name: Correzione RecompOne (lettore CD)
-        run: git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
+      - name: Correzioni RecompOne (lettore CD, G-buffer, luci degli effetti, selettore materiali)
+        run: |
+          for p in cd-whole-sector-mode shader-gbuffer effect-lights material-picker; do
+            git -C RecompOne apply "../recompone-fixes/$p.patch"
+          done
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -104,8 +107,11 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Correzione RecompOne (lettore CD)
-        run: git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
+      - name: Correzioni RecompOne (lettore CD, G-buffer, luci degli effetti, selettore materiali)
+        run: |
+          for p in cd-whole-sector-mode shader-gbuffer effect-lights material-picker; do
+            git -C RecompOne apply "../recompone-fixes/$p.patch"
+          done
 
       - name: Download codice generato
         uses: actions/download-artifact@v4
@@ -160,6 +166,17 @@ jobs:
           echo "Dan's Curse V2: $DC_COMMIT"
           rm -rf "$DIR/.git"
           printf '{"Id":"dans-curse-v2-shader","Type":"shader","Commit":"%s","Repository":"%s"}' "$DC_COMMIT" "$DC_REPO" > "$DIR/.modhub"
+
+      # Gallowmere (GPL-3.0): shader predefinito, ultima versione del ramo principale; il gioco lo
+      # seleziona al primo avvio. Nessun marcatore .modhub: questo fork non usa il Mod Hub
+      - name: Shader Gallowmere
+        env:
+          GM_REPO: https://github.com/Leproide/gallowmere-shader
+        run: |
+          DIR="publish/${{ matrix.rid }}/shaders/gallowmere-shader"
+          git clone -q --depth 1 "$GM_REPO" "$DIR"
+          echo "Gallowmere: $(git -C "$DIR" rev-parse HEAD)"
+          rm -rf "$DIR/.git"
 
       - name: Pacchetto (zip)
         if: matrix.archive == 'zip'

@@ -42,7 +42,9 @@ public sealed class QualityOfLifePanel : IPanel
         ImGui.SeparatorText(Localization.T("qol.render"));
         Toggle(DistantObjectsPatch.Setting, "qol.distant_objects");
         Toggle(TerrainEdgeFade.Setting, "qol.terrain_edge_fade");
+        Toggle(MaterialTags.UseBuiltIn, "qol.default_materials");
         DistantObjectsPatch.DrawTypeList();   // solo con MEDIEVIL_DEBUG
+        MaterialTags.DrawPanel();             // sezione Development: selettore dei materiali
 
         IsOpen = open;
         ImGui.End();
