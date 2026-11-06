@@ -10,7 +10,7 @@ Recompilación estática de **MediEvil para PlayStation, versión PAL española 
 
 <img width="1920" height="1032" alt="MediEvil_PAL_ESP" src="https://github.com/user-attachments/assets/7906b56a-7c8b-47fd-9370-c24c3d62c195" />
 
-[![MediEvilRecomp ITA - video](https://img.youtube.com/vi/cfNv3-evlD4/maxresdefault.jpg)](https://youtu.be/cfNv3-evlD4)
+<a href="https://youtu.be/cfNv3-evlD4"><img width="880" alt="MediEvilRecomp ITA - video" src="https://github.com/user-attachments/assets/b1fe4491-e6d6-4ccd-a5ea-4a051a296bff" /></a>
 
 Este repositorio parte de [MediEvilRecomp-ITA](https://github.com/Leproide/MediEvilRecomp-ITA), el port a la versión PAL italiana (SCES-01494), que a su vez es un **fork** de [MediEvilRecomp](https://github.com/BlackLabelHQ/MediEvilRecomp) de **BlackLabelHQ**, que recompila la versión USA. Todo el trabajo base (recompilación, parches de renderizado y panorámico, runtime RecompOne) es suyo.
 
