@@ -5,6 +5,7 @@ generated/
 disc/*
 !disc/README.md
 !disc/LEEME.md
+!disc/LISEZMOI.md
 *.sav
 settings.json
 interface.ini
@@ -21,6 +22,10 @@ __pycache__/
 generated-es/
 bin-es/
 obj-es/
+# versione francese (-p:Lingua=fr)
+generated-fr/
+bin-fr/
+obj-fr/
 # log di debug
 debug.txt
 # mod di diagnostica (sempre chiamate Diag*) e strumenti locali, non vanno nel repo

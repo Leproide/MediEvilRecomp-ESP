@@ -21,18 +21,25 @@
   <!-- codice generato della versione scelta -->
   <PropertyGroup Condition="'$(Lingua)' == 'es'">
     <DefineConstants>$(DefineConstants);LINGUA_ES</DefineConstants>
-    <DefaultItemExcludes>$(DefaultItemExcludes);generated/**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);generated/**;generated-fr/**</DefaultItemExcludes>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Lingua)' != 'es'">
-    <DefaultItemExcludes>$(DefaultItemExcludes);generated-es/**</DefaultItemExcludes>
+  <!-- con -p:Lingua=fr la PAL francese SCES-01492 (config/fr/MediEvil.json, generated-fr/, LINGUA_FR) -->
+  <PropertyGroup Condition="'$(Lingua)' == 'fr'">
+    <DefineConstants>$(DefineConstants);LINGUA_FR</DefineConstants>
+    <DefaultItemExcludes>$(DefaultItemExcludes);generated/**;generated-es/**</DefaultItemExcludes>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Lingua)' != 'es' and '$(Lingua)' != 'fr'">
+    <DefaultItemExcludes>$(DefaultItemExcludes);generated-es/**;generated-fr/**</DefaultItemExcludes>
   </PropertyGroup>
   <Target Name="CheckLingua" BeforeTargets="BeforeBuild"
-          Condition="'$(Lingua)' != '' and '$(Lingua)' != 'it' and '$(Lingua)' != 'es'">
-    <Error Text="Lingua='$(Lingua)' non valida: usa it (predefinita) oppure es." />
+          Condition="'$(Lingua)' != '' and '$(Lingua)' != 'it' and '$(Lingua)' != 'es' and '$(Lingua)' != 'fr'">
+    <Error Text="Lingua='$(Lingua)' non valida: usa it (predefinita), es oppure fr." />
   </Target>
   <Target Name="CheckGenerated" BeforeTargets="BeforeBuild">
     <Error Condition="'$(Lingua)' == 'es' and !Exists('generated-es')"
            Text="Manca generated-es/: genera prima il codice con dotnet run --project RecompOne/RecompOne.Recompiler config/es/MediEvil.json" />
+    <Error Condition="'$(Lingua)' == 'fr' and !Exists('generated-fr')"
+           Text="Manca generated-fr/: genera prima il codice con dotnet run --project RecompOne/RecompOne.Recompiler config/fr/MediEvil.json" />
   </Target>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DebugType>none</DebugType>

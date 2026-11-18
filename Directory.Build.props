@@ -9,9 +9,15 @@
   <PropertyGroup Condition="'$(Lingua)' == 'es'">
     <BaseOutputPath>bin-es/</BaseOutputPath>
     <BaseIntermediateOutputPath>obj-es/</BaseIntermediateOutputPath>
-    <DefaultItemExcludes>$(DefaultItemExcludes);bin/**;obj/**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin/**;obj/**;bin-fr/**;obj-fr/**</DefaultItemExcludes>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Lingua)' != 'es'">
-    <DefaultItemExcludes>$(DefaultItemExcludes);bin-es/**;obj-es/**</DefaultItemExcludes>
+  <!-- Con -p:Lingua=fr la PAL francese (SCES-01492): bin-fr/ e obj-fr/ -->
+  <PropertyGroup Condition="'$(Lingua)' == 'fr'">
+    <BaseOutputPath>bin-fr/</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj-fr/</BaseIntermediateOutputPath>
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin/**;obj/**;bin-es/**;obj-es/**</DefaultItemExcludes>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Lingua)' != 'es' and '$(Lingua)' != 'fr'">
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin-es/**;obj-es/**;bin-fr/**;obj-fr/**</DefaultItemExcludes>
   </PropertyGroup>
 </Project>

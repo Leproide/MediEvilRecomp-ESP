@@ -49,7 +49,7 @@ AutoUpdater.Register();
 // L'indirizzo e' un repository git https (GitHub, GitLab, Gitea/Forgejo/Codeberg o altro
 // server git). Si puo' cambiare senza ricompilare con la chiave "modhub.repository" in
 // settings.json. Stringa vuota = hub disattivato (menu "Explore Mod Hub" grigio).
-const string DefaultModHub = GameVersion.Spanish ? "" : "https://github.com/Leproide/MediEvilRecomp-ITA-ModHub";
+const string DefaultModHub = GameVersion.Spanish || GameVersion.French ? "" : "https://github.com/Leproide/MediEvilRecomp-ITA-ModHub";
 var modHub = RecompOne.Runtime.Config.Settings.Get("modhub.repository", DefaultModHub);
 if (!string.IsNullOrWhiteSpace(modHub))
     RecompOne.Runtime.Hub.ModHub.Configure(modHub, RecompOne.Runtime.Config.Settings.Get("modhub.branch", "master"));
