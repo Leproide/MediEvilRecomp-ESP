@@ -82,6 +82,27 @@ Este repositorio **no contiene archivos del juego** ni distribuye su código: to
 
 ---
 
+## Launcher (ITA / ESP / FRA / DEU / ENG / USA)
+
+`MediEvilLauncher.exe` (`launcher/MediEvilLauncher`, Windows) elige y compila sola la versión del disco:
+
+1. se elige la imagen del disco, `.cue`, `.chd` o `.vcd` (POPS de PS2, convertida una vez a bin/cue), en cualquier carpeta y con cualquier nombre (no hace falta copiarla en `disc\`); los discos elegidos se recuerdan en una lista;
+2. el launcher lee `SYSTEM.CNF` y reconoce la versión: italiana SCES-01494, española SCES-01495, francesa SCES-01492, alemana SCES-01493, inglesa SCES-00311 (este proyecto) o USA SCUS-94227 (el proyecto original de BlackLabelHQ, descargado sin cambios en `usa\` y actualizado desde allí); también la traducción portuguesa de la francesa;
+3. con **Jugar**, la primera vez compila esa versión a partir del disco del jugador (los pasos de `windows_initial_build*.bat`: submódulos, correcciones de RecompOne, RecompOne, generación del código, el juego en Release), con barra de progreso y registro; después arranca el juego directamente;
+4. **Actualizar** descarga las novedades del proyecto de esa versión (`git pull`), después de copiar las partidas (`carda.sav`, `cardb.sav`, `settings.json`) en `backups\<fecha>\`; al abrirse, el launcher indica si hay actualizaciones (`git fetch`). Si el proyecto, RecompOne, sus correcciones o la configuración cambian, la versión se vuelve a compilar;
+5. **Gráficos**: resolución interna (1x–8x), imágenes por segundo, pantalla completa, VSync y panorámico, escritos en `settings.json` antes de arrancar el juego; **Partidas** abre la carpeta de las partidas; **Acceso directo** crea en el escritorio un acceso que arranca el juego de ese disco (`MediEvilLauncher --play DISCO`).
+
+No contiene ningún dato del juego: el código se genera en el ordenador del jugador desde su propio disco. No hace falta instalar nada: el ejecutable incluye .NET, y si el ordenador no tiene el SDK de .NET 10 o Git, los descarga una sola vez de las fuentes oficiales (`dotnet-install` de Microsoft, MinGit de Git for Windows) en `%LOCALAPPDATA%\MediEvilLauncher\tools`, sin instalarlos en el sistema. La interfaz está en italiano, español, francés o inglés según el idioma de Windows.
+
+```
+dotnet publish launcher\MediEvilLauncher -c Release
+launcher\MediEvilLauncher\bin\Release\net10.0-windows\win-x64\publish\MediEvilLauncher.exe
+```
+
+Colocado en la raíz del proyecto, usa ese proyecto; fuera de él, lo descarga (`git clone` de este repositorio, o del indicado con `-p:PalRepository=...` al compilar el launcher). En la línea de comandos: `MediEvilLauncher --detect DISCO`, `--build DISCO`, `--update DISCO`.
+
+> **En français :** `MediEvilLauncher.exe` reconnaît le disque (italien, espagnol, français ou américain, en `.cue` ou `.chd`), compile cette version la première fois puis lance le jeu. Rien à installer : s'il manque le SDK .NET 10 ou Git, il les télécharge une fois dans son propre dossier.
+
 ## Compilación
 
 ### Windows (recomendado)
@@ -426,7 +447,7 @@ Se añaden igual que la francesa (`add-version`, columnas `deu` y `eng` de la ta
 
 `check` da `RESULT: OK` para esp, fra, deu y eng. Las constantes `fixed` (`TypeRuneHand`, `TypeChest`) se han verificado a mano como para ESP/FRA (24 palabras de 24).
 
-**Traducción portuguesa (no oficial).** Existe una traducción al portugués hecha sobre el disco francés (mismo `SCES_014.92`): cambia solo datos (textos, tablas, voces XA, cinemáticas) y la rutina LibCrypt, neutralizada. El código es el de la versión francesa, así que la versión francesa la ejecuta en portugués: textos, voces y cinemáticas (probado). Una imagen `.VCD` (POPS de PS2) es el disco en sectores de 2352 bytes tras una cabecera de 1 MiB: quitando la cabecera se obtiene el bin/cue.
+**Traducción portuguesa (no oficial).** Existe una traducción al portugués hecha sobre el disco francés (mismo `SCES_014.92`): cambia solo datos (textos, tablas, voces XA, cinemáticas) y la rutina LibCrypt, neutralizada. El código es el de la versión francesa, así que la versión francesa la ejecuta en portugués: textos, voces y cinemáticas (probado). El launcher la reconoce por el hash de `MEDIEVIL.EXE` y convierte la imagen `.VCD` (POPS de PS2) a bin/cue.
 
 ---
 

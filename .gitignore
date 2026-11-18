@@ -35,6 +35,15 @@ obj-de/
 generated-en/
 bin-en/
 obj-en/
+# launcher: progetto USA originale (BlackLabelHQ) scaricato dal launcher, config temporanea,
+# copia dell'eseguibile nella radice
+usa/
+backups/
+.recompone-fixes
+config/**/MediEvil.launcher.json
+/MediEvilLauncher.exe
+launcher/MediEvilLauncher/bin/
+launcher/MediEvilLauncher/obj/
 # log di debug
 debug.txt
 # mod di diagnostica (sempre chiamate Diag*) e strumenti locali, non vanno nel repo
