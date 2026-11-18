@@ -75,7 +75,26 @@ public static class PalLibCrypt
         42521, 42663, 42862, 43204, 43484, 43904, 44009, 44162,
     };
 
-    static readonly int[] BuiltIn = GameVersion.Spanish ? BuiltInEsp : BuiltInIta;
+    static readonly int[] BuiltInFra =   // SCES-01492
+    {
+        13955, 14081, 14429, 14980, 15162, 15228, 15769, 15951,
+        41895, 42016, 42430, 43027, 43204, 43258, 43813, 44009,
+    };
+
+    static readonly int[] BuiltInDeu =   // SCES-01493
+    {
+        14429, 14499, 14980, 15162, 15228, 15478, 15769, 15951,
+        42430, 42521, 43027, 43204, 43258, 43484, 43813, 44009,
+    };
+
+    static readonly int[] BuiltInEng =   // SCES-00311
+    {
+        13955, 14749, 14906, 14980, 15092, 15228, 15769, 15951,
+        41895, 42663, 42862, 43027, 43139, 43258, 43813, 44009,
+    };
+
+    static readonly int[] BuiltIn = GameVersion.Spanish ? BuiltInEsp : GameVersion.French ? BuiltInFra
+        : GameVersion.German ? BuiltInDeu : GameVersion.English ? BuiltInEng : BuiltInIta;
 
     static HashSet<int>? _lba;
     static readonly object _gate = new();
@@ -99,9 +118,9 @@ public static class PalLibCrypt
     const uint TableBase = Addr.LcTableBase;
 
     // Log diagnostici: righe "[PalLibCrypt]" nella console / debug.txt. Nella versione
-    // italiana sempre attivi (come prima); nella spagnola solo con la variabile
+    // italiana sempre attivi (come prima); nelle altre solo con la variabile
     // d'ambiente MEDIEVIL_DEBUG impostata (qualsiasi valore).
-    static readonly bool Verbose = !GameVersion.Spanish ||
+    static readonly bool Verbose = GameVersion.Code == "ita" ||
         !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
     static int _logLines;
     static void Diag(string s)

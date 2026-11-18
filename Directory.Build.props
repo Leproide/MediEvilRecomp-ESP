@@ -6,12 +6,13 @@
     Ogni progetto ignora i file dell'altra versione (es. AssemblyInfo generati in obj-es/).
     Author: https://github.com/Leproide - GPL-3.0-or-later
   -->
-  <PropertyGroup Condition="'$(Lingua)' == 'es'">
-    <BaseOutputPath>bin-es/</BaseOutputPath>
-    <BaseIntermediateOutputPath>obj-es/</BaseIntermediateOutputPath>
-    <DefaultItemExcludes>$(DefaultItemExcludes);bin/**;obj/**</DefaultItemExcludes>
+  <!-- -p:Lingua=es|fr|de|en: bin-<lingua>/ e obj-<lingua>/ (spagnola, francese, tedesca, inglese) -->
+  <PropertyGroup Condition="'$(Lingua)' == 'es' or '$(Lingua)' == 'fr' or '$(Lingua)' == 'de' or '$(Lingua)' == 'en'">
+    <BaseOutputPath>bin-$(Lingua)/</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj-$(Lingua)/</BaseIntermediateOutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Lingua)' != 'es'">
-    <DefaultItemExcludes>$(DefaultItemExcludes);bin-es/**;obj-es/**</DefaultItemExcludes>
+  <!-- ogni build ignora le cartelle di uscita di tutte le versioni -->
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin/**;obj/**;bin-es/**;obj-es/**;bin-fr/**;obj-fr/**;bin-de/**;obj-de/**;bin-en/**;obj-en/**</DefaultItemExcludes>
   </PropertyGroup>
 </Project>

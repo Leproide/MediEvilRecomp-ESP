@@ -47,6 +47,19 @@ Usage (from the repository root):
   python3 tools/pal-port/version_port.py gen-cs
   python3 tools/pal-port/version_port.py gen-config
   python3 tools/pal-port/version_port.py check [--ita ITA_FILES --dst ESP_FILES]
+  python3 tools/pal-port/version_port.py --target fra add-version --ita ITA_FILES --dst FRA_FILES \
+          --name fr --serial SCES-01492 --game-id SCES-014.92 --boot-file SCES_014.92 \
+          --define LINGUA_FR --cue "../../disc/MediEvil (France).cue" --title "MediEvilRecomp FRA" \
+          --update-repo Leproide/MediEvilRecomp-FRA
+  python3 tools/pal-port/version_port.py --target fra check --ita ITA_FILES --dst FRA_FILES
+
+'add-version' adds one more version to an existing table without re-running 'convert':
+hooks and entry points come from the address map (exact matches), literals from the
+target instruction matching the Italian one, constants as in 'fill'. It also records the
+MEDIEVIL.EXE load address when it differs (versions.<ver>.gameBase) and routes the C#
+patches' direct calls to recompiled functions through GameFn relays (patches/GameAddresses.cs),
+since a build whose code moved names those functions after other addresses.
+--target selects the version the commands act on (esp, fra; default esp).
 
 ITA_FILES / ESP_FILES: folders with SYSTEM.CNF, the boot executable,
 MEDIEVIL.EXE and OVERLAYS/*.BIN extracted from each disc. Never commit them.
@@ -290,6 +303,176 @@ def cmd_convert(a):
           f'{len(table["constants"])} constants, {len(table["literals"])} literals')
 
 
+# ---------------------------------------------------------------------------
+# direct calls to recompiled functions
+
+CS_DIRS = ('patches', 'wrapers')
+DIRECT_CALL = re.compile(r'MediEvil_(\w+?)\.func_([0-9A-F]{8})\b')
+RELAY_CALL = re.compile(r'GameFn\.(\w+?)_([0-9A-F]{8})\b')
+
+
+def cs_files(root):
+    for d in CS_DIRS:
+        for dp, _, files in os.walk(os.path.join(root, d)):
+            for fn in files:
+                if fn.endswith('.cs') and os.path.join(dp, fn) != os.path.join(root, CS_OUT):
+                    yield os.path.join(dp, fn)
+
+
+def direct_calls(root):
+    """(overlay, address) of every MediEvil_<ov>.func_<addr> in the hand-written C#."""
+    found = set()
+    for path in cs_files(root):
+        for m in DIRECT_CALL.finditer(open(path, encoding='utf-8').read()):
+            found.add((m.group(1), int(m.group(2), 16)))
+    return found
+
+
+def relay_name(ov, ita):
+    return '%s_%s' % (ov_class(ov), ita)
+
+
+def relay_calls(root, calls):
+    """MediEvil_<ov>.func_<ita>  ->  GameFn.<Ov>_<ita> in the C# sources."""
+    known = {(c['overlay'], c['ita']) for c in calls}
+    for path in cs_files(root):
+        text = open(path, encoding='utf-8', newline='').read()
+        new = DIRECT_CALL.sub(lambda m: 'GameFn.' + relay_name(m.group(1), m.group(2))
+                              if (m.group(1), m.group(2)) in known else m.group(0), text)
+        if new != text:
+            with open(path, 'w', encoding='utf-8', newline='') as f:
+                f.write(new)
+            print(f'{os.path.relpath(path, root)}: direct calls go through GameFn')
+
+
+# ---------------------------------------------------------------------------
+# add-version: one more column in an existing table (C# sources untouched)
+
+def cmd_add_version(a):
+    """Adds version `--target` to config/versions.json from the Italian disc and the target disc.
+
+    Unlike 'convert' it does not touch the C# sources: they already read every
+    per-version value from patches/GameAddresses.cs. Hooks, entry points and
+    relocations come from port.py ITA -> target, like 'convert'; each literal is
+    read from the target instruction matching the Italian one, and the named
+    constants from the address map (exact matches only)."""
+    root = os.path.abspath(a.repo)
+    cfg = json.load(open(os.path.join(root, 'config', 'MediEvil.json')))
+    table = load_table(root)
+    if TARGET in table['versions'] and not a.force:
+        sys.exit(f'version {TARGET} is already in {TABLE} (use --force to recompute it)')
+
+    import port
+    tmp = tempfile.mkdtemp(prefix='version-add-')
+    argv = sys.argv
+    sys.argv = ['port.py', '--repo', root, '--usa', a.ita, '--pal', a.dst, '--out', tmp, '--cue', a.cue]
+    try:
+        port.main()
+    finally:
+        sys.argv = argv
+    tcfg = json.load(open(os.path.join(tmp, 'config', 'MediEvil.json')))
+    si, di, sgp, dgp, amap, matches = build_maps(root, cfg, a.ita, a.dst)
+
+    # Hooks from the address map. port.py disables a patch on a function that
+    # is not an exact match (for instance the LibCrypt check routines, which
+    # differ from disc to disc); a hook at the start of such a function is kept
+    # when the map pairs that start exactly, and is listed so it can be reviewed.
+    fuzzy = {(ov, m.usa): m for ov, ms in matches.items() for m in ms if m.kind != 'exact'}
+    for h in table['hooks']:
+        ov = h['overlay']
+        ta, q = lookup(amap, ov, int(h['ita'], 16))
+        if q != 'exact':
+            sys.exit(f'hook {h["target"]} {ov}:{h["ita"]} maps {q} to {ta}')
+        h[TARGET] = '%08X' % ta
+        m = fuzzy.get(('game' if ov == 'main' else ov, int(h['ita'], 16)))
+        if m is not None and m.kind == 'fuzzy':
+            print(f'note: hook {h["target"]} ({h["mode"]}) on {ov}:{h["ita"]}, a function that '
+                  f'differs in {TARGET} (similarity {m.ratio:.2f}): kept at {h[TARGET]}')
+    # cross-check with port.py (it renames the replacement methods after the new
+    # address, so hooks are compared by overlay, mode and address only)
+    enabled = {(tp.get('overlay', 'main'), tp['mode'], '%08X' % hook_addr(tp)[1]) for tp in tcfg['patches']}
+    mine = {(h['overlay'], h['mode'], h[TARGET]) for h in table['hooks']}
+    for x in sorted(mine - enabled):
+        print(f'note: port.py left out hook {x[0]}:{x[2]} ({x[1]})')
+    if enabled - mine:
+        sys.exit(f'port.py placed hooks the address map does not: {sorted(enabled - mine)}')
+    # Entry points from the address map, like the hooks (port.py adds the targets
+    # of the C# patches' calls as further entry points: the GameFn relays cover them).
+    for e in table['entryPoints']:
+        na, q = lookup(amap, e['overlay'], int(e['ita'], 16))
+        if q != 'exact':
+            sys.exit(f'entry point {e["overlay"]}:{e["ita"]} maps {q} to {na}')
+        e[TARGET] = '%08X' % na
+    rl = {(r['overlay'], r['name']): r['address'] for r in tcfg.get('relocations', [])}
+    for r in table['relocations']:
+        r[TARGET] = rl[(r['overlay'], r['name'])]
+
+    for c in table['literals']:
+        ov = c['overlay']
+        if 'instr' in c:
+            k = int(c['instr']['ita'], 16)
+            pa, q = lookup(amap, ov, k)
+            if q != 'exact':
+                sys.exit(f'{c["name"]}: instruction {k:#x} has no exact counterpart ({q})')
+            lits = instr_literals(di[ov].word(pa))
+            if c['index'] >= len(lits):
+                sys.exit(f'{c["name"]}: target instruction {pa:#x} has no literal {c["index"]}')
+            c['instr'][TARGET] = '%08X' % pa
+            c[TARGET] = hx(lits[c['index']][1], len(c['ita']) - 2)
+        else:
+            nv, q = lookup(amap, ov, int(c['ita'], 16))
+            if q != 'exact':
+                sys.exit(f'{c["name"]}: {c["ita"]} maps {q} to {nv}')
+            c[TARGET] = hx(nv, len(c['ita']) - 2)
+
+    for c in table['constants']:
+        if c['kind'] == 'fixed' and not c.get(TARGET):
+            sys.exit(f'constant {c["name"]} is fixed by hand: set its {TARGET} value')
+        if c['kind'] != 'fixed':
+            c.pop(TARGET, None)
+    fill_constants(table, amap, sgp, dgp)
+
+    # Direct calls to recompiled functions (MediEvil_<ov>.func_<addr>): the
+    # generated name carries the address, so a build whose code moved needs the
+    # GameFn relays (patches/GameAddresses.cs). The versions already in the
+    # table share the Italian code addresses (they compiled with these names).
+    calls = {(c['overlay'], c['ita']): c for c in table.get('calls', [])}
+    for ov, v in sorted(direct_calls(root)):
+        calls.setdefault((ov, '%08X' % v), {'overlay': ov, 'ita': '%08X' % v,
+                                             **{x: '%08X' % v for x in table['versions'] if x != 'ita'}})
+    for c in calls.values():
+        na, q = lookup(amap, c['overlay'], int(c['ita'], 16))
+        if q != 'exact':
+            sys.exit(f'call {c["overlay"]}:{c["ita"]} maps {q} to {na}')
+        c[TARGET] = '%08X' % na
+    table['calls'] = sorted(calls.values(), key=lambda c: (c['overlay'], c['ita']))
+    relay_calls(root, table['calls'])
+
+    table['gp'][TARGET] = hx(dgp)
+    table['versions'][TARGET] = {
+        'serial': a.serial, 'gameId': a.game_id, 'config': f'config/{a.name}/MediEvil.json',
+        'generated': f'generated-{a.name}', 'cue': a.cue, 'define': a.define, 'bootFile': a.boot_file,
+        'updateRepo': a.update_repo, 'title': a.title}
+    # MEDIEVIL.EXE load address (PS-X EXE header): ITA and ESP share it, other
+    # builds may not (FRA: +0x68). The overlays load at the same address in all.
+    gbase = hx(di['game'].base)
+    if gbase != next(o['base'] for o in cfg['overlays'] if o['name'] == 'game').upper().replace('0X', '0x'):
+        table['versions'][TARGET]['gameBase'] = gbase
+
+    dst_cfg = os.path.join(root, 'config', a.name)
+    if os.path.isdir(os.path.join(dst_cfg, 'funcmaps')):
+        shutil.rmtree(os.path.join(dst_cfg, 'funcmaps'))
+    shutil.copytree(os.path.join(tmp, 'config', 'funcmaps'), os.path.join(dst_cfg, 'funcmaps'))
+    shutil.copy(os.path.join(tmp, 'PORT_REPORT.md'),
+                os.path.join(root, 'tools', 'pal-port', 'PORT_REPORT_%s.md' % a.name.upper()))
+    save_json(os.path.join(root, TABLE), table)
+    write_config(root, table, cfg)
+    write_cs(root, table)
+    shutil.rmtree(tmp, ignore_errors=True)
+    print(f'{TABLE}: version {TARGET} added ({len(table["hooks"])} hooks, {len(table["entryPoints"])} '
+          f'entry points, {len(table["constants"])} constants, {len(table["literals"])} literals)')
+
+
 def fill_constants(table, amap, sgp, dgp):
     """Target values of the named constants, from the address map (exact only)."""
     for c in table['constants']:
@@ -321,6 +504,8 @@ def build_config(table, cfg, ver):
         out['game']['id'] = v['gameId']
         out['game']['output'] = '../../' + v['generated']
         out['cue'] = v['cue']
+        if 'gameBase' in v:
+            next(o for o in out['overlays'] if o['name'] == 'game')['base'] = v['gameBase']
     hooks = table['hooks']
     if len(hooks) != len(out['patches']):
         raise ValueError('hook table and Italian config have a different number of patches')
@@ -373,7 +558,11 @@ def cs_value(c, ver):
     return hx(int(c[ver], 16), len(c[ver]) - 2) + 'u'
 
 
-def version_fields(ver, v):
+# compile-time flag of each non-Italian version in GameVersion
+VERSION_FLAGS = {'esp': 'Spanish', 'fra': 'French', 'deu': 'German', 'eng': 'English'}
+
+
+def version_fields(ver, v, vers=()):
     return [f'    public const string Code = "{ver}";',
             f'    public const string Serial = "{v["serial"]}";',
             f'    /// <summary>eseguibile di avvio indicato da SYSTEM.CNF</summary>',
@@ -381,8 +570,8 @@ def version_fields(ver, v):
             f'    /// <summary>titolo della finestra</summary>',
             f'    public const string Title = "{v["title"]}";',
             f'    /// <summary>repository GitHub da cui scaricare gli aggiornamenti</summary>',
-            f'    public const string UpdateRepo = "{v["updateRepo"]}";',
-            f'    public const bool Spanish = {"true" if ver == "esp" else "false"};']
+            f'    public const string UpdateRepo = "{v["updateRepo"]}";'] + \
+           [f'    public const bool {VERSION_FLAGS[o]} = {"true" if ver == o else "false"};' for o in vers]
 
 
 def write_cs(root, table):
@@ -411,13 +600,15 @@ def write_cs(root, table):
     for ver in vers:
         v = table['versions'][ver]
         L.append(('#if ' if first else '#elif ') + v['define'])
-        L += version_fields(ver, v)
+        L += version_fields(ver, v, vers)
         first = False
-    L += ['#else'] + version_fields('ita', table['versions']['ita']) + ['#endif', '}', '']
+    L += ['#else'] + version_fields('ita', table['versions']['ita'], vers) + ['#endif', '}', '']
 
     def pick(c):
-        e = cs_value(c, 'esp')
-        return f'GameVersion.Spanish ? {e} : {cs_value(c, "ita")}'
+        s = cs_value(c, 'ita')
+        for ver in reversed(vers):
+            s = f'GameVersion.{VERSION_FLAGS[ver]} ? {cs_value(c, ver)} : {s}'
+        return s
 
     L += ['/// <summary>Indirizzi e offset $gp usati dalle patch scritte a mano.</summary>',
           'public static class Addr', '{']
@@ -433,9 +624,31 @@ def write_cs(root, table):
     for c in table['literals']:
         where = c['where']
         if 'instr' in c:
-            where += ', istr. ESP ' + c['instr']['esp']
+            where += ''.join(f', istr. {v.upper()} ' + c['instr'][v] for v in vers if v in c['instr'])
         L.append(f'    public const uint {c["name"]} = {pick(c)}; // {where}')
     L += ['}', '']
+    if table.get('calls'):
+        L += ['/// <summary>Chiamate dirette a funzioni ricompilate. Il nome generato contiene',
+              '/// l\'indirizzo, che cambia nelle versioni il cui codice e\' spostato: il nome qui',
+              '/// e\' quello italiano (Overlay_Indirizzo), la funzione chiamata quella della',
+              '/// versione compilata.</summary>',
+              'public static class GameFn', '{']
+        for c in table['calls']:
+            cls = 'MediEvil_' + c['overlay']
+            L.append('    [System.Runtime.CompilerServices.MethodImpl('
+                     'System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]')
+            L.append(f'    public static void {relay_name(c["overlay"], c["ita"])}('
+                     'RecompOne.Runtime.Context.CpuContext c, RecompOne.Runtime.Memory.IMemory m)')
+            moved = [v for v in vers if c[v] != c['ita']]
+            for i, ver in enumerate(moved):
+                L.append(('#if ' if i == 0 else '#elif ') + table['versions'][ver]['define'])
+                L.append(f'        => {cls}.func_{c[ver]}(c, m);')
+            if moved:
+                L.append('#else')
+            L.append(f'        => {cls}.func_{c["ita"]}(c, m);')
+            if moved:
+                L.append('#endif')
+        L += ['}', '']
     with open(os.path.join(root, CS_OUT), 'w', encoding='utf-8', newline='\n') as f:
         f.write('\n'.join(L))
 
@@ -587,10 +800,11 @@ def cmd_check(a):
 
     print('== calls made by the C# patches (PalDispatch / Dispatcher.Call / MediEvil_*.func_)')
     lits = {c['name']: c for c in table['literals']}
+    relays = {(c['overlay'], c['ita']): c for c in table.get('calls', [])}
     calls = set()
     for dp, _, files in [w for d in ('patches', 'wrapers') for w in os.walk(os.path.join(root, d))]:
         for fn in files:
-            if not fn.endswith('.cs'):
+            if not fn.endswith('.cs') or fn == 'GameAddresses.cs':   # GameFn relays: 'relay' calls
                 continue
             t = open(os.path.join(dp, fn), encoding='utf-8').read()
             for m in re.finditer(r'PalDispatch\.(\w+)\[\s*RAddr\.(\w+)\s*\]', t):
@@ -603,6 +817,8 @@ def cmd_check(a):
                 calls.add((None, 'fixed', int(m.group(1), 16)))
             for m in re.finditer(r'MediEvil_(\w+?)\.func_([0-9A-F]{8})\b', t):
                 calls.add((m.group(1), 'fixed', int(m.group(2), 16)))
+            for m in RELAY_CALL.finditer(t):
+                calls.add((m.group(1).lower(), 'relay', m.group(2)))
     not_entry = {}
     for ver, (cdir, c) in vcfg.items():
         maps = {o['name']: o['funcMap'] for o in c['overlays']}
@@ -613,7 +829,10 @@ def cmd_check(a):
         miss = set()
         for call in calls:
             ov, kind, v = call
-            adr = int(lits[v][ver], 16) if kind == 'lit' else v
+            if kind == 'relay':
+                adr = int(relays[(ov, v)][ver], 16)
+            else:
+                adr = int(lits[v][ver], 16) if kind == 'lit' else v
             where = [ov] if ov else list(entry)
             if not any(adr in entry.get(x, ()) for x in where):
                 miss.add(call)
@@ -632,6 +851,10 @@ def cmd_check(a):
         sa, ta = int(h['ita'], 16), int(h[TARGET], 16)
         m = next((x for x in matches[ov] if x.usa <= sa < x.usa + x.size), None)
         good = m is not None and m.kind in ('exact', 'aligned') and m.pal + (sa - m.usa) == ta
+        note = h.get('reviewed', {}).get(TARGET)
+        if not good and note and m is not None and m.usa == sa and m.pal == ta:
+            print(f'  reviewed: hook {h["target"] or h["mode"]} {ov}:{h["ita"]} -> {h[TARGET]}: {note}')
+            continue
         ck.ok(good, f'hook {h["target"] or h["mode"]} {ov}:{h["ita"]} -> {h[TARGET]} not matched')
 
     print('== literals (RAddr) against the instructions')
@@ -695,10 +918,25 @@ def main():
     p = sub.add_parser('check')
     p.add_argument('--ita', help='files of the Italian disc')
     p.add_argument('--dst', help='files of the target disc')
+    p = sub.add_parser('add-version', help='add the --target version to an existing table')
+    p.add_argument('--ita', required=True, help='files of the Italian disc')
+    p.add_argument('--dst', required=True, help='files of the target disc')
+    p.add_argument('--name', required=True, help='config sub-folder (config/<name>), e.g. fr')
+    p.add_argument('--serial', required=True, help='e.g. SCES-01492')
+    p.add_argument('--game-id', required=True, help='e.g. SCES-014.92')
+    p.add_argument('--boot-file', required=True, help='e.g. SCES_014.92')
+    p.add_argument('--define', required=True, help='C# symbol of this build, e.g. LINGUA_FR')
+    p.add_argument('--cue', required=True, help='disc .cue, relative to config/<name>/')
+    p.add_argument('--title', required=True)
+    p.add_argument('--update-repo', required=True)
+    p.add_argument('--force', action='store_true')
+    ap.add_argument('--target', default=TARGET, choices=sorted(VERSION_FLAGS),
+                    help='version the commands act on (default: %(default)s)')
     a = ap.parse_args()
     a.repo = os.path.abspath(a.repo)
+    globals()['TARGET'] = a.target
     return {'convert': cmd_convert, 'fill': cmd_fill, 'gen-cs': cmd_gen_cs, 'gen-config': cmd_gen_config,
-            'check': cmd_check}[a.cmd](a) or 0
+            'check': cmd_check, 'add-version': cmd_add_version}[a.cmd](a) or 0
 
 
 if __name__ == '__main__':

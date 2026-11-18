@@ -5,343 +5,400 @@
             "pt-BR": "Atualizações",
             "es-419": "Actualizaciones",
             "ja-jp": "アップデイト",
-            "cn-zh": "版本更新"
+            "cn-zh": "版本更新",
+            "fr-fr": "Mises à jour"
         },
         "menu.updates.on_startup": {
             "en": "Check on Startup",
             "pt-BR": "Verificar ao Iniciar",
             "es-419": "Buscar al Iniciar",
             "ja-jp": "起動時に更新を確認する",
-            "cn-zh": "在启动时询问更新"
+            "cn-zh": "在启动时询问更新",
+            "fr-fr": "Vérifier au démarrage"
         },
         "menu.updates.check_now": {
             "en": "Check for Updates Now",
             "pt-BR": "Verificar Atualizações Agora",
             "es-419": "Buscar Actualizaciones Ahora",
             "ja-jp": "今すぐ更新を確認する",
-            "cn-zh": "现在检查更新"
+            "cn-zh": "现在检查更新",
+            "fr-fr": "Vérifier maintenant"
         },
         "menu.updates.releases_page": {
             "en": "Open Releases Page",
             "pt-BR": "Abrir Página de Versões",
             "es-419": "Abrir Página de Versiones",
             "ja-jp": "リリース・ページを開く",
-            "cn-zh": "打开发布页"
+            "cn-zh": "打开发布页",
+            "fr-fr": "Ouvrir la page des versions"
         },
         "update.title": {
             "en": "Update",
             "pt-BR": "Atualização",
             "es-419": "Actualización",
             "ja-jp": "アップデート",
-            "cn-zh": "版本更新"
+            "cn-zh": "版本更新",
+            "fr-fr": "Mise à jour"
         },
         "update.status.checking": {
             "en": "Checking for updates...",
             "pt-BR": "Verificando atualizações...",
             "es-419": "Buscando actualizaciones...",
             "ja-jp": "更新を確認しています...",
-            "cn-zh": "正在检查更新..."
+            "cn-zh": "正在检查更新...",
+            "fr-fr": "Recherche de mises à jour..."
         },
         "update.status.available": {
             "en": "{0} available",
             "pt-BR": "{0} disponível",
             "es-419": "{0} disponible",
             "ja-jp": "{0} 利用可能",
-            "cn-zh": "目前有更新"
+            "cn-zh": "目前有更新",
+            "fr-fr": "{0} disponible"
         },
         "update.status.downloading": {
             "en": "Downloading {0}...",
             "pt-BR": "Baixando {0}...",
             "es-419": "Descargando {0}...",
             "ja-jp": "{0} をダウンロード中...",
-            "cn-zh": "更新文件下载中..."
+            "cn-zh": "更新文件下载中...",
+            "fr-fr": "Téléchargement de {0}..."
         },
         "update.status.applying": {
             "en": "Restarting to update...",
             "pt-BR": "Reiniciando para atualizar...",
             "es-419": "Reiniciando para actualizar...",
             "ja-jp": "更新のために再起動しています...",
-            "cn-zh": "重新启动以加载更新..."
+            "cn-zh": "重新启动以加载更新...",
+            "fr-fr": "Redémarrage pour la mise à jour..."
         },
         "update.status.failed": {
             "en": "Last update attempt failed",
             "pt-BR": "A última tentativa de atualização falhou",
             "es-419": "El último intento de actualización falló",
             "ja-jp": "前回の更新の試行が失敗しました。",
-            "cn-zh": "最近一次的更新失败了。"
+            "cn-zh": "最近一次的更新失败了。",
+            "fr-fr": "La dernière mise à jour a échoué"
         },
         "update.status.dev": {
             "en": "Development Build",
             "pt-BR": "Build de Desenvolvimento",
             "es-419": "Build de Desarrollo",
             "ja-jp": "DEVのビルド",
-            "cn-zh": "正在检查更新..."
+            "cn-zh": "正在检查更新...",
+            "fr-fr": "Version de développement"
         },
         "update.status.running": {
             "en": "Running {0}",
             "pt-BR": "Executando {0}",
             "es-419": "Ejecutando {0}",
             "ja-jp": "{0} を実行中",
-            "cn-zh": "{0} 在运行中"
+            "cn-zh": "{0} 在运行中",
+            "fr-fr": "Version {0}"
         },
         "update.headline.available": {
             "en": "{0} is available",
             "pt-BR": "{0} está disponível",
             "es-419": "{0} está disponible",
             "ja-jp": "{0}が利用可能です",
-            "cn-zh": "{0} 使用可能"
+            "cn-zh": "{0} 使用可能",
+            "fr-fr": "{0} est disponible"
         },
         "update.headline.downloading": {
             "en": "Downloading {0}",
             "pt-BR": "Baixando {0}",
             "es-419": "Descargando {0}",
             "ja-jp": "{0} をダウンロード中",
-            "cn-zh": "{0} 在下载中"
+            "cn-zh": "{0} 在下载中",
+            "fr-fr": "Téléchargement de {0}"
         },
         "update.headline.installing": {
             "en": "Installing {0}",
             "pt-BR": "Instalando {0}",
             "es-419": "Instalando {0}",
             "ja-jp": "{0} をインストールしています",
-            "cn-zh": "{0} 已安装"
+            "cn-zh": "{0} 已安装",
+            "fr-fr": "Installation de {0}"
         },
         "update.headline.failed": {
             "en": "Update failed",
             "pt-BR": "A atualização falhou",
             "es-419": "La actualización falló",
             "ja-jp": "更新に失敗しました",
-            "cn-zh": "更新失败了"
+            "cn-zh": "更新失败了",
+            "fr-fr": "Échec de la mise à jour"
         },
         "update.current": {
             "en": "current {0}",
             "pt-BR": "atual {0}",
             "es-419": "actual {0}",
             "ja-jp": "現在の {0}",
-            "cn-zh": "现在的 {0} "
+            "cn-zh": "现在的 {0} ",
+            "fr-fr": "actuelle {0}"
         },
         "update.not_writable": {
             "en": "This folder is not writable, so the update cannot be installed automatically. Download it manually or move the game somewhere you can write to.",
             "pt-BR": "Esta pasta não permite escrita, então a atualização não pode ser instalada automaticamente. Baixe manualmente ou mova o jogo para um local onde você possa escrever.",
             "es-419": "Esta carpeta no permite escritura, así que la actualización no se puede instalar automáticamente. Descárgala manualmente o mueve el juego a un lugar donde puedas escribir.",
             "ja-jp": "このフォルダには書き込み権限がないため、アップデートを自動的にインストールできません。手動でダウンロードするか、書き込み可能な場所にゲームを移動してください。",
-            "cn-zh": "当前的目录没有修改权限，所以更新文件无法自动安装。请手动下载新版本的文件或将文件移动到有修改权限的路径再操作。"
+            "cn-zh": "当前的目录没有修改权限，所以更新文件无法自动安装。请手动下载新版本的文件或将文件移动到有修改权限的路径再操作。",
+            "fr-fr": "Ce dossier n'est pas accessible en écriture : la mise à jour ne peut pas être installée automatiquement. Téléchargez-la manuellement ou déplacez le jeu dans un dossier modifiable."
         },
         "update.no_notes": {
             "en": "This release ships no notes.",
             "pt-BR": "Esta versão não tem notas.",
             "es-419": "Esta versión no trae notas.",
             "ja-jp": "このリリースにはリリースノートは含まれていません。",
-            "cn-zh": "此版本不附带任何说明。 "
+            "cn-zh": "此版本不附带任何说明。 ",
+            "fr-fr": "Cette version n'a pas de notes."
         },
         "update.install": {
             "en": "Install",
             "pt-BR": "Instalar",
             "es-419": "Instalar",
             "ja-jp": "インストール",
-            "cn-zh": "安装 "
+            "cn-zh": "安装 ",
+            "fr-fr": "Installer"
         },
         "update.not_now": {
             "en": "Not now",
             "pt-BR": "Agora não",
             "es-419": "Ahora no",
             "ja-jp": "今じゃない",
-            "cn-zh": "现在略过"
+            "cn-zh": "现在略过",
+            "fr-fr": "Plus tard"
         },
         "update.skip": {
             "en": "Skip {0}",
             "pt-BR": "Pular {0}",
             "es-419": "Omitir {0}",
             "ja-jp": "{0}をスキップ",
-            "cn-zh": "跳过 {0}"
+            "cn-zh": "跳过 {0}",
+            "fr-fr": "Ignorer {0}"
         },
         "update.retry": {
             "en": "Retry",
             "pt-BR": "Tentar de novo",
             "es-419": "Reintentar",
             "ja-jp": "リトライ",
-            "cn-zh": "重试"
+            "cn-zh": "重试",
+            "fr-fr": "Réessayer"
         },
         "update.releases_page": {
             "en": "Releases page",
             "pt-BR": "Página de versões",
             "es-419": "Página de versiones",
             "ja-jp": "リリース・ページ",
-            "cn-zh": "发布页面"
+            "cn-zh": "发布页面",
+            "fr-fr": "Page des versions"
         },
         "update.restarting": {
             "en": "restarting",
             "pt-BR": "reiniciando",
             "es-419": "reiniciando",
             "ja-jp": "再起動中",
-            "cn-zh": "重新启动中"
+            "cn-zh": "重新启动中",
+            "fr-fr": "redémarrage"
         },
         "update.reopening": {
             "en": "The game will reopen in a moment",
             "pt-BR": "O jogo vai reabrir em instantes",
             "es-419": "El juego se volverá a abrir en un momento",
             "ja-jp": "まもなくゲームが再開されます",
-            "cn-zh": "游戏正在重新启动"
+            "cn-zh": "游戏正在重新启动",
+            "fr-fr": "Le jeu va se relancer dans un instant"
         },
-
         "widescreen.aspect": {
             "en": "Aspect ratio",
             "pt-BR": "Proporção de tela",
-            "es-419": "Relación de aspecto"
+            "es-419": "Relación de aspecto",
+            "fr-fr": "Ratio d'écran"
         },
         "widescreen.original": {
             "en": "Original",
             "pt-BR": "Original",
-            "es-419": "Original"
+            "es-419": "Original",
+            "fr-fr": "Original"
         },
         "widescreen.custom": {
             "en": "Custom",
             "pt-BR": "Personalizada",
-            "es-419": "Personalizado"
+            "es-419": "Personalizado",
+            "fr-fr": "Personnalisé"
         },
         "render.draw_distance": {
             "en": "Draw distance",
             "pt-BR": "Distancia de desenho",
-            "es-419": "Distancia de dibujado"
+            "es-419": "Distancia de dibujado",
+            "fr-fr": "Distance d'affichage"
         },
         "render.draw_distance_hint": {
             "en": "Increases the terrain view distance",
             "pt-BR": "Aumenta a distancia de visao do terreno",
-            "es-419": "Aumenta la distancia de vision del terreno"
+            "es-419": "Aumenta la distancia de vision del terreno",
+            "fr-fr": "Augmente la distance d'affichage"
         },
         "render.better_terrain": {
             "en": "Better rendering",
             "pt-BR": "Melhor renderizacao",
-            "es-419": "Mejor renderizado"
+            "es-419": "Mejor renderizado",
+            "fr-fr": "Meilleur rendu"
         },
         "render.better_terrain_hint": {
             "en": "Uses smooth terrain rendering with floating point precision and depth buffering.",
             "pt-BR": "Usa renderizacao suave do terreno com precisao em ponto flutuante e buffer de profundidade.",
-            "es-419": "Usa renderizado suave del terreno con precision de punto flotante y buffer de profundidad."
+            "es-419": "Usa renderizado suave del terreno con precision de punto flotante y buffer de profundidad.",
+            "fr-fr": "Améliore le rendu du terrain en utilisant un rendu à virgule flottante."
         },
         "menu.misc": {
             "en": "Misc",
             "pt-BR": "Diversos",
-            "es-419": "Varios"
+            "es-419": "Varios",
+            "fr-fr": "Divers"
         },
         "panel.qol": {
             "en": "Quality of Life",
             "pt-BR": "Qualidade de vida",
-            "es-419": "Calidad de vida"
+            "es-419": "Calidad de vida",
+            "fr-fr": "Options de confort"
         },
         "qol.camera": {
             "en": "Camera",
             "pt-BR": "Câmera",
-            "es-419": "Cámara"
+            "es-419": "Cámara",
+            "fr-fr": "Caméra"
         },
         "qol.camera_control": {
             "en": "Right stick camera",
             "pt-BR": "Câmera no analógico direito",
-            "es-419": "Cámara con el stick derecho"
+            "es-419": "Cámara con el stick derecho",
+            "fr-fr": "Caméra sur le stick droit"
         },
         "qol.camera_control.hint": {
             "en": "Orbit the camera around Dan with the right analog stick. Press R3 to turn it on or off.",
             "pt-BR": "Gira a câmera em volta do Dan com o analógico direito. Pressione R3 para ligar ou desligar.",
-            "es-419": "Gira la cámara alrededor de Dan con el stick derecho. Pulsa R3 para activarla o desactivarla."
+            "es-419": "Gira la cámara alrededor de Dan con el stick derecho. Pulsa R3 para activarla o desactivarla.",
+            "fr-fr": "Permet de faire tourner la caméra autour de Daniel avec le stick droit."
         },
         "qol.camera_recenter": {
             "en": "Auto recenter",
             "pt-BR": "Recentralizar automaticamente",
-            "es-419": "Recentrar automáticamente"
+            "es-419": "Recentrar automáticamente",
+            "fr-fr": "Recentrer automatiquement"
         },
         "qol.camera_recenter.hint": {
             "en": "After walking for a moment without touching the right stick the camera goes back to its normal position.",
             "pt-BR": "Depois de andar um pouco sem tocar no analógico direito a câmera volta para a posição normal.",
-            "es-419": "Tras caminhar un momento sin tocar el stick derecho la cámara vuelve a su posición normal."
+            "es-419": "Tras caminhar un momento sin tocar el stick derecho la cámara vuelve a su posición normal.",
+            "fr-fr": "La caméra retourne automatiquement à sa position normale après avoir marché un moment sans toucher le stick droit."
         },
         "qol.invert_camera_x": {
             "en": "Invert horizontal",
             "pt-BR": "Inverter horizontal",
-            "es-419": "Invertir horizontal"
+            "es-419": "Invertir horizontal",
+            "fr-fr": "Inversion horizontale"
         },
         "qol.invert_camera_x.hint": {
             "en": "Reverses left and right on the right stick.",
             "pt-BR": "Inverte esquerda e direita no analógico direito.",
-            "es-419": "Invierte izquierda y derecha en el stick derecho."
+            "es-419": "Invierte izquierda y derecha en el stick derecho.",
+            "fr-fr": "Inverse la gauche et la droite sur le stick droit."
         },
         "qol.invert_camera_y": {
             "en": "Invert vertical",
             "pt-BR": "Inverter vertical",
-            "es-419": "Invertir vertical"
+            "es-419": "Invertir vertical",
+            "fr-fr": "Inversion verticale"
         },
         "qol.invert_camera_y.hint": {
             "en": "Reverses up and down on the right stick.",
             "pt-BR": "Inverte cima e baixo no analógico direito.",
-            "es-419": "Invierte arriba y abajo en el stick derecho."
+            "es-419": "Invierte arriba y abajo en el stick derecho.",
+            "fr-fr": "Inverse le haut et le bas sur le stick droit."
         },
         "qol.no_camera_collision": {
             "en": "Disable camera collision",
             "pt-BR": "Desativar colisão da câmera",
-            "es-419": "Desactivar colisión de la cámara"
+            "es-419": "Desactivar colisión de la cámara",
+            "fr-fr": "Désactiver les collisions de la caméra"
         },
         "qol.no_camera_collision.hint": {
             "en": "The orbit camera no longer moves closer to Dan when a wall or fence is in the way, so it can end up behind walls.",
             "pt-BR": "A câmera orbital não se aproxima mais do Dan quando uma parede ou cerca está no caminho, então pode ficar atrás das paredes.",
-            "es-419": "La cámara orbital ya no se acerca a Dan cuando hay una pared o una valla en medio, así que puede quedar detrás de las paredes."
+            "es-419": "La cámara orbital ya no se acerca a Dan cuando hay una pared o una valla en medio, así que puede quedar detrás de las paredes.",
+            "fr-fr": "La caméra orbitale ne se rapproche plus de Dan quand un mur ou une grille est sur le chemin : elle peut donc se retrouver derrière les murs."
         },
         "qol.camera_toggle.on": {
             "en": "Free camera on (R3 to turn off)",
             "pt-BR": "Câmera livre ligada (R3 para desligar)",
-            "es-419": "Cámara libre activada (R3 para desactivar)"
+            "es-419": "Cámara libre activada (R3 para desactivar)",
+            "fr-fr": "Caméra libre activée (R3 pour la désactiver)"
         },
         "qol.camera_toggle.off": {
             "en": "Original camera (R3 for free camera)",
             "pt-BR": "Câmera original (R3 para câmera livre)",
-            "es-419": "Cámara original (R3 para cámara libre)"
+            "es-419": "Cámara original (R3 para cámara libre)",
+            "fr-fr": "Caméra originale (R3 pour la caméra libre)"
         },
         "qol.render": {
             "en": "Rendering",
             "pt-BR": "Renderização",
-            "es-419": "Renderizado"
+            "es-419": "Renderizado",
+            "fr-fr": "Rendu"
         },
         "qol.distant_objects": {
             "en": "Distant objects",
             "pt-BR": "Objetos distantes",
-            "es-419": "Objetos lejanos"
+            "es-419": "Objetos lejanos",
+            "fr-fr": "Objets lointains"
         },
         "qol.terrain_edge_fade": {
             "en": "Map edge fade",
             "pt-BR": "Bordas do mapa esfumadas",
-            "es-419": "Bordes del mapa difuminados"
+            "es-419": "Bordes del mapa difuminados",
+            "fr-fr": "Fondu au bord de la carte"
         },
         "qol.terrain_edge_fade.hint": {
             "en": "Where the map ends on the void, the ground fades to black like around holes, instead of ending in sharp steps.",
             "pt-BR": "Onde o mapa termina no vazio, o chão escurece até o preto como em volta dos buracos, em vez de terminar em degraus.",
-            "es-419": "Donde el mapa termina en el vacío, el suelo se oscurece hasta el negro como alrededor de los agujeros, en lugar de acabar en escalones."
+            "es-419": "Donde el mapa termina en el vacío, el suelo se oscurece hasta el negro como alrededor de los agujeros, en lugar de acabar en escalones.",
+            "fr-fr": "Là où la carte s'arrête sur le vide, le sol s'assombrit jusqu'au noir comme autour des trous, au lieu de finir en marches nettes."
         },
         "qol.default_materials": {
             "en": "Default materials",
             "pt-BR": "Materiais predefinidos",
-            "es-419": "Materiales predeterminados"
+            "es-419": "Materiales predeterminados",
+            "fr-fr": "Matériaux par défaut"
         },
         "qol.default_materials.hint": {
             "en": "Dan's armour, weapons, gates and grates are always metal for shaders that read materials (Gallowmere). Turn off to leave them to the shader's own guess.",
             "pt-BR": "Armadura de Dan, armas, portões e grades são sempre metal para os shaders que leem os materiais (Gallowmere). Desligue para deixá-los à estimativa do próprio shader.",
-            "es-419": "La armadura de Dan, las armas, las verjas y las rejas son siempre metal para los shaders que leen los materiales (Gallowmere). Desactívalo para dejarlos a la estimación del propio shader."
+            "es-419": "La armadura de Dan, las armas, las verjas y las rejas son siempre metal para los shaders que leen los materiales (Gallowmere). Desactívalo para dejarlos a la estimación del propio shader.",
+            "fr-fr": "L'armure et les armes de Dan, les portails et les grilles sont toujours en métal pour les shaders qui lisent les matériaux (Gallowmere). Désactivez pour laisser le shader les deviner."
         },
         "qol.dev": {
             "en": "Development",
             "pt-BR": "Desenvolvimento",
-            "es-419": "Desarrollo"
+            "es-419": "Desarrollo",
+            "fr-fr": "Développement"
         },
         "qol.dev_mode": {
             "en": "Development mode",
             "pt-BR": "Modo de desenvolvimento",
-            "es-419": "Modo de desarrollo"
+            "es-419": "Modo de desarrollo",
+            "fr-fr": "Mode développement"
         },
         "qol.dev_mode.hint": {
             "en": "Shows the texture material picker for the Gallowmere shader: click on the game to pick a point, then choose metal, glass, wood... Saved to assets/materials.json.",
             "pt-BR": "Mostra o seletor de materiais das texturas para o shader Gallowmere: clique no jogo para escolher um ponto e depois metal, vidro, madeira... Salvo em assets/materials.json.",
-            "es-419": "Muestra el selector de materiales de las texturas para el shader Gallowmere: haz clic en el juego para elegir un punto y luego metal, vidrio, madera... Se guarda en assets/materials.json."
+            "es-419": "Muestra el selector de materiales de las texturas para el shader Gallowmere: haz clic en el juego para elegir un punto y luego metal, vidrio, madera... Se guarda en assets/materials.json.",
+            "fr-fr": "Affiche le sélecteur de matériaux des textures pour le shader Gallowmere : cliquez dans le jeu pour choisir un point, puis métal, verre, bois... Enregistré dans assets/materials.json."
         },
         "qol.distant_objects.hint": {
             "en": "Doors, gates and scenery are loaded and drawn from farther away instead of popping in near Dan (also at 1x, useful with shaders), farther with a higher Draw distance. Enemies and events still activate at the original distance.",
             "pt-BR": "Portas, portões e cenário são carregados e desenhados de mais longe em vez de aparecerem perto do Dan (também em 1x, útil com shaders), mais longe com distância de desenho maior. Inimigos e eventos continuam ativando na distância original.",
-            "es-419": "Puertas, verjas y decorados se cargan y dibujan desde más lejos en lugar de aparecer cerca de Dan (también en 1x, útil con shaders), más lejos con mayor distancia de dibujado. Enemigos y eventos se siguen activando a la distancia original."
+            "es-419": "Puertas, verjas y decorados se cargan y dibujan desde más lejos en lugar de aparecer cerca de Dan (también en 1x, útil con shaders), más lejos con mayor distancia de dibujado. Enemigos y eventos se siguen activando a la distancia original.",
+            "fr-fr": "Les portes, portails et décors sont chargés et affichés de plus loin au lieu d'apparaître près de Dan (même en 1x, utile avec les shaders), d'autant plus loin que la distance d'affichage est grande. Les ennemis et les événements s'activent toujours à la distance d'origine."
         }
     }
 }

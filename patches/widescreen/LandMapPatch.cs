@@ -501,7 +501,7 @@ public static class LandMapPatch
         c.V0 = (uint)((int)c.A3 >> 12);
         mem.WriteU16((c.SP + 0x12u), (ushort)c.V0);
         c.RA = RAddr.Landmap_Code_80013510;
-        MediEvil_game.func_800A4E88(c, m);
+        GameFn.Game_800A4E88(c, m);
         { var _r = (long)(int)c.S3 * (int)c.S1; c.LO = (uint)_r; c.HI = (uint)(_r >> 32); }
         c.A3 = c.LO;
         { var _r = (long)(int)c.S2 * (int)c.S0; c.LO = (uint)_r; c.HI = (uint)(_r >> 32); }
@@ -517,7 +517,7 @@ public static class LandMapPatch
         c.V0 = (uint)((int)c.V1 >> 12);
         mem.WriteU16((c.SP + 0x12u), (ushort)c.V0);
         c.RA = RAddr.Landmap_Code_80013558;
-        MediEvil_game.func_800A4E88(c, m);
+        GameFn.Game_800A4E88(c, m);
         { var _r = (long)(int)c.S3 * (int)c.S4; c.LO = (uint)_r; c.HI = (uint)(_r >> 32); }
         c.A3 = c.LO;
         c.S6 = c.S6 + 0x4u;
@@ -537,7 +537,7 @@ public static class LandMapPatch
         c.V0 = (uint)((int)c.V1 >> 12);
         mem.WriteU16((c.SP + 0x12u), (ushort)c.V0);
         c.RA = RAddr.Landmap_Code_800135A8;
-        MediEvil_game.func_800A4E88(c, m);
+        GameFn.Game_800A4E88(c, m);
         c.V0 = mem.ReadU16((c.SP + 0x18u));
         c.S6 = c.S6 + 0x4u;
         mem.WriteU16(c.S6, (ushort)c.V0);
@@ -1072,7 +1072,7 @@ public static class LandMapPatch
         c.V0 = (uint)((int)c.A3 >> 12);
         mem.WriteU16((c.SP + 0x12u), (ushort)c.V0);
         c.RA = RAddr.Landmap_Code_80013510;
-        MediEvil_game.func_800A4E88(c, m);
+        GameFn.Game_800A4E88(c, m);
         { var _r = (long)(int)c.S3 * (int)c.S1; c.LO = (uint)_r; c.HI = (uint)(_r >> 32); }
         c.A3 = c.LO;
         { var _r = (long)(int)c.S2 * (int)c.S0; c.LO = (uint)_r; c.HI = (uint)(_r >> 32); }
@@ -1088,7 +1088,7 @@ public static class LandMapPatch
         c.V0 = (uint)((int)c.V1 >> 12);
         mem.WriteU16((c.SP + 0x12u), (ushort)c.V0);
         c.RA = RAddr.Landmap_Code_80013558;
-        MediEvil_game.func_800A4E88(c, m);
+        GameFn.Game_800A4E88(c, m);
         { var _r = (long)(int)c.S3 * (int)c.S4; c.LO = (uint)_r; c.HI = (uint)(_r >> 32); }
         c.A3 = c.LO;
         c.S6 = c.S6 + 0x4u;
@@ -1108,7 +1108,7 @@ public static class LandMapPatch
         c.V0 = (uint)((int)c.V1 >> 12);
         mem.WriteU16((c.SP + 0x12u), (ushort)c.V0);
         c.RA = RAddr.Landmap_Code_800135A8;
-        MediEvil_game.func_800A4E88(c, m);
+        GameFn.Game_800A4E88(c, m);
         c.V0 = mem.ReadU16((c.SP + 0x18u));
         c.S6 = c.S6 + 0x4u;
         mem.WriteU16(c.S6, (ushort)c.V0);
@@ -1383,10 +1383,10 @@ public static class LandMapPatch
         L80013D90: ;
         mem.WriteU32((c.SP + 0x28u), c.T0);
         c.RA = RAddr.Landmap_Code_80013D98;
-        MediEvil_game.func_800A4434(c, m);
+        GameFn.Game_800A4434(c, m);
         c.S0 = c.V0 & 0x0FFFu;
         c.RA = RAddr.Landmap_Code_80013DA0;
-        MediEvil_game.func_800A4434(c, m);
+        GameFn.Game_800A4434(c, m);
         c.V0 = c.V0 & 0x07FFu;
         c.V1 = mem.ReadU32((c.S3 - 0xCu));
         c.V0 = c.V0 + 0xCCCu;
@@ -1394,7 +1394,7 @@ public static class LandMapPatch
         c.V1 = c.LO;
         c.S1 = (uint)((int)c.V1 >> 13);
         c.RA = RAddr.Landmap_Code_80013DBC;
-        MediEvil_game.func_800A4434(c, m);
+        GameFn.Game_800A4434(c, m);
         c.V0 = c.V0 & 0x07FFu;
         c.V1 = mem.ReadU32((c.S3 - 0x8u));
         c.V0 = c.V0 + 0x800u;
