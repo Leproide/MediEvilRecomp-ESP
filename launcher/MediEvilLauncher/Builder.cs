@@ -86,6 +86,8 @@ public sealed class Builder
         var sb = new StringBuilder();
         sb.AppendLine("project " + GitHead(root));
         sb.AppendLine("recompone " + GitHead(Path.Combine(root, "RecompOne")));
+        if (v.Project == Project.Pal)   // the RecompOne fixes the build was made with
+            sb.AppendLine("fixes " + DiffHash(Path.Combine(root, "RecompOne")));
         sb.AppendLine("config " + Sha256(File.ReadAllBytes(Path.Combine(root, v.Config))));
         var fi = new FileInfo(disc);
         sb.AppendLine($"disc {fi.FullName} {fi.Length}");
@@ -229,8 +231,10 @@ public sealed class Builder
 
     /// <summary>The fork's fixes to the RecompOne submodule, in order. They touch the same
     /// files, so "is this one applied" cannot be asked patch by patch once the later ones are
-    /// in: a marker records the RecompOne commit and the patches applied on it. When it does
-    /// not match, RecompOne's tracked files are reset and all the fixes applied again.</summary>
+    /// in: a marker records the RecompOne commit, the patches applied on it and a hash of the
+    /// resulting changes (git diff), so a reset of RecompOne (Update, a manual checkout) is
+    /// noticed too. When it does not match, RecompOne's tracked files are reset and all the
+    /// fixes applied again.</summary>
     async Task ApplyFixes(string root)
     {
         var rc = Path.Combine(root, "RecompOne");
@@ -238,7 +242,7 @@ public sealed class Builder
         var want = new StringBuilder("recompone " + GitHead(rc) + "\n");
         foreach (var fix in Fixes)
             want.AppendLine(fix + " " + Sha256(File.ReadAllBytes(Path.Combine(root, "recompone-fixes", fix + ".patch"))));
-        if (File.Exists(marker) && File.ReadAllText(marker) == want.ToString())
+        if (File.Exists(marker) && File.ReadAllText(marker) == want + "diff " + DiffHash(rc) + "\n")
         {
             _log("RecompOne fixes: already applied");
             return;
@@ -246,7 +250,27 @@ public sealed class Builder
         await Run(T.S("step.fixes"), rc, "git", "checkout -- .");
         foreach (var fix in Fixes)
             await Run(T.S("step.fixes"), rc, "git", $"apply \"../recompone-fixes/{fix}.patch\"");
-        File.WriteAllText(marker, want.ToString());
+        File.WriteAllText(marker, want + "diff " + DiffHash(rc) + "\n");
+    }
+
+    /// <summary>Hash of RecompOne's uncommitted changes to tracked files (the applied fixes).</summary>
+    static string DiffHash(string dir)
+    {
+        try
+        {
+            var p = Process.Start(new ProcessStartInfo(Tools.Git, "diff --no-color --no-ext-diff")
+            {
+                WorkingDirectory = dir, RedirectStandardOutput = true, RedirectStandardError = true,
+                UseShellExecute = false, CreateNoWindow = true,
+            })!;
+            var s = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            return p.ExitCode == 0 ? Sha256(Encoding.UTF8.GetBytes(s.Replace("\r\n", "\n"))) : "?";
+        }
+        catch
+        {
+            return "?";
+        }
     }
 
     /// <summary>Copy of the version's config next to it (relative paths unchanged) with
