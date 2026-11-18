@@ -14,7 +14,7 @@
     <Nullable>enable</Nullable>
     <AssemblyName>medievil</AssemblyName>
     <NoWarn>0162</NoWarn>
-    <DefaultItemExcludes>$(DefaultItemExcludes);RecompOne/**;BACKUP_Dipendenze/**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);RecompOne/**;BACKUP_Dipendenze/**;launcher/**;usa/**</DefaultItemExcludes>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
      <ApplicationIcon>assets/icon/MediEvilRecomp.ico</ApplicationIcon>
   </PropertyGroup>

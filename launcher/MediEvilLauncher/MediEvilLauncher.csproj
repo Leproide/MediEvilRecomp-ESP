@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    MediEvilLauncher - GPL-3.0-or-later.
+    Disc reading (cue/bin and CHD) comes from RecompOne (MIT, https://github.com/BlackLabelHQ/RecompOne):
+    the Cdrom sources are compiled in from the RecompOne submodule (see RecompOne/LICENSE).
+    Build:   dotnet publish launcher/MediEvilLauncher -c Release
+    Output:  launcher/MediEvilLauncher/bin/Release/net10.0-windows/win-x64/publish/MediEvilLauncher.exe
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>MediEvilLauncher</AssemblyName>
+    <RootNamespace>MediEvilLauncher</RootNamespace>
+    <ApplicationIcon>..\..\assets\icon\MediEvilRecomp.ico</ApplicationIcon>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <!-- self-contained: the launcher runs without any .NET installed; it sets up the SDK it
+         needs for the build itself (Tools.cs) -->
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <!-- the launcher must not pick up the shared output folders of the game builds -->
+    <BaseOutputPath>bin/</BaseOutputPath>
+    <!-- repository the launcher downloads when it runs outside the project
+         (dotnet publish ... -p:PalRepository=https://github.com/<fork>/MediEvilRecomp-ESP) -->
+    <PalRepository Condition="'$(PalRepository)' == ''">https://github.com/Leproide/MediEvilRecomp-ESP</PalRepository>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyMetadata Include="PalRepository" Value="$(PalRepository)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\RecompOne\RecompOne.Runtime\Cdrom\DiscFs.cs" Link="RecompOne\DiscFs.cs" />
+    <Compile Include="..\..\RecompOne\RecompOne.Runtime\Cdrom\Disc\*.cs" Link="RecompOne\Disc\%(Filename).cs" />
+    <Compile Include="..\..\RecompOne\RecompOne.Runtime\Cdrom\Chd\*.cs" Link="RecompOne\Chd\%(Filename).cs" />
+  </ItemGroup>
+</Project>

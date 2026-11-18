@@ -82,6 +82,26 @@ Este repositorio **no contiene archivos del juego** ni distribuye su código: to
 
 ---
 
+## Launcher (ITA / ESP / FRA / USA)
+
+`MediEvilLauncher.exe` (`launcher/MediEvilLauncher`, Windows) elige y compila sola la versión del disco:
+
+1. se elige la imagen del disco, `.cue` o `.chd`, en cualquier carpeta y con cualquier nombre (no hace falta copiarla en `disc\`);
+2. el launcher lee `SYSTEM.CNF` y reconoce la versión: italiana SCES-01494, española SCES-01495, francesa SCES-01492 (este proyecto) o USA SCUS-94227 (el proyecto original de BlackLabelHQ, descargado sin cambios en `usa\` y actualizado desde allí);
+3. con **Jugar**, la primera vez compila esa versión a partir del disco del jugador (los pasos de `windows_initial_build*.bat`: submódulos, correcciones de RecompOne, RecompOne, generación del código, el juego en Release), con barra de progreso y registro; después arranca el juego directamente;
+4. **Actualizar** descarga las novedades del proyecto de esa versión (`git pull`); si el proyecto, RecompOne, la configuración o el disco cambian, la versión se vuelve a compilar.
+
+No contiene ningún dato del juego: el código se genera en el ordenador del jugador desde su propio disco. No hace falta instalar nada: el ejecutable incluye .NET, y si el ordenador no tiene el SDK de .NET 10 o Git, los descarga una sola vez de las fuentes oficiales (`dotnet-install` de Microsoft, MinGit de Git for Windows) en `%LOCALAPPDATA%\MediEvilLauncher\tools`, sin instalarlos en el sistema. La interfaz está en italiano, español, francés o inglés según el idioma de Windows.
+
+```
+dotnet publish launcher\MediEvilLauncher -c Release
+launcher\MediEvilLauncher\bin\Release\net10.0-windows\win-x64\publish\MediEvilLauncher.exe
+```
+
+Colocado en la raíz del proyecto, usa ese proyecto; fuera de él, lo descarga (`git clone` de este repositorio, o del indicado con `-p:PalRepository=...` al compilar el launcher). En la línea de comandos: `MediEvilLauncher --detect DISCO`, `--build DISCO`, `--update DISCO`.
+
+> **En français :** `MediEvilLauncher.exe` reconnaît le disque (italien, espagnol, français ou américain, en `.cue` ou `.chd`), compile cette version la première fois puis lance le jeu. Rien à installer : s'il manque le SDK .NET 10 ou Git, il les télécharge une fois dans son propre dossier.
+
 ## Compilación
 
 ### Windows (recomendado)
