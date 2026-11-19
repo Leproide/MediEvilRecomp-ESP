@@ -3,9 +3,12 @@
 // MediEvilLauncher - the main graphics settings, set before starting the game.
 //
 // They are the game's own options (RecompOne and the fork), stored by the game in
-// settings.json under "options" ("display.render_scale" -> options.display.render_scale).
-// The game reads them at start, so they are written only while it is not running; every
-// other key of the file is kept as it is.
+// settings.json under "options" as flat keys: options["display.render_scale"], not nested
+// objects. The game reads them at start, so they are written only while it is not running;
+// every other key of the file is kept as it is.
+//
+// GameSettings also writes system.discPath, the disc the game opens: the game ignores a disc
+// given on its command line and asks for one when that path is missing or another version's.
 
 using System.Drawing;
 using System.Text.Json;
@@ -16,7 +19,8 @@ namespace MediEvilLauncher;
 
 public sealed class SettingsForm : Form
 {
-    static readonly int[] FpsSteps = { 0, 30, 50, 60, 72, 75, 90, 100, 120, 144, 165, 240 };
+    // display.fps values the game accepts (RecompOne Interp.Steps; 0 = original frame rate)
+    static readonly int[] FpsSteps = { 0, 24, 25, 30, 48, 50, 60, 72, 75, 90, 100, 120, 144, 165, 180, 200, 240 };
 
     readonly string _file;
     readonly JsonObject _root;
@@ -30,7 +34,7 @@ public sealed class SettingsForm : Form
     public SettingsForm(string gameRoot)
     {
         _file = Path.Combine(gameRoot, "settings.json");
-        _root = LoadFile(_file);
+        _root = GameSettings.Load(_file);
         Text = T.S("settings.title");
         FormBorderStyle = FormBorderStyle.FixedDialog;
         MaximizeBox = MinimizeBox = false;
@@ -85,7 +89,27 @@ public sealed class SettingsForm : Form
         _scaleLabel.Text = $"{s}x ({320 * s}x{240 * s})";
     }
 
-    static JsonObject LoadFile(string file)
+    JsonNode? Node(string key) => GameSettings.Options(_root)[key];
+
+    int GetInt(string key, int def) { try { return Node(key)?.GetValue<int>() ?? def; } catch { return def; } }
+    bool GetBool(string key, bool def) { try { return Node(key)?.GetValue<bool>() ?? def; } catch { return def; } }
+
+    void Save()
+    {
+        var o = GameSettings.Options(_root);
+        o["display.render_scale"] = _scale.Value;
+        o["display.fps"] = FpsSteps[Math.Max(0, _fps.SelectedIndex)];
+        o["display.fullscreen"] = _fullscreen.Checked;
+        o["display.vsync"] = _vsync.Checked;
+        o["widescreen.original_aspect"] = !_widescreen.Checked;
+        GameSettings.Write(_file, _root);
+    }
+}
+
+/// <summary>Reads and writes the game's settings.json, keeping every key it does not touch.</summary>
+public static class GameSettings
+{
+    public static JsonObject Load(string file)
     {
         try
         {
@@ -98,37 +122,68 @@ public sealed class SettingsForm : Form
         return new JsonObject();
     }
 
-    JsonNode? Node(string key)
+    /// <summary>The "options" object. Nested objects such as "display": { "fps": 60 } were
+    /// written by launcher 1.0 and are ignored by the game: their values move to the flat keys
+    /// when those are not set, and the objects are removed.</summary>
+    public static JsonObject Options(JsonObject root)
     {
-        JsonNode? n = _root["options"];
-        foreach (var part in key.Split('.'))
-            n = n is JsonObject o ? o[part] : null;
-        return n;
-    }
-
-    int GetInt(string key, int def) { try { return Node(key)?.GetValue<int>() ?? def; } catch { return def; } }
-    bool GetBool(string key, bool def) { try { return Node(key)?.GetValue<bool>() ?? def; } catch { return def; } }
-
-    void Set(string key, JsonNode value)
-    {
-        if (_root["options"] is not JsonObject o) _root["options"] = o = new JsonObject();
-        var parts = key.Split('.');
-        for (int i = 0; i < parts.Length - 1; i++)
+        if (root["options"] is not JsonObject o) root["options"] = o = new JsonObject();
+        foreach (var name in new[] { "display", "widescreen" })
         {
-            if (o[parts[i]] is not JsonObject next) o[parts[i]] = next = new JsonObject();
-            o = next;
+            if (o[name] is not JsonObject nested) continue;
+            foreach (var (k, v) in nested.ToArray())
+                if (!o.ContainsKey($"{name}.{k}")) o[$"{name}.{k}"] = v?.DeepClone();
+            o.Remove(name);
         }
-        o[parts[^1]] = value;
+        return o;
     }
 
-    void Save()
+    public static void Write(string file, JsonObject root)
     {
-        Set("display.render_scale", _scale.Value);
-        Set("display.fps", FpsSteps[Math.Max(0, _fps.SelectedIndex)]);
-        Set("display.fullscreen", _fullscreen.Checked);
-        Set("display.vsync", _vsync.Checked);
-        Set("widescreen.original_aspect", !_widescreen.Checked);
-        Directory.CreateDirectory(Path.GetDirectoryName(_file)!);
-        File.WriteAllText(_file, _root.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+        Directory.CreateDirectory(Path.GetDirectoryName(file)!);
+        var temp = file + ".tmp";
+        File.WriteAllText(temp, root.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+        File.Move(temp, file, true);
     }
+
+    /// <summary>Sets system.discPath, so the game opens this disc without asking.</summary>
+    public static void SetDisc(string gameRoot, string disc)
+    {
+        var file = Path.Combine(gameRoot, "settings.json");
+        var root = Load(file);
+        if (root["system"] is not JsonObject system) root["system"] = system = new JsonObject();
+        system["discPath"] = disc;
+        Options(root);
+        Write(file, root);
+    }
+
+    const string LanguageKey = "interface.language";
+
+    /// <summary>Sets the language of the game's interface (options["interface.language"]) to the
+    /// launcher's: null (automatic) removes it, the game then follows Windows. With onlyIfUnset,
+    /// a language already chosen in the game is kept.</summary>
+    public static void SetLanguage(string gameRoot, string? launcherCode, bool onlyIfUnset = false)
+    {
+        if (!Directory.Exists(gameRoot)) return;
+        var file = Path.Combine(gameRoot, "settings.json");
+        var root = Load(file);
+        var o = Options(root);
+        if (onlyIfUnset && (o.ContainsKey(LanguageKey) || launcherCode == null)) return;
+        var code = GameLanguage(launcherCode);
+        if (code == null) o.Remove(LanguageKey);
+        else o[LanguageKey] = code;
+        Write(file, root);
+    }
+
+    /// <summary>The game's code for a launcher language (assets/languages.json; the game also
+    /// matches by the first part, "fr" for "fr-FR").</summary>
+    static string? GameLanguage(string? code) => code switch
+    {
+        null => null,
+        "fr" => "fr-fr",
+        "it" => "it-IT",
+        "es" => "es-419",
+        "de" => "de-DE",
+        _ => code,
+    };
 }

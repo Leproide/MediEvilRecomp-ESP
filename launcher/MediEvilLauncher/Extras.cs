@@ -25,6 +25,28 @@ public static class Extras
         return dir;
     }
 
+    /// <summary>Backup folders of this game folder, newest first.</summary>
+    public static string[] Backups(string gameRoot)
+    {
+        var dir = Path.Combine(gameRoot, "backups");
+        return Directory.Exists(dir)
+            ? Directory.GetDirectories(dir).OrderByDescending(Path.GetFileName, StringComparer.Ordinal).ToArray()
+            : Array.Empty<string>();
+    }
+
+    /// <summary>Puts back the memory cards of a backup (settings.json stays as it is), after
+    /// backing up the current ones. Returns the backup of the current cards, or null.</summary>
+    public static string? RestoreSaves(string gameRoot, string backup)
+    {
+        var current = BackupSaves(gameRoot);
+        foreach (var f in new[] { "carda.sav", "cardb.sav" })
+        {
+            var src = Path.Combine(backup, f);
+            if (File.Exists(src)) File.Copy(src, Path.Combine(gameRoot, f), true);
+        }
+        return current;
+    }
+
     public static void OpenFolder(string dir)
     {
         Directory.CreateDirectory(dir);

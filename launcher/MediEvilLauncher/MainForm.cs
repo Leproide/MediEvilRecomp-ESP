@@ -5,6 +5,7 @@
 // Also: graphics settings before starting, saves folder and automatic backup before an
 // update, desktop shortcut, and a notice when the version's project has updates.
 
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -21,6 +22,7 @@ public sealed class MainForm : Form
     static readonly Color Warn = Color.FromArgb(230, 180, 70);
 
     readonly LauncherSettings _settings = LauncherSettings.Load();
+    ComboBox? _langBox;
     readonly Builder _builder;
     readonly ComboBox _disc = new();
     readonly Label _version = new();
@@ -98,7 +100,7 @@ public sealed class MainForm : Form
         _build.Click += async (_, _) => await BuildCurrent();
         _update.Click += async (_, _) => await UpdateCurrent();
         _gfx.Click += (_, _) => GraphicsSettings();
-        _saves.Click += (_, _) => { if (_current != null) Extras.OpenFolder(_builder.Root(_current)); };
+        _saves.Click += (_, _) => SavesMenu();
         _shortcut.Click += (_, _) => Shortcut();
         _showLog.Click += (_, _) => ToggleLog();
 
@@ -119,7 +121,26 @@ public sealed class MainForm : Form
         _log.Visible = false;
 
         var layout = new TableLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(18), ColumnCount = 1 };
-        foreach (var c in new Control[] { title, discLabel, discRow, _version, _state, _updates, _stage, _progress, buttons, tools, note })
+        // language of the launcher: saved in launcher.json, applied by restarting the launcher
+        var lang = new ComboBox
+        {
+            DropDownStyle = ComboBoxStyle.DropDownList, FlatStyle = FlatStyle.Flat, Width = 200,
+            BackColor = Panel, ForeColor = Text1, Anchor = AnchorStyles.Top | AnchorStyles.Right,
+        };
+        lang.Items.Add(T.S("language.auto"));
+        foreach (var (_, name) in T.Languages) lang.Items.Add(name);
+        lang.SelectedIndex = Array.FindIndex(T.Languages, l => l.Code == _settings.Language) + 1;
+        lang.SelectedIndexChanged += (_, _) => ChangeLanguage(lang.SelectedIndex == 0 ? null : T.Languages[lang.SelectedIndex - 1].Code);
+        var langRow = new FlowLayoutPanel { AutoSize = true, WrapContents = false, Anchor = AnchorStyles.Top | AnchorStyles.Right };
+        langRow.Controls.Add(new Label { Text = T.S("language"), AutoSize = true, ForeColor = Text2, Margin = new Padding(0, 6, 6, 0) });
+        langRow.Controls.Add(lang);
+        var header = new TableLayoutPanel { ColumnCount = 2, Dock = DockStyle.Top, AutoSize = true };
+        header.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+        header.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+        header.Controls.Add(title, 0, 0);
+        header.Controls.Add(langRow, 1, 0);
+        _langBox = lang;
+        foreach (var c in new Control[] { header, discLabel, discRow, _version, _state, _updates, _stage, _progress, buttons, tools, note })
         {
             layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             layout.Controls.Add(c);
@@ -341,6 +362,7 @@ public sealed class MainForm : Form
         _saves.Enabled = present;
         _shortcut.Enabled = ok;
         _browse.Enabled = !_busy;
+        if (_langBox != null) _langBox.Enabled = !_busy;
         _disc.Enabled = !_busy;
     }
 
@@ -416,6 +438,70 @@ public sealed class MainForm : Form
         if (_current == null) return;
         using var f = new SettingsForm(_builder.Root(_current));
         f.ShowDialog(this);
+    }
+
+    /// <summary>Saves the language and restarts the launcher in it (not while building or playing).</summary>
+    void ChangeLanguage(string? code)
+    {
+        if (code == _settings.Language) return;
+        _settings.Language = code;
+        _settings.Save();
+        // the games' interface follows the launcher
+        foreach (var root in GameVersions.All.Select(_builder.Root).Distinct())
+        {
+            try
+            {
+                GameSettings.SetLanguage(root, code);
+            }
+            catch (Exception e)
+            {
+                Log(e.Message);
+            }
+        }
+        if (_busy) return;   // applied at the next start
+        try
+        {
+            Process.Start(new ProcessStartInfo(Environment.ProcessPath!)
+            {
+                WorkingDirectory = Environment.CurrentDirectory, UseShellExecute = false,
+            });
+            Close();
+        }
+        catch (Exception e)
+        {
+            Log(e.ToString());
+        }
+    }
+
+    void SavesMenu()
+    {
+        if (_current == null) return;
+        var root = _builder.Root(_current);
+        var menu = new ContextMenuStrip { Font = Font };
+        menu.Items.Add(T.S("saves.open"), null, (_, _) => Extras.OpenFolder(root));
+        menu.Items.Add(T.S("saves.backup"), null, (_, _) =>
+        {
+            var b = Extras.BackupSaves(root);
+            _stage.Text = b != null ? T.F("backup.done", b) : T.S("saves.nothing");
+        });
+        var restore = new ToolStripMenuItem(T.S("saves.restore"));
+        var backups = Extras.Backups(root);
+        foreach (var b in backups)
+        {
+            var name = Path.GetFileName(b);
+            restore.DropDownItems.Add(name, null, (_, _) =>
+            {
+                if (MessageBox.Show(this, T.F("saves.confirm", name), T.S("saves"), MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Question) != DialogResult.OK) return;
+                Extras.RestoreSaves(root, b);
+                _stage.Text = T.F("saves.restored", name);
+            });
+        }
+        if (backups.Length == 0) restore.DropDownItems.Add(new ToolStripMenuItem(T.S("saves.none")) { Enabled = false });
+        menu.Items.Add(restore);
+        menu.Items.Add(T.S("saves.backups"), null, (_, _) => Extras.OpenFolder(Path.Combine(root, "backups")));
+        menu.Closed += (_, _) => BeginInvoke(menu.Dispose);
+        menu.Show(_saves, new Point(0, _saves.Height));
     }
 
     void Shortcut()

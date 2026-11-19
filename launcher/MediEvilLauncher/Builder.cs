@@ -89,6 +89,10 @@ public sealed class Builder
         if (v.Project == Project.Pal)   // the RecompOne fixes the build was made with
             sb.AppendLine("fixes " + DiffHash(Path.Combine(root, "RecompOne")));
         sb.AppendLine("config " + Sha256(File.ReadAllBytes(Path.Combine(root, v.Config))));
+        // changes to the project not committed yet (a pull is in "project"): edited or added
+        // sources, texts... Only when there are some, so a clean project keeps its stamp.
+        var local = LocalChangesHash(root);
+        if (local.Length > 0) sb.AppendLine("local " + local);
         // any disc of this release gives the same code (a variant such as the Portuguese
         // translation only changes data the game reads from the disc): one build serves them all
         sb.AppendLine("disc " + v.Serial);
@@ -228,7 +232,7 @@ public sealed class Builder
         }
     }
 
-    static readonly string[] Fixes = { "cd-whole-sector-mode", "shader-gbuffer", "effect-lights", "material-picker" };
+    static readonly string[] Fixes = { "cd-whole-sector-mode", "shader-gbuffer", "effect-lights", "material-picker", "mod-names" };
 
     /// <summary>The fork's fixes to the RecompOne submodule, in order. They touch the same
     /// files, so "is this one applied" cannot be asked patch by patch once the later ones are
@@ -252,6 +256,48 @@ public sealed class Builder
         foreach (var fix in Fixes)
             await Run(T.S("step.fixes"), rc, "git", $"apply \"../recompone-fixes/{fix}.patch\"");
         File.WriteAllText(marker, want + "diff " + DiffHash(rc) + "\n");
+    }
+
+    /// <summary>Hash of the project's uncommitted changes: the diff of its tracked files
+    /// (submodules aside: RecompOne has its own line) and the content of its new files that git
+    /// does not ignore. Empty when there are none. Build output, generated code, saves and
+    /// settings are ignored by .gitignore, so building or playing does not change it.</summary>
+    static string LocalChangesHash(string root)
+    {
+        var diff = GitOutput(root, "diff HEAD --no-color --no-ext-diff --ignore-submodules" + NotLauncher);
+        var added = GitOutput(root, "ls-files --others --exclude-standard -z" + NotLauncher);
+        if (diff == null || added == null) return "?";
+        if (diff.Length == 0 && added.Length == 0) return "";
+        using var sha = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
+        sha.AppendData(Encoding.UTF8.GetBytes(diff.Replace("\r\n", "\n")));
+        foreach (var f in added.Split('\0', StringSplitOptions.RemoveEmptyEntries).Order(StringComparer.Ordinal))
+        {
+            sha.AppendData(Encoding.UTF8.GetBytes(f + "\n"));
+            try { sha.AppendData(File.ReadAllBytes(Path.Combine(root, f))); } catch { }
+        }
+        return Convert.ToHexString(sha.GetHashAndReset());
+    }
+
+    // the launcher's own sources are not part of the game
+    const string NotLauncher = " -- . \":(exclude)launcher\"";
+
+    static string? GitOutput(string dir, string args)
+    {
+        try
+        {
+            var p = Process.Start(new ProcessStartInfo(Tools.Git, args)
+            {
+                WorkingDirectory = dir, RedirectStandardOutput = true, RedirectStandardError = true,
+                UseShellExecute = false, CreateNoWindow = true,
+            })!;
+            var s = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            return p.ExitCode == 0 ? s : null;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     /// <summary>Hash of RecompOne's uncommitted changes to tracked files (the applied fixes).</summary>
@@ -340,7 +386,24 @@ public sealed class Builder
     public Process Start(GameVersion v, string disc)
     {
         var root = Root(v);
-        var psi = new ProcessStartInfo(v.ExePath(root), $"\"{Path.GetFullPath(disc)}\"")
+        var path = Path.GetFullPath(disc);
+        // the game opens the disc of settings.json (system.discPath), shared by the PAL
+        // versions: set it to this one, or the game would ask again for a disc
+        GameSettings.SetDisc(root, path);
+        // first start: the game's interface in the launcher's language
+        GameSettings.SetLanguage(root, LauncherSettings.Load().Language, onlyIfUnset: true);
+        if (v.Project == Project.Usa)
+        {
+            try
+            {
+                UsaMods.Install(PalRoot, root);   // the cheats and fullscreen movies mods
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine("[mods] " + e.Message);   // the game starts without them
+            }
+        }
+        var psi = new ProcessStartInfo(v.ExePath(root), $"\"{path}\"")
         {
             WorkingDirectory = root, UseShellExecute = false,
         };

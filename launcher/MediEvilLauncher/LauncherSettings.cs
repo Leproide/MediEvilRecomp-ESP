@@ -14,6 +14,9 @@ public sealed class LauncherSettings
     /// <summary>Every disc chosen so far (most recent first), for the disc list.</summary>
     public List<string> Discs { get; set; } = new();
 
+    /// <summary>Interface language (en, fr, it, es, de); null follows Windows.</summary>
+    public string? Language { get; set; }
+
     public void Remember(string disc)
     {
         Disc = disc;
