@@ -24,6 +24,7 @@ set "CDFIX=recompone-fixes\cd-whole-sector-mode.patch"
 set "GBUFFIX=recompone-fixes\shader-gbuffer.patch"
 set "LIGHTFIX=recompone-fixes\effect-lights.patch"
 set "PICKFIX=recompone-fixes\material-picker.patch"
+set "MODFIX=recompone-fixes\mod-names.patch"
 set "GAMEPROJ=RecompOne.MediEvil.csproj"
 REM ===================================================================================================
 
@@ -88,10 +89,10 @@ REM ============================================================================
 
 REM =================================== Correcciones RecompOne =========================================
 REM Aplica al submodulo RecompOne las correcciones del fork, en este orden: lector de CD en modo
-REM "sector entero", G-buffer y luces de los efectos para los shaders, selector de materiales.
+REM "sector entero", G-buffer y luces de los efectos para los shaders, selector de materiales, nombres de los mods traducidos.
 REM Las que ya estan aplicadas se saltan.
 echo ^> Correcciones de RecompOne...
-for %%P in ("%CDFIX%" "%GBUFFIX%" "%LIGHTFIX%" "%PICKFIX%") do (
+for %%P in ("%CDFIX%" "%GBUFFIX%" "%LIGHTFIX%" "%PICKFIX%" "%MODFIX%") do (
     git -C "%RECOMPONE%" apply --reverse --check "..\%%~P" >nul 2>&1
     if errorlevel 1 (
         git -C "%RECOMPONE%" apply "..\%%~P"

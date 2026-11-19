@@ -131,6 +131,7 @@ git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
 git -C RecompOne apply ../recompone-fixes/shader-gbuffer.patch
 git -C RecompOne apply ../recompone-fixes/effect-lights.patch
 git -C RecompOne apply ../recompone-fixes/material-picker.patch
+git -C RecompOne apply ../recompone-fixes/mod-names.patch
 dotnet build RecompOne/RecompOne.sln
 dotnet run --project RecompOne/RecompOne.Recompiler config/es/MediEvil.json
 dotnet build RecompOne.MediEvil.csproj -p:Lingua=es
@@ -425,7 +426,7 @@ Se añaden igual que la francesa (`add-version`, columnas `deu` y `eng` de la ta
 
 `check` da `RESULT: OK` para esp, fra, deu y eng. Las constantes `fixed` (`TypeRuneHand`, `TypeChest`) se han verificado a mano como para ESP/FRA (24 palabras de 24).
 
-**Traducción portuguesa (no oficial).** Existe una traducción al portugués hecha sobre el disco francés (mismo `SCES_014.92`): cambia solo datos (textos, tablas, voces XA) y la rutina LibCrypt, neutralizada. El código es el de la versión francesa, así que la versión francesa la ejecuta con los textos en portugués. Una imagen `.VCD` (POPS de PS2) es el disco en sectores de 2352 bytes tras una cabecera de 1 MiB: quitando la cabecera se obtiene el bin/cue.
+**Traducción portuguesa (no oficial).** Existe una traducción al portugués hecha sobre el disco francés (mismo `SCES_014.92`): cambia solo datos (textos, tablas, voces XA, cinemáticas) y la rutina LibCrypt, neutralizada. El código es el de la versión francesa, así que la versión francesa la ejecuta en portugués: textos, voces y cinemáticas (probado). Una imagen `.VCD` (POPS de PS2) es el disco en sectores de 2352 bytes tras una cabecera de 1 MiB: quitando la cabecera se obtiene el bin/cue.
 
 ---
 

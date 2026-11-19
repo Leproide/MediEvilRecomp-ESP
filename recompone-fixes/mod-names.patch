@@ -1,0 +1,42 @@
+RecompOne change for MediEvilRecomp PAL: mod names and descriptions in the interface language.
+When the game's language files have the keys mod.<id>.name / mod.<id>.description, the mod list and
+the mod loading screen show them instead of the name and description of mod.json (adds
+Localization.TryT, a lookup without the missing-key warning).
+Author: https://github.com/JasonHababou
+License of this change: GPL-3.0-or-later (RecompOne code itself keeps its own license).
+Apply after material-picker.patch:  git -C RecompOne apply ../recompone-fixes/mod-names.patch
+
+diff --git a/RecompOne.Runtime/Host/Window/Localization.cs b/RecompOne.Runtime/Host/Window/Localization.cs
+index 75eddb5..93db6dc 100644
+--- a/RecompOne.Runtime/Host/Window/Localization.cs
++++ b/RecompOne.Runtime/Host/Window/Localization.cs
+@@ -120,6 +120,13 @@ public static class Localization
+         return key;
+     }
+ 
++    /// <summary>Text of a key in the current language, else in the fallback one, without a
++    /// warning when the key is missing (for optional keys).</summary>
++    public static bool TryT(string key, out string text)
++    {
++        return _active.TryGetValue(key, out text!) || _fallback.TryGetValue(key, out text!);
++    }
++
+     public static string T(string key, params object?[] args)
+     {
+         var format = T(key);
+diff --git a/RecompOne.Runtime/Modding/ModLoader.cs b/RecompOne.Runtime/Modding/ModLoader.cs
+index cce55e0..afda70e 100644
+--- a/RecompOne.Runtime/Modding/ModLoader.cs
++++ b/RecompOne.Runtime/Modding/ModLoader.cs
+@@ -482,6 +482,11 @@ public static class ModLoader
+             }
+ 
+             if (string.IsNullOrWhiteSpace(info.Name)) info.Name = info.Id;
++            // name and description in the interface language when the game's language files
++            // have them (keys mod.<id>.name and mod.<id>.description); mod.json otherwise
++            if (Host.Window.Localization.TryT($"mod.{info.Id}.name", out var name)) info.Name = name;
++            if (Host.Window.Localization.TryT($"mod.{info.Id}.description", out var description))
++                info.Description = description;
+             info.SourcePath = sourcePath;
+             return info;
+         }

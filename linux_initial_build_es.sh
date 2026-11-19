@@ -36,6 +36,7 @@ CDFIX="recompone-fixes/cd-whole-sector-mode.patch"
 GBUFFIX="recompone-fixes/shader-gbuffer.patch"
 LIGHTFIX="recompone-fixes/effect-lights.patch"
 PICKFIX="recompone-fixes/material-picker.patch"
+MODFIX="recompone-fixes/mod-names.patch"
 GAMEPROJ="RecompOne.MediEvil.csproj"
 ASK=1
 CREDITS=1
@@ -88,9 +89,9 @@ fi
 
 # ------------------------------------------------------------------ correcciones RecompOne
 # en este orden: lector de CD en modo "sector entero", G-buffer y luces de los efectos para los
-# shaders, selector de materiales; las que ya están aplicadas se saltan
+# shaders, selector de materiales, nombres de los mods traducidos; las que ya están aplicadas se saltan
 say "Correcciones de RecompOne..."
-for FIX in "$CDFIX" "$GBUFFIX" "$LIGHTFIX" "$PICKFIX"; do
+for FIX in "$CDFIX" "$GBUFFIX" "$LIGHTFIX" "$PICKFIX" "$MODFIX"; do
     if git -C "$RECOMPONE" apply --reverse --check "../$FIX" >/dev/null 2>&1; then
         echo "$FIX ya está aplicada."
     else
