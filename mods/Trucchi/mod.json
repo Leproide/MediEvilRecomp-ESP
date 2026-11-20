@@ -1,9 +1,9 @@
 {
     "id": "trucchi-ita",
-    "name": "Trucchi (MediEvil ITA)",
-    "version": "1.0",
+    "name": "Cheats",
+    "version": "1.2",
     "author": "https://github.com/Leproide",
-    "description": "Attiva la Modalita' Trucchi o la Modalita' Trucchi Estesa del gioco senza inserire le combinazioni. Versioni PAL italiana (SCES-01494) e spagnola (SCES-01495). Licenza GPL-3.0-or-later.",
+    "description": "Turns on the game's own Cheat Mode or Extended Cheat Mode without entering the button combinations. MediEvil PAL: Italian (SCES-01494), Spanish (SCES-01495), French (SCES-01492), German (SCES-01493) and English (SCES-00311); NTSC-U American (SCUS-94227). License GPL-3.0-or-later.",
     "defaultEnabled": true,
     "dependencies": []
 }

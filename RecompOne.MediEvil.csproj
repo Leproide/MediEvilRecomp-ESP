@@ -14,25 +14,34 @@
     <Nullable>enable</Nullable>
     <AssemblyName>medievil</AssemblyName>
     <NoWarn>0162</NoWarn>
-    <DefaultItemExcludes>$(DefaultItemExcludes);RecompOne/**;BACKUP_Dipendenze/**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);RecompOne/**;BACKUP_Dipendenze/**;launcher/**;usa/**</DefaultItemExcludes>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
      <ApplicationIcon>assets/icon/MediEvilRecomp.ico</ApplicationIcon>
   </PropertyGroup>
-  <!-- codice generato della versione scelta -->
-  <PropertyGroup Condition="'$(Lingua)' == 'es'">
-    <DefineConstants>$(DefineConstants);LINGUA_ES</DefineConstants>
-    <DefaultItemExcludes>$(DefaultItemExcludes);generated/**</DefaultItemExcludes>
+  <!-- codice generato della versione scelta: -p:Lingua=es|fr|de|en (PAL spagnola SCES-01495,
+       francese SCES-01492, tedesca SCES-01493, inglese SCES-00311) usa config/<lingua>/MediEvil.json,
+       generated-<lingua>/ e il simbolo LINGUA_<LINGUA>; senza proprieta' (o it) l'italiana. -->
+  <!-- (niente funzioni di proprieta' su DefaultItemExcludes: MSBuild ne farebbe l'escape e i
+       ** non sarebbero piu' caratteri jolly) -->
+  <PropertyGroup>
+    <LinguaPal Condition="'$(Lingua)' == 'es' or '$(Lingua)' == 'fr' or '$(Lingua)' == 'de' or '$(Lingua)' == 'en'">$(Lingua)</LinguaPal>
+    <DefaultItemExcludes Condition="'$(LinguaPal)' != ''">$(DefaultItemExcludes);generated/**</DefaultItemExcludes>
+    <DefaultItemExcludes Condition="'$(LinguaPal)' != 'es'">$(DefaultItemExcludes);generated-es/**</DefaultItemExcludes>
+    <DefaultItemExcludes Condition="'$(LinguaPal)' != 'fr'">$(DefaultItemExcludes);generated-fr/**</DefaultItemExcludes>
+    <DefaultItemExcludes Condition="'$(LinguaPal)' != 'de'">$(DefaultItemExcludes);generated-de/**</DefaultItemExcludes>
+    <DefaultItemExcludes Condition="'$(LinguaPal)' != 'en'">$(DefaultItemExcludes);generated-en/**</DefaultItemExcludes>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Lingua)' != 'es'">
-    <DefaultItemExcludes>$(DefaultItemExcludes);generated-es/**</DefaultItemExcludes>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(LinguaPal)' == 'es'"><DefineConstants>$(DefineConstants);LINGUA_ES</DefineConstants></PropertyGroup>
+  <PropertyGroup Condition="'$(LinguaPal)' == 'fr'"><DefineConstants>$(DefineConstants);LINGUA_FR</DefineConstants></PropertyGroup>
+  <PropertyGroup Condition="'$(LinguaPal)' == 'de'"><DefineConstants>$(DefineConstants);LINGUA_DE</DefineConstants></PropertyGroup>
+  <PropertyGroup Condition="'$(LinguaPal)' == 'en'"><DefineConstants>$(DefineConstants);LINGUA_EN</DefineConstants></PropertyGroup>
   <Target Name="CheckLingua" BeforeTargets="BeforeBuild"
-          Condition="'$(Lingua)' != '' and '$(Lingua)' != 'it' and '$(Lingua)' != 'es'">
-    <Error Text="Lingua='$(Lingua)' non valida: usa it (predefinita) oppure es." />
+          Condition="'$(Lingua)' != '' and '$(Lingua)' != 'it' and '$(LinguaPal)' == ''">
+    <Error Text="Lingua='$(Lingua)' non valida: usa it (predefinita), es, fr, de oppure en." />
   </Target>
   <Target Name="CheckGenerated" BeforeTargets="BeforeBuild">
-    <Error Condition="'$(Lingua)' == 'es' and !Exists('generated-es')"
-           Text="Manca generated-es/: genera prima il codice con dotnet run --project RecompOne/RecompOne.Recompiler config/es/MediEvil.json" />
+    <Error Condition="'$(LinguaPal)' != '' and !Exists('generated-$(LinguaPal)')"
+           Text="Manca generated-$(LinguaPal)/: genera prima il codice con dotnet run --project RecompOne/RecompOne.Recompiler config/$(LinguaPal)/MediEvil.json" />
   </Target>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DebugType>none</DebugType>

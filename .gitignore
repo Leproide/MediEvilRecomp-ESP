@@ -5,6 +5,9 @@ generated/
 disc/*
 !disc/README.md
 !disc/LEEME.md
+!disc/LISEZMOI.md
+!disc/LIESMICH.md
+!disc/README_EN.md
 *.sav
 settings.json
 interface.ini
@@ -21,6 +24,26 @@ __pycache__/
 generated-es/
 bin-es/
 obj-es/
+# versione francese (-p:Lingua=fr)
+generated-fr/
+bin-fr/
+obj-fr/
+# versioni tedesca e inglese (-p:Lingua=de, -p:Lingua=en)
+generated-de/
+bin-de/
+obj-de/
+generated-en/
+bin-en/
+obj-en/
+# launcher: progetto USA originale (BlackLabelHQ) scaricato dal launcher, config temporanea,
+# copia dell'eseguibile nella radice
+usa/
+backups/
+.recompone-fixes
+config/**/MediEvil.launcher.json
+/MediEvilLauncher.exe
+launcher/MediEvilLauncher/bin/
+launcher/MediEvilLauncher/obj/
 # log di debug
 debug.txt
 # mod di diagnostica (sempre chiamate Diag*) e strumenti locali, non vanno nel repo

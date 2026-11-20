@@ -247,7 +247,7 @@ public static class CameraControlPatch
         c.A3 = OccludeExtensive | OccludeCamera;
         c.SP = scratch - 0x40;
         c.RA = 0;
-        MediEvil_game.func_800494C8(c, m);
+        GameFn.Game_800494C8(c, m);
         var hit = c.V0 != 0;
 
         for (var i = 1; i < 32; i++) c[i] = registers[i];

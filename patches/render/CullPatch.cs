@@ -1260,7 +1260,7 @@ public static class CullPatch
         RecompOne.Runtime.Interrupts.Poll(c, m);
         if ((int)c.S1 <= 0) {
             c.T0 = mem.ReadU16(c.A3);
-            MediEvil_game.func_80021E34(c, m);
+            GameFn.Game_80021E34(c, m);
             return;
         }
         c.T0 = mem.ReadU16(c.A3);
@@ -1278,7 +1278,7 @@ public static class CullPatch
         }
         c.T0 = c.T9 & 0x0001u;
         if (c.T0 != 0u) {
-            MediEvil_game.func_80022460(c, m);
+            GameFn.Game_80022460(c, m);
             return;
         }
         c.T0 = (uint)(short)mem.ReadU16(c.A1);
@@ -1311,14 +1311,14 @@ public static class CullPatch
         c.At = (int)c.V1 < (int)c.A0 ? 1u : 0u;
         if (c.At != 0u) {
             c.T1 = (int)c.S2 < (int)c.T2 ? 1u : 0u;
-            MediEvil_game.func_80022AF0(c, m);
+            GameFn.Game_80022AF0(c, m);
             return;
         }
         c.T1 = (int)c.S2 < (int)c.T2 ? 1u : 0u;
         if (c.T1 == 0u) {
             c.T0 = RecompOne.Runtime.Gte.Read(24);
            
-            MediEvil_game.func_80022AF0(c, m);
+            GameFn.Game_80022AF0(c, m);
             return;
         }
         c.T0 = RecompOne.Runtime.Gte.Read(24);
@@ -1459,7 +1459,7 @@ public static class CullPatch
         mem.WriteU16((c.A0 + 0x18u), (ushort)c.T2);
         mem.WriteU16((c.A0 + 0x24u), (ushort)c.T3);
         mem.WriteU16((c.A0 + 0x1Au), (ushort)c.T7);
-        MediEvil_game.func_80022070(c, m);
+        GameFn.Game_80022070(c, m);
     }
 
     public static void func_80022070(CpuContext c, IMemory m)
@@ -1561,7 +1561,7 @@ public static class CullPatch
        
         mem.WriteU32((c.A0 + 0x1Cu), RecompOne.Runtime.Gte.Read(22));
         c.A0 = c.A0 + 0x28u;
-        MediEvil_game.func_80021E5C(c, m);
+        GameFn.Game_80021E5C(c, m);
         return;
         c.T9 = c.A0 & c.FP;
         c.T0 = c.T0 << 2;
@@ -1574,7 +1574,7 @@ public static class CullPatch
        
         mem.WriteU32((c.A0 + 0x1Cu), RecompOne.Runtime.Gte.Read(22));
         c.A0 = c.A0 + 0x28u;
-        MediEvil_game.func_80021E5C(c, m);
+        GameFn.Game_80021E5C(c, m);
         return;
         L800221D0: ;
         c.T0 = c.A0 + 0x28u;
@@ -1767,7 +1767,7 @@ public static class CullPatch
         mem.WriteU32(c.T9, c.At);
        
         c.A0 = c.T2 + 0x28u;
-        MediEvil_game.func_80021E5C(c, m);
+        GameFn.Game_80021E5C(c, m);
         return;
         c.T0 = (uint)(short)mem.ReadU16(c.A1);
         c.T1 = (uint)(short)mem.ReadU16((c.A1 + 0x2u));
@@ -1836,7 +1836,7 @@ public static class CullPatch
         if ((int)c.T0 >= 0) {
             mem.WriteU32((c.SP + 0xA8u), c.T0);
            
-            MediEvil_game.func_80021E5C(c, m);
+            GameFn.Game_80021E5C(c, m);
             return;
         }
         mem.WriteU32((c.SP + 0xA8u), c.T0);
@@ -1878,7 +1878,7 @@ public static class CullPatch
         c.T1 = (uint)(short)mem.ReadU16((c.V0 + 0x24u));
         c.T0 = (int)c.T2 < (int)c.T1 ? 1u : 0u;
         if (c.T0 == 0u) {
-            MediEvil_game.func_80021E5C(c, m);
+            GameFn.Game_80021E5C(c, m);
             return;
         }
         if (c.At == 0u) {
@@ -1944,7 +1944,7 @@ public static class CullPatch
         c.T1 = (int)c.T0 < TerrainPatch.NearClip ? 1u : 0u;
         if (c.T1 != 0u) {
             c.T1 = mem.ReadU32((c.SP + 0x54u));
-            MediEvil_game.func_80021E5C(c, m);
+            GameFn.Game_80021E5C(c, m);
             return;
         }
         c.T1 = mem.ReadU32((c.SP + 0x54u));
@@ -1959,7 +1959,7 @@ public static class CullPatch
         c.T7 = CullBias(c.T4) & c.T7;
         c.T7 = CullBias(c.T6) & c.T7;
         if (c.T7 != 0u) {
-            MediEvil_game.func_80021E5C(c, m);
+            GameFn.Game_80021E5C(c, m);
             return;
         }
         mem.WriteU32((c.A0 + 0x8u), c.T1);
@@ -2113,7 +2113,7 @@ public static class CullPatch
        
         mem.WriteU32((c.A0 + 0x28u), RecompOne.Runtime.Gte.Read(22));
         c.A0 = c.A0 + 0x34u;
-        MediEvil_game.func_80021E5C(c, m);
+        GameFn.Game_80021E5C(c, m);
         return;
         L8002283C: ;
         c.T0 = c.A0 + 0x34u;
@@ -2320,7 +2320,7 @@ public static class CullPatch
         mem.WriteU32(c.T9, c.At);
        
         c.A0 = c.T3 + 0x28u;
-        MediEvil_game.func_80021E5C(c, m);
+        GameFn.Game_80021E5C(c, m);
         return;
         L80022AF0: ;
         c.T1 = mem.ReadU32((c.SP + 0x5Cu));
@@ -2424,7 +2424,7 @@ public static class CullPatch
         if ((int)c.T0 >= 0) {
             mem.WriteU32((c.SP + 0xA8u), c.T0);
            
-            MediEvil_game.func_80021E5C(c, m);
+            GameFn.Game_80021E5C(c, m);
             return;
         }
         mem.WriteU32((c.SP + 0xA8u), c.T0);
@@ -2466,7 +2466,7 @@ public static class CullPatch
         c.T1 = (uint)(short)mem.ReadU16((c.V0 + 0x24u));
         c.T0 = (int)c.T2 < (int)c.T1 ? 1u : 0u;
         if (c.T0 == 0u) {
-            MediEvil_game.func_80021E5C(c, m);
+            GameFn.Game_80021E5C(c, m);
             return;
         }
         if (c.At == 0u) {
@@ -2532,7 +2532,7 @@ public static class CullPatch
         c.T1 = (int)c.T0 < TerrainPatch.NearClip ? 1u : 0u;
         if (c.T1 != 0u) {
             c.T1 = mem.ReadU32((c.SP + 0x54u));
-            MediEvil_game.func_80021E5C(c, m);
+            GameFn.Game_80021E5C(c, m);
             return;
         }
         c.T1 = mem.ReadU32((c.SP + 0x54u));
@@ -2547,7 +2547,7 @@ public static class CullPatch
         c.T7 = CullBias(c.T4) & c.T7;
         c.T7 = CullBias(c.T6) & c.T7;
         if (c.T7 != 0u) {
-            MediEvil_game.func_80021E5C(c, m);
+            GameFn.Game_80021E5C(c, m);
             return;
         }
         mem.WriteU32((c.A0 + 0x8u), c.T1);
@@ -2701,7 +2701,7 @@ public static class CullPatch
        
         mem.WriteU32((c.A0 + 0x28u), RecompOne.Runtime.Gte.Read(22));
         c.A0 = c.A0 + 0x34u;
-        MediEvil_game.func_80021E5C(c, m);
+        GameFn.Game_80021E5C(c, m);
         return;
         L8002283C: ;
         c.T0 = c.A0 + 0x34u;
@@ -2908,7 +2908,7 @@ public static class CullPatch
         mem.WriteU32(c.T9, c.At);
        
         c.A0 = c.T3 + 0x28u;
-        MediEvil_game.func_80021E5C(c, m);
+        GameFn.Game_80021E5C(c, m);
         return;
         L80022AF0: ;
         c.T1 = mem.ReadU32((c.SP + 0x5Cu));
@@ -2968,7 +2968,7 @@ public static class CullPatch
         c.A1 = mem.ReadU32((c.S1 + 0xCu));
         c.S0 = c.A0 + 0u;
         c.RA = 0x80024B3Cu;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.S3 = 0u + 0u;
         c.S2 = c.S3 + 0u;
         c.A0 = c.S0 + 0u;
@@ -2994,7 +2994,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.V1;
         mem.WriteU16((c.SP + 0x14u), (ushort)c.V0);
         c.RA = 0x80024BA0u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.S4 = 0x1F800000u;
         c.S4 = mem.ReadU32((c.S4 + 0x34u));
         c.T4 = mem.ReadU32(c.S4);
@@ -3700,7 +3700,7 @@ public static class CullPatch
         c.V0 = 0u - c.V0;
         mem.WriteU16((c.SP + 0x14u), (ushort)c.V0);
         c.RA = 0x8002560Cu;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T4 = mem.ReadU32(c.S6);
         c.T5 = mem.ReadU32((c.S6 + 0x4u));
         RecompOne.Runtime.Gte.WriteControl(0, c.T4);
@@ -3857,19 +3857,19 @@ public static class CullPatch
         c.A0 = (uint)(short)mem.ReadU16((c.S1 + 0x3Au));
         c.A1 = c.S0 + 0u;
         c.RA = 0x8002589Cu;
-        MediEvil_game.func_800A4464(c, m);
+        GameFn.Game_800A4464(c, m);
         c.A0 = 0x1F800000u;
         c.A0 = c.A0 + 0x60u;
         c.A1 = c.S0 + 0u;
         c.RA = 0x800258ACu;
-        MediEvil_game.func_800A4D78(c, m);
+        GameFn.Game_800A4D78(c, m);
         L800258AC: ;
         c.A1 = 0x1F800000u;
         c.A0 = mem.ReadU32((c.GP + RAddr.Game_800258B0));
         c.A1 = c.A1 + 0x60u;
         c.A0 = c.A0 + 0x80u;
         c.RA = 0x800258C0u;
-        MediEvil_game.func_800A4FC8(c, m);
+        GameFn.Game_800A4FC8(c, m);
         c.T8 = 0x1F800000u;
         c.T8 = c.T8 + 0x60u;
         c.T4 = mem.ReadU32((c.T8 + 0x14u));
@@ -4155,7 +4155,7 @@ public static class CullPatch
         c.A2 = mem.ReadU32((c.S0 + 0x34u));
         c.A0 = c.A0 + 0xA0u;
         c.RA = RAddr.Tl_Code_8001084C;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.A1 = c.SP + 0x10u;
         c.V0 = mem.ReadU32((c.S4 + 0x4u));
         c.A3 = mem.ReadU32((c.S1 + 0x88u));
@@ -4177,7 +4177,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.V1;
         mem.WriteU16((c.SP + 0x14u), (ushort)c.V0);
         c.RA = RAddr.Tl_Code_800108A0;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.S0 = c.S0 + 0x34u;
         c.T7 = mem.ReadU32(c.S0);
         c.T4 = mem.ReadU32(c.T7);
@@ -4371,7 +4371,7 @@ public static class CullPatch
         goto L80010B38;
         L80010B0C: ;
         c.RA = RAddr.Tl_Code_80010B14;
-        MediEvil_game.func_800A4434(c, m);
+        GameFn.Game_800A4434(c, m);
         c.V0 = c.V0 & 0x003Fu;
         if (c.V0 != 0u) {
             goto L80010B38;
@@ -5898,14 +5898,14 @@ public static class CullPatch
         mem.WriteU32((c.At + 0x38u), c.A1);
         c.A0 = c.S1;
         c.RA = 0x800B4344u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         L800B4344: ;
         c.A1 = c.S2 + 0x10u;
         c.A0 = 0x1F800000u;
         c.A0 = mem.ReadU32((c.A0 + 0x38u));
         c.A2 = c.SP + 0x70u;
         c.RA = 0x800B4358u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.A0 = c.S1;
         c.A1 = c.SP + 0x68u;
         c.A2 = 0x1F800000u;
@@ -5932,7 +5932,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.A3;
         mem.WriteU16((c.SP + 0x6Cu), (ushort)c.V0);
         c.RA = 0x800B43C0u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T2 = 0x1F800000u;
         c.T2 = mem.ReadU32((c.T2 + 0x34u));
         c.T4 = mem.ReadU32(c.T2);
@@ -5993,11 +5993,11 @@ public static class CullPatch
             goto L800B44B4;
         }
         c.RA = 0x800B44ACu;
-        MediEvil_game.func_8009A694(c, m);
+        GameFn.Game_8009A694(c, m);
         goto L800B44BC;
         L800B44B4: ;
         c.RA = 0x800B44BCu;
-        MediEvil_game.func_8009A540(c, m);
+        GameFn.Game_8009A540(c, m);
         L800B44BC: ;
         if (c.V0 == 0u) {
             goto L800B4DD0;
@@ -6055,7 +6055,7 @@ public static class CullPatch
         c.A1 = mem.ReadU32((c.A1 + 0x38u));
         c.A2 = c.S0;
         c.RA = 0x800B4570u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.A2 = 0x1F800000u;
         c.A2 = mem.ReadU32((c.A2 + 0x38u));
         c.V1 = mem.ReadU16((c.S1 + 0x14u));
@@ -6074,7 +6074,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.V1;
         mem.WriteU16((c.SP + 0x6Cu), (ushort)c.V0);
         c.RA = 0x800B45B8u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T4 = mem.ReadU32(c.S0);
         c.T5 = mem.ReadU32((c.S0 + 0x4u));
         RecompOne.Runtime.Gte.WriteControl(0, c.T4);
@@ -6265,7 +6265,7 @@ public static class CullPatch
         c.A1 = mem.ReadU16((c.S5 + 0x1Eu));
         c.A3 = c.S5 + 0x14u;
         c.RA = 0x800B488Cu;
-        MediEvil_game.func_800ABA38(c, m);
+        GameFn.Game_800ABA38(c, m);
         c.S6 = c.V0;
         c.A0 = 0x1F800000u;
         c.A0 = c.A0 + 0x3Cu;
@@ -6273,7 +6273,7 @@ public static class CullPatch
         c.A1 = mem.ReadU32((c.A1 + 0x38u));
         c.A2 = c.A0;
         c.RA = 0x800B48A8u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.T2 = 0x1F800000u;
         c.T2 = c.T2 + 0x3Cu;
         c.T4 = mem.ReadU32(c.T2);
@@ -6295,7 +6295,7 @@ public static class CullPatch
         c.A2 = 0x1F800000u;
         c.A2 = c.A2 + 0x3Cu;
         c.RA = 0x800B48F8u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.T3 = 0x1F800000u;
         c.T3 = c.T3 + 0x3Cu;
         c.T4 = mem.ReadU32(c.T3);
@@ -6389,7 +6389,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4A10u;
-        MediEvil_game.func_800B097C(c, m);
+        GameFn.Game_800B097C(c, m);
         goto L800B4D2C;
         L800B4A18: ;
         c.A0 = c.S3;
@@ -6400,7 +6400,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4A38u;
-        MediEvil_game.func_800B7738(c, m);
+        GameFn.Game_800B7738(c, m);
         goto L800B4D2C;
         L800B4A40: ;
         if (c.S1 != 0u) {
@@ -6415,7 +6415,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4A64u;
-        MediEvil_game.func_800B0B3C(c, m);
+        GameFn.Game_800B0B3C(c, m);
         goto L800B4D2C;
         L800B4A6C: ;
         c.A0 = c.S3;
@@ -6426,7 +6426,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4A8Cu;
-        MediEvil_game.func_800B7A80(c, m);
+        GameFn.Game_800B7A80(c, m);
         goto L800B4D2C;
         L800B4A94: ;
         if (c.S1 != 0u) {
@@ -6441,7 +6441,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4AB8u;
-        MediEvil_game.func_800B00E4(c, m);
+        GameFn.Game_800B00E4(c, m);
         goto L800B4D2C;
         L800B4AC0: ;
         c.A0 = c.S3;
@@ -6452,7 +6452,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4AE0u;
-        MediEvil_game.func_800B5A44(c, m);
+        GameFn.Game_800B5A44(c, m);
         goto L800B4D2C;
         L800B4AE8: ;
         if (c.S1 != 0u) {
@@ -6467,7 +6467,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4B0Cu;
-        MediEvil_game.func_800B02BC(c, m);
+        GameFn.Game_800B02BC(c, m);
         goto L800B4D2C;
         L800B4B14: ;
         c.A0 = c.S3;
@@ -6478,7 +6478,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4B34u;
-        MediEvil_game.func_800B5E20(c, m);
+        GameFn.Game_800B5E20(c, m);
         goto L800B4D2C;
         L800B4B3C: ;
         if (c.S1 != 0u) {
@@ -6493,7 +6493,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4B60u;
-        MediEvil_game.func_800B0D34(c, m);
+        GameFn.Game_800B0D34(c, m);
         goto L800B4D2C;
         L800B4B68: ;
         c.A0 = c.S3;
@@ -6504,7 +6504,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4B88u;
-        MediEvil_game.func_800B7E38(c, m);
+        GameFn.Game_800B7E38(c, m);
         goto L800B4D2C;
         L800B4B90: ;
         if (c.S1 != 0u) {
@@ -6519,7 +6519,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4BB4u;
-        MediEvil_game.func_800B0F20(c, m);
+        GameFn.Game_800B0F20(c, m);
         goto L800B4D2C;
         L800B4BBC: ;
         c.A0 = c.S3;
@@ -6530,7 +6530,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4BDCu;
-        MediEvil_game.func_800B8304(c, m);
+        GameFn.Game_800B8304(c, m);
         goto L800B4D2C;
         L800B4BE4: ;
         if (c.S1 != 0u) {
@@ -6545,7 +6545,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4C08u;
-        MediEvil_game.func_800B04D4(c, m);
+        GameFn.Game_800B04D4(c, m);
         goto L800B4D2C;
         L800B4C10: ;
         c.A0 = c.S3;
@@ -6556,7 +6556,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4C30u;
-        MediEvil_game.func_800B62B4(c, m);
+        GameFn.Game_800B62B4(c, m);
         goto L800B4D2C;
         L800B4C38: ;
         if (c.S1 != 0u) {
@@ -6571,7 +6571,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4C5Cu;
-        MediEvil_game.func_800B06D8(c, m);
+        GameFn.Game_800B06D8(c, m);
         goto L800B4D2C;
         L800B4C64: ;
         c.A0 = c.S3;
@@ -6582,7 +6582,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4C84u;
-        MediEvil_game.func_800B67A0(c, m);
+        GameFn.Game_800B67A0(c, m);
         goto L800B4D2C;
         L800B4C8C: ;
         if (c.S1 != 0u) {
@@ -6597,7 +6597,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4CB0u;
-        MediEvil_game.func_800B6EEC(c, m);
+        GameFn.Game_800B6EEC(c, m);
         goto L800B4D2C;
         L800B4CB8: ;
         c.A0 = c.S3;
@@ -6608,7 +6608,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4CD8u;
-        MediEvil_game.func_800B8A24(c, m);
+        GameFn.Game_800B8A24(c, m);
         goto L800B4D2C;
         L800B4CE0: ;
         if (c.S1 != 0u) {
@@ -6623,7 +6623,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4D04u;
-        MediEvil_game.func_800B72A0(c, m);
+        GameFn.Game_800B72A0(c, m);
         goto L800B4D2C;
         L800B4D0C: ;
         c.A0 = c.S3;
@@ -6634,7 +6634,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4D2Cu;
-        MediEvil_game.func_800B90E8(c, m);
+        GameFn.Game_800B90E8(c, m);
         L800B4D2C: ;
         c.A2 = mem.ReadU32((c.SP + 0x60u));
         c.A0 = mem.ReadU32((c.SP + 0x64u));
@@ -6687,7 +6687,7 @@ public static class CullPatch
         c.A0 = mem.ReadU32((c.T2 + 0x4u));
         c.A3 = c.A3 | 0xFFFFu;
         c.RA = 0x800B4DD0u;
-        MediEvil_game.func_800AF490(c, m);
+        GameFn.Game_800AF490(c, m);
         L800B4DD0: ;
         c.RA = mem.ReadU32((c.SP + 0xB4u));
         c.FP = mem.ReadU32((c.SP + 0xB0u));
@@ -6979,14 +6979,14 @@ public static class CullPatch
         mem.WriteU32((c.At + 0x38u), c.A1);
         c.A0 = c.S1;
         c.RA = 0x800B4344u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         L800B4344: ;
         c.A1 = c.S2 + 0x10u;
         c.A0 = 0x1F800000u;
         c.A0 = mem.ReadU32((c.A0 + 0x38u));
         c.A2 = c.SP + 0x70u;
         c.RA = 0x800B4358u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.A0 = c.S1;
         c.A1 = c.SP + 0x68u;
         c.A2 = 0x1F800000u;
@@ -7013,7 +7013,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.A3;
         mem.WriteU16((c.SP + 0x6Cu), (ushort)c.V0);
         c.RA = 0x800B43C0u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T2 = 0x1F800000u;
         c.T2 = mem.ReadU32((c.T2 + 0x34u));
         c.T4 = mem.ReadU32(c.T2);
@@ -7074,11 +7074,11 @@ public static class CullPatch
             goto L800B44B4;
         }
         c.RA = 0x800B44ACu;
-        MediEvil_game.func_8009A694(c, m);
+        GameFn.Game_8009A694(c, m);
         goto L800B44BC;
         L800B44B4: ;
         c.RA = 0x800B44BCu;
-        MediEvil_game.func_8009A540(c, m);
+        GameFn.Game_8009A540(c, m);
         L800B44BC: ;
         if (c.V0 == 0u) {
             goto L800B4DD0;
@@ -7136,7 +7136,7 @@ public static class CullPatch
         c.A1 = mem.ReadU32((c.A1 + 0x38u));
         c.A2 = c.S0;
         c.RA = 0x800B4570u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.A2 = 0x1F800000u;
         c.A2 = mem.ReadU32((c.A2 + 0x38u));
         c.V1 = mem.ReadU16((c.S1 + 0x14u));
@@ -7155,7 +7155,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.V1;
         mem.WriteU16((c.SP + 0x6Cu), (ushort)c.V0);
         c.RA = 0x800B45B8u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T4 = mem.ReadU32(c.S0);
         c.T5 = mem.ReadU32((c.S0 + 0x4u));
         RecompOne.Runtime.Gte.WriteControl(0, c.T4);
@@ -7346,7 +7346,7 @@ public static class CullPatch
         c.A1 = mem.ReadU16((c.S5 + 0x1Eu));
         c.A3 = c.S5 + 0x14u;
         c.RA = 0x800B488Cu;
-        MediEvil_game.func_800ABA38(c, m);
+        GameFn.Game_800ABA38(c, m);
         c.S6 = c.V0;
         c.A0 = 0x1F800000u;
         c.A0 = c.A0 + 0x3Cu;
@@ -7354,7 +7354,7 @@ public static class CullPatch
         c.A1 = mem.ReadU32((c.A1 + 0x38u));
         c.A2 = c.A0;
         c.RA = 0x800B48A8u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.T2 = 0x1F800000u;
         c.T2 = c.T2 + 0x3Cu;
         c.T4 = mem.ReadU32(c.T2);
@@ -7376,7 +7376,7 @@ public static class CullPatch
         c.A2 = 0x1F800000u;
         c.A2 = c.A2 + 0x3Cu;
         c.RA = 0x800B48F8u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.T3 = 0x1F800000u;
         c.T3 = c.T3 + 0x3Cu;
         c.T4 = mem.ReadU32(c.T3);
@@ -7470,7 +7470,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4A10u;
-        MediEvil_game.func_800B097C(c, m);
+        GameFn.Game_800B097C(c, m);
         goto L800B4D2C;
         L800B4A18: ;
         c.A0 = c.S3;
@@ -7481,7 +7481,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4A38u;
-        MediEvil_game.func_800B7738(c, m);
+        GameFn.Game_800B7738(c, m);
         goto L800B4D2C;
         L800B4A40: ;
         if (c.S1 != 0u) {
@@ -7496,7 +7496,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4A64u;
-        MediEvil_game.func_800B0B3C(c, m);
+        GameFn.Game_800B0B3C(c, m);
         goto L800B4D2C;
         L800B4A6C: ;
         c.A0 = c.S3;
@@ -7507,7 +7507,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4A8Cu;
-        MediEvil_game.func_800B7A80(c, m);
+        GameFn.Game_800B7A80(c, m);
         goto L800B4D2C;
         L800B4A94: ;
         if (c.S1 != 0u) {
@@ -7522,7 +7522,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4AB8u;
-        MediEvil_game.func_800B00E4(c, m);
+        GameFn.Game_800B00E4(c, m);
         goto L800B4D2C;
         L800B4AC0: ;
         c.A0 = c.S3;
@@ -7533,7 +7533,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4AE0u;
-        MediEvil_game.func_800B5A44(c, m);
+        GameFn.Game_800B5A44(c, m);
         goto L800B4D2C;
         L800B4AE8: ;
         if (c.S1 != 0u) {
@@ -7548,7 +7548,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4B0Cu;
-        MediEvil_game.func_800B02BC(c, m);
+        GameFn.Game_800B02BC(c, m);
         goto L800B4D2C;
         L800B4B14: ;
         c.A0 = c.S3;
@@ -7559,7 +7559,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4B34u;
-        MediEvil_game.func_800B5E20(c, m);
+        GameFn.Game_800B5E20(c, m);
         goto L800B4D2C;
         L800B4B3C: ;
         if (c.S1 != 0u) {
@@ -7574,7 +7574,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4B60u;
-        MediEvil_game.func_800B0D34(c, m);
+        GameFn.Game_800B0D34(c, m);
         goto L800B4D2C;
         L800B4B68: ;
         c.A0 = c.S3;
@@ -7585,7 +7585,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4B88u;
-        MediEvil_game.func_800B7E38(c, m);
+        GameFn.Game_800B7E38(c, m);
         goto L800B4D2C;
         L800B4B90: ;
         if (c.S1 != 0u) {
@@ -7600,7 +7600,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4BB4u;
-        MediEvil_game.func_800B0F20(c, m);
+        GameFn.Game_800B0F20(c, m);
         goto L800B4D2C;
         L800B4BBC: ;
         c.A0 = c.S3;
@@ -7611,7 +7611,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4BDCu;
-        MediEvil_game.func_800B8304(c, m);
+        GameFn.Game_800B8304(c, m);
         goto L800B4D2C;
         L800B4BE4: ;
         if (c.S1 != 0u) {
@@ -7626,7 +7626,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4C08u;
-        MediEvil_game.func_800B04D4(c, m);
+        GameFn.Game_800B04D4(c, m);
         goto L800B4D2C;
         L800B4C10: ;
         c.A0 = c.S3;
@@ -7637,7 +7637,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4C30u;
-        MediEvil_game.func_800B62B4(c, m);
+        GameFn.Game_800B62B4(c, m);
         goto L800B4D2C;
         L800B4C38: ;
         if (c.S1 != 0u) {
@@ -7652,7 +7652,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4C5Cu;
-        MediEvil_game.func_800B06D8(c, m);
+        GameFn.Game_800B06D8(c, m);
         goto L800B4D2C;
         L800B4C64: ;
         c.A0 = c.S3;
@@ -7663,7 +7663,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4C84u;
-        MediEvil_game.func_800B67A0(c, m);
+        GameFn.Game_800B67A0(c, m);
         goto L800B4D2C;
         L800B4C8C: ;
         if (c.S1 != 0u) {
@@ -7678,7 +7678,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4CB0u;
-        MediEvil_game.func_800B6EEC(c, m);
+        GameFn.Game_800B6EEC(c, m);
         goto L800B4D2C;
         L800B4CB8: ;
         c.A0 = c.S3;
@@ -7689,7 +7689,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4CD8u;
-        MediEvil_game.func_800B8A24(c, m);
+        GameFn.Game_800B8A24(c, m);
         goto L800B4D2C;
         L800B4CE0: ;
         if (c.S1 != 0u) {
@@ -7704,7 +7704,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4D04u;
-        MediEvil_game.func_800B72A0(c, m);
+        GameFn.Game_800B72A0(c, m);
         goto L800B4D2C;
         L800B4D0C: ;
         c.A0 = c.S3;
@@ -7715,7 +7715,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4D2Cu;
-        MediEvil_game.func_800B90E8(c, m);
+        GameFn.Game_800B90E8(c, m);
         L800B4D2C: ;
         c.A2 = mem.ReadU32((c.SP + 0x60u));
         c.A0 = mem.ReadU32((c.SP + 0x64u));
@@ -7768,7 +7768,7 @@ public static class CullPatch
         c.A0 = mem.ReadU32((c.T2 + 0x4u));
         c.A3 = c.A3 | 0xFFFFu;
         c.RA = 0x800B4DD0u;
-        MediEvil_game.func_800AF490(c, m);
+        GameFn.Game_800AF490(c, m);
         L800B4DD0: ;
         c.RA = mem.ReadU32((c.SP + 0xB4u));
         c.FP = mem.ReadU32((c.SP + 0xB0u));
@@ -7861,14 +7861,14 @@ public static class CullPatch
         mem.WriteU32((c.At + 0x38u), c.A1);
         c.A0 = c.S1;
         c.RA = 0x800B4344u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         L800B4344: ;
         c.A1 = c.S2 + 0x10u;
         c.A0 = 0x1F800000u;
         c.A0 = mem.ReadU32((c.A0 + 0x38u));
         c.A2 = c.SP + 0x70u;
         c.RA = 0x800B4358u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.A0 = c.S1;
         c.A1 = c.SP + 0x68u;
         c.A2 = 0x1F800000u;
@@ -7895,7 +7895,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.A3;
         mem.WriteU16((c.SP + 0x6Cu), (ushort)c.V0);
         c.RA = 0x800B43C0u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T2 = 0x1F800000u;
         c.T2 = mem.ReadU32((c.T2 + 0x34u));
         c.T4 = mem.ReadU32(c.T2);
@@ -7956,11 +7956,11 @@ public static class CullPatch
             goto L800B44B4;
         }
         c.RA = 0x800B44ACu;
-        MediEvil_game.func_8009A694(c, m);
+        GameFn.Game_8009A694(c, m);
         goto L800B44BC;
         L800B44B4: ;
         c.RA = 0x800B44BCu;
-        MediEvil_game.func_8009A540(c, m);
+        GameFn.Game_8009A540(c, m);
         L800B44BC: ;
         if (c.V0 == 0u) {
             goto L800B4DD0;
@@ -8018,7 +8018,7 @@ public static class CullPatch
         c.A1 = mem.ReadU32((c.A1 + 0x38u));
         c.A2 = c.S0;
         c.RA = 0x800B4570u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.A2 = 0x1F800000u;
         c.A2 = mem.ReadU32((c.A2 + 0x38u));
         c.V1 = mem.ReadU16((c.S1 + 0x14u));
@@ -8037,7 +8037,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.V1;
         mem.WriteU16((c.SP + 0x6Cu), (ushort)c.V0);
         c.RA = 0x800B45B8u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T4 = mem.ReadU32(c.S0);
         c.T5 = mem.ReadU32((c.S0 + 0x4u));
         RecompOne.Runtime.Gte.WriteControl(0, c.T4);
@@ -8228,7 +8228,7 @@ public static class CullPatch
         c.A1 = mem.ReadU16((c.S5 + 0x1Eu));
         c.A3 = c.S5 + 0x14u;
         c.RA = 0x800B488Cu;
-        MediEvil_game.func_800ABA38(c, m);
+        GameFn.Game_800ABA38(c, m);
         c.S6 = c.V0;
         c.A0 = 0x1F800000u;
         c.A0 = c.A0 + 0x3Cu;
@@ -8236,7 +8236,7 @@ public static class CullPatch
         c.A1 = mem.ReadU32((c.A1 + 0x38u));
         c.A2 = c.A0;
         c.RA = 0x800B48A8u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.T2 = 0x1F800000u;
         c.T2 = c.T2 + 0x3Cu;
         c.T4 = mem.ReadU32(c.T2);
@@ -8258,7 +8258,7 @@ public static class CullPatch
         c.A2 = 0x1F800000u;
         c.A2 = c.A2 + 0x3Cu;
         c.RA = 0x800B48F8u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.T3 = 0x1F800000u;
         c.T3 = c.T3 + 0x3Cu;
         c.T4 = mem.ReadU32(c.T3);
@@ -8357,7 +8357,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4A10u;
-        MediEvil_game.func_800B097C(c, m);
+        GameFn.Game_800B097C(c, m);
         goto L800B4D2C;
         L800B4A18: ;
         c.A0 = c.S3;
@@ -8368,7 +8368,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4A38u;
-        MediEvil_game.func_800B7738(c, m);
+        GameFn.Game_800B7738(c, m);
         goto L800B4D2C;
         L800B4A40: ;
         if (c.S1 != 0u) {
@@ -8383,7 +8383,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4A64u;
-        MediEvil_game.func_800B0B3C(c, m);
+        GameFn.Game_800B0B3C(c, m);
         goto L800B4D2C;
         L800B4A6C: ;
         c.A0 = c.S3;
@@ -8394,7 +8394,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4A8Cu;
-        MediEvil_game.func_800B7A80(c, m);
+        GameFn.Game_800B7A80(c, m);
         goto L800B4D2C;
         L800B4A94: ;
         if (c.S1 != 0u) {
@@ -8409,7 +8409,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4AB8u;
-        MediEvil_game.func_800B00E4(c, m);
+        GameFn.Game_800B00E4(c, m);
         goto L800B4D2C;
         L800B4AC0: ;
         c.A0 = c.S3;
@@ -8420,7 +8420,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4AE0u;
-        MediEvil_game.func_800B5A44(c, m);
+        GameFn.Game_800B5A44(c, m);
         goto L800B4D2C;
         L800B4AE8: ;
         if (c.S1 != 0u) {
@@ -8435,7 +8435,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4B0Cu;
-        MediEvil_game.func_800B02BC(c, m);
+        GameFn.Game_800B02BC(c, m);
         goto L800B4D2C;
         L800B4B14: ;
         c.A0 = c.S3;
@@ -8446,7 +8446,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4B34u;
-        MediEvil_game.func_800B5E20(c, m);
+        GameFn.Game_800B5E20(c, m);
         goto L800B4D2C;
         L800B4B3C: ;
         if (c.S1 != 0u) {
@@ -8461,7 +8461,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4B60u;
-        MediEvil_game.func_800B0D34(c, m);
+        GameFn.Game_800B0D34(c, m);
         goto L800B4D2C;
         L800B4B68: ;
         c.A0 = c.S3;
@@ -8472,7 +8472,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4B88u;
-        MediEvil_game.func_800B7E38(c, m);
+        GameFn.Game_800B7E38(c, m);
         goto L800B4D2C;
         L800B4B90: ;
         if (c.S1 != 0u) {
@@ -8487,7 +8487,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4BB4u;
-        MediEvil_game.func_800B0F20(c, m);
+        GameFn.Game_800B0F20(c, m);
         goto L800B4D2C;
         L800B4BBC: ;
         c.A0 = c.S3;
@@ -8498,7 +8498,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4BDCu;
-        MediEvil_game.func_800B8304(c, m);
+        GameFn.Game_800B8304(c, m);
         goto L800B4D2C;
         L800B4BE4: ;
         if (c.S1 != 0u) {
@@ -8513,7 +8513,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4C08u;
-        MediEvil_game.func_800B04D4(c, m);
+        GameFn.Game_800B04D4(c, m);
         goto L800B4D2C;
         L800B4C10: ;
         c.A0 = c.S3;
@@ -8524,7 +8524,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4C30u;
-        MediEvil_game.func_800B62B4(c, m);
+        GameFn.Game_800B62B4(c, m);
         goto L800B4D2C;
         L800B4C38: ;
         if (c.S1 != 0u) {
@@ -8539,7 +8539,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4C5Cu;
-        MediEvil_game.func_800B06D8(c, m);
+        GameFn.Game_800B06D8(c, m);
         goto L800B4D2C;
         L800B4C64: ;
         c.A0 = c.S3;
@@ -8550,7 +8550,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4C84u;
-        MediEvil_game.func_800B67A0(c, m);
+        GameFn.Game_800B67A0(c, m);
         goto L800B4D2C;
         L800B4C8C: ;
         if (c.S1 != 0u) {
@@ -8565,7 +8565,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4CB0u;
-        MediEvil_game.func_800B6EEC(c, m);
+        GameFn.Game_800B6EEC(c, m);
         goto L800B4D2C;
         L800B4CB8: ;
         c.A0 = c.S3;
@@ -8576,7 +8576,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4CD8u;
-        MediEvil_game.func_800B8A24(c, m);
+        GameFn.Game_800B8A24(c, m);
         goto L800B4D2C;
         L800B4CE0: ;
         if (c.S1 != 0u) {
@@ -8591,7 +8591,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S0);
         mem.WriteU32((c.SP + 0x14u), c.S4);
         c.RA = 0x800B4D04u;
-        MediEvil_game.func_800B72A0(c, m);
+        GameFn.Game_800B72A0(c, m);
         goto L800B4D2C;
         L800B4D0C: ;
         c.A0 = c.S3;
@@ -8602,7 +8602,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.S4);
         mem.WriteU32((c.SP + 0x18u), c.S1);
         c.RA = 0x800B4D2Cu;
-        MediEvil_game.func_800B90E8(c, m);
+        GameFn.Game_800B90E8(c, m);
         L800B4D2C: ;
         c.A2 = mem.ReadU32((c.SP + 0x60u));
         c.A0 = mem.ReadU32((c.SP + 0x64u));
@@ -8655,7 +8655,7 @@ public static class CullPatch
         c.A0 = mem.ReadU32((c.T2 + 0x4u));
         c.A3 = c.A3 | 0xFFFFu;
         c.RA = 0x800B4DD0u;
-        MediEvil_game.func_800AF490(c, m);
+        GameFn.Game_800AF490(c, m);
         L800B4DD0: ;
         c.RA = mem.ReadU32((c.SP + 0xB4u));
         c.FP = mem.ReadU32((c.SP + 0xB0u));
@@ -8681,7 +8681,7 @@ public static class CullPatch
         mem.WriteU32((c.At - RAddr.Game_800B4E24), 0u);
         c.S2 = c.A1;
         c.RA = 0x800B4E30u;
-        MediEvil_game.func_800C0A64(c, m);
+        GameFn.Game_800C0A64(c, m);
         c.S0 = 0x800F0000u;
         c.S0 = c.S0 + RAddr.Game_800B4E34;
         c.V0 = 0x800B0000u;
@@ -8717,7 +8717,7 @@ public static class CullPatch
         mem.WriteU32((c.At - RAddr.Game_800B4EB0), c.V0);
         c.A1 = 0x000001E0u;
         c.RA = 0x800B4EBCu;
-        MediEvil_game.func_800C0F24(c, m);
+        GameFn.Game_800C0F24(c, m);
         c.T0 = 0u;
         c.T1 = 0x000000FFu;
         c.A0 = c.S0 + 0x40u;
@@ -8759,7 +8759,7 @@ public static class CullPatch
         }
         c.S0 = c.S0 + 0xF0u;
         c.RA = 0x800B4F3Cu;
-        MediEvil_game.func_800BFE04(c, m);
+        GameFn.Game_800BFE04(c, m);
         c.V0 = 0x00000001u;
         c.At = 0x800F0000u;
         mem.WriteU32((c.At - RAddr.Game_800B4F44), c.V0);
@@ -8835,10 +8835,10 @@ public static class CullPatch
         L800B502C: ;
         c.A0 = c.S0;
         c.RA = 0x800B5034u;
-        MediEvil_game.func_800C0E0C(c, m);
+        GameFn.Game_800C0E0C(c, m);
         c.A0 = c.S0;
         c.RA = 0x800B503Cu;
-        MediEvil_game.func_800B50BC(c, m);
+        GameFn.Game_800B50BC(c, m);
         L800B503C: ;
         c.V0 = 0x800F0000u;
         c.V0 = mem.ReadU32((c.V0 - RAddr.Game_800B5040));
@@ -8863,7 +8863,7 @@ public static class CullPatch
         c.A0 = c.A0 << 4;
         c.A0 = c.A0 + c.S1;
         c.RA = 0x800B508Cu;
-        MediEvil_game.func_800C00F4(c, m);
+        GameFn.Game_800C00F4(c, m);
         c.A1 = 0u | 0xFFFFu;
         goto L800B5098;
         L800B5094: ;
@@ -8953,7 +8953,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.RA);
         c.A1 = 0x00000006u;
         c.RA = 0x800B51A4u;
-        MediEvil_game.func_800C0F24(c, m);
+        GameFn.Game_800C0F24(c, m);
         c.V0 = mem.ReadU16((c.S0 + 0xE6u));
         if (c.V0 == 0u) {
             goto L800B5300;
@@ -9199,7 +9199,7 @@ public static class CullPatch
         c.SP = c.SP - 0x18u;
         mem.WriteU32((c.SP + 0x10u), c.RA);
         c.RA = 0x800B5470u;
-        MediEvil_game.func_800C0028(c, m);
+        GameFn.Game_800C0028(c, m);
         c.RA = mem.ReadU32((c.SP + 0x10u));
         c.SP = c.SP + 0x18u;
         return;
@@ -9574,7 +9574,7 @@ public static class CullPatch
         mem.WriteU32((c.At + 0x38u), c.A1);
         c.A0 = c.T7 + 0xA0u;
         c.RA = 0x800A1304u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.A2 = c.SP + 0x80u;
         L800A1308: ;
         c.T1 = mem.ReadU32((c.SP + 0x94u));
@@ -9582,7 +9582,7 @@ public static class CullPatch
         c.A0 = mem.ReadU32((c.A0 + 0x38u));
         c.A1 = c.T1 + 0x10u;
         c.RA = 0x800A131Cu;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.A1 = c.SP + 0x78u;
         c.T2 = mem.ReadU32((c.SP + 0x10Cu));
         c.A2 = 0x1F800000u;
@@ -9610,7 +9610,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.A3;
         mem.WriteU16((c.SP + 0x7Cu), (ushort)c.V0);
         c.RA = 0x800A1388u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T3 = 0x1F800000u;
         c.T3 = mem.ReadU32((c.T3 + 0x34u));
         c.T4 = mem.ReadU32(c.T3);
@@ -9664,7 +9664,7 @@ public static class CullPatch
         c.A0 = mem.ReadU32((c.S2 + 0xCu));
         L800A1458: ;
         c.RA = 0x800A1460u;
-        MediEvil_game.func_8009A540(c, m);
+        GameFn.Game_8009A540(c, m);
         if (c.V0 == 0u) {
             goto L800A219C;
         }
@@ -9725,7 +9725,7 @@ public static class CullPatch
         c.S1 = c.T7 + 0xA0u;
         c.A0 = c.S1;
         c.RA = 0x800A1528u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.A2 = 0x1F800000u;
         c.A2 = mem.ReadU32((c.A2 + 0x38u));
         c.T1 = mem.ReadU32((c.SP + 0x10Cu));
@@ -9745,7 +9745,7 @@ public static class CullPatch
         c.V0 = c.V0 - c.V1;
         mem.WriteU16((c.SP + 0x7Cu), (ushort)c.V0);
         c.RA = 0x800A1574u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T4 = mem.ReadU32(c.S0);
         c.T5 = mem.ReadU32((c.S0 + 0x4u));
         RecompOne.Runtime.Gte.WriteControl(0, c.T4);
@@ -9966,7 +9966,7 @@ public static class CullPatch
         c.A1 = mem.ReadU16((c.T3 + 0x1Eu));
         c.A3 = c.T3 + 0x14u;
         c.RA = 0x800A18ECu;
-        MediEvil_game.func_800ABA38(c, m);
+        GameFn.Game_800ABA38(c, m);
         mem.WriteU32((c.SP + 0xD0u), c.V0);
         goto L800A1938;
         L800A18F4: ;
@@ -10041,7 +10041,7 @@ public static class CullPatch
         c.A1 = mem.ReadU32((c.SP + 0xB8u));
         c.A0 = c.T7 + 0xA0u;
         c.RA = 0x800A19F8u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.T1 = mem.ReadU32((c.SP + 0xB8u));
         c.T2 = mem.ReadU32((c.SP + 0x10Cu));
         c.V0 = mem.ReadU16((c.T1 + 0x14u));
@@ -10080,20 +10080,20 @@ public static class CullPatch
         mem.WriteU16((c.SP + 0x26u), (ushort)c.T2);
         mem.WriteU16((c.SP + 0x28u), (ushort)c.T3);
         c.RA = 0x800A1A9Cu;
-        MediEvil_game.func_800A2E90(c, m);
+        GameFn.Game_800A2E90(c, m);
         c.V1 = 0x800F0000u;
         c.S2 = c.V1 + RAddr.Game_800A1AA0;
         c.A0 = c.S3;
         c.A1 = c.V0;
         c.A2 = c.S2;
         c.RA = 0x800A1AB4u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.A0 = c.S3;
         c.A1 = 0x1F800000u;
         c.A1 = c.A1 + 0x80u;
         c.A2 = c.S2 + 0x14u;
         c.RA = 0x800A1AC8u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.A1 = c.S2;
         c.V0 = mem.ReadU32((c.S2 + 0x14u));
         c.V1 = mem.ReadU32((c.S3 + 0x14u));
@@ -10112,7 +10112,7 @@ public static class CullPatch
         c.V0 = c.V0 + c.V1;
         mem.WriteU32((c.S2 + 0x1Cu), c.V0);
         c.RA = 0x800A1B10u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.T1 = mem.ReadU32((c.SP + 0x10Cu));
         c.V0 = mem.ReadU16((c.S2 + 0x14u));
         c.V1 = mem.ReadU16((c.T1 + 0xB4u));
@@ -10136,7 +10136,7 @@ public static class CullPatch
         c.A0 = c.T2 + 0xA0u;
         c.A2 = c.A2 + 0x14u;
         c.RA = 0x800A1B74u;
-        MediEvil_game.func_800A48FC(c, m);
+        GameFn.Game_800A48FC(c, m);
         c.T3 = 0x1F800000u;
         c.T3 = mem.ReadU32((c.T3 + 0x34u));
         c.T4 = mem.ReadU32(c.T3);
@@ -10176,13 +10176,13 @@ public static class CullPatch
         c.A0 = c.T1;
         c.A1 = c.SP + 0x90u;
         c.RA = 0x800A1BFCu;
-        MediEvil_game.func_8009A694(c, m);
+        GameFn.Game_8009A694(c, m);
         goto L800A1C10;
         L800A1C04: ;
         c.A0 = mem.ReadU32((c.SP + 0xC0u));
         c.A1 = c.SP + 0x90u;
         c.RA = 0x800A1C10u;
-        MediEvil_game.func_8009A540(c, m);
+        GameFn.Game_8009A540(c, m);
         L800A1C10: ;
         if (c.V0 == 0u) {
             goto L800A20C4;
@@ -10209,7 +10209,7 @@ public static class CullPatch
         c.V0 = c.V0 | 0x0001u;
         mem.WriteU16((c.T2 + 0xEu), (ushort)c.V0);
         c.RA = 0x800A1C60u;
-        MediEvil_game.func_800A4EB8(c, m);
+        GameFn.Game_800A4EB8(c, m);
         c.T3 = 0x1F800000u;
         c.T3 = c.T3 + 0x60u;
         c.T4 = mem.ReadU32(c.T3);
@@ -10288,7 +10288,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A1D48u;
-        MediEvil_game.func_800B097C(c, m);
+        GameFn.Game_800B097C(c, m);
         goto L800A20B0;
         L800A1D50: ;
         c.A0 = c.S5;
@@ -10300,7 +10300,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A1D74u;
-        MediEvil_game.func_800B7738(c, m);
+        GameFn.Game_800B7738(c, m);
         goto L800A20B0;
         L800A1D7C: ;
         if (c.S7 != 0u) {
@@ -10316,7 +10316,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A1DA4u;
-        MediEvil_game.func_800B0B3C(c, m);
+        GameFn.Game_800B0B3C(c, m);
         goto L800A20B0;
         L800A1DAC: ;
         c.A0 = c.S5;
@@ -10328,7 +10328,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A1DD0u;
-        MediEvil_game.func_800B7A80(c, m);
+        GameFn.Game_800B7A80(c, m);
         goto L800A20B0;
         L800A1DD8: ;
         if (c.S7 != 0u) {
@@ -10344,7 +10344,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A1E00u;
-        MediEvil_game.func_800B00E4(c, m);
+        GameFn.Game_800B00E4(c, m);
         goto L800A20B0;
         L800A1E08: ;
         c.A0 = c.S5;
@@ -10356,7 +10356,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A1E2Cu;
-        MediEvil_game.func_800B5A44(c, m);
+        GameFn.Game_800B5A44(c, m);
         goto L800A20B0;
         L800A1E34: ;
         if (c.S7 != 0u) {
@@ -10372,7 +10372,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A1E5Cu;
-        MediEvil_game.func_800B02BC(c, m);
+        GameFn.Game_800B02BC(c, m);
         goto L800A20B0;
         L800A1E64: ;
         c.A0 = c.S5;
@@ -10384,7 +10384,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A1E88u;
-        MediEvil_game.func_800B5E20(c, m);
+        GameFn.Game_800B5E20(c, m);
         goto L800A20B0;
         L800A1E90: ;
         if (c.S7 != 0u) {
@@ -10400,7 +10400,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A1EB8u;
-        MediEvil_game.func_800B0D34(c, m);
+        GameFn.Game_800B0D34(c, m);
         goto L800A20B0;
         L800A1EC0: ;
         c.A0 = c.S5;
@@ -10412,7 +10412,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A1EE4u;
-        MediEvil_game.func_800B7E38(c, m);
+        GameFn.Game_800B7E38(c, m);
         goto L800A20B0;
         L800A1EEC: ;
         if (c.S7 != 0u) {
@@ -10428,7 +10428,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A1F14u;
-        MediEvil_game.func_800B0F20(c, m);
+        GameFn.Game_800B0F20(c, m);
         goto L800A20B0;
         L800A1F1C: ;
         c.A0 = c.S5;
@@ -10440,7 +10440,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A1F40u;
-        MediEvil_game.func_800B8304(c, m);
+        GameFn.Game_800B8304(c, m);
         goto L800A20B0;
         L800A1F48: ;
         if (c.S7 != 0u) {
@@ -10456,7 +10456,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A1F70u;
-        MediEvil_game.func_800B04D4(c, m);
+        GameFn.Game_800B04D4(c, m);
         goto L800A20B0;
         L800A1F78: ;
         c.A0 = c.S5;
@@ -10468,7 +10468,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A1F9Cu;
-        MediEvil_game.func_800B62B4(c, m);
+        GameFn.Game_800B62B4(c, m);
         goto L800A20B0;
         L800A1FA4: ;
         if (c.S7 != 0u) {
@@ -10484,7 +10484,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A1FCCu;
-        MediEvil_game.func_800B06D8(c, m);
+        GameFn.Game_800B06D8(c, m);
         goto L800A20B0;
         L800A1FD4: ;
         c.A0 = c.S5;
@@ -10496,7 +10496,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A1FF8u;
-        MediEvil_game.func_800B67A0(c, m);
+        GameFn.Game_800B67A0(c, m);
         goto L800A20B0;
         L800A2000: ;
         if (c.S7 != 0u) {
@@ -10512,7 +10512,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A2028u;
-        MediEvil_game.func_800B6EEC(c, m);
+        GameFn.Game_800B6EEC(c, m);
         goto L800A20B0;
         L800A2030: ;
         c.A0 = c.S5;
@@ -10524,7 +10524,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A2054u;
-        MediEvil_game.func_800B8A24(c, m);
+        GameFn.Game_800B8A24(c, m);
         goto L800A20B0;
         L800A205C: ;
         if (c.S7 != 0u) {
@@ -10540,7 +10540,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x10u), c.S6);
         mem.WriteU32((c.SP + 0x14u), c.FP);
         c.RA = 0x800A2084u;
-        MediEvil_game.func_800B72A0(c, m);
+        GameFn.Game_800B72A0(c, m);
         goto L800A20B0;
         L800A208C: ;
         c.A0 = c.S5;
@@ -10552,7 +10552,7 @@ public static class CullPatch
         mem.WriteU32((c.SP + 0x14u), c.FP);
         mem.WriteU32((c.SP + 0x18u), c.S7);
         c.RA = 0x800A20B0u;
-        MediEvil_game.func_800B90E8(c, m);
+        GameFn.Game_800B90E8(c, m);
         L800A20B0: ;
         c.S1 = mem.ReadU32((c.SP + 0x70u));
         c.S0 = mem.ReadU32((c.SP + 0x74u));
