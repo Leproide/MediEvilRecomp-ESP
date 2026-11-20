@@ -1,9 +1,9 @@
 {
     "id": "filmati-schermo-intero",
-    "name": "Filmati a schermo intero",
-    "version": "1.2",
+    "name": "Fullscreen movies",
+    "version": "1.4",
     "author": "https://github.com/Leproide",
-    "description": "Durante i filmati mostra solo l'area del video e la adatta allo schermo senza deformarla. MediEvil PAL italiano (SCES-01494) e spagnolo (SCES-01495). Licenza GPL-3.0-or-later.",
+    "description": "During the movies, shows only the video area and fits it to the screen without stretching it. MediEvil PAL: Italian (SCES-01494), Spanish (SCES-01495), French (SCES-01492), German (SCES-01493) and English (SCES-00311); NTSC-U American (SCUS-94227). License GPL-3.0-or-later.",
     "defaultEnabled": true,
     "dependencies": []
 }

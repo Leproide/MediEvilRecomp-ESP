@@ -1,347 +1,1580 @@
 {
+    "languages": {
+        "de-DE": "Deutsch",
+        "it-IT": "Italiano"
+    },
     "strings": {
         "menu.updates": {
             "en": "Updates",
             "pt-BR": "Atualizações",
             "es-419": "Actualizaciones",
             "ja-jp": "アップデイト",
-            "cn-zh": "版本更新"
+            "cn-zh": "版本更新",
+            "fr-fr": "Mises à jour",
+            "de-DE": "Updates",
+            "it-IT": "Aggiornamenti"
         },
         "menu.updates.on_startup": {
             "en": "Check on Startup",
             "pt-BR": "Verificar ao Iniciar",
             "es-419": "Buscar al Iniciar",
             "ja-jp": "起動時に更新を確認する",
-            "cn-zh": "在启动时询问更新"
+            "cn-zh": "在启动时询问更新",
+            "fr-fr": "Vérifier au démarrage",
+            "de-DE": "Beim Start prüfen",
+            "it-IT": "Controlla all'avvio"
         },
         "menu.updates.check_now": {
             "en": "Check for Updates Now",
             "pt-BR": "Verificar Atualizações Agora",
             "es-419": "Buscar Actualizaciones Ahora",
             "ja-jp": "今すぐ更新を確認する",
-            "cn-zh": "现在检查更新"
+            "cn-zh": "现在检查更新",
+            "fr-fr": "Vérifier maintenant",
+            "de-DE": "Jetzt nach Updates suchen",
+            "it-IT": "Controlla ora gli aggiornamenti"
         },
         "menu.updates.releases_page": {
             "en": "Open Releases Page",
             "pt-BR": "Abrir Página de Versões",
             "es-419": "Abrir Página de Versiones",
             "ja-jp": "リリース・ページを開く",
-            "cn-zh": "打开发布页"
+            "cn-zh": "打开发布页",
+            "fr-fr": "Ouvrir la page des versions",
+            "de-DE": "Release-Seite öffnen",
+            "it-IT": "Apri la pagina delle release"
         },
         "update.title": {
             "en": "Update",
             "pt-BR": "Atualização",
             "es-419": "Actualización",
             "ja-jp": "アップデート",
-            "cn-zh": "版本更新"
+            "cn-zh": "版本更新",
+            "fr-fr": "Mise à jour",
+            "de-DE": "Update",
+            "it-IT": "Aggiornamento"
         },
         "update.status.checking": {
             "en": "Checking for updates...",
             "pt-BR": "Verificando atualizações...",
             "es-419": "Buscando actualizaciones...",
             "ja-jp": "更新を確認しています...",
-            "cn-zh": "正在检查更新..."
+            "cn-zh": "正在检查更新...",
+            "fr-fr": "Recherche de mises à jour...",
+            "de-DE": "Suche nach Updates...",
+            "it-IT": "Ricerca aggiornamenti..."
         },
         "update.status.available": {
             "en": "{0} available",
             "pt-BR": "{0} disponível",
             "es-419": "{0} disponible",
             "ja-jp": "{0} 利用可能",
-            "cn-zh": "目前有更新"
+            "cn-zh": "目前有更新",
+            "fr-fr": "{0} disponible",
+            "de-DE": "{0} verfügbar",
+            "it-IT": "{0} disponibile"
         },
         "update.status.downloading": {
             "en": "Downloading {0}...",
             "pt-BR": "Baixando {0}...",
             "es-419": "Descargando {0}...",
             "ja-jp": "{0} をダウンロード中...",
-            "cn-zh": "更新文件下载中..."
+            "cn-zh": "更新文件下载中...",
+            "fr-fr": "Téléchargement de {0}...",
+            "de-DE": "Lade {0} herunter...",
+            "it-IT": "Download di {0}..."
         },
         "update.status.applying": {
             "en": "Restarting to update...",
             "pt-BR": "Reiniciando para atualizar...",
             "es-419": "Reiniciando para actualizar...",
             "ja-jp": "更新のために再起動しています...",
-            "cn-zh": "重新启动以加载更新..."
+            "cn-zh": "重新启动以加载更新...",
+            "fr-fr": "Redémarrage pour la mise à jour...",
+            "de-DE": "Neustart für das Update...",
+            "it-IT": "Riavvio per l'aggiornamento..."
         },
         "update.status.failed": {
             "en": "Last update attempt failed",
             "pt-BR": "A última tentativa de atualização falhou",
             "es-419": "El último intento de actualización falló",
             "ja-jp": "前回の更新の試行が失敗しました。",
-            "cn-zh": "最近一次的更新失败了。"
+            "cn-zh": "最近一次的更新失败了。",
+            "fr-fr": "La dernière mise à jour a échoué",
+            "de-DE": "Letzter Update-Versuch fehlgeschlagen",
+            "it-IT": "L'ultimo aggiornamento non è riuscito"
         },
         "update.status.dev": {
             "en": "Development Build",
             "pt-BR": "Build de Desenvolvimento",
             "es-419": "Build de Desarrollo",
             "ja-jp": "DEVのビルド",
-            "cn-zh": "正在检查更新..."
+            "cn-zh": "正在检查更新...",
+            "fr-fr": "Version de développement",
+            "de-DE": "Entwicklungsversion",
+            "it-IT": "Build di sviluppo"
         },
         "update.status.running": {
             "en": "Running {0}",
             "pt-BR": "Executando {0}",
             "es-419": "Ejecutando {0}",
             "ja-jp": "{0} を実行中",
-            "cn-zh": "{0} 在运行中"
+            "cn-zh": "{0} 在运行中",
+            "fr-fr": "Version {0}",
+            "de-DE": "Version {0}",
+            "it-IT": "Versione {0}"
         },
         "update.headline.available": {
             "en": "{0} is available",
             "pt-BR": "{0} está disponível",
             "es-419": "{0} está disponible",
             "ja-jp": "{0}が利用可能です",
-            "cn-zh": "{0} 使用可能"
+            "cn-zh": "{0} 使用可能",
+            "fr-fr": "{0} est disponible",
+            "de-DE": "{0} ist verfügbar",
+            "it-IT": "{0} è disponibile"
         },
         "update.headline.downloading": {
             "en": "Downloading {0}",
             "pt-BR": "Baixando {0}",
             "es-419": "Descargando {0}",
             "ja-jp": "{0} をダウンロード中",
-            "cn-zh": "{0} 在下载中"
+            "cn-zh": "{0} 在下载中",
+            "fr-fr": "Téléchargement de {0}",
+            "de-DE": "Lade {0} herunter",
+            "it-IT": "Download di {0}"
         },
         "update.headline.installing": {
             "en": "Installing {0}",
             "pt-BR": "Instalando {0}",
             "es-419": "Instalando {0}",
             "ja-jp": "{0} をインストールしています",
-            "cn-zh": "{0} 已安装"
+            "cn-zh": "{0} 已安装",
+            "fr-fr": "Installation de {0}",
+            "de-DE": "Installiere {0}",
+            "it-IT": "Installazione di {0}"
         },
         "update.headline.failed": {
             "en": "Update failed",
             "pt-BR": "A atualização falhou",
             "es-419": "La actualización falló",
             "ja-jp": "更新に失敗しました",
-            "cn-zh": "更新失败了"
+            "cn-zh": "更新失败了",
+            "fr-fr": "Échec de la mise à jour",
+            "de-DE": "Update fehlgeschlagen",
+            "it-IT": "Aggiornamento non riuscito"
         },
         "update.current": {
             "en": "current {0}",
             "pt-BR": "atual {0}",
             "es-419": "actual {0}",
             "ja-jp": "現在の {0}",
-            "cn-zh": "现在的 {0} "
+            "cn-zh": "现在的 {0} ",
+            "fr-fr": "actuelle {0}",
+            "de-DE": "aktuell {0}",
+            "it-IT": "attuale {0}"
         },
         "update.not_writable": {
             "en": "This folder is not writable, so the update cannot be installed automatically. Download it manually or move the game somewhere you can write to.",
             "pt-BR": "Esta pasta não permite escrita, então a atualização não pode ser instalada automaticamente. Baixe manualmente ou mova o jogo para um local onde você possa escrever.",
             "es-419": "Esta carpeta no permite escritura, así que la actualización no se puede instalar automáticamente. Descárgala manualmente o mueve el juego a un lugar donde puedas escribir.",
             "ja-jp": "このフォルダには書き込み権限がないため、アップデートを自動的にインストールできません。手動でダウンロードするか、書き込み可能な場所にゲームを移動してください。",
-            "cn-zh": "当前的目录没有修改权限，所以更新文件无法自动安装。请手动下载新版本的文件或将文件移动到有修改权限的路径再操作。"
+            "cn-zh": "当前的目录没有修改权限，所以更新文件无法自动安装。请手动下载新版本的文件或将文件移动到有修改权限的路径再操作。",
+            "fr-fr": "Ce dossier n'est pas accessible en écriture : la mise à jour ne peut pas être installée automatiquement. Téléchargez-la manuellement ou déplacez le jeu dans un dossier modifiable.",
+            "de-DE": "In diesen Ordner kann nicht geschrieben werden, daher kann das Update nicht automatisch installiert werden. Lade es manuell herunter oder verschiebe das Spiel an einen beschreibbaren Ort.",
+            "it-IT": "In questa cartella non si può scrivere, quindi l'aggiornamento non può essere installato automaticamente. Scaricalo a mano o sposta il gioco in una cartella scrivibile."
         },
         "update.no_notes": {
             "en": "This release ships no notes.",
             "pt-BR": "Esta versão não tem notas.",
             "es-419": "Esta versión no trae notas.",
             "ja-jp": "このリリースにはリリースノートは含まれていません。",
-            "cn-zh": "此版本不附带任何说明。 "
+            "cn-zh": "此版本不附带任何说明。 ",
+            "fr-fr": "Cette version n'a pas de notes.",
+            "de-DE": "Diese Version hat keine Versionshinweise.",
+            "it-IT": "Questa versione non ha note."
         },
         "update.install": {
             "en": "Install",
             "pt-BR": "Instalar",
             "es-419": "Instalar",
             "ja-jp": "インストール",
-            "cn-zh": "安装 "
+            "cn-zh": "安装 ",
+            "fr-fr": "Installer",
+            "de-DE": "Installieren",
+            "it-IT": "Installa"
         },
         "update.not_now": {
             "en": "Not now",
             "pt-BR": "Agora não",
             "es-419": "Ahora no",
             "ja-jp": "今じゃない",
-            "cn-zh": "现在略过"
+            "cn-zh": "现在略过",
+            "fr-fr": "Plus tard",
+            "de-DE": "Nicht jetzt",
+            "it-IT": "Non ora"
         },
         "update.skip": {
             "en": "Skip {0}",
             "pt-BR": "Pular {0}",
             "es-419": "Omitir {0}",
             "ja-jp": "{0}をスキップ",
-            "cn-zh": "跳过 {0}"
+            "cn-zh": "跳过 {0}",
+            "fr-fr": "Ignorer {0}",
+            "de-DE": "{0} überspringen",
+            "it-IT": "Salta {0}"
         },
         "update.retry": {
             "en": "Retry",
             "pt-BR": "Tentar de novo",
             "es-419": "Reintentar",
             "ja-jp": "リトライ",
-            "cn-zh": "重试"
+            "cn-zh": "重试",
+            "fr-fr": "Réessayer",
+            "de-DE": "Erneut versuchen",
+            "it-IT": "Riprova"
         },
         "update.releases_page": {
             "en": "Releases page",
             "pt-BR": "Página de versões",
             "es-419": "Página de versiones",
             "ja-jp": "リリース・ページ",
-            "cn-zh": "发布页面"
+            "cn-zh": "发布页面",
+            "fr-fr": "Page des versions",
+            "de-DE": "Release-Seite",
+            "it-IT": "Pagina delle release"
         },
         "update.restarting": {
             "en": "restarting",
             "pt-BR": "reiniciando",
             "es-419": "reiniciando",
             "ja-jp": "再起動中",
-            "cn-zh": "重新启动中"
+            "cn-zh": "重新启动中",
+            "fr-fr": "redémarrage",
+            "de-DE": "Neustart",
+            "it-IT": "riavvio"
         },
         "update.reopening": {
             "en": "The game will reopen in a moment",
             "pt-BR": "O jogo vai reabrir em instantes",
             "es-419": "El juego se volverá a abrir en un momento",
             "ja-jp": "まもなくゲームが再開されます",
-            "cn-zh": "游戏正在重新启动"
+            "cn-zh": "游戏正在重新启动",
+            "fr-fr": "Le jeu va se relancer dans un instant",
+            "de-DE": "Das Spiel wird gleich neu geöffnet",
+            "it-IT": "Il gioco si riaprirà tra un momento"
         },
-
         "widescreen.aspect": {
             "en": "Aspect ratio",
             "pt-BR": "Proporção de tela",
-            "es-419": "Relación de aspecto"
+            "es-419": "Relación de aspecto",
+            "fr-fr": "Ratio d'écran",
+            "de-DE": "Seitenverhältnis",
+            "it-IT": "Proporzioni"
         },
         "widescreen.original": {
             "en": "Original",
             "pt-BR": "Original",
-            "es-419": "Original"
+            "es-419": "Original",
+            "fr-fr": "Original",
+            "de-DE": "Original",
+            "it-IT": "Originale"
         },
         "widescreen.custom": {
             "en": "Custom",
             "pt-BR": "Personalizada",
-            "es-419": "Personalizado"
+            "es-419": "Personalizado",
+            "fr-fr": "Personnalisé",
+            "de-DE": "Benutzerdefiniert",
+            "it-IT": "Personalizzato"
         },
         "render.draw_distance": {
             "en": "Draw distance",
             "pt-BR": "Distancia de desenho",
-            "es-419": "Distancia de dibujado"
+            "es-419": "Distancia de dibujado",
+            "fr-fr": "Distance d'affichage",
+            "de-DE": "Sichtweite",
+            "it-IT": "Distanza di visualizzazione"
         },
         "render.draw_distance_hint": {
             "en": "Increases the terrain view distance",
             "pt-BR": "Aumenta a distancia de visao do terreno",
-            "es-419": "Aumenta la distancia de vision del terreno"
+            "es-419": "Aumenta la distancia de vision del terreno",
+            "fr-fr": "Augmente la distance d'affichage",
+            "de-DE": "Erhöht die Sichtweite des Geländes",
+            "it-IT": "Aumenta la distanza di visualizzazione del terreno"
         },
         "render.better_terrain": {
             "en": "Better rendering",
             "pt-BR": "Melhor renderizacao",
-            "es-419": "Mejor renderizado"
+            "es-419": "Mejor renderizado",
+            "fr-fr": "Meilleur rendu",
+            "de-DE": "Besseres Rendering",
+            "it-IT": "Rendering migliorato"
         },
         "render.better_terrain_hint": {
             "en": "Uses smooth terrain rendering with floating point precision and depth buffering.",
             "pt-BR": "Usa renderizacao suave do terreno com precisao em ponto flutuante e buffer de profundidade.",
-            "es-419": "Usa renderizado suave del terreno con precision de punto flotante y buffer de profundidad."
+            "es-419": "Usa renderizado suave del terreno con precision de punto flotante y buffer de profundidad.",
+            "fr-fr": "Améliore le rendu du terrain en utilisant un rendu à virgule flottante.",
+            "de-DE": "Rendert das Gelände glatt, mit Gleitkommagenauigkeit und Tiefenpuffer.",
+            "it-IT": "Disegna il terreno in modo uniforme, con precisione in virgola mobile e depth buffer."
         },
         "menu.misc": {
             "en": "Misc",
             "pt-BR": "Diversos",
-            "es-419": "Varios"
+            "es-419": "Varios",
+            "fr-fr": "Divers",
+            "de-DE": "Sonstiges",
+            "it-IT": "Varie"
         },
         "panel.qol": {
             "en": "Quality of Life",
             "pt-BR": "Qualidade de vida",
-            "es-419": "Calidad de vida"
+            "es-419": "Calidad de vida",
+            "fr-fr": "Options de confort",
+            "de-DE": "Komfort",
+            "it-IT": "Comodità"
         },
         "qol.camera": {
             "en": "Camera",
             "pt-BR": "Câmera",
-            "es-419": "Cámara"
+            "es-419": "Cámara",
+            "fr-fr": "Caméra",
+            "de-DE": "Kamera",
+            "it-IT": "Telecamera"
         },
         "qol.camera_control": {
             "en": "Right stick camera",
             "pt-BR": "Câmera no analógico direito",
-            "es-419": "Cámara con el stick derecho"
+            "es-419": "Cámara con el stick derecho",
+            "fr-fr": "Caméra sur le stick droit",
+            "de-DE": "Kamera mit rechtem Stick",
+            "it-IT": "Telecamera con la levetta destra"
         },
         "qol.camera_control.hint": {
             "en": "Orbit the camera around Dan with the right analog stick. Press R3 to turn it on or off.",
             "pt-BR": "Gira a câmera em volta do Dan com o analógico direito. Pressione R3 para ligar ou desligar.",
-            "es-419": "Gira la cámara alrededor de Dan con el stick derecho. Pulsa R3 para activarla o desactivarla."
+            "es-419": "Gira la cámara alrededor de Dan con el stick derecho. Pulsa R3 para activarla o desactivarla.",
+            "fr-fr": "Permet de faire tourner la caméra autour de Daniel avec le stick droit.",
+            "de-DE": "Dreht die Kamera mit dem rechten Analogstick um Dan. Mit R3 ein- oder ausschalten.",
+            "it-IT": "Fa ruotare la telecamera attorno a Dan con la levetta destra. Premi R3 per attivarla o disattivarla."
         },
         "qol.camera_recenter": {
             "en": "Auto recenter",
             "pt-BR": "Recentralizar automaticamente",
-            "es-419": "Recentrar automáticamente"
+            "es-419": "Recentrar automáticamente",
+            "fr-fr": "Recentrer automatiquement",
+            "de-DE": "Automatisch zentrieren",
+            "it-IT": "Ricentra automaticamente"
         },
         "qol.camera_recenter.hint": {
             "en": "After walking for a moment without touching the right stick the camera goes back to its normal position.",
             "pt-BR": "Depois de andar um pouco sem tocar no analógico direito a câmera volta para a posição normal.",
-            "es-419": "Tras caminhar un momento sin tocar el stick derecho la cámara vuelve a su posición normal."
+            "es-419": "Tras caminhar un momento sin tocar el stick derecho la cámara vuelve a su posición normal.",
+            "fr-fr": "La caméra retourne automatiquement à sa position normale après avoir marché un moment sans toucher le stick droit.",
+            "de-DE": "Läuft Dan eine Weile, ohne dass der rechte Stick bewegt wird, kehrt die Kamera in ihre normale Position zurück.",
+            "it-IT": "Dopo aver camminato un po' senza toccare la levetta destra, la telecamera torna nella posizione normale."
         },
         "qol.invert_camera_x": {
             "en": "Invert horizontal",
             "pt-BR": "Inverter horizontal",
-            "es-419": "Invertir horizontal"
+            "es-419": "Invertir horizontal",
+            "fr-fr": "Inversion horizontale",
+            "de-DE": "Horizontal umkehren",
+            "it-IT": "Inverti orizzontale"
         },
         "qol.invert_camera_x.hint": {
             "en": "Reverses left and right on the right stick.",
             "pt-BR": "Inverte esquerda e direita no analógico direito.",
-            "es-419": "Invierte izquierda y derecha en el stick derecho."
+            "es-419": "Invierte izquierda y derecha en el stick derecho.",
+            "fr-fr": "Inverse la gauche et la droite sur le stick droit.",
+            "de-DE": "Vertauscht links und rechts am rechten Stick.",
+            "it-IT": "Inverte sinistra e destra sulla levetta destra."
         },
         "qol.invert_camera_y": {
             "en": "Invert vertical",
             "pt-BR": "Inverter vertical",
-            "es-419": "Invertir vertical"
+            "es-419": "Invertir vertical",
+            "fr-fr": "Inversion verticale",
+            "de-DE": "Vertikal umkehren",
+            "it-IT": "Inverti verticale"
         },
         "qol.invert_camera_y.hint": {
             "en": "Reverses up and down on the right stick.",
             "pt-BR": "Inverte cima e baixo no analógico direito.",
-            "es-419": "Invierte arriba y abajo en el stick derecho."
+            "es-419": "Invierte arriba y abajo en el stick derecho.",
+            "fr-fr": "Inverse le haut et le bas sur le stick droit.",
+            "de-DE": "Vertauscht oben und unten am rechten Stick.",
+            "it-IT": "Inverte alto e basso sulla levetta destra."
         },
         "qol.no_camera_collision": {
             "en": "Disable camera collision",
             "pt-BR": "Desativar colisão da câmera",
-            "es-419": "Desactivar colisión de la cámara"
+            "es-419": "Desactivar colisión de la cámara",
+            "fr-fr": "Désactiver les collisions de la caméra",
+            "de-DE": "Kamerakollision deaktivieren",
+            "it-IT": "Disattiva la collisione della telecamera"
         },
         "qol.no_camera_collision.hint": {
             "en": "The orbit camera no longer moves closer to Dan when a wall or fence is in the way, so it can end up behind walls.",
             "pt-BR": "A câmera orbital não se aproxima mais do Dan quando uma parede ou cerca está no caminho, então pode ficar atrás das paredes.",
-            "es-419": "La cámara orbital ya no se acerca a Dan cuando hay una pared o una valla en medio, así que puede quedar detrás de las paredes."
+            "es-419": "La cámara orbital ya no se acerca a Dan cuando hay una pared o una valla en medio, así que puede quedar detrás de las paredes.",
+            "fr-fr": "La caméra orbitale ne se rapproche plus de Dan quand un mur ou une grille est sur le chemin : elle peut donc se retrouver derrière les murs.",
+            "de-DE": "Die Kamera rückt nicht mehr näher an Dan heran, wenn eine Wand oder ein Zaun im Weg ist, und kann daher hinter Wänden landen.",
+            "it-IT": "La telecamera orbitale non si avvicina più a Dan quando c'è un muro o una recinzione di mezzo, quindi può finire dietro i muri."
         },
         "qol.camera_toggle.on": {
             "en": "Free camera on (R3 to turn off)",
             "pt-BR": "Câmera livre ligada (R3 para desligar)",
-            "es-419": "Cámara libre activada (R3 para desactivar)"
+            "es-419": "Cámara libre activada (R3 para desactivar)",
+            "fr-fr": "Caméra libre activée (R3 pour la désactiver)",
+            "de-DE": "Freie Kamera an (R3 zum Ausschalten)",
+            "it-IT": "Telecamera libera attiva (R3 per disattivarla)"
         },
         "qol.camera_toggle.off": {
             "en": "Original camera (R3 for free camera)",
             "pt-BR": "Câmera original (R3 para câmera livre)",
-            "es-419": "Cámara original (R3 para cámara libre)"
+            "es-419": "Cámara original (R3 para cámara libre)",
+            "fr-fr": "Caméra originale (R3 pour la caméra libre)",
+            "de-DE": "Originalkamera (R3 für freie Kamera)",
+            "it-IT": "Telecamera originale (R3 per la telecamera libera)"
         },
         "qol.render": {
             "en": "Rendering",
             "pt-BR": "Renderização",
-            "es-419": "Renderizado"
+            "es-419": "Renderizado",
+            "fr-fr": "Rendu",
+            "de-DE": "Rendering",
+            "it-IT": "Rendering"
         },
         "qol.distant_objects": {
             "en": "Distant objects",
             "pt-BR": "Objetos distantes",
-            "es-419": "Objetos lejanos"
+            "es-419": "Objetos lejanos",
+            "fr-fr": "Objets lointains",
+            "de-DE": "Entfernte Objekte",
+            "it-IT": "Oggetti lontani"
         },
         "qol.terrain_edge_fade": {
             "en": "Map edge fade",
             "pt-BR": "Bordas do mapa esfumadas",
-            "es-419": "Bordes del mapa difuminados"
+            "es-419": "Bordes del mapa difuminados",
+            "fr-fr": "Fondu au bord de la carte",
+            "de-DE": "Kartenrand ausblenden",
+            "it-IT": "Dissolvenza ai bordi della mappa"
         },
         "qol.terrain_edge_fade.hint": {
             "en": "Where the map ends on the void, the ground fades to black like around holes, instead of ending in sharp steps.",
             "pt-BR": "Onde o mapa termina no vazio, o chão escurece até o preto como em volta dos buracos, em vez de terminar em degraus.",
-            "es-419": "Donde el mapa termina en el vacío, el suelo se oscurece hasta el negro como alrededor de los agujeros, en lugar de acabar en escalones."
+            "es-419": "Donde el mapa termina en el vacío, el suelo se oscurece hasta el negro como alrededor de los agujeros, en lugar de acabar en escalones.",
+            "fr-fr": "Là où la carte s'arrête sur le vide, le sol s'assombrit jusqu'au noir comme autour des trous, au lieu de finir en marches nettes.",
+            "de-DE": "Wo die Karte ins Leere endet, wird der Boden wie an Löchern schwarz ausgeblendet, statt in harten Stufen zu enden.",
+            "it-IT": "Dove la mappa finisce nel vuoto, il terreno sfuma nel nero come attorno ai buchi, invece di finire a gradini netti."
         },
         "qol.default_materials": {
             "en": "Default materials",
             "pt-BR": "Materiais predefinidos",
-            "es-419": "Materiales predeterminados"
+            "es-419": "Materiales predeterminados",
+            "fr-fr": "Matériaux par défaut",
+            "de-DE": "Standardmaterialien",
+            "it-IT": "Materiali predefiniti"
         },
         "qol.default_materials.hint": {
             "en": "Dan's armour, weapons, gates and grates are always metal for shaders that read materials (Gallowmere). Turn off to leave them to the shader's own guess.",
             "pt-BR": "Armadura de Dan, armas, portões e grades são sempre metal para os shaders que leem os materiais (Gallowmere). Desligue para deixá-los à estimativa do próprio shader.",
-            "es-419": "La armadura de Dan, las armas, las verjas y las rejas son siempre metal para los shaders que leen los materiales (Gallowmere). Desactívalo para dejarlos a la estimación del propio shader."
+            "es-419": "La armadura de Dan, las armas, las verjas y las rejas son siempre metal para los shaders que leen los materiales (Gallowmere). Desactívalo para dejarlos a la estimación del propio shader.",
+            "fr-fr": "L'armure et les armes de Dan, les portails et les grilles sont toujours en métal pour les shaders qui lisent les matériaux (Gallowmere). Désactivez pour laisser le shader les deviner.",
+            "de-DE": "Dans Rüstung, Waffen, Tore und Gitter sind für Shader, die Materialien lesen (Gallowmere), immer Metall. Ausschalten, um sie dem Shader zu überlassen.",
+            "it-IT": "L'armatura e le armi di Dan, i cancelli e le grate sono sempre di metallo per gli shader che leggono i materiali (Gallowmere). Disattiva per lasciarli decidere allo shader."
         },
         "qol.dev": {
             "en": "Development",
             "pt-BR": "Desenvolvimento",
-            "es-419": "Desarrollo"
+            "es-419": "Desarrollo",
+            "fr-fr": "Développement",
+            "de-DE": "Entwicklung",
+            "it-IT": "Sviluppo"
         },
         "qol.dev_mode": {
             "en": "Development mode",
             "pt-BR": "Modo de desenvolvimento",
-            "es-419": "Modo de desarrollo"
+            "es-419": "Modo de desarrollo",
+            "fr-fr": "Mode développement",
+            "de-DE": "Entwicklermodus",
+            "it-IT": "Modalità sviluppo"
         },
         "qol.dev_mode.hint": {
             "en": "Shows the texture material picker for the Gallowmere shader: click on the game to pick a point, then choose metal, glass, wood... Saved to assets/materials.json.",
             "pt-BR": "Mostra o seletor de materiais das texturas para o shader Gallowmere: clique no jogo para escolher um ponto e depois metal, vidro, madeira... Salvo em assets/materials.json.",
-            "es-419": "Muestra el selector de materiales de las texturas para el shader Gallowmere: haz clic en el juego para elegir un punto y luego metal, vidrio, madera... Se guarda en assets/materials.json."
+            "es-419": "Muestra el selector de materiales de las texturas para el shader Gallowmere: haz clic en el juego para elegir un punto y luego metal, vidrio, madera... Se guarda en assets/materials.json.",
+            "fr-fr": "Affiche le sélecteur de matériaux des textures pour le shader Gallowmere : cliquez dans le jeu pour choisir un point, puis métal, verre, bois... Enregistré dans assets/materials.json.",
+            "de-DE": "Zeigt die Materialauswahl für Texturen des Gallowmere-Shaders: ins Spiel klicken, um einen Punkt zu wählen, dann Metall, Glas, Holz... wählen. Gespeichert in assets/materials.json.",
+            "it-IT": "Mostra il selettore dei materiali delle texture per lo shader Gallowmere: clicca nel gioco per scegliere un punto, poi metallo, vetro, legno... Salvato in assets/materials.json."
         },
         "qol.distant_objects.hint": {
             "en": "Doors, gates and scenery are loaded and drawn from farther away instead of popping in near Dan (also at 1x, useful with shaders), farther with a higher Draw distance. Enemies and events still activate at the original distance.",
             "pt-BR": "Portas, portões e cenário são carregados e desenhados de mais longe em vez de aparecerem perto do Dan (também em 1x, útil com shaders), mais longe com distância de desenho maior. Inimigos e eventos continuam ativando na distância original.",
-            "es-419": "Puertas, verjas y decorados se cargan y dibujan desde más lejos en lugar de aparecer cerca de Dan (también en 1x, útil con shaders), más lejos con mayor distancia de dibujado. Enemigos y eventos se siguen activando a la distancia original."
+            "es-419": "Puertas, verjas y decorados se cargan y dibujan desde más lejos en lugar de aparecer cerca de Dan (también en 1x, útil con shaders), más lejos con mayor distancia de dibujado. Enemigos y eventos se siguen activando a la distancia original.",
+            "fr-fr": "Les portes, portails et décors sont chargés et affichés de plus loin au lieu d'apparaître près de Dan (même en 1x, utile avec les shaders), d'autant plus loin que la distance d'affichage est grande. Les ennemis et les événements s'activent toujours à la distance d'origine.",
+            "de-DE": "Türen, Tore und Kulissen werden aus größerer Entfernung geladen und gezeichnet, statt nahe bei Dan aufzutauchen (auch bei 1x, nützlich mit Shadern), mit höherer Sichtweite noch weiter. Gegner und Ereignisse werden weiterhin in der Originalentfernung aktiviert.",
+            "it-IT": "Porte, cancelli e scenari vengono caricati e disegnati da più lontano invece di comparire vicino a Dan (anche a 1x, utile con gli shader), ancora più lontano con una distanza di visualizzazione maggiore. Nemici ed eventi si attivano sempre alla distanza originale."
+        },
+        "menu.shaders": {
+            "fr-fr": "Shaders",
+            "de-DE": "Shader",
+            "it-IT": "Shader"
+        },
+        "shaders.title": {
+            "fr-fr": "Shaders",
+            "de-DE": "Shader",
+            "it-IT": "Shader"
+        },
+        "shaders.installed": {
+            "fr-fr": "Installés",
+            "de-DE": "Installiert",
+            "it-IT": "Installati"
+        },
+        "shaders.browse": {
+            "fr-fr": "Parcourir",
+            "de-DE": "Durchsuchen",
+            "it-IT": "Sfoglia"
+        },
+        "shaders.search": {
+            "fr-fr": "Rechercher",
+            "de-DE": "Suchen",
+            "it-IT": "Cerca"
+        },
+        "shaders.none": {
+            "fr-fr": "Aucun",
+            "de-DE": "Keiner",
+            "it-IT": "Nessuno"
+        },
+        "shaders.no_installed": {
+            "fr-fr": "Aucun shader installé. Trouvez-en dans l'onglet Parcourir.",
+            "de-DE": "Keine Shader installiert. Hol dir welche im Tab Durchsuchen.",
+            "it-IT": "Nessuno shader installato. Trovane nella scheda Sfoglia."
+        },
+        "shaders.inactive": {
+            "fr-fr": "Aucun shader actif",
+            "de-DE": "Kein Shader aktiv",
+            "it-IT": "Nessuno shader attivo"
+        },
+        "shaders.parameters": {
+            "fr-fr": "Paramètres",
+            "de-DE": "Parameter",
+            "it-IT": "Parametri"
+        },
+        "shaders.no_parameters": {
+            "fr-fr": "Ce shader n'a pas de paramètres",
+            "de-DE": "Dieser Shader hat keine Parameter",
+            "it-IT": "Questo shader non ha parametri"
+        },
+        "shaders.reset": {
+            "fr-fr": "Réinitialiser",
+            "de-DE": "Zurücksetzen",
+            "it-IT": "Ripristina"
+        },
+        "shaders.reload": {
+            "fr-fr": "Recharger",
+            "de-DE": "Neu laden",
+            "it-IT": "Ricarica"
+        },
+        "shaders.remove": {
+            "fr-fr": "Supprimer",
+            "de-DE": "Entfernen",
+            "it-IT": "Rimuovi"
+        },
+        "shaders.failed": {
+            "fr-fr": "Le shader n'a pas pu être chargé :",
+            "de-DE": "Der Shader konnte nicht geladen werden:",
+            "it-IT": "Impossibile caricare lo shader:"
+        },
+        "shaders.all_categories": {
+            "fr-fr": "Toutes les catégories",
+            "de-DE": "Alle Kategorien",
+            "it-IT": "Tutte le categorie"
+        },
+        "shaders.refresh": {
+            "fr-fr": "Actualiser le catalogue",
+            "de-DE": "Katalog aktualisieren",
+            "it-IT": "Aggiorna il catalogo"
+        },
+        "shaders.loading": {
+            "fr-fr": "Chargement du catalogue...",
+            "de-DE": "Katalog wird geladen...",
+            "it-IT": "Caricamento del catalogo..."
+        },
+        "shaders.catalog_info": {
+            "fr-fr": "{0} préréglages dans {1}",
+            "de-DE": "{0} Presets in {1}",
+            "it-IT": "{0} preset in {1}"
+        },
+        "shaders.no_results": {
+            "fr-fr": "Aucun résultat",
+            "de-DE": "Nichts gefunden",
+            "it-IT": "Nessun risultato"
+        },
+        "shaders.truncated": {
+            "fr-fr": "Le dépôt est trop grand, certains préréglages manquent",
+            "de-DE": "Das Repository ist zu groß, einige Presets fehlen",
+            "it-IT": "Il repository è troppo grande, mancano alcuni preset"
+        },
+        "shaders.install": {
+            "fr-fr": "Installer",
+            "de-DE": "Installieren",
+            "it-IT": "Installa"
+        },
+        "shaders.use": {
+            "fr-fr": "Utiliser",
+            "de-DE": "Verwenden",
+            "it-IT": "Usa"
+        },
+        "shaders.active": {
+            "fr-fr": "Actif",
+            "de-DE": "Aktiv",
+            "it-IT": "Attivo"
+        },
+        "shaders.installing": {
+            "fr-fr": "{0} fichiers...",
+            "de-DE": "{0} Dateien...",
+            "it-IT": "{0} file..."
+        },
+        "shaders.installed_ok": {
+            "fr-fr": "{0} installé",
+            "de-DE": "{0} installiert",
+            "it-IT": "{0} installato"
+        },
+        "shaders.install_failed": {
+            "fr-fr": "Impossible d'installer {0} : {1}",
+            "de-DE": "{0} konnte nicht installiert werden: {1}",
+            "it-IT": "Impossibile installare {0}: {1}"
+        },
+        "shaders.repository": {
+            "fr-fr": "Dépôt",
+            "de-DE": "Repository",
+            "it-IT": "Repository"
+        },
+        "shaders.repository_hint": {
+            "fr-fr": "Dépôt GitHub affiché dans l'onglet Parcourir",
+            "de-DE": "GitHub-Repository, das im Tab Durchsuchen angezeigt wird",
+            "it-IT": "Repository GitHub mostrato nella scheda Sfoglia"
+        },
+        "shaders.branch": {
+            "fr-fr": "Branche",
+            "de-DE": "Branch",
+            "it-IT": "Branch"
+        },
+        "shaders.branch_hint": {
+            "fr-fr": "Vide : branche par défaut",
+            "de-DE": "Leer = Standard-Branch",
+            "it-IT": "Vuoto = branch predefinito"
+        },
+        "shaders.default_repository": {
+            "fr-fr": "Utiliser le dépôt par défaut",
+            "de-DE": "Standard-Repository verwenden",
+            "it-IT": "Usa il repository predefinito"
+        },
+        "shaders.bad_repository": {
+            "fr-fr": "Ce n'est pas un dépôt GitHub",
+            "de-DE": "Kein GitHub-Repository",
+            "it-IT": "Non è un repository GitHub"
+        },
+        "shaders.native": {
+            "fr-fr": "Entrée en résolution native",
+            "de-DE": "Eingabe in nativer Auflösung",
+            "it-IT": "Ingresso a risoluzione nativa"
+        },
+        "shaders.native_hint": {
+            "fr-fr": "Donne au shader l'image en résolution d'origine au lieu de l'image agrandie. Idéal pour les shaders CRT",
+            "de-DE": "Gibt dem Shader das Bild in Originalauflösung statt des hochskalierten Bildes. Ideal für CRT-Shader",
+            "it-IT": "Passa allo shader l'immagine a risoluzione originale invece di quella ingrandita. Ideale per gli shader CRT"
+        },
+        "shaders.open_folder": {
+            "fr-fr": "Ouvrir le dossier des shaders",
+            "de-DE": "Shader-Ordner öffnen",
+            "it-IT": "Apri la cartella degli shader"
+        },
+        "menu.system": {
+            "de-DE": "System",
+            "it-IT": "Sistema"
+        },
+        "menu.system.settings": {
+            "de-DE": "Einstellungen",
+            "it-IT": "Impostazioni"
+        },
+        "menu.system.show_menu_bar": {
+            "de-DE": "Menüleiste anzeigen",
+            "it-IT": "Mostra la barra dei menu"
+        },
+        "menu.system.autohide_menu_bar": {
+            "de-DE": "Menüleiste automatisch ausblenden",
+            "it-IT": "Nascondi automaticamente la barra dei menu"
+        },
+        "menu.system.autohide_menu_bar.tooltip": {
+            "de-DE": "Blendet die Menüleiste aus, wenn die Maus nicht darüber ist. Zum Anzeigen die Maus an den oberen Bildschirmrand bewegen",
+            "it-IT": "Nasconde la barra dei menu quando il mouse non ci passa sopra. Porta il mouse in cima allo schermo per mostrarla",
+            "fr-fr": "Cache la barre de menu quand la souris n'est pas dessus. Amenez la souris en haut de l'écran pour l'afficher"
+        },
+        "menu.system.fullscreen": {
+            "de-DE": "Vollbild",
+            "it-IT": "Schermo intero"
+        },
+        "menu.system.hard_reset": {
+            "de-DE": "Hard Reset",
+            "it-IT": "Reset completo"
+        },
+        "menu.system.quit": {
+            "de-DE": "Anwendung beenden",
+            "it-IT": "Esci dall'applicazione"
+        },
+        "menu.mods": {
+            "de-DE": "Mods",
+            "it-IT": "Mod"
+        },
+        "menu.mods.manage": {
+            "de-DE": "Mods verwalten",
+            "it-IT": "Gestisci le mod"
+        },
+        "menu.mods.hub": {
+            "de-DE": "Mod-Hub erkunden",
+            "it-IT": "Esplora il Mod Hub"
+        },
+        "menu.debug": {
+            "de-DE": "Debug",
+            "it-IT": "Debug"
+        },
+        "menu.debug.gpu": {
+            "de-DE": "GPU",
+            "it-IT": "GPU"
+        },
+        "menu.debug.dump_textures": {
+            "de-DE": "Texturen exportieren",
+            "it-IT": "Esporta le texture"
+        },
+        "menu.debug.dump_pages": {
+            "de-DE": "Texturseiten exportieren",
+            "it-IT": "Esporta le pagine di texture"
+        },
+        "menu.debug.dump_pages.tooltip": {
+            "de-DE": "Schreibt die ganze 256x256-Texturseite jeder Kachel nach dump/<game>/pages",
+            "it-IT": "Scrive l'intera pagina di texture 256x256 da cui proviene ogni tile in dump/<game>/pages"
+        },
+        "menu.debug.dump_textures.tooltip": {
+            "de-DE": "Schreibt jede neu angezeigte Textur nach dump/<game>/textures als PNG + Rohdaten + Hash-JSON",
+            "it-IT": "Scrive ogni nuova texture vista in dump/<game>/textures come PNG + dati grezzi + json dell'hash"
+        },
+        "menu.debug.cpu": {
+            "de-DE": "CPU",
+            "it-IT": "CPU"
+        },
+        "menu.debug.memory": {
+            "de-DE": "Speicher",
+            "it-IT": "Memoria"
+        },
+        "menu.debug.audio": {
+            "de-DE": "Audio",
+            "it-IT": "Audio"
+        },
+        "menu.debug.cd": {
+            "de-DE": "CD",
+            "it-IT": "CD"
+        },
+        "menu.debug.input": {
+            "de-DE": "Eingabe",
+            "it-IT": "Input"
+        },
+        "menu.debug.input.record": {
+            "de-DE": "Aufnehmen",
+            "it-IT": "Registra"
+        },
+        "menu.debug.input.stop_record": {
+            "de-DE": "Aufnahme beenden",
+            "it-IT": "Ferma la registrazione"
+        },
+        "menu.debug.input.play": {
+            "de-DE": "Abspielen",
+            "it-IT": "Riproduci"
+        },
+        "menu.debug.input.empty": {
+            "de-DE": "keine Aufnahmen",
+            "it-IT": "nessuna registrazione"
+        },
+        "menu.debug.input.idle": {
+            "de-DE": "inaktiv",
+            "it-IT": "inattivo"
+        },
+        "menu.debug.input.recording": {
+            "de-DE": "nehme {0} auf - {1} Frames",
+            "it-IT": "registrazione {0} - {1} frame"
+        },
+        "menu.debug.input.playing": {
+            "de-DE": "spiele {0} ab - {1}/{2}",
+            "it-IT": "riproduzione {0} - {1}/{2}"
+        },
+        "panel.input_roll": {
+            "de-DE": "Eingabeverlauf",
+            "it-IT": "Cronologia input"
+        },
+        "panel.input_roll.stop": {
+            "de-DE": "Stopp",
+            "it-IT": "Stop"
+        },
+        "panel.input_roll.window": {
+            "de-DE": "%d Frames",
+            "it-IT": "%d frame"
+        },
+        "panel.input_roll.follow": {
+            "de-DE": "Folgen",
+            "it-IT": "Segui"
+        },
+        "panel.input_roll.pad2": {
+            "de-DE": "Controller 2",
+            "it-IT": "Controller 2"
+        },
+        "menu.debug.system": {
+            "de-DE": "System",
+            "it-IT": "Sistema"
+        },
+        "menu.debug.reset_view": {
+            "de-DE": "Ansicht zurücksetzen",
+            "it-IT": "Ripristina la vista"
+        },
+        "panel.output": {
+            "de-DE": "Ausgabe",
+            "it-IT": "Output"
+        },
+        "panel.vram_viewer": {
+            "de-DE": "VRAM-Anzeige",
+            "it-IT": "Visualizzatore VRAM"
+        },
+        "panel.texture_inspector": {
+            "de-DE": "Textur-Inspektor",
+            "it-IT": "Ispettore texture"
+        },
+        "panel.cpu_state": {
+            "de-DE": "CPU-Status",
+            "it-IT": "Stato della CPU"
+        },
+        "panel.ram_map": {
+            "de-DE": "RAM-Karte",
+            "it-IT": "Mappa della RAM"
+        },
+        "panel.memory_editor": {
+            "de-DE": "Speicher-Editor",
+            "it-IT": "Editor di memoria"
+        },
+        "panel.spu_viewer": {
+            "de-DE": "SPU-Anzeige",
+            "it-IT": "Visualizzatore SPU"
+        },
+        "panel.interp_debug": {
+            "de-DE": "Interpolation",
+            "it-IT": "Interpolazione"
+        },
+        "panel.cd_debug": {
+            "de-DE": "CD-Debug",
+            "it-IT": "Debug CD"
+        },
+        "panel.console": {
+            "de-DE": "Konsole",
+            "it-IT": "Console"
+        },
+        "panel.overlay_events": {
+            "de-DE": "Overlay-Ereignisse",
+            "it-IT": "Eventi degli overlay"
+        },
+        "common.ok": {
+            "de-DE": "OK",
+            "it-IT": "OK"
+        },
+        "common.cancel": {
+            "de-DE": "Abbrechen",
+            "it-IT": "Annulla"
+        },
+        "common.confirm": {
+            "de-DE": "Bestätigen",
+            "it-IT": "Conferma"
+        },
+        "common.close": {
+            "de-DE": "Schließen",
+            "it-IT": "Chiudi"
+        },
+        "common.browse": {
+            "de-DE": "Durchsuchen...",
+            "it-IT": "Sfoglia..."
+        },
+        "common.understood": {
+            "de-DE": "Verstanden",
+            "it-IT": "Ho capito"
+        },
+        "common.restart_required": {
+            "de-DE": "Die Anwendung muss neu gestartet werden, um diese Einstellung zu übernehmen",
+            "it-IT": "Devi riavviare l'applicazione per applicare questa configurazione"
+        },
+        "common.notice": {
+            "de-DE": "Hinweis",
+            "it-IT": "Avviso"
+        },
+        "crash.title": {
+            "de-DE": "Hoppla, etwas ist schiefgelaufen!",
+            "it-IT": "Ops, qualcosa è andato storto!"
+        },
+        "crash.body": {
+            "de-DE": "Die Recomp ist abgestürzt, aber keine Sorge! Das Absturzprotokoll liegt unter {0}. Schick es an das Team, das diese Recomp betreut.",
+            "it-IT": "La recomp si è bloccata, ma niente panico! Il log del crash si trova in {0}: invialo al team che cura questa recomp."
+        },
+        "crash.error": {
+            "de-DE": "Fehler: {0}",
+            "it-IT": "Errore: {0}"
+        },
+        "settings.title": {
+            "de-DE": "Einstellungen",
+            "it-IT": "Impostazioni"
+        },
+        "settings.empty": {
+            "de-DE": "Keine Einstellungen verfügbar.",
+            "it-IT": "Nessuna impostazione disponibile."
+        },
+        "settings.language": {
+            "de-DE": "Sprache",
+            "it-IT": "Lingua"
+        },
+        "settings.language.interface": {
+            "de-DE": "Oberfläche",
+            "it-IT": "Interfaccia"
+        },
+        "settings.interface": {
+            "de-DE": "Oberfläche",
+            "it-IT": "Interfaccia"
+        },
+        "settings.interface.language": {
+            "de-DE": "Sprache",
+            "it-IT": "Lingua"
+        },
+        "settings.interface.language_hint": {
+            "de-DE": "Manche Texte ändern sich erst nach einem Neustart",
+            "it-IT": "Alcuni testi cambiano solo dopo il riavvio"
+        },
+        "settings.interface.accent": {
+            "de-DE": "Akzentfarbe",
+            "it-IT": "Colore di accento"
+        },
+        "settings.interface.background": {
+            "de-DE": "Hintergrundfarbe",
+            "it-IT": "Colore di sfondo"
+        },
+        "background.dark": {
+            "de-DE": "Dunkel",
+            "it-IT": "Scuro"
+        },
+        "background.black": {
+            "de-DE": "Schwarz",
+            "it-IT": "Nero"
+        },
+        "background.gray": {
+            "de-DE": "Grau",
+            "it-IT": "Grigio"
+        },
+        "background.light": {
+            "de-DE": "Hell",
+            "it-IT": "Chiaro"
+        },
+        "settings.interface.custom": {
+            "de-DE": "Benutzerdefiniert",
+            "it-IT": "Personalizzato"
+        },
+        "settings.interface.ui_scale": {
+            "de-DE": "Oberflächengröße",
+            "it-IT": "Scala dell'interfaccia"
+        },
+        "settings.interface.ui_scale_hint": {
+            "de-DE": "Skaliert die gesamte Oberfläche",
+            "it-IT": "Ridimensiona tutta l'interfaccia"
+        },
+        "settings.interface.show_fps": {
+            "de-DE": "FPS anzeigen",
+            "it-IT": "Mostra gli FPS"
+        },
+        "theme.blue": {
+            "de-DE": "Blau",
+            "it-IT": "Blu"
+        },
+        "theme.purple": {
+            "de-DE": "Lila",
+            "it-IT": "Viola"
+        },
+        "theme.crimson": {
+            "de-DE": "Karminrot",
+            "it-IT": "Cremisi"
+        },
+        "theme.emerald": {
+            "de-DE": "Smaragd",
+            "it-IT": "Smeraldo"
+        },
+        "theme.amber": {
+            "de-DE": "Bernstein",
+            "it-IT": "Ambra"
+        },
+        "theme.teal": {
+            "de-DE": "Petrol",
+            "it-IT": "Verde acqua"
+        },
+        "theme.slate": {
+            "de-DE": "Schiefer",
+            "it-IT": "Ardesia"
+        },
+        "settings.display": {
+            "de-DE": "Anzeige",
+            "it-IT": "Schermo"
+        },
+        "settings.display.fullscreen": {
+            "de-DE": "Vollbild",
+            "it-IT": "Schermo intero"
+        },
+        "settings.display.vsync": {
+            "de-DE": "VSync",
+            "it-IT": "VSync"
+        },
+        "settings.display.vsync_hint": {
+            "de-DE": "Synchronisiert mit der Bildwiederholrate des Monitors",
+            "it-IT": "Si sincronizza con la frequenza di aggiornamento del monitor"
+        },
+        "settings.display.render_scale": {
+            "de-DE": "Renderskalierung",
+            "it-IT": "Scala di rendering"
+        },
+        "settings.display.render_scale_hint": {
+            "de-DE": "Multiplikator der internen Auflösung. 1x ist die originale PSX-Ausgabe.",
+            "it-IT": "Moltiplicatore della risoluzione interna. 1x è l'uscita originale della PSX."
+        },
+        "settings.display.true_color": {
+            "de-DE": "Echtfarben (24 Bit)",
+            "it-IT": "Colori reali (24 bit)",
+            "fr-fr": "Couleurs réelles (24 bits)",
+            "es-419": "Color verdadero (24 bits)"
+        },
+        "settings.display.true_color_hint": {
+            "de-DE": "Rendert mit vollen 8 Bit Farbe pro Kanal statt der 15-Bit-Farben der PSX und entfernt so Farbstreifen. Wirkt nach einem Neustart.",
+            "it-IT": "Disegna con 8 bit di colore per canale invece dei 15 bit della PSX, eliminando le bande di colore. Ha effetto dopo il riavvio.",
+            "fr-fr": "Affiche 8 bits de couleur par canal au lieu des 15 bits de la PSX, ce qui supprime les bandes de couleur. Prend effet après un redémarrage.",
+            "es-419": "Dibuja con 8 bits de color por canal en lugar de los 15 bits de la PSX y elimina las bandas de color. Se aplica tras reiniciar."
+        },
+        "settings.display.dithering": {
+            "de-DE": "Dithering anwenden",
+            "it-IT": "Applica il dithering",
+            "fr-fr": "Appliquer le tramage",
+            "es-419": "Aplicar tramado"
+        },
+        "settings.display.dithering_hint": {
+            "de-DE": "Glättet Farbverläufe mit dem Dither-Muster der PSX. Mit Echtfarben nicht nötig.",
+            "it-IT": "Usa il motivo di dithering della PSX per ammorbidire le sfumature. Non serve con i colori reali.",
+            "fr-fr": "Utilise le tramage de la PSX pour adoucir les dégradés. Inutile avec les couleurs réelles.",
+            "es-419": "Usa el patrón de tramado de la PSX para suavizar los degradados. No hace falta con color verdadero."
+        },
+        "settings.display.render_scale_lines": {
+            "de-DE": "{1} Zeilen im aktuellen Kontext, {3} nach Skalierung ({4}x)",
+            "it-IT": "{1} linee nel contesto attuale, {3} dopo la scala ({4}x)"
+        },
+        "settings.display.restart_pending": {
+            "de-DE": "Neustart erforderlich",
+            "it-IT": "è necessario riavviare"
+        },
+        "settings.display.backend": {
+            "de-DE": "Grafik-Backend",
+            "it-IT": "Backend grafico"
+        },
+        "settings.display.backend_running": {
+            "de-DE": "aktiv: {0}",
+            "it-IT": "in uso: {0}"
+        },
+        "settings.display.frame_rate": {
+            "de-DE": "Bildrate",
+            "it-IT": "Frame rate"
+        },
+        "settings.display.frame_rate_native": {
+            "de-DE": "Wie das Spiel",
+            "it-IT": "Come il gioco"
+        },
+        "settings.display.frame_rate_hint": {
+            "de-DE": "Anzeigerate. Über der Bildrate des Spiels werden Zwischenbilder interpoliert.",
+            "it-IT": "Frequenza di visualizzazione. Oltre i frame del gioco, quelli intermedi vengono interpolati."
+        },
+        "settings.display.frame_rate_needs_native": {
+            "de-DE": "Benötigt die native Geometrie des Spiels (präzises Rendering).",
+            "it-IT": "Richiede la geometria nativa del gioco (rendering preciso) attiva."
+        },
+        "settings.audio": {
+            "de-DE": "Audio",
+            "it-IT": "Audio"
+        },
+        "settings.audio.master": {
+            "de-DE": "Gesamt",
+            "it-IT": "Generale"
+        },
+        "settings.audio.spu": {
+            "de-DE": "SPU",
+            "it-IT": "SPU"
+        },
+        "settings.audio.spu_hint": {
+            "de-DE": "Soundeffekte und sequenzierte Musik",
+            "it-IT": "Effetti sonori e musica sequenziata"
+        },
+        "settings.audio.xa": {
+            "de-DE": "XA",
+            "it-IT": "XA"
+        },
+        "settings.audio.xa_hint": {
+            "de-DE": "Von der Disc gestreamter Ton",
+            "it-IT": "Audio in streaming dal disco"
+        },
+        "settings.audio.mute": {
+            "de-DE": "Stumm",
+            "it-IT": "Muto"
+        },
+        "settings.input": {
+            "de-DE": "Steuerung",
+            "it-IT": "Controlli"
+        },
+        "settings.input.kind": {
+            "de-DE": "Controller-Typ",
+            "it-IT": "Tipo di controller"
+        },
+        "settings.input.kind.digital": {
+            "de-DE": "Digitaler Controller",
+            "it-IT": "Controller digitale"
+        },
+        "settings.input.kind.analog": {
+            "de-DE": "DualShock (analog)",
+            "it-IT": "DualShock (analogico)"
+        },
+        "settings.input.kind.digital.hint": {
+            "de-DE": "ID 41h, nur Tasten",
+            "it-IT": "ID 41h, solo tasti"
+        },
+        "settings.input.kind.analog.hint": {
+            "de-DE": "ID 73h, mit beiden Sticks und L3/R3",
+            "it-IT": "ID 73h, aggiunge le due levette e L3/R3"
+        },
+        "settings.input.keyboard": {
+            "de-DE": "Tastatur",
+            "it-IT": "Tastiera"
+        },
+        "settings.input.gamepad": {
+            "de-DE": "Gamepad",
+            "it-IT": "Gamepad"
+        },
+        "settings.input.device": {
+            "de-DE": "Controller",
+            "it-IT": "Controller"
+        },
+        "settings.input.device.auto": {
+            "de-DE": "Automatisch",
+            "it-IT": "Automatico"
+        },
+        "settings.input.device.missing": {
+            "de-DE": "Gespeicherter Controller nicht verbunden",
+            "it-IT": "Il controller salvato non è collegato"
+        },
+        "settings.input.device.refresh": {
+            "de-DE": "Aktualisieren",
+            "it-IT": "Aggiorna"
+        },
+        "settings.input.pad": {
+            "de-DE": "Controller {0}",
+            "it-IT": "Controller {0}"
+        },
+        "settings.input.button": {
+            "de-DE": "Taste",
+            "it-IT": "Tasto"
+        },
+        "settings.input.no_gamepad": {
+            "de-DE": "Kein Gamepad verbunden.",
+            "it-IT": "Nessun gamepad collegato."
+        },
+        "settings.input.unbound": {
+            "de-DE": "nicht belegt",
+            "it-IT": "non assegnato"
+        },
+        "settings.input.press_key": {
+            "de-DE": "[Taste drücken...]",
+            "it-IT": "[premi un tasto...]"
+        },
+        "settings.input.press_button": {
+            "de-DE": "[Knopf drücken...]",
+            "it-IT": "[premi un pulsante...]"
+        },
+        "settings.input.press_button_add": {
+            "de-DE": "[Knopf zum Hinzufügen drücken...]",
+            "it-IT": "[premi un pulsante da aggiungere...]"
+        },
+        "settings.input.reset_defaults": {
+            "de-DE": "Standard wiederherstellen",
+            "it-IT": "Ripristina predefiniti"
+        },
+        "settings.paths": {
+            "de-DE": "Pfade",
+            "it-IT": "Percorsi"
+        },
+        "settings.paths.disc": {
+            "de-DE": "Disc",
+            "it-IT": "Disco"
+        },
+        "settings.paths.memory_cards": {
+            "de-DE": "Memory Cards",
+            "it-IT": "Memory card"
+        },
+        "settings.paths.card_a": {
+            "de-DE": "Karte A",
+            "it-IT": "Scheda A"
+        },
+        "settings.paths.card_b": {
+            "de-DE": "Karte B",
+            "it-IT": "Scheda B"
+        },
+        "mods.title": {
+            "de-DE": "Mods",
+            "it-IT": "Mod"
+        },
+        "mods.count": {
+            "de-DE": "{0} Mods",
+            "it-IT": "{0} mod"
+        },
+        "mods.count_one": {
+            "de-DE": "1 Mod",
+            "it-IT": "1 mod"
+        },
+        "mods.active": {
+            "de-DE": "{0} aktiv",
+            "it-IT": "{0} attive"
+        },
+        "mods.empty": {
+            "de-DE": "Keine Mods gefunden.",
+            "it-IT": "Nessuna mod trovata."
+        },
+        "mods.empty_hint": {
+            "de-DE": "Lege einen Mod-Ordner oder eine ZIP-Datei in den Mods-Ordner und starte neu.",
+            "it-IT": "Metti la cartella o lo zip di una mod nella cartella mods e riavvia."
+        },
+        "mods.enable": {
+            "de-DE": "Aktivieren",
+            "it-IT": "Attiva"
+        },
+        "mods.disable": {
+            "de-DE": "Deaktivieren",
+            "it-IT": "Disattiva"
+        },
+        "mods.settings": {
+            "de-DE": "Einstellungen",
+            "it-IT": "Impostazioni"
+        },
+        "mods.reload": {
+            "de-DE": "Neu laden",
+            "it-IT": "Ricarica"
+        },
+        "mods.hooks": {
+            "de-DE": "{0} Hook(s)",
+            "it-IT": "{0} hook"
+        },
+        "mods.load_failed": {
+            "de-DE": "Laden fehlgeschlagen, siehe Konsole",
+            "it-IT": "caricamento fallito, controlla la console"
+        },
+        "mods.loading": {
+            "de-DE": "Mods werden geladen",
+            "it-IT": "Caricamento delle mod"
+        },
+        "modhub.title": {
+            "de-DE": "Mod-Hub",
+            "it-IT": "Mod Hub",
+            "fr-fr": "Hub des mods",
+            "es-419": "Hub de mods"
+        },
+        "modhub.count": {
+            "de-DE": "{0} im Hub",
+            "it-IT": "{0} nell'hub",
+            "fr-fr": "{0} dans le hub",
+            "es-419": "{0} en el hub"
+        },
+        "modhub.installed_count": {
+            "de-DE": "{0} installiert",
+            "it-IT": "{0} installate",
+            "fr-fr": "{0} installés",
+            "es-419": "{0} instalados"
+        },
+        "modhub.refresh": {
+            "de-DE": "Aktualisieren",
+            "it-IT": "Aggiorna",
+            "fr-fr": "Actualiser",
+            "es-419": "Actualizar"
+        },
+        "modhub.open_hub": {
+            "de-DE": "Hub-Repository öffnen",
+            "it-IT": "Apri il repository dell'hub",
+            "fr-fr": "Ouvrir le dépôt du hub",
+            "es-419": "Abrir el repositorio del hub"
+        },
+        "modhub.open_repository": {
+            "de-DE": "Repository öffnen",
+            "it-IT": "Apri il repository",
+            "fr-fr": "Ouvrir le dépôt",
+            "es-419": "Abrir el repositorio"
+        },
+        "modhub.search": {
+            "de-DE": "Suchen",
+            "it-IT": "Cerca",
+            "fr-fr": "Rechercher",
+            "es-419": "Buscar"
+        },
+        "modhub.all_types": {
+            "de-DE": "Alle Typen",
+            "it-IT": "Tutti i tipi",
+            "fr-fr": "Tous les types",
+            "es-419": "Todos los tipos"
+        },
+        "modhub.sort_stars": {
+            "de-DE": "Meiste Sterne",
+            "it-IT": "Più stelle",
+            "fr-fr": "Plus d'étoiles",
+            "es-419": "Más estrellas"
+        },
+        "modhub.sort_name": {
+            "de-DE": "Name",
+            "it-IT": "Nome",
+            "fr-fr": "Nom",
+            "es-419": "Nombre"
+        },
+        "modhub.sort_installed": {
+            "de-DE": "Installierte zuerst",
+            "it-IT": "Prima le installate",
+            "fr-fr": "Installés d'abord",
+            "es-419": "Instalados primero"
+        },
+        "modhub.loading": {
+            "de-DE": "Hub wird geladen...",
+            "it-IT": "Caricamento dell'hub...",
+            "fr-fr": "Chargement du hub...",
+            "es-419": "Cargando el hub..."
+        },
+        "modhub.empty": {
+            "de-DE": "Der Hub ist leer.",
+            "it-IT": "L'hub è vuoto.",
+            "fr-fr": "Le hub est vide.",
+            "es-419": "El hub está vacío."
+        },
+        "modhub.empty_hint": {
+            "de-DE": "Reiche deine Mod per Pull Request im Hub-Repository ein.",
+            "it-IT": "Proponi la tua con una pull request al repository dell'hub.",
+            "fr-fr": "Proposez le vôtre par une pull request au dépôt du hub.",
+            "es-419": "Envía el tuyo con una pull request al repositorio del hub."
+        },
+        "modhub.failed": {
+            "de-DE": "Der Hub konnte nicht geladen werden.",
+            "it-IT": "Impossibile caricare l'hub.",
+            "fr-fr": "Impossible de charger le hub.",
+            "es-419": "No se pudo cargar el hub."
+        },
+        "modhub.no_results": {
+            "de-DE": "Keine Treffer.",
+            "it-IT": "Nessun risultato.",
+            "fr-fr": "Aucun résultat.",
+            "es-419": "Sin resultados."
+        },
+        "modhub.install": {
+            "de-DE": "Installieren",
+            "it-IT": "Installa",
+            "fr-fr": "Installer",
+            "es-419": "Instalar"
+        },
+        "modhub.update": {
+            "de-DE": "Aktualisieren",
+            "it-IT": "Aggiorna",
+            "fr-fr": "Mettre à jour",
+            "es-419": "Actualizar"
+        },
+        "modhub.remove": {
+            "de-DE": "Entfernen",
+            "it-IT": "Rimuovi",
+            "fr-fr": "Supprimer",
+            "es-419": "Eliminar"
+        },
+        "modhub.remove_title": {
+            "de-DE": "{0} entfernen?",
+            "it-IT": "Rimuovere {0}?",
+            "fr-fr": "Supprimer {0} ?",
+            "es-419": "¿Eliminar {0}?"
+        },
+        "modhub.remove_message": {
+            "de-DE": "Die Dateien werden gelöscht. Du kannst sie später erneut installieren.",
+            "it-IT": "I suoi file vengono eliminati. Potrai reinstallarla più tardi.",
+            "fr-fr": "Ses fichiers sont effacés. Vous pourrez le réinstaller plus tard.",
+            "es-419": "Sus archivos se borran. Podrás instalarlo de nuevo más tarde."
+        },
+        "modhub.warning_title": {
+            "de-DE": "{0} - Warnung",
+            "it-IT": "{0} - avviso",
+            "fr-fr": "{0} - avertissement",
+            "es-419": "{0} - aviso"
+        },
+        "modhub.installing": {
+            "de-DE": "Wird installiert...",
+            "it-IT": "Installazione...",
+            "fr-fr": "Installation...",
+            "es-419": "Instalando..."
+        },
+        "modhub.removing": {
+            "de-DE": "Wird entfernt...",
+            "it-IT": "Rimozione...",
+            "fr-fr": "Suppression...",
+            "es-419": "Eliminando..."
+        },
+        "modhub.dismiss": {
+            "de-DE": "Ausblenden",
+            "it-IT": "Ignora",
+            "fr-fr": "Ignorer",
+            "es-419": "Descartar"
+        },
+        "modhub.state_installed": {
+            "de-DE": "Installiert",
+            "it-IT": "Installata",
+            "fr-fr": "Installé",
+            "es-419": "Instalado"
+        },
+        "modhub.state_outdated": {
+            "de-DE": "Update verfügbar",
+            "it-IT": "Aggiornamento disponibile",
+            "fr-fr": "Mise à jour disponible",
+            "es-419": "Actualización disponible"
+        },
+        "modhub.state_conflict": {
+            "de-DE": "Ein Ordner mit diesem Namen existiert bereits und wurde nicht vom Hub installiert",
+            "it-IT": "Esiste già una cartella con questo nome non installata dall'hub",
+            "fr-fr": "Un dossier de ce nom existe déjà et n'a pas été installé par le hub",
+            "es-419": "Ya existe una carpeta con este nombre que no instaló el hub"
+        },
+        "modhub.state_missing": {
+            "de-DE": "Nicht installiert",
+            "it-IT": "Non installata",
+            "fr-fr": "Non installé",
+            "es-419": "No instalado"
+        },
+        "modhub.no_stars": {
+            "de-DE": "(nicht abrufbar)",
+            "it-IT": "(non disponibile)",
+            "fr-fr": "(indisponible)",
+            "es-419": "(no disponible)"
+        },
+        "modhub.type.mod": {
+            "de-DE": "Mod",
+            "it-IT": "Mod",
+            "fr-fr": "Mod",
+            "es-419": "Mod"
+        },
+        "modhub.type.assetpack": {
+            "de-DE": "Asset-Pack",
+            "it-IT": "Asset pack",
+            "fr-fr": "Pack de ressources",
+            "es-419": "Paquete de recursos"
+        },
+        "modhub.type.shader": {
+            "de-DE": "Shader",
+            "it-IT": "Shader",
+            "fr-fr": "Shader",
+            "es-419": "Shader"
+        },
+        "disc.title": {
+            "de-DE": "Disc-Image nicht gefunden",
+            "it-IT": "Immagine del disco non trovata"
+        },
+        "disc.description": {
+            "de-DE": "Bitte gib den Pfad zur Disc-Datei des Spiels an.",
+            "it-IT": "Indica il percorso del file del disco del gioco."
+        },
+        "disc.filter": {
+            "de-DE": "Disc-Image",
+            "it-IT": "Immagine del disco"
+        },
+        "disc.error.not_found": {
+            "de-DE": "Datei nicht gefunden. Bitte Pfad prüfen und erneut versuchen",
+            "it-IT": "File non trovato, controlla il percorso e riprova"
+        },
+        "disc.error.dialog": {
+            "de-DE": "Die Dateiauswahl konnte nicht geöffnet werden: {0}",
+            "it-IT": "Impossibile aprire il selettore di file: {0}"
+        },
+        "settings.input.sticks": {
+            "de-DE": "Analogsticks",
+            "it-IT": "Levette analogiche"
+        },
+        "common.open_folder": {
+            "de-DE": "Ordner öffnen",
+            "it-IT": "Apri la cartella",
+            "fr-fr": "Ouvrir le dossier",
+            "es-419": "Abrir carpeta"
+        },
+        "menu.mods.asset_packs": {
+            "de-DE": "Asset-Packs",
+            "it-IT": "Asset pack",
+            "fr-fr": "Packs de ressources",
+            "es-419": "Paquetes de recursos"
+        },
+        "assetpacks.title": {
+            "de-DE": "Asset-Packs",
+            "it-IT": "Asset pack",
+            "fr-fr": "Packs de ressources",
+            "es-419": "Paquetes de recursos"
+        },
+        "assetpacks.new_title": {
+            "de-DE": "Neues Asset-Pack",
+            "it-IT": "Nuovo asset pack",
+            "fr-fr": "Nouveau pack de ressources",
+            "es-419": "Nuevo paquete de recursos"
+        },
+        "panel.asset_pack_editor": {
+            "de-DE": "Asset-Pack-Editor",
+            "it-IT": "Editor degli asset pack",
+            "fr-fr": "Éditeur de packs de ressources",
+            "es-419": "Editor de paquetes de recursos"
+        },
+        "mod.trucchi-ita.name": {
+            "en": "Cheats",
+            "it-IT": "Trucchi",
+            "fr-fr": "Codes de triche",
+            "es-419": "Trucos",
+            "de-DE": "Cheats",
+            "pt-BR": "Trapaças"
+        },
+        "mod.trucchi-ita.description": {
+            "en": "Turns on the game's own Cheat Mode or Extended Cheat Mode without entering the button combinations. MediEvil PAL Italian, Spanish, French, German and English, and American.",
+            "it-IT": "Attiva la Modalità Trucchi o la Modalità Trucchi Estesa del gioco senza inserire le combinazioni. MediEvil PAL italiano, spagnolo, francese, tedesco e inglese, e americano.",
+            "fr-fr": "Active le mode triche ou le mode triche étendu du jeu sans entrer les combinaisons de touches. MediEvil PAL italien, espagnol, français, allemand et anglais, et américain.",
+            "es-419": "Activa el modo trucos o el modo trucos ampliado del juego sin introducir las combinaciones. MediEvil PAL italiano, español, francés, alemán e inglés, y estadounidense.",
+            "de-DE": "Schaltet den Cheat-Modus oder den erweiterten Cheat-Modus des Spiels ein, ohne die Tastenkombinationen einzugeben. MediEvil PAL Italienisch, Spanisch, Französisch, Deutsch und Englisch sowie amerikanisch.",
+            "pt-BR": "Ativa o modo trapaça ou o modo trapaça estendido do jogo sem digitar as combinações. MediEvil PAL italiano, espanhol, francês, alemão e inglês, e americano."
+        },
+        "mod.filmati-schermo-intero.name": {
+            "en": "Fullscreen movies",
+            "it-IT": "Filmati a schermo intero",
+            "fr-fr": "Cinématiques en plein écran",
+            "es-419": "Vídeos a pantalla completa",
+            "de-DE": "Filme im Vollbild",
+            "pt-BR": "Vídeos em tela cheia"
+        },
+        "mod.filmati-schermo-intero.description": {
+            "en": "During the movies, shows only the video area and fits it to the screen without stretching it. MediEvil PAL Italian, Spanish, French, German and English, and American.",
+            "it-IT": "Durante i filmati mostra solo l'area del video e la adatta allo schermo senza deformarla. MediEvil PAL italiano, spagnolo, francese, tedesco e inglese, e americano.",
+            "fr-fr": "Pendant les cinématiques, n'affiche que la zone de la vidéo et l'adapte à l'écran sans la déformer. MediEvil PAL italien, espagnol, français, allemand et anglais, et américain.",
+            "es-419": "Durante los vídeos muestra solo la zona del vídeo y la adapta a la pantalla sin deformarla. MediEvil PAL italiano, español, francés, alemán e inglés, y estadounidense.",
+            "de-DE": "Zeigt in Filmen nur den Videobereich und passt ihn ohne Verzerrung an den Bildschirm an. MediEvil PAL Italienisch, Spanisch, Französisch, Deutsch und Englisch sowie amerikanisch.",
+            "pt-BR": "Durante os vídeos, mostra só a área do vídeo e a ajusta à tela sem deformá-la. MediEvil PAL italiano, espanhol, francês, alemão e inglês, e americano."
+        },
+        "mod.shaders.description": {
+            "en": "Adds shader support and a tab to browse shaders (libretro's slang shader library by default).",
+            "it-IT": "Aggiunge il supporto agli shader e una scheda per sfogliarli (di base la libreria slang di libretro).",
+            "fr-fr": "Ajoute la prise en charge des shaders et un onglet pour les parcourir (par défaut la bibliothèque slang de libretro).",
+            "es-419": "Añade soporte de shaders y una pestaña para explorarlos (por defecto la biblioteca slang de libretro).",
+            "de-DE": "Fügt Shader-Unterstützung und einen Tab zum Durchsuchen hinzu (standardmäßig die Slang-Bibliothek von libretro).",
+            "pt-BR": "Adiciona suporte a shaders e uma aba para navegar por eles (por padrão a biblioteca slang da libretro)."
         }
     }
 }

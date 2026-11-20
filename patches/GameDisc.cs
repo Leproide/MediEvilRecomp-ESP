@@ -34,7 +34,7 @@ public static class GameDisc
 {
     public static void Register()
     {
-        if (!GameVersion.Spanish) return;
+        if (GameVersion.Code == "ita") return;
         RecompOne.Runtime.Runtime.DiscValidator = Validate;
     }
 

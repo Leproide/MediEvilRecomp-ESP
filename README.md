@@ -131,6 +131,7 @@ git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
 git -C RecompOne apply ../recompone-fixes/shader-gbuffer.patch
 git -C RecompOne apply ../recompone-fixes/effect-lights.patch
 git -C RecompOne apply ../recompone-fixes/material-picker.patch
+git -C RecompOne apply ../recompone-fixes/mod-names.patch
 dotnet build RecompOne/RecompOne.sln
 dotnet run --project RecompOne/RecompOne.Recompiler config/es/MediEvil.json
 dotnet build RecompOne.MediEvil.csproj -p:Lingua=es
@@ -370,6 +371,62 @@ RESULT: OK
 ```
 
 Los archivos extraídos de los discos están protegidos por derechos de autor: **no los subas nunca al repositorio**.
+
+---
+
+## Versión francesa (SCES-01492)
+
+La versión PAL francesa se añade a la misma tabla (`config/versions.json`, columna `fra`) con el proyecto italiano como origen, como la española. Se compila con `-p:Lingua=fr` (`config/fr/MediEvil.json`, `generated-fr/`, `bin-fr/`, símbolo `LINGUA_FR`):
+
+```
+windows_initial_build_fr.bat     (primera compilación)
+windows_run_fr.bat               (jugar)
+```
+
+El disco va en `disc\` con los nombres `MediEvil (France) (Track 1).bin`, `MediEvil (France) (Track 2).bin` y `MediEvil (France).cue` (ver [`disc/LISEZMOI.md`](disc/LISEZMOI.md)). La lista de los 16 sectores LibCrypt de SCES-01492 está en `patches/PalLibCrypt.cs`.
+
+Resultado del port ITA → FRA (detalle en [`tools/pal-port/PORT_REPORT_FR.md`](tools/pal-port/PORT_REPORT_FR.md)):
+
+| Imagen | Funciones | Notas |
+|---|---|---|
+| `SCES_014.92` (arranque) | 338 | idéntico al de las otras versiones |
+| `MEDIEVIL.EXE` | 1845 | 1744 *exact*, 100 *aligned*, 1 *fuzzy* (la rutina LibCrypt, propia de cada disco); **el código se desplaza +0x68**: carga en 0x80021D7C en lugar de 0x80021D14, `$gp` 0x800ED9A0 |
+| 26 overlays | 2216 | *exact* o *aligned*, cargados en 0x80010000 como en ITA/ESP |
+
+En total 4399 funciones: 4243 *exact*, 155 *aligned*, 1 *fuzzy*, ninguna sin pareja.
+
+A diferencia de la española, la francesa mueve el código de `MEDIEVIL.EXE`, así que la tabla y las herramientas tienen dos novedades:
+
+- **dirección de carga por versión**: `versions.fra.gameBase`, que `gen-config` escribe en `overlays[game].base` (el recompilador leía el código francés desplazado 0x68 bytes);
+- **`GameFn`**: los parches llamaban a las funciones recompiladas por su nombre (`MediEvil_game.func_80021E5C`), que lleva la dirección italiana. Ahora llaman a `GameFn.Game_80021E5C`, generado en `GameAddresses.cs`, que elige al compilar la función de la versión (`func_80021EC4` en la francesa). Para ITA y ESP llama a la misma función de antes.
+
+El hook `PalCdCallbacks.SyncFromMemory` sobre la rutina LibCrypt (la única función *fuzzy*) se mantiene al principio de la misma función: está marcado como revisado (`reviewed`) en la tabla y `check` lo indica.
+
+Una versión nueva se añade con `add-version` (sin tocar los fuentes C# salvo las llamadas directas, que pasan a `GameFn`):
+
+```
+py tools\pal-port\version_port.py --target fra add-version --ita CARPETA_ITA --dst CARPETA_FRA --name fr ^
+   --serial SCES-01492 --game-id SCES-014.92 --boot-file SCES_014.92 --define LINGUA_FR ^
+   --cue "../../disc/MediEvil (France).cue" --title "MediEvilRecomp FRA" --update-repo Leproide/MediEvilRecomp-FRA
+py tools\pal-port\version_port.py --target fra check --ita CARPETA_ITA --dst CARPETA_FRA
+```
+
+`check` sobre los discos italiano y francés: 124 hooks, 0 `jal` fuera de inicio de función, 55 destinos de llamada (54 inicios, el mismo resultado que la italiana), 106 literals y 74 constantes verificados, `RESULT: OK`. La comprobación española sigue dando `RESULT: OK`.
+
+> **En français :** la version PAL française (SCES-01492) se compile avec `windows_initial_build_fr.bat` puis se lance avec `windows_run_fr.bat`. Mettez votre image du disque dans `disc\` en suivant [`disc/LISEZMOI.md`](disc/LISEZMOI.md). L'interface du port est traduite en français (`assets/languages.json`).
+
+## Versiones alemana (SCES-01493) e inglesa (SCES-00311)
+
+Se añaden igual que la francesa (`add-version`, columnas `deu` y `eng` de la tabla), con `-p:Lingua=de` / `-p:Lingua=en` (`config/de`, `config/en`, `generated-de`, `generated-en`, `LINGUA_DE`, `LINGUA_EN`) y los scripts `windows_*_de.bat` / `windows_*_en.bat`. Discos: [`disc/LIESMICH.md`](disc/LIESMICH.md) y [`disc/README_EN.md`](disc/README_EN.md).
+
+| Versión | `MEDIEVIL.EXE` | Funciones (de 4399) | Notas |
+|---|---|---|---|
+| alemana SCES-01493 | carga en 0x80021CAC (−0x68), `$gp` 0x800ED7C8 | 4241 *exact*, 157 *aligned*, 1 *fuzzy* (LibCrypt) | 16 sectores LibCrypt en `PalLibCrypt.cs` |
+| inglesa SCES-00311 | carga en 0x80021CEC (−0x28), `$gp` 0x800ED60C | 4241 *exact*, 156 *aligned*, 2 *fuzzy* | la segunda función *fuzzy* (ITA 0x8005F500, +32 bytes) no tiene hooks; 16 sectores LibCrypt en `PalLibCrypt.cs` |
+
+`check` da `RESULT: OK` para esp, fra, deu y eng. Las constantes `fixed` (`TypeRuneHand`, `TypeChest`) se han verificado a mano como para ESP/FRA (24 palabras de 24).
+
+**Traducción portuguesa (no oficial).** Existe una traducción al portugués hecha sobre el disco francés (mismo `SCES_014.92`): cambia solo datos (textos, tablas, voces XA, cinemáticas) y la rutina LibCrypt, neutralizada. El código es el de la versión francesa, así que la versión francesa la ejecuta en portugués: textos, voces y cinemáticas (probado). Una imagen `.VCD` (POPS de PS2) es el disco en sectores de 2352 bytes tras una cabecera de 1 MiB: quitando la cabecera se obtiene el bin/cue.
 
 ---
 

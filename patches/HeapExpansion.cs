@@ -78,7 +78,7 @@ public static class HeapExpansion
         // inserimento con la funzione del gioco (func_800A4264, A0 = intestazione)
         uint a0 = c.A0, a1 = c.A1, a2 = c.A2, a3 = c.A3, v0 = c.V0, v1 = c.V1, ra = c.RA, sp = c.SP;
         c.A0 = Base;
-        MediEvil_game.func_800A4264(c, m);
+        GameFn.Game_800A4264(c, m);
         c.A0 = a0; c.A1 = a1; c.A2 = a2; c.A3 = a3; c.V0 = v0; c.V1 = v1; c.RA = ra; c.SP = sp;
 
         if (DiagOn)
